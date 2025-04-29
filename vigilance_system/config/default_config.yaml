@@ -1,0 +1,19 @@
+# Default configuration for the Vigilance System
+
+# Alert settings
+alerts:
+  # Cooldown between alerts (in seconds)
+  cooldown: 60.0
+  
+  # Loitering detection
+  person_loitering_time: 30.0
+  
+  # Crowd detection
+  crowd_threshold: 3
+
+# Analysis dashboard settings
+analysis_dashboard:
+  enabled: true
+  port: 5001
+  visualization:
+    history_length: 100

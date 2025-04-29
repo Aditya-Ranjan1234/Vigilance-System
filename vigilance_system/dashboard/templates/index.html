@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vigilance System - Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Vigilance System</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="startProcessingBtn">
+                            <i class="bi bi-play-fill"></i> Start Processing
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="stopProcessingBtn">
+                            <i class="bi bi-stop-fill"></i> Stop Processing
+                        </a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('logout') }}">
+                            <i class="bi bi-box-arrow-right"></i> Logout
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid mt-3">
+        <div class="row">
+            <div class="col-md-9">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title">Camera Feeds</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row" id="cameraGrid">
+                            {% for camera_name in camera_names %}
+                            <div class="col-md-6 mb-3">
+                                <div class="camera-container">
+                                    <h6 class="camera-title">{{ camera_name }}</h6>
+                                    <div class="camera-feed">
+                                        <img src="{{ url_for('static', filename='img/camera-placeholder.jpg') }}" 
+                                             id="camera-{{ camera_name }}" class="img-fluid" alt="{{ camera_name }}">
+                                    </div>
+                                    <div class="camera-overlay">
+                                        <span class="badge bg-primary detection-count" id="detection-count-{{ camera_name }}">0</span>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <h5 class="card-title">System Status</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="status-indicator">
+                            <span class="status-label">Processing:</span>
+                            <span class="status-value" id="processingStatus">Inactive</span>
+                        </div>
+                        <div class="status-indicator">
+                            <span class="status-label">Cameras:</span>
+                            <span class="status-value" id="cameraCount">{{ camera_names|length }}</span>
+                        </div>
+                        <div class="status-indicator">
+                            <span class="status-label">Detections:</span>
+                            <span class="status-value" id="detectionCount">0</span>
+                        </div>
+                        <div class="status-indicator">
+                            <span class="status-label">Alerts:</span>
+                            <span class="status-value" id="alertCount">0</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title">Recent Alerts</h5>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="alert-list" id="alertList">
+                            <!-- Alerts will be added here dynamically -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+    <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+</body>
+</html>

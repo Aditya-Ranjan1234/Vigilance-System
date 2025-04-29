@@ -1,0 +1,110 @@
+/* Analysis Dashboard Styles */
+
+body {
+    background-color: #f8f9fa;
+    padding-bottom: 60px;
+}
+
+.navbar {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.card {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.card-header {
+    background-color: #f1f5f9;
+}
+
+.card-header h2 {
+    margin-bottom: 0;
+    font-size: 1.5rem;
+}
+
+.card-header h4 {
+    margin-bottom: 0;
+    font-size: 1.2rem;
+}
+
+section {
+    scroll-margin-top: 70px;
+}
+
+canvas {
+    width: 100% !important;
+    height: 300px !important;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.table {
+    margin-bottom: 0;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+/* Metric cards */
+.metric-card {
+    text-align: center;
+    padding: 15px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.metric-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+.metric-value {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.metric-label {
+    font-size: 0.9rem;
+    color: #6c757d;
+}
+
+/* Algorithm comparison tables */
+.comparison-table th {
+    font-size: 0.9rem;
+}
+
+.comparison-table td {
+    font-size: 0.9rem;
+}
+
+/* Chart containers */
+.chart-container {
+    position: relative;
+    height: 300px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .card-header h2 {
+        font-size: 1.3rem;
+    }
+    
+    .card-header h4 {
+        font-size: 1.1rem;
+    }
+    
+    .metric-value {
+        font-size: 1.5rem;
+    }
+    
+    canvas {
+        height: 200px !important;
+    }
+}

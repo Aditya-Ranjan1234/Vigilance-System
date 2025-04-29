@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vigilance System - Algorithm Analysis Dashboard</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/chart.js@4.3.0/dist/chart.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/analysis_dashboard.css') }}">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Vigilance System - Algorithm Analysis</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#overview">Overview</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#detection">Object Detection</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#tracking">Object Tracking</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#loitering">Loitering Detection</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#crowd">Crowd Detection</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#preprocessing">Video Preprocessing</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#streaming">Streaming</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="http://localhost:5000" target="_blank">Main Dashboard</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid mt-4">
+        <!-- Overview Section -->
+        <section id="overview" class="mb-5">
+            <div class="card">
+                <div class="card-header">
+                    <h2>System Overview</h2>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4>Active Algorithms</h4>
+                                </div>
+                                <div class="card-body">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Component</th>
+                                                <th>Algorithm</th>
+                                                <th>Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="active-algorithms">
+                                            <!-- Populated by JavaScript -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4>System Performance</h4>
+                                </div>
+                                <div class="card-body">
+                                    <canvas id="system-performance-chart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Object Detection Section -->
+        <section id="detection" class="mb-5">
+            <div class="card">
+                <div class="card-header">
+                    <h2>Object Detection Analysis</h2>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-3">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="detection-algorithm">Algorithm</label>
+                                <select id="detection-algorithm" class="form-select">
+                                    <option value="yolov5">YOLOv5</option>
+                                    <option value="ssd">SSD</option>
+                                    <option value="faster_rcnn">Faster R-CNN</option>
+                                    <option value="yolov8">YOLOv8</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="detection-camera">Camera</label>
+                                <select id="detection-camera" class="form-select">
+                                    <!-- Populated by JavaScript -->
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="detection-metric">Metric</label>
+                                <select id="detection-metric" class="form-select">
+                                    <option value="fps">FPS</option>
+                                    <option value="map">mAP</option>
+                                    <option value="precision">Precision</option>
+                                    <option value="recall">Recall</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="detection-chart-type">Chart Type</label>
+                                <select id="detection-chart-type" class="form-select">
+                                    <option value="line">Line</option>
+                                    <option value="bar">Bar</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4>Performance Metrics</h4>
+                                </div>
+                                <div class="card-body">
+                                    <canvas id="detection-chart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4>Algorithm Comparison</h4>
+                                </div>
+                                <div class="card-body">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Algorithm</th>
+                                                <th>FPS</th>
+                                                <th>mAP</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="detection-comparison">
+                                            <!-- Populated by JavaScript -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Object Tracking Section -->
+        <section id="tracking" class="mb-5">
+            <div class="card">
+                <div class="card-header">
+                    <h2>Object Tracking Analysis</h2>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-3">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="tracking-algorithm">Algorithm</label>
+                                <select id="tracking-algorithm" class="form-select">
+                                    <option value="sort">SORT</option>
+                                    <option value="deep_sort">DeepSORT</option>
+                                    <option value="iou">IoU Tracker</option>
+                                    <option value="optical_flow">Optical Flow</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="tracking-camera">Camera</label>
+                                <select id="tracking-camera" class="form-select">
+                                    <!-- Populated by JavaScript -->
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="tracking-metric">Metric</label>
+                                <select id="tracking-metric" class="form-select">
+                                    <option value="id_switches">ID Switches</option>
+                                    <option value="mota">MOTA</option>
+                                    <option value="motp">MOTP</option>
+                                    <option value="mostly_tracked">Mostly Tracked</option>
+                                    <option value="mostly_lost">Mostly Lost</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="tracking-chart-type">Chart Type</label>
+                                <select id="tracking-chart-type" class="form-select">
+                                    <option value="line">Line</option>
+                                    <option value="bar">Bar</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4>Performance Metrics</h4>
+                                </div>
+                                <div class="card-body">
+                                    <canvas id="tracking-chart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4>Algorithm Comparison</h4>
+                                </div>
+                                <div class="card-body">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Algorithm</th>
+                                                <th>ID-Sw</th>
+                                                <th>MOTA</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="tracking-comparison">
+                                            <!-- Populated by JavaScript -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Loitering Detection Section -->
+        <section id="loitering" class="mb-5">
+            <div class="card">
+                <div class="card-header">
+                    <h2>Loitering Detection Analysis</h2>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-3">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="loitering-algorithm">Algorithm</label>
+                                <select id="loitering-algorithm" class="form-select">
+                                    <option value="time_threshold">Time Threshold</option>
+                                    <option value="trajectory_heatmap">Trajectory Heatmap</option>
+                                    <option value="lstm_prediction">LSTM Prediction</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="loitering-camera">Camera</label>
+                                <select id="loitering-camera" class="form-select">
+                                    <!-- Populated by JavaScript -->
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="loitering-metric">Metric</label>
+                                <select id="loitering-metric" class="form-select">
+                                    <option value="true_positives">True Positives</option>
+                                    <option value="false_positives">False Positives</option>
+                                    <option value="false_negatives">False Negatives</option>
+                                    <option value="precision">Precision</option>
+                                    <option value="recall">Recall</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="loitering-chart-type">Chart Type</label>
+                                <select id="loitering-chart-type" class="form-select">
+                                    <option value="line">Line</option>
+                                    <option value="bar">Bar</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4>Performance Metrics</h4>
+                                </div>
+                                <div class="card-body">
+                                    <canvas id="loitering-chart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4>Algorithm Comparison</h4>
+                                </div>
+                                <div class="card-body">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Algorithm</th>
+                                                <th>Precision</th>
+                                                <th>Recall</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="loitering-comparison">
+                                            <!-- Populated by JavaScript -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Crowd Detection Section -->
+        <section id="crowd" class="mb-5">
+            <div class="card">
+                <div class="card-header">
+                    <h2>Crowd Detection Analysis</h2>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-3">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="crowd-algorithm">Algorithm</label>
+                                <select id="crowd-algorithm" class="form-select">
+                                    <option value="count_threshold">Count Threshold</option>
+                                    <option value="density_map">Density Map</option>
+                                    <option value="clustering">Clustering (DBSCAN)</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="crowd-camera">Camera</label>
+                                <select id="crowd-camera" class="form-select">
+                                    <!-- Populated by JavaScript -->
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="crowd-metric">Metric</label>
+                                <select id="crowd-metric" class="form-select">
+                                    <option value="mae">MAE</option>
+                                    <option value="mse">MSE</option>
+                                    <option value="accuracy">Accuracy</option>
+                                    <option value="precision">Precision</option>
+                                    <option value="recall">Recall</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="crowd-chart-type">Chart Type</label>
+                                <select id="crowd-chart-type" class="form-select">
+                                    <option value="line">Line</option>
+                                    <option value="bar">Bar</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4>Performance Metrics</h4>
+                                </div>
+                                <div class="card-body">
+                                    <canvas id="crowd-chart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4>Algorithm Comparison</h4>
+                                </div>
+                                <div class="card-body">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Algorithm</th>
+                                                <th>MAE</th>
+                                                <th>Accuracy</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="crowd-comparison">
+                                            <!-- Populated by JavaScript -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Video Preprocessing Section -->
+        <section id="preprocessing" class="mb-5">
+            <div class="card">
+                <div class="card-header">
+                    <h2>Video Preprocessing Analysis</h2>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-3">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="preprocessing-algorithm">Algorithm</label>
+                                <select id="preprocessing-algorithm" class="form-select">
+                                    <option value="optical_flow">Optical Flow</option>
+                                    <option value="feature_based">Feature-Based (ORB/SIFT)</option>
+                                    <option value="deep_learning">Deep Learning</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="preprocessing-camera">Camera</label>
+                                <select id="preprocessing-camera" class="form-select">
+                                    <!-- Populated by JavaScript -->
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="preprocessing-metric">Metric</label>
+                                <select id="preprocessing-metric" class="form-select">
+                                    <option value="stability_score">Stability Score</option>
+                                    <option value="processing_time">Processing Time</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="preprocessing-chart-type">Chart Type</label>
+                                <select id="preprocessing-chart-type" class="form-select">
+                                    <option value="line">Line</option>
+                                    <option value="bar">Bar</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4>Performance Metrics</h4>
+                                </div>
+                                <div class="card-body">
+                                    <canvas id="preprocessing-chart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4>Algorithm Comparison</h4>
+                                </div>
+                                <div class="card-body">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Algorithm</th>
+                                                <th>Stability</th>
+                                                <th>Time (ms)</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="preprocessing-comparison">
+                                            <!-- Populated by JavaScript -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Streaming Section -->
+        <section id="streaming" class="mb-5">
+            <div class="card">
+                <div class="card-header">
+                    <h2>Streaming Analysis</h2>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-3">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="streaming-protocol">Protocol</label>
+                                <select id="streaming-protocol" class="form-select">
+                                    <option value="rtsp">RTSP</option>
+                                    <option value="webrtc">WebRTC</option>
+                                    <option value="hls">HLS</option>
+                                    <option value="websocket">WebSocket</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="streaming-camera">Camera</label>
+                                <select id="streaming-camera" class="form-select">
+                                    <!-- Populated by JavaScript -->
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="streaming-metric">Metric</label>
+                                <select id="streaming-metric" class="form-select">
+                                    <option value="latency">Latency</option>
+                                    <option value="bandwidth">Bandwidth</option>
+                                    <option value="packet_loss">Packet Loss</option>
+                                    <option value="jitter">Jitter</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="streaming-chart-type">Chart Type</label>
+                                <select id="streaming-chart-type" class="form-select">
+                                    <option value="line">Line</option>
+                                    <option value="bar">Bar</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4>Performance Metrics</h4>
+                                </div>
+                                <div class="card-body">
+                                    <canvas id="streaming-chart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4>Protocol Comparison</h4>
+                                </div>
+                                <div class="card-body">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Protocol</th>
+                                                <th>Latency</th>
+                                                <th>Bandwidth</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="streaming-comparison">
+                                            <!-- Populated by JavaScript -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer class="bg-dark text-white text-center py-3 mt-5">
+        <div class="container">
+            <p>Vigilance System - Algorithm Analysis Dashboard</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.0/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/socket.io-client@4.6.1/dist/socket.io.min.js"></script>
+    <script src="{{ url_for('static', filename='js/analysis_dashboard.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,219 @@
+# Camera Configuration
+# Uncomment and configure the cameras you want to use
+# If no cameras are configured, the system will automatically use video files from the 'videos' directory
+
+cameras:
+  # Example IP camera using RTSP protocol
+  # - name: front_door
+  #   url: rtsp://username:password@192.168.1.100:554/stream1
+  #   type: rtsp
+  #   fps: 10  # Target frames per second to process
+  #   resolution: [1280, 720]  # Width, Height
+
+  # Example IP camera using HTTP/MJPEG protocol
+  # - name: back_yard
+  #   url: http://192.168.1.101:8080/video
+  #   type: http
+  #   fps: 5
+  #   resolution: [1920, 1080]
+
+  # Example local webcam
+  # - name: webcam
+  #   url: 0  # Device ID (0 is usually the default camera)
+  #   type: webcam
+  #   fps: 30
+  #   resolution: [640, 480]
+
+  # Example video file
+  # - name: store_entrance
+  #   url: videos/store_entrance.mp4
+  #   type: video
+  #   fps: null  # null means use the video's native FPS
+  #   loop: true  # Loop the video when it reaches the end
+
+# Preprocessing Configuration
+preprocessing:
+  algorithm: feature_matching  # Options: feature_matching, orb, sift, affine_transform
+  denoising:
+    enabled: true
+    strength: 10  # Higher values = more denoising
+  stabilization:
+    enabled: true
+    smoothing_radius: 30  # Frames to consider for stabilization
+  algorithms:
+    feature_matching:
+      max_corners: 200
+      quality_level: 0.01
+      min_distance: 30
+      block_size: 3
+    orb:
+      max_features: 500
+      match_threshold: 0.7
+    sift:
+      max_features: 500
+      match_threshold: 0.7
+    affine_transform:
+      grid_size: 8
+      window_size: 15
+
+# Detection Configuration
+detection:
+  algorithm: background_subtraction  # Options: background_subtraction, mog2, knn, svm_classifier
+  use_algorithm_detectors: true
+  confidence_threshold: 0.5
+  classes_of_interest: [0]  # 0 = person
+  algorithms:
+    background_subtraction:
+      min_contour_area: 500
+    mog2:
+      history: 500
+      var_threshold: 16
+      learning_rate: 0.01
+    knn:
+      history: 500
+      dist2_threshold: 400.0
+      learning_rate: 0.01
+    svm_classifier:
+      scale: 1.05
+      win_stride: [8, 8]
+      padding: [16, 16]
+
+# Tracking Configuration
+tracking:
+  algorithm: klt_tracker  # Options: klt_tracker, kalman_filter, optical_flow
+  algorithms:
+    klt_tracker:
+      max_corners: 100
+      quality_level: 0.3
+      min_distance: 7
+      block_size: 7
+    kalman_filter:
+      max_age: 10
+      min_hits: 3
+      iou_threshold: 0.3
+    optical_flow:
+      max_corners: 200
+      quality_level: 0.01
+      min_distance: 30
+
+# Alert Configuration
+alerts:
+  cooldown: 60  # Seconds between alerts of the same type
+  # Loitering Detection
+  loitering:
+    algorithm: rule_based  # Options: rule_based, timer_threshold, decision_tree
+    algorithms:
+      rule_based:
+        min_loitering_time: 10.0  # Seconds a person must be present to trigger loitering alert
+        max_movement_distance: 50  # Maximum distance to move while still considered loitering
+        grid_size: 50  # Size of grid cells for spatial analysis
+      timer_threshold:
+        min_loitering_time: 10.0  # Seconds a person must be present to trigger loitering alert
+        zone_size: 100  # Size of zones for spatial analysis
+      decision_tree:
+        min_trajectory_length: 20  # Minimum trajectory length to analyze
+        max_speed_threshold: 10.0  # Maximum speed to consider loitering
+        min_direction_changes: 3  # Minimum number of direction changes
+        min_time_in_area: 8.0  # Minimum time in seconds to consider loitering
+
+  # Crowd Detection
+  crowd:
+    algorithm: blob_counting  # Options: blob_counting, contour_counting, kmeans_clustering
+    threshold: 3  # Number of people to trigger a crowd alert
+    algorithms:
+      blob_counting:
+        crowd_threshold: 3  # Minimum number of people to consider a crowd
+        proximity_threshold: 100  # Maximum distance between people to be considered in the same group
+        min_group_size: 3  # Minimum number of people in a group to be considered a crowd
+      contour_counting:
+        crowd_threshold: 3  # Minimum number of people to consider a crowd
+        density_threshold: 0.5  # Threshold for density map
+        min_contour_area: 1000  # Minimum contour area to consider a crowd
+        kernel_size: 50  # Size of Gaussian kernel for density map
+      kmeans_clustering:
+        crowd_threshold: 3  # Minimum number of people to consider a crowd
+        max_clusters: 5  # Maximum number of clusters to consider
+        min_cluster_size: 3  # Minimum number of people in a cluster to be considered a crowd
+        max_cluster_radius: 100  # Maximum radius of a cluster to be considered a crowd
+
+  # Motion Detection
+  motion:
+    threshold: 0.2  # Minimum motion percentage to trigger alert
+
+  # Notification
+  notification:
+    email:
+      enabled: true
+      recipients: [admin@example.com]
+      smtp_server: smtp.gmail.com
+      smtp_port: 587
+      smtp_username: your_email@gmail.com
+      smtp_password: your_app_password
+    sms:
+      enabled: false
+      phone_numbers: [+1234567890]
+      service: twilio  # Options: twilio, aws_sns
+      twilio_account_sid: your_account_sid
+      twilio_auth_token: your_auth_token
+      twilio_from_number: +1987654321
+
+# Dashboard Configuration
+dashboard:
+  host: 0.0.0.0
+  port: 5000
+  debug: false
+  authentication:
+    enabled: true
+    username: admin
+    password: change_me_immediately
+
+# Analysis Dashboard Configuration
+analysis_dashboard:
+  enabled: true
+  port: 5001  # Separate port for the analysis dashboard
+  metrics:
+    # Object Detection Metrics
+    detection:
+      enabled: true
+      metrics: [fps, map, precision, recall]
+      update_interval: 1  # Update interval in seconds
+
+    # Object Tracking Metrics
+    tracking:
+      enabled: true
+      metrics: [id_switches, mota, motp]
+      update_interval: 1
+
+    # Loitering Detection Metrics
+    loitering:
+      enabled: true
+      metrics: [true_positives, false_positives, false_negatives, precision, recall]
+      update_interval: 5
+
+    # Crowd Detection Metrics
+    crowd:
+      enabled: true
+      metrics: [mae, mse, accuracy, precision, recall]
+      update_interval: 5
+
+    # Video Preprocessing Metrics
+    preprocessing:
+      enabled: true
+      metrics: [stability_score, processing_time]
+      update_interval: 1
+
+
+
+  # Visualization Options
+  visualization:
+    charts: [line, bar, scatter, heatmap]
+    real_time_updates: true
+    history_length: 100  # Number of data points to keep in history
+    export_formats: [csv, json, png]
+
+# Logging Configuration
+logging:
+  level: INFO  # Options: DEBUG, INFO, WARNING, ERROR, CRITICAL
+  file: logs/vigilance.log
+  max_size_mb: 10
+  backup_count: 5

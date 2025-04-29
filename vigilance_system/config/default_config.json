@@ -1,0 +1,48 @@
+{
+    "detection": {
+        "algorithm": "background_subtraction",
+        "algorithms": {
+            "background_subtraction": {},
+            "mog2": {},
+            "knn": {},
+            "svm_classifier": {}
+        }
+    },
+    "tracking": {
+        "algorithm": "klt_tracker",
+        "algorithms": {
+            "klt_tracker": {},
+            "kalman_filter": {},
+            "optical_flow": {}
+        }
+    },
+    "alerts": {
+        "cooldown": 60,
+        "loitering": {
+            "algorithm": "rule_based",
+            "algorithms": {
+                "rule_based": {},
+                "timer_threshold": {},
+                "decision_tree": {}
+            }
+        },
+        "crowd": {
+            "algorithm": "blob_counting",
+            "algorithms": {
+                "blob_counting": {},
+                "contour_counting": {},
+                "kmeans_clustering": {}
+            },
+            "threshold": 3
+        }
+    },
+    "preprocessing": {
+        "algorithm": "feature_matching",
+        "algorithms": {
+            "feature_matching": {},
+            "orb": {},
+            "sift": {},
+            "affine_transform": {}
+        }
+    }
+}
