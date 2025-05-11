@@ -1,0 +1,30 @@
+{
+  "type": "loitering",
+  "camera": "WhatsApp Video 2025-04-22 at 20.48.20_3c3ca36c",
+  "object_id": 2,
+  "duration": 570.0404713153839,
+  "detection": {
+    "class_id": 0,
+    "class_name": "person",
+    "confidence": 0.7208322286605835,
+    "bbox": [
+      409.345458984375,
+      0.39821720123291016,
+      443.756103515625,
+      85.1158218383789
+    ],
+    "center": [
+      426.55078125,
+      42.75701951980591
+    ],
+    "dimensions": [
+      34.41064453125,
+      84.717604637146
+    ],
+    "area": 2915.1873787078075,
+    "frame_id": 104,
+    "timestamp": 1745753709.5309424
+  },
+  "timestamp": 1745753813.2295344,
+  "message": "Person loitering detected on camera 'WhatsApp Video 2025-04-22 at 20.48.20_3c3ca36c' for 570.0 seconds"
+}

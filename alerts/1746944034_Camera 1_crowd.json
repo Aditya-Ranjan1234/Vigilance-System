@@ -1,0 +1,114 @@
+{
+  "type": "crowd",
+  "camera": "Camera 1",
+  "people_count": 8,
+  "timestamp": 1746944034.1695888,
+  "message": "Crowd detected on camera 'Camera 1': 8 people",
+  "algorithm": "knn",
+  "people_locations": [
+    {
+      "object_id": 0,
+      "center": [
+        48.0,
+        451.0
+      ],
+      "bbox": [
+        0,
+        422,
+        96,
+        480
+      ]
+    },
+    {
+      "object_id": 1,
+      "center": [
+        156.0,
+        411.0
+      ],
+      "bbox": [
+        82,
+        363,
+        230,
+        459
+      ]
+    },
+    {
+      "object_id": 2,
+      "center": [
+        367.0,
+        374.0
+      ],
+      "bbox": [
+        335,
+        325,
+        399,
+        423
+      ]
+    },
+    {
+      "object_id": 3,
+      "center": [
+        530.0,
+        197.5
+      ],
+      "bbox": [
+        479,
+        110,
+        581,
+        285
+      ]
+    },
+    {
+      "object_id": 4,
+      "center": [
+        258.0,
+        282.5
+      ],
+      "bbox": [
+        1,
+        106,
+        515,
+        459
+      ]
+    },
+    {
+      "object_id": 5,
+      "center": [
+        495.0,
+        31.5
+      ],
+      "bbox": [
+        413,
+        2,
+        577,
+        61
+      ]
+    },
+    {
+      "object_id": 6,
+      "center": [
+        509.0,
+        382.0
+      ],
+      "bbox": [
+        486,
+        345,
+        532,
+        419
+      ]
+    },
+    {
+      "object_id": 7,
+      "center": [
+        541.5,
+        143.0
+      ],
+      "bbox": [
+        515,
+        116,
+        568,
+        170
+      ]
+    }
+  ]
+}

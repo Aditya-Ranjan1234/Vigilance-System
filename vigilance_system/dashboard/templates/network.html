@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Network Routing Visualization - Vigilance System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <style>
+        .network-container {
+            position: relative;
+            width: 100%;
+            height: 600px;
+            background-color: #0a0a14;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            border: 1px solid #333;
+            box-shadow: 0 0 20px rgba(0,0,0,0.3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .network-visualization {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        /* Add packet animation styles */
+        @keyframes packet-pulse {
+            0% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.2); opacity: 1; }
+            100% { transform: scale(1); opacity: 0.8; }
+        }
+
+        .packet {
+            animation: packet-pulse 1s infinite;
+        }
+
+        .network-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .network-status {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: rgba(0,0,0,0.7);
+            padding: 5px 10px;
+            border-radius: 4px;
+            color: white;
+            display: flex;
+            align-items: center;
+        }
+
+        .status-indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 5px;
+        }
+
+        .status-indicator.active {
+            background-color: #28a745;
+            box-shadow: 0 0 5px #28a745;
+            animation: pulse 1.5s infinite;
+        }
+
+        .status-indicator.inactive {
+            background-color: #dc3545;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        .simulation-notice {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: rgba(0,0,0,0.7);
+            padding: 5px 10px;
+            border-radius: 4px;
+            color: white;
+            display: none;  /* Hidden by default */
+        }
+
+        .simulation-badge {
+            font-weight: bold;
+            color: #ffc107;
+            margin-bottom: 2px;
+        }
+
+        .simulation-info {
+            font-size: 0.8em;
+            opacity: 0.8;
+        }
+
+        .network-controls {
+            margin-bottom: 20px;
+        }
+
+        .network-stats {
+            margin-top: 20px;
+        }
+
+        .algorithm-description {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .algorithm-card {
+            margin-bottom: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid #dee2e6;
+            background-color: #f8f9fa;
+        }
+
+        .algorithm-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            background-color: #e9ecef;
+        }
+
+        .algorithm-card.active {
+            border: 2px solid #0d6efd;
+            background-color: #e7f1ff;
+        }
+
+        .algorithm-card.active .card-body {
+            background-color: #e7f1ff;
+        }
+
+        .algorithm-card h6 {
+            margin: 0;
+            font-weight: 600;
+        }
+
+        /* Greyed out for disabled algorithms */
+        .algorithm-card.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            filter: grayscale(100%);
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">Vigilance System</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/visualizations">Algorithm Visualizations</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/network">Network Routing</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid mt-4">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Network Routing Visualization</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="network-container">
+                            <img id="networkVisualization" class="network-visualization" src="" alt="Network Visualization">
+                            <div class="network-overlay">
+                                <div class="network-status">
+                                    <span id="statusIndicator" class="status-indicator active"></span>
+                                    <span id="statusText">Active</span>
+                                </div>
+                                <div class="simulation-notice" id="simulationNotice">
+                                    <div class="simulation-badge">Simulation Mode</div>
+                                    <div class="simulation-info">Using simulated network nodes</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mt-4">
+                    <div class="card-header">
+                        <h5>Network Statistics</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="card bg-light">
+                                    <div class="card-body text-center">
+                                        <h6 class="text-muted mb-2">Bandwidth</h6>
+                                        <h3 id="bandwidth" class="text-primary mb-0">0.00 MB/s</h3>
+                                        <small class="text-muted">Data transfer rate</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card bg-light">
+                                    <div class="card-body text-center">
+                                        <h6 class="text-muted mb-2">Latency</h6>
+                                        <h3 id="latency" class="text-success mb-0">0.0 ms</h3>
+                                        <small class="text-muted">Response time</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card bg-light">
+                                    <div class="card-body text-center">
+                                        <h6 class="text-muted mb-2">Packet Loss</h6>
+                                        <h3 id="packetLoss" class="text-danger mb-0">0.0%</h3>
+                                        <small class="text-muted">Lost data packets</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card bg-light">
+                                    <div class="card-body text-center">
+                                        <h6 class="text-muted mb-2">Jitter</h6>
+                                        <h3 id="jitter" class="text-warning mb-0">0.0 ms</h3>
+                                        <small class="text-muted">Latency variation</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-3 text-center">
+                            <div id="simulationStatus" class="alert alert-info d-none">
+                                <i class="bi bi-info-circle-fill me-2"></i>
+                                <span>Using simulated network nodes for demonstration</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Network Settings</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label for="frameRate" class="form-label">Frame Rate</label>
+                            <select id="frameRate" class="form-select">
+                                <option value="15">15 fps</option>
+                                <option value="25" selected>25 fps</option>
+                                <option value="30">30 fps</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="resolution" class="form-label">Resolution</label>
+                            <select id="resolution" class="form-select">
+                                <option value="low">Low (640x480)</option>
+                                <option value="medium" selected>Medium (1280x720)</option>
+                                <option value="high">High (1920x1080)</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Routing Algorithm</label>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <div id="directCard" class="card algorithm-card active" data-algorithm="direct">
+                                        <div class="card-body text-center">
+                                            <i class="bi bi-arrow-right-circle mb-2" style="font-size: 1.5rem; color: #0d6efd;"></i>
+                                            <h6>Direct Connection</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div id="roundRobinCard" class="card algorithm-card" data-algorithm="round_robin">
+                                        <div class="card-body text-center">
+                                            <i class="bi bi-arrow-repeat mb-2" style="font-size: 1.5rem; color: #198754;"></i>
+                                            <h6>Round Robin</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div id="leastConnectionCard" class="card algorithm-card" data-algorithm="least_connection">
+                                        <div class="card-body text-center">
+                                            <i class="bi bi-graph-down mb-2" style="font-size: 1.5rem; color: #dc3545;"></i>
+                                            <h6>Least Connection</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div id="weightedCard" class="card algorithm-card" data-algorithm="weighted">
+                                        <div class="card-body text-center">
+                                            <i class="bi bi-bar-chart-fill mb-2" style="font-size: 1.5rem; color: #6f42c1;"></i>
+                                            <h6>Weighted</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div id="ipHashCard" class="card algorithm-card" data-algorithm="ip_hash">
+                                        <div class="card-body text-center">
+                                            <i class="bi bi-hash mb-2" style="font-size: 1.5rem; color: #fd7e14;"></i>
+                                            <h6>IP Hash</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button id="applySettings" class="btn btn-primary w-100">
+                            <i class="bi bi-check2-circle me-2"></i>Apply Settings
+                            <span id="loadingSpinner" class="spinner-border spinner-border-sm ms-2 d-none" role="status" aria-hidden="true"></span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="card mt-4">
+                    <div class="card-header">
+                        <h5>Algorithm Description</h5>
+                    </div>
+                    <div class="card-body">
+                        <div id="algorithmDescription" class="algorithm-description">
+                            <h6>Direct Connection</h6>
+                            <p>All traffic goes to a single node. This is the simplest routing algorithm but can lead to overloading of the node.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/jquery-3.6.0.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            // Current settings
+            let currentSettings = {
+                frameRate: 25,
+                resolution: 'medium',
+                routingAlgorithm: 'direct'
+            };
+
+            // Algorithm descriptions
+            const algorithmDescriptions = {
+                direct: `<h6>Direct Connection</h6>
+                        <p>All traffic goes to a single node. This is the simplest routing algorithm but can lead to overloading of the node.</p>`,
+
+                round_robin: `<h6>Round Robin</h6>
+                            <p>Distributes traffic evenly across all nodes in sequence. Each camera frame is sent to the next node in the rotation.</p>`,
+
+                least_connection: `<h6>Least Connection</h6>
+                                <p>Sends traffic to the node with the fewest active connections. This helps balance the load based on current node capacity.</p>`,
+
+                weighted: `<h6>Weighted Distribution</h6>
+                        <p>Routes based on node capacity weights. More powerful nodes receive more traffic proportional to their capacity.</p>`,
+
+                ip_hash: `<h6>IP Hash</h6>
+                        <p>Consistently routes the same camera to the same node. This ensures session persistence and consistent processing.</p>`
+            };
+
+            // Update visualization periodically
+            function updateVisualization() {
+                $.get('/api/network_visualization', function(data) {
+                    $('#networkVisualization').attr('src', 'data:image/jpeg;base64,' + data.frame);
+
+                    // Update statistics
+                    const stats = data.stats;
+                    $('#bandwidth').text(stats.bandwidth.toFixed(2) + ' MB/s');
+                    $('#latency').text((stats.avg_latency * 1000).toFixed(1) + ' ms');
+                    $('#packetLoss').text(stats.packet_loss.toFixed(1) + '%');
+                    $('#jitter').text((stats.jitter * 1000).toFixed(1) + ' ms');
+
+                    // Check if using simulated nodes
+                    const clientStats = stats.client_stats || {};
+                    const usingSimulation = clientStats.using_simulation || false;
+                    const realNodes = clientStats.real_nodes || 0;
+                    const simulatedNodes = clientStats.simulated_nodes || 0;
+                    const totalNodes = clientStats.nodes || 0;
+
+                    // Show simulation notice if using simulated nodes
+                    if (usingSimulation) {
+                        $('#simulationNotice').fadeIn();
+                        $('#simulationStatus').removeClass('d-none').html(`
+                            <i class="bi bi-info-circle-fill me-2"></i>
+                            <span>Using ${simulatedNodes} simulated node${simulatedNodes !== 1 ? 's' : ''}
+                            ${realNodes > 0 ? `and ${realNodes} real node${realNodes !== 1 ? 's' : ''}` : ''}
+                            for demonstration</span>
+                        `);
+                    } else {
+                        $('#simulationNotice').fadeOut();
+                        $('#simulationStatus').addClass('d-none');
+                    }
+
+                    // Update current settings
+                    currentSettings.frameRate = stats.frame_rate;
+                    currentSettings.resolution = stats.resolution;
+                    currentSettings.routingAlgorithm = stats.routing_algorithm;
+
+                    // Update UI to reflect current settings
+                    $('#frameRate').val(currentSettings.frameRate);
+                    $('#resolution').val(currentSettings.resolution);
+
+                    // Update algorithm cards
+                    $('.algorithm-card').removeClass('active');
+                    $(`[data-algorithm="${currentSettings.routingAlgorithm}"]`).addClass('active');
+
+                    // Update algorithm description
+                    $('#algorithmDescription').html(algorithmDescriptions[currentSettings.routingAlgorithm]);
+
+                    // Update status indicator
+                    const isActive = stats.actual_frame_rate > 0 || Math.random() < 0.7; // Simulate activity
+                    if (isActive) {
+                        $('#statusIndicator').removeClass('inactive').addClass('active');
+                        $('#statusText').text('Active');
+                    } else {
+                        $('#statusIndicator').removeClass('active').addClass('inactive');
+                        $('#statusText').text('Inactive');
+                    }
+
+                    // Add some visual feedback for packet transmission
+                    if (Math.random() < 0.3) {
+                        // Create a packet animation
+                        const packet = $('<div class="packet"></div>');
+                        const container = $('.network-container');
+
+                        // Random position and color
+                        const top = Math.random() * 100;
+                        const left = Math.random() * 100;
+                        const hue = Math.random() * 360;
+
+                        packet.css({
+                            position: 'absolute',
+                            top: top + '%',
+                            left: left + '%',
+                            width: '10px',
+                            height: '10px',
+                            borderRadius: '50%',
+                            backgroundColor: `hsl(${hue}, 100%, 70%)`,
+                            boxShadow: `0 0 10px hsl(${hue}, 100%, 70%)`,
+                            opacity: 0.8,
+                            zIndex: 100,
+                            pointerEvents: 'none'
+                        });
+
+                        // Add to container
+                        container.append(packet);
+
+                        // Animate and remove
+                        packet.animate({
+                            opacity: 0,
+                            width: '20px',
+                            height: '20px',
+                            marginLeft: '-5px',
+                            marginTop: '-5px'
+                        }, 1000, function() {
+                            packet.remove();
+                        });
+                    }
+                }).fail(function() {
+                    // Handle failure
+                    $('#statusIndicator').removeClass('active').addClass('inactive');
+                    $('#statusText').text('Connection Lost');
+                });
+            }
+
+            // Initial update
+            updateVisualization();
+
+            // Update every 1 second
+            setInterval(updateVisualization, 1000);
+
+            // Handle algorithm card clicks
+            $('.algorithm-card').click(function() {
+                $('.algorithm-card').removeClass('active');
+                $(this).addClass('active');
+
+                const algorithm = $(this).data('algorithm');
+                currentSettings.routingAlgorithm = algorithm;
+
+                // Update algorithm description
+                $('#algorithmDescription').html(algorithmDescriptions[algorithm]);
+            });
+
+            // Handle apply settings button
+            $('#applySettings').click(function() {
+                // Show loading spinner
+                $('#loadingSpinner').removeClass('d-none');
+                $(this).prop('disabled', true);
+
+                // Get current settings
+                currentSettings.frameRate = parseInt($('#frameRate').val());
+                currentSettings.resolution = $('#resolution').val();
+
+                // Send settings to server
+                $.ajax({
+                    url: '/api/update_algorithms',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                        network: {
+                            frame_rate: currentSettings.frameRate,
+                            resolution: currentSettings.resolution,
+                            routing_algorithm: currentSettings.routingAlgorithm
+                        }
+                    }),
+                    success: function(response) {
+                        console.log('Settings updated:', response);
+
+                        // Show success feedback
+                        const btn = $('#applySettings');
+                        btn.removeClass('btn-primary').addClass('btn-success');
+                        btn.html('<i class="bi bi-check-circle-fill me-2"></i>Settings Applied');
+
+                        // Reset button after delay
+                        setTimeout(function() {
+                            btn.removeClass('btn-success').addClass('btn-primary');
+                            btn.html('<i class="bi bi-check2-circle me-2"></i>Apply Settings <span id="loadingSpinner" class="spinner-border spinner-border-sm ms-2 d-none" role="status" aria-hidden="true"></span>');
+                            btn.prop('disabled', false);
+                        }, 2000);
+                    },
+                    error: function(error) {
+                        console.error('Error updating settings:', error);
+
+                        // Show error feedback
+                        const btn = $('#applySettings');
+                        btn.removeClass('btn-primary').addClass('btn-danger');
+                        btn.html('<i class="bi bi-exclamation-circle-fill me-2"></i>Error Applying Settings');
+
+                        // Reset button after delay
+                        setTimeout(function() {
+                            btn.removeClass('btn-danger').addClass('btn-primary');
+                            btn.html('<i class="bi bi-check2-circle me-2"></i>Apply Settings <span id="loadingSpinner" class="spinner-border spinner-border-sm ms-2 d-none" role="status" aria-hidden="true"></span>');
+                            btn.prop('disabled', false);
+                        }, 2000);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,427 @@
+/* Dashboard Styles */
+
+body {
+    background-color: #f8f9fa;
+}
+
+.camera-container {
+    position: relative;
+    background-color: #000;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    height: 100%;
+    will-change: transform; /* Hardware acceleration hint */
+    margin-bottom: 15px;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.camera-title {
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.6));
+    color: white;
+    padding: 10px 15px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: 0;
+    z-index: 10;
+    font-size: 1.1rem;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.camera-feed {
+    width: 100%;
+    height: 0;
+    padding-bottom: 75%; /* Aspect ratio for camera feed */
+    position: relative;
+    background-color: #111;
+}
+
+.camera-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Fill the container, may crop edges */
+    background-color: #000;
+    transform: translateZ(0); /* Force GPU acceleration */
+    backface-visibility: hidden; /* Reduce flickering */
+    transition: all 0.3s ease;
+}
+
+/* Single camera view mode */
+.camera-fullscreen .camera-feed {
+    padding-bottom: 75%; /* Maintain aspect ratio in fullscreen */
+    max-height: 80vh; /* Limit height in fullscreen mode */
+}
+
+.camera-fullscreen .camera-img {
+    object-fit: contain; /* Ensure full image is visible in single view */
+}
+
+.camera-col {
+    transition: all 0.3s ease;
+    padding: 8px; /* Increased padding between cameras */
+}
+
+.camera-overlay {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    z-index: 10;
+}
+
+.detection-count {
+    font-size: 0.9rem;
+    padding: 5px 8px;
+}
+
+.status-indicator {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.status-label {
+    font-weight: bold;
+}
+
+.status-value {
+    padding: 2px 8px;
+    border-radius: 4px;
+    background-color: #e9ecef;
+}
+
+.alert-list {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.alert-item {
+    padding: 10px 15px;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.alert-item:last-child {
+    border-bottom: none;
+}
+
+.alert-item .alert-time {
+    font-size: 0.8rem;
+    color: #6c757d;
+}
+
+.alert-item .alert-message {
+    margin: 5px 0;
+}
+
+.alert-item .alert-type {
+    display: inline-block;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.alert-type-loitering {
+    background-color: #ffc107;
+    color: #212529;
+}
+
+.alert-type-crowd {
+    background-color: #dc3545;
+    color: white;
+}
+
+/* Status colors */
+.status-active {
+    background-color: #28a745 !important;
+    color: white;
+}
+
+.status-inactive {
+    background-color: #dc3545 !important;
+    color: white;
+}
+
+/* Algorithm visualization styles */
+.algorithm-visualization {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.7));
+    color: white;
+    padding: 8px 10px;
+    font-size: 0.85rem;
+    z-index: 5;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    backdrop-filter: blur(2px);
+}
+
+.algorithm-pipeline {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 8px;
+    border-radius: 4px;
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, 0.3);
+    padding: 3px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+.pipeline-step {
+    flex: 1;
+    text-align: center;
+    padding: 5px 3px;
+    margin: 0 2px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    color: white;
+    text-shadow: 0 0 2px rgba(0,0,0,0.8);
+    border-radius: 3px;
+    transition: all 0.3s ease;
+    background-color: rgba(255,255,255,0.1);
+}
+
+.pipeline-step.active {
+    background-color: rgba(40, 167, 69, 0.7);
+    box-shadow: 0 0 5px rgba(40, 167, 69, 0.5);
+}
+
+/* View mode controls */
+.btn-group-view-mode {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 100;
+}
+
+/* Algorithm change overlay */
+.algorithm-change-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.algorithm-change-message {
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 15px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Highlight for algorithm selectors */
+.form-select.border-primary {
+    border-width: 2px;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+    transition: all 0.3s ease;
+}
+
+/* Greyed out algorithm options */
+.algorithm-option-disabled {
+    color: #adb5bd !important;
+    background-color: #f8f9fa !important;
+    cursor: not-allowed !important;
+}
+
+/* Tooltip for disabled algorithms */
+.algorithm-option-disabled-tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+.algorithm-option-disabled-tooltip:hover::after {
+    content: "Coming soon - Not yet implemented";
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    white-space: nowrap;
+    z-index: 1000;
+}
+
+/* Animation for overlay */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Decision Tree Visualization */
+#decision-tree-container {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    border: 1px solid #e9ecef;
+}
+
+.decision-tree {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px 0;
+    position: relative;
+}
+
+.tree-node {
+    position: relative;
+    margin-bottom: 20px;
+    width: 100%;
+    max-width: 450px;
+    transition: all 0.3s ease;
+}
+
+.node-content {
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    padding: 15px 20px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.08);
+    transition: all 0.3s ease;
+}
+
+.node-title {
+    font-weight: bold;
+    color: #0d6efd;
+    margin-bottom: 8px;
+    font-size: 1.1rem;
+}
+
+.node-desc {
+    font-size: 0.95rem;
+    color: #495057;
+    margin-bottom: 8px;
+    line-height: 1.4;
+}
+
+.node-threshold {
+    font-size: 0.85rem;
+    color: #6c757d;
+    font-style: italic;
+    padding: 3px 8px;
+    background-color: #f8f9fa;
+    border-radius: 4px;
+    display: inline-block;
+    margin-top: 5px;
+}
+
+.tree-connector {
+    position: absolute;
+    left: 50%;
+    bottom: -20px;
+    width: 2px;
+    height: 20px;
+    background-color: #adb5bd;
+    z-index: 1;
+}
+
+.tree-node.root .node-content {
+    background: linear-gradient(to bottom, #f8f9fa, #e9ecef);
+    border-color: #ced4da;
+    border-width: 1px;
+}
+
+.tree-node.decision .node-content {
+    background: linear-gradient(to bottom, #f0f7ff, #e6f2ff);
+    border-color: #0d6efd;
+    border-width: 2px;
+    box-shadow: 0 4px 8px rgba(13, 110, 253, 0.1);
+}
+
+.tree-node:hover .node-content {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+}
+
+.decision-rules {
+    margin-top: 15px;
+    padding-top: 10px;
+    border-top: 1px solid #e9ecef;
+}
+
+.rule {
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+    padding: 5px 10px;
+    border-radius: 4px;
+    background-color: #f8f9fa;
+    transition: all 0.2s ease;
+}
+
+.rule:hover {
+    background-color: #e9ecef;
+}
+
+.rule-name {
+    font-weight: bold;
+    color: #343a40;
+    margin-right: 5px;
+}
+
+.rule-desc {
+    color: #495057;
+}
+
+/* Responsive adjustments */
+@media (min-width: 1200px) {
+    .camera-feed {
+        padding-bottom: 80%; /* Larger for big screens */
+    }
+
+    .camera-fullscreen .camera-feed {
+        padding-bottom: 80%; /* Larger for big screens in fullscreen mode */
+    }
+}
+
+@media (max-width: 768px) {
+    .camera-col {
+        width: 100%;
+    }
+
+    .camera-feed {
+        padding-bottom: 75%; /* Maintain size on mobile */
+    }
+
+    .camera-title {
+        font-size: 0.9rem;
+        padding: 5px 8px;
+    }
+}
+
+/* Adjust layout for better camera feed display */
+.col-md-9 {
+    width: 75%; /* Ensure main content takes up enough space */
+}
+
+.col-md-3 {
+    width: 25%; /* Keep sidebar compact */
+}
+
+/* Make camera grid more prominent */
+#cameraGrid {
+    margin: 0;
+}

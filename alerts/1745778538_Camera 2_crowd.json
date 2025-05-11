@@ -1,0 +1,7 @@
+{
+  "type": "crowd",
+  "camera": "Camera 2",
+  "people_count": 5,
+  "timestamp": 1745778538.911746,
+  "message": "Crowd detected on camera 'Camera 2': 5 people"
+}

@@ -1,0 +1,30 @@
+{
+  "type": "loitering",
+  "camera": "Camera 1",
+  "object_id": 3,
+  "duration": 32.378050804138184,
+  "detection": {
+    "class_id": 0,
+    "class_name": "person",
+    "confidence": 0.8,
+    "bbox": [
+      501,
+      90,
+      604,
+      311
+    ],
+    "center": [
+      552.5,
+      200.5
+    ],
+    "dimensions": [
+      103,
+      221
+    ],
+    "area": 22763,
+    "frame_id": 267,
+    "timestamp": 1746760023.0252135
+  },
+  "timestamp": 1746760023.0363388,
+  "message": "Person loitering detected on camera 'Camera 1' for 32.4 seconds"
+}

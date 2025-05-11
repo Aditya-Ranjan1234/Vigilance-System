@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Network Routing - Vigilance System</title>
+    <!-- Use CDN links to ensure CSS loads properly -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        /* Basic styles that don't rely on external CSS */
+        body {
+            font-family: Arial, sans-serif;
+            padding-bottom: 20px;
+        }
+        .network-container {
+            position: relative;
+            width: 100%;
+            height: 500px;
+            background-color: #0a0a14;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            border: 1px solid #333;
+        }
+        .network-visualization {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        .algorithm-btn {
+            text-align: left;
+            margin-bottom: 5px;
+            border: 1px solid #dee2e6;
+            background-color: #f8f9fa;
+        }
+        .algorithm-btn.active {
+            border-color: #0d6efd;
+            background-color: #e7f1ff;
+        }
+        .status-indicator {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 5px;
+        }
+        .status-indicator.active {
+            background-color: #28a745;
+        }
+        .status-indicator.inactive {
+            background-color: #dc3545;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">Vigilance System</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/visualizations">Algorithm Visualizations</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/network">Network Routing</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/network/info">Network Info</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h2 class="mb-4">Network Routing Visualization</h2>
+
+        <div class="row">
+            <div class="col-md-8">
+                <!-- Network Visualization -->
+                <div class="card mb-4">
+                    <div class="card-body p-0">
+                        <div class="network-container">
+                            <img id="networkVisualization" class="network-visualization" src="" alt="Network Visualization">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Network Statistics -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5 class="mb-0">Network Statistics</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-3 mb-3">
+                                <div class="card">
+                                    <div class="card-body text-center">
+                                        <h6 class="card-title text-muted">Bandwidth</h6>
+                                        <h3 id="bandwidth" class="mb-0">0.00 MB/s</h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <div class="card">
+                                    <div class="card-body text-center">
+                                        <h6 class="card-title text-muted">Latency</h6>
+                                        <h3 id="latency" class="mb-0">0.0 ms</h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <div class="card">
+                                    <div class="card-body text-center">
+                                        <h6 class="card-title text-muted">Packet Loss</h6>
+                                        <h3 id="packetLoss" class="mb-0">0.0%</h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <div class="card">
+                                    <div class="card-body text-center">
+                                        <h6 class="card-title text-muted">Jitter</h6>
+                                        <h3 id="jitter" class="mb-0">0.0 ms</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="simulationStatus" class="alert alert-info mt-3 d-none">
+                            Using simulated network nodes for demonstration
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <!-- Network Settings -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5 class="mb-0">Network Settings</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label for="frameRate" class="form-label">Frame Rate</label>
+                            <select id="frameRate" class="form-select">
+                                <option value="15">15 fps</option>
+                                <option value="25" selected>25 fps</option>
+                                <option value="30">30 fps</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="resolution" class="form-label">Resolution</label>
+                            <select id="resolution" class="form-select">
+                                <option value="low">Low (640x480)</option>
+                                <option value="medium" selected>Medium (1280x720)</option>
+                                <option value="high">High (1920x1080)</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Routing Algorithm</label>
+                            <div id="algorithmButtons">
+                                <button class="btn algorithm-btn w-100 active" data-algorithm="direct">
+                                    <i class="bi bi-arrow-right-circle me-2"></i> Direct Connection
+                                </button>
+                                <button class="btn algorithm-btn w-100" data-algorithm="round_robin">
+                                    <i class="bi bi-arrow-repeat me-2"></i> Round Robin
+                                </button>
+                                <button class="btn algorithm-btn w-100" data-algorithm="least_connection">
+                                    <i class="bi bi-graph-down me-2"></i> Least Connection
+                                </button>
+                                <button class="btn algorithm-btn w-100" data-algorithm="weighted">
+                                    <i class="bi bi-bar-chart-fill me-2"></i> Weighted
+                                </button>
+                                <button class="btn algorithm-btn w-100" data-algorithm="ip_hash">
+                                    <i class="bi bi-hash me-2"></i> IP Hash
+                                </button>
+                            </div>
+                        </div>
+
+                        <button id="applySettings" class="btn btn-primary w-100">
+                            Apply Settings
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Status -->
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">Status</h5>
+                    </div>
+                    <div class="card-body">
+                        <p>
+                            <span id="statusIndicator" class="status-indicator active"></span>
+                            <span id="statusText">Active</span>
+                        </p>
+                        <div class="alert alert-info" id="algorithmContainer">
+                            <p id="currentAlgorithm" class="mb-0 fw-bold">Current Algorithm: Direct Connection</p>
+                            <small class="text-muted" id="lastUpdated"></small>
+                        </div>
+                    </div>
+                </div>
+
+                <style>
+                    /* Add some animation styles */
+                    @keyframes highlight {
+                        0% { background-color: rgba(0, 123, 255, 0.1); }
+                        50% { background-color: rgba(0, 123, 255, 0.3); }
+                        100% { background-color: rgba(0, 123, 255, 0.1); }
+                    }
+
+                    .highlight-animation {
+                        animation: highlight 2s ease-in-out;
+                    }
+                </style>
+            </div>
+        </div>
+    </div>
+
+    <!-- Use CDN links to ensure JS loads properly -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Current settings
+            let currentSettings = {
+                frameRate: 25,
+                resolution: 'medium',
+                routingAlgorithm: 'direct'
+            };
+
+            // Track if we're in the middle of applying settings
+            let applyingSettings = false;
+
+            // Update visualization
+            function updateVisualization() {
+                // Skip updates while applying settings to prevent UI flicker
+                if (applyingSettings) {
+                    console.log("Skipping visualization update while applying settings");
+                    return;
+                }
+
+                $.get('/api/network_visualization', function(data) {
+                    // Update image
+                    $('#networkVisualization').attr('src', 'data:image/jpeg;base64,' + data.frame);
+
+                    // Update statistics with animation to show they're changing
+                    const stats = data.stats;
+
+                    // Helper function to update stats with animation
+                    function updateStat($element, newValue) {
+                        const currentValue = $element.text();
+                        if (currentValue !== newValue) {
+                            $element.fadeOut(100, function() {
+                                $(this).text(newValue).fadeIn(100);
+                            });
+                        }
+                    }
+
+                    // Update each statistic with animation
+                    updateStat($('#bandwidth'), stats.bandwidth.toFixed(2) + ' MB/s');
+                    updateStat($('#latency'), (stats.avg_latency * 1000).toFixed(1) + ' ms');
+                    updateStat($('#packetLoss'), stats.packet_loss.toFixed(1) + '%');
+                    updateStat($('#jitter'), (stats.jitter * 1000).toFixed(1) + ' ms');
+
+                    // Check if using simulated nodes
+                    const clientStats = stats.client_stats || {};
+                    const usingSimulation = clientStats.using_simulation || false;
+
+                    // Show simulation notice if using simulated nodes
+                    if (usingSimulation) {
+                        $('#simulationStatus').removeClass('d-none');
+                    } else {
+                        $('#simulationStatus').addClass('d-none');
+                    }
+
+                    // Only update algorithm if we're not in the middle of applying settings
+                    if (!applyingSettings) {
+                        // Update current settings
+                        currentSettings.frameRate = stats.frame_rate;
+                        currentSettings.resolution = stats.resolution;
+
+                        // Only update the algorithm if it's different from what the user selected
+                        // This prevents the UI from reverting back during algorithm changes
+                        const serverAlgorithm = stats.routing_algorithm;
+                        const selectedAlgorithm = $('.algorithm-btn.active').data('algorithm');
+
+                        if (!selectedAlgorithm || serverAlgorithm === selectedAlgorithm) {
+                            currentSettings.routingAlgorithm = serverAlgorithm;
+
+                            // Update UI to reflect current settings
+                            $('#frameRate').val(currentSettings.frameRate);
+                            $('#resolution').val(currentSettings.resolution);
+
+                            // Update algorithm buttons
+                            $('.algorithm-btn').removeClass('active');
+                            $(`.algorithm-btn[data-algorithm="${currentSettings.routingAlgorithm}"]`).addClass('active');
+
+                            // Update current algorithm text with animation to show it's updating
+                            const algorithmText = 'Current Algorithm: ' + formatAlgorithmName(currentSettings.routingAlgorithm);
+                            const $currentAlgorithm = $('#currentAlgorithm');
+
+                            // Only animate if the text is changing
+                            if ($currentAlgorithm.text() !== algorithmText) {
+                                $currentAlgorithm.fadeOut(200, function() {
+                                    $(this).text(algorithmText).fadeIn(200);
+
+                                    // Update last updated timestamp
+                                    const now = new Date();
+                                    const timeString = now.toLocaleTimeString();
+                                    $('#lastUpdated').text('Last updated: ' + timeString);
+
+                                    // Add highlight animation to the container
+                                    const $container = $('#algorithmContainer');
+                                    $container.removeClass('highlight-animation');
+                                    // Force a reflow to restart the animation
+                                    void $container[0].offsetWidth;
+                                    $container.addClass('highlight-animation');
+                                });
+                            } else {
+                                $currentAlgorithm.text(algorithmText);
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Format algorithm name for display
+            function formatAlgorithmName(algorithm) {
+                switch(algorithm) {
+                    case 'direct': return 'Direct Connection';
+                    case 'round_robin': return 'Round Robin';
+                    case 'least_connection': return 'Least Connection';
+                    case 'weighted': return 'Weighted';
+                    case 'ip_hash': return 'IP Hash';
+                    default: return algorithm;
+                }
+            }
+
+            // Initial update
+            updateVisualization();
+
+            // Update every 2 seconds
+            setInterval(updateVisualization, 2000);
+
+            // Handle algorithm button clicks
+            $('.algorithm-btn').click(function() {
+                $('.algorithm-btn').removeClass('active');
+                $(this).addClass('active');
+                currentSettings.routingAlgorithm = $(this).data('algorithm');
+            });
+
+            // Handle apply settings button
+            $('#applySettings').click(function() {
+                const btn = $(this);
+                btn.prop('disabled', true).text('Applying...');
+
+                // Set the applying settings flag to prevent UI updates
+                applyingSettings = true;
+
+                // Get current settings
+                currentSettings.frameRate = parseInt($('#frameRate').val());
+                currentSettings.resolution = $('#resolution').val();
+
+                // Log the settings being applied
+                console.log("Applying settings:", currentSettings);
+
+                // Send settings to server
+                $.ajax({
+                    url: '/api/update_algorithms',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                        network: {
+                            frame_rate: currentSettings.frameRate,
+                            resolution: currentSettings.resolution,
+                            routing_algorithm: currentSettings.routingAlgorithm
+                        }
+                    }),
+                    success: function(response) {
+                        console.log("Settings applied successfully:", response);
+                        btn.text('Settings Applied!');
+
+                        // Show a success message
+                        const successMsg = $('<div class="alert alert-success mt-2">Algorithm changed to: ' +
+                                           formatAlgorithmName(currentSettings.routingAlgorithm) + '</div>');
+                        btn.after(successMsg);
+
+                        // Update last updated timestamp
+                        const now = new Date();
+                        const timeString = now.toLocaleTimeString();
+                        $('#lastUpdated').text('Last updated: ' + timeString);
+
+                        // Add highlight animation to the container
+                        const $container = $('#algorithmContainer');
+                        $container.removeClass('highlight-animation');
+                        // Force a reflow to restart the animation
+                        void $container[0].offsetWidth;
+                        $container.addClass('highlight-animation');
+
+                        // Remove the message after a few seconds
+                        setTimeout(function() {
+                            successMsg.fadeOut(function() {
+                                $(this).remove();
+                            });
+                        }, 3000);
+
+                        // Re-enable the button and clear the applying flag
+                        setTimeout(function() {
+                            btn.prop('disabled', false).text('Apply Settings');
+
+                            // Wait a bit longer before allowing UI updates again
+                            // This gives time for the server to fully apply the changes
+                            setTimeout(function() {
+                                applyingSettings = false;
+                                console.log("Resuming UI updates");
+                                // Force an immediate update to show the new settings
+                                updateVisualization();
+                            }, 5000);
+                        }, 1000);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("Error applying settings:", error);
+                        btn.text('Error!');
+
+                        // Show an error message
+                        const errorMsg = $('<div class="alert alert-danger mt-2">Error: ' + error + '</div>');
+                        btn.after(errorMsg);
+
+                        // Remove the message after a few seconds
+                        setTimeout(function() {
+                            errorMsg.fadeOut(function() {
+                                $(this).remove();
+                            });
+                        }, 3000);
+
+                        // Re-enable the button and clear the applying flag
+                        setTimeout(function() {
+                            btn.prop('disabled', false).text('Apply Settings');
+                            applyingSettings = false;
+                        }, 1000);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

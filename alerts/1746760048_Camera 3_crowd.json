@@ -1,0 +1,49 @@
+{
+  "type": "crowd",
+  "camera": "Camera 3",
+  "people_count": 3,
+  "timestamp": 1746760042.1908803,
+  "message": "Crowd detected on camera 'Camera 3': 3 people",
+  "algorithm": "knn",
+  "people_locations": [
+    {
+      "object_id": 0,
+      "center": [
+        305.0,
+        68.0
+      ],
+      "bbox": [
+        293,
+        1,
+        317,
+        135
+      ]
+    },
+    {
+      "object_id": 1,
+      "center": [
+        148.0,
+        46.0
+      ],
+      "bbox": [
+        52,
+        9,
+        244,
+        83
+      ]
+    },
+    {
+      "object_id": 2,
+      "center": [
+        62.0,
+        144.5
+      ],
+      "bbox": [
+        26,
+        90,
+        98,
+        199
+      ]
+    }
+  ]
+}
