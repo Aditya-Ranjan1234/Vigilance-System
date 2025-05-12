@@ -520,7 +520,7 @@ def update_algorithms():
                 routing_algorithm = network_data['routing_algorithm']
 
                 # Validate the algorithm
-                valid_algorithms = ['direct', 'round_robin', 'least_connection', 'weighted', 'ip_hash']
+                valid_algorithms = ['direct', 'round_robin', 'least_connection', 'weighted', 'ip_hash', 'yolov8']
                 if routing_algorithm not in valid_algorithms:
                     logger.warning(f"Invalid routing algorithm: {routing_algorithm}. Using 'direct' instead.")
                     routing_algorithm = 'direct'

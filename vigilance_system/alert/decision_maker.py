@@ -17,7 +17,7 @@ from vigilance_system.detection.ml_algorithms import (
     DecisionTreeTracker, RandomForestTracker
 )
 from vigilance_system.detection.tracking_algorithms import (
-    IoUTracker, KalmanTracker
+    IoUTracker, KalmanTracker, YOLOv8Tracker
 )
 
 # Initialize logger
@@ -284,6 +284,7 @@ class DecisionMaker:
                (tracking_algorithm == 'random_forest' and not isinstance(current_tracker, RandomForestTracker)) or \
                (tracking_algorithm == 'iou' and not isinstance(current_tracker, IoUTracker)) or \
                (tracking_algorithm == 'kalman' and not isinstance(current_tracker, KalmanTracker)) or \
+               (tracking_algorithm == 'yolov8' and not isinstance(current_tracker, YOLOv8Tracker)) or \
                (tracking_algorithm == 'centroid' and not isinstance(current_tracker, DetectionTracker)):
                 create_new_tracker = True
                 logger.info(f"Tracker algorithm changed for camera '{camera_name}' to '{tracking_algorithm}', creating new tracker")
@@ -352,6 +353,17 @@ class DecisionMaker:
                     measurement_noise=measurement_noise
                 )
                 logger.info(f"Created Kalman tracker for camera '{camera_name}' with process_noise={process_noise}, measurement_noise={measurement_noise}")
+            elif tracking_algorithm == 'yolov8':
+                # Create YOLOv8 tracker
+                iou_threshold = config.get('tracking.yolov8.iou_threshold', 0.3)
+                confidence_threshold = config.get('tracking.yolov8.confidence_threshold', 0.5)
+                self.trackers[camera_name] = YOLOv8Tracker(
+                    max_disappeared=self.max_disappeared,
+                    max_distance=self.max_distance,
+                    iou_threshold=iou_threshold,
+                    confidence_threshold=confidence_threshold
+                )
+                logger.info(f"Created YOLOv8 tracker for camera '{camera_name}' with iou_threshold={iou_threshold}, confidence_threshold={confidence_threshold}")
             else:
                 # Default to centroid tracker
                 self.trackers[camera_name] = DetectionTracker(

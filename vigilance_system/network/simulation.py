@@ -332,6 +332,8 @@ class NetworkSimulator:
             hash_value = hash(camera_id)
             return node_ids[hash_value % len(node_ids)]
 
+
+
         # Default to first node
         return list(self.nodes.keys())[0]
 

@@ -676,9 +676,22 @@ class NodeClient:
             return list(self.node_sockets.keys())[0]
 
         elif self.current_algorithm == 'round_robin':
-            # Use camera counter for round robin
-            node_ids = list(self.node_sockets.keys())
-            return node_ids[self.camera_counters[camera_id] % len(node_ids)]
+            # Use a global counter for true round robin across all cameras
+            # This ensures we're cycling through nodes regardless of which camera is sending
+            if not hasattr(self, 'global_rr_counter'):
+                self.global_rr_counter = 0
+
+            # Get sorted node IDs for consistent ordering
+            node_ids = sorted(list(self.node_sockets.keys()))
+
+            # Select node and increment counter
+            selected_node = node_ids[self.global_rr_counter % len(node_ids)]
+            self.global_rr_counter += 1
+
+            # Log the selection for debugging
+            logger.debug(f"Round Robin selected node {selected_node} (counter: {self.global_rr_counter-1})")
+
+            return selected_node
 
         elif self.current_algorithm == 'least_connection':
             # Get node status and select the one with the lowest load
@@ -724,6 +737,8 @@ class NodeClient:
             hash_value = hash(camera_id)
             return node_ids[hash_value % len(node_ids)]
 
+
+
         # Default to first node
         return list(self.node_sockets.keys())[0]
 
@@ -743,6 +758,11 @@ class NodeClient:
         # Store the previous algorithm for logging
         previous_algorithm = getattr(self, 'current_algorithm', 'unknown')
 
+        # Only proceed if the algorithm is actually changing
+        if previous_algorithm == algorithm:
+            logger.info(f"Algorithm already set to {algorithm}, no change needed")
+            return self.current_algorithm
+
         # Set the new algorithm
         self.current_algorithm = algorithm
 
@@ -751,6 +771,12 @@ class NodeClient:
 
         # Force a reset of active connections to ensure the new algorithm takes effect
         self.camera_last_nodes = {}
+
+        # Reset counters to ensure clean routing patterns
+        self.camera_counters = {}
+
+        # Notify all connected nodes about the algorithm change
+        self._notify_nodes_of_algorithm_change(algorithm)
 
         # Save the algorithm to a file to ensure persistence across restarts
         try:
@@ -762,6 +788,44 @@ class NodeClient:
             logger.error(f"Failed to save algorithm to file: {str(e)}")
 
         return self.current_algorithm
+
+    def _notify_nodes_of_algorithm_change(self, algorithm: str):
+        """
+        Notify all connected nodes about an algorithm change.
+
+        Args:
+            algorithm: The new routing algorithm
+        """
+        # Create a message to notify nodes about the algorithm change
+        message = {
+            'type': 'algorithm_change',
+            'algorithm': algorithm,
+            'timestamp': time.time()
+        }
+
+        # Send to all real nodes
+        for node_id, sock in self.node_sockets.items():
+            # Skip simulated nodes
+            if sock is None:
+                continue
+
+            try:
+                # Encode message
+                message_data = json.dumps(message).encode('utf-8')
+
+                # Send message size
+                size_data = len(message_data).to_bytes(4, byteorder='big')
+                sock.sendall(size_data)
+
+                # Send message
+                sock.sendall(message_data)
+
+                logger.info(f"Notified node {node_id} about algorithm change to {algorithm}")
+            except Exception as e:
+                logger.error(f"Failed to notify node {node_id} about algorithm change: {str(e)}")
+
+        # For simulated nodes, we don't need to do anything special
+        # as they'll pick up the new algorithm from self.current_algorithm
 
     def get_stats(self) -> Dict[str, Any]:
         """

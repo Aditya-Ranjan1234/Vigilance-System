@@ -37,7 +37,7 @@ cameras:
   type: video
   url: D:\Main EL\vigilance_system\videos\WhatsApp Video 2025-04-22 at 20.48.20_3c3ca36c.mp4
 classification:
-  algorithm: random_forest
+  algorithm: decision_tree
 dashboard:
   authentication:
     enabled: true
@@ -68,7 +68,7 @@ logging:
 network:
   frame_rate: 25
   resolution: medium
-  routing_algorithm: round_robin
+  routing_algorithm: weighted
 preprocessing:
   denoising:
     enabled: true
@@ -77,10 +77,16 @@ preprocessing:
     enabled: true
     smoothing_radius: 15
 tracking:
-  algorithm: kalman
+  algorithm: yolov8
   knn:
     n_neighbors: 3
   max_disappeared: 30
   max_distance: 50.0
   svm:
     C: 1.0
+  yolov8:
+    iou_threshold: 0.3
+    confidence_threshold: 0.5
+  kalman:
+    process_noise: 0.01
+    measurement_noise: 0.1

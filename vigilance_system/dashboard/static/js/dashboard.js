@@ -31,7 +31,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // Network controls
     const frameRateSelector = document.getElementById('frameRateSelector');
     const resolutionSelector = document.getElementById('resolutionSelector');
-    const routingSelector = document.getElementById('routingSelector');
+    // Routing selector moved to network dashboard
+    const routingSelector = null;
 
     // Network metrics displays
     const bandwidthDisplay = document.getElementById('bandwidthDisplay');
@@ -302,9 +303,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     if (data.network.resolution) {
                         resolutionSelector.value = data.network.resolution;
                     }
-                    if (data.network.routing_algorithm) {
-                        routingSelector.value = data.network.routing_algorithm;
-                    }
+                    // Routing algorithm selection moved to network dashboard
 
                     // Update network metrics display
                     if (data.network.metrics) {
@@ -316,8 +315,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         // Calculate metrics based on current settings
                         updateNetworkMetrics({
                             frame_rate: parseInt(frameRateSelector.value),
-                            resolution: resolutionSelector.value,
-                            routing_algorithm: routingSelector.value
+                            resolution: resolutionSelector.value
                         });
                     }
                 }
@@ -424,7 +422,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Define which algorithms are working and which are not
         const workingAlgorithms = {
             detection: ['yolov5s', 'yolov5m', 'yolov5l', 'background_subtraction', 'hog_svm'],
-            tracking: ['centroid', 'knn', 'svm', 'iou', 'kalman', 'naive_bayes', 'decision_tree', 'random_forest'],
+            tracking: ['centroid', 'knn', 'svm', 'iou', 'kalman', 'naive_bayes', 'decision_tree', 'random_forest', 'yolov8'],
             classifier: ['svm', 'knn', 'naive_bayes', 'decision_tree', 'random_forest'],
             analysis: ['basic', 'crowd']
         };
@@ -489,8 +487,7 @@ document.addEventListener('DOMContentLoaded', function() {
             analysis_algorithm: selectedAnalysis,
             network: {
                 frame_rate: parseInt(frameRateSelector.value),
-                resolution: resolutionSelector.value,
-                routing_algorithm: routingSelector.value
+                resolution: resolutionSelector.value
             }
         };
 

@@ -7350,3 +7350,1201 @@
 2025-05-12 01:37:10 | INFO     | vigilance_system.dashboard.app:shutdown_server:1267 - Disconnected from network nodes
 2025-05-12 01:37:10 | INFO     | vigilance_system.dashboard.app:shutdown_server:1274 - Terminating all node server processes...
 2025-05-12 01:37:11 | INFO     | vigilance_system.dashboard.app:shutdown_server:1279 - Node server processes terminated
+2025-05-12 11:29:58 | INFO     | vigilance_system.utils.logger:setup_logger:53 - Logger initialized at level INFO
+2025-05-12 11:29:59 | INFO     | vigilance_system.video_acquisition.stream_manager:__init__:50 - Stream manager initialized
+2025-05-12 11:30:04 | INFO     | vigilance_system.detection.model_loader:__init__:56 - Model loader initialized with device: cuda:0
+2025-05-12 11:30:06 | INFO     | vigilance_system.alert.decision_maker:__init__:255 - Initialized decision maker with motion_threshold=0.2, person_loitering_time=30
+2025-05-12 11:30:06 | INFO     | vigilance_system.alert.notifier:__init__:72 - Alert notifier initialized with email=True, SMS=False
+2025-05-12 11:30:06 | INFO     | vigilance_system.network.simulation:_launch_network_nodes:170 - Using existing nodes from D:\Main EL\nodes.json
+2025-05-12 11:30:32 | INFO     | vigilance_system.network.simulation:__init__:158 - Initialized network simulator with 4 nodes and routing algorithm: round_robin
+2025-05-12 11:30:32 | INFO     | vigilance_system.network.visualization:__init__:69 - Initialized network visualizer with size 1024x768
+2025-05-12 11:30:32 | INFO     | vigilance_system.detection.model_loader:load_model:99 - Loading model: yolov5s
+2025-05-12 11:30:38 | INFO     | vigilance_system.detection.object_detector:__init__:75 - Initialized object detector with model: yolov5s, confidence threshold: 0.5
+2025-05-12 11:30:38 | INFO     | vigilance_system.utils.logger:setup_logger:53 - Logger initialized at level INFO
+2025-05-12 11:30:38 | INFO     | __main__:main:66 - Starting Vigilance System
+2025-05-12 11:30:38 | INFO     | vigilance_system.video_acquisition.camera:__init__:54 - Initialized camera 'Camera 1' with URL: D:\Main EL\vigilance_system\videos\WhatsApp Video 2025-04-22 at 20.45.45_529ae150.mp4
+2025-05-12 11:30:38 | INFO     | vigilance_system.video_acquisition.stream_manager:add_camera:102 - Added camera 'Camera 1' to stream manager
+2025-05-12 11:30:38 | INFO     | vigilance_system.video_acquisition.camera:__init__:54 - Initialized camera 'Camera 2' with URL: D:\Main EL\vigilance_system\videos\WhatsApp Video 2025-04-22 at 20.47.50_dd1a37f6.mp4
+2025-05-12 11:30:38 | INFO     | vigilance_system.video_acquisition.stream_manager:add_camera:102 - Added camera 'Camera 2' to stream manager
+2025-05-12 11:30:38 | INFO     | vigilance_system.video_acquisition.camera:__init__:54 - Initialized camera 'Camera 3' with URL: D:\Main EL\vigilance_system\videos\WhatsApp Video 2025-04-22 at 20.48.20_3c3ca36c.mp4
+2025-05-12 11:30:38 | INFO     | vigilance_system.video_acquisition.stream_manager:add_camera:102 - Added camera 'Camera 3' to stream manager
+2025-05-12 11:30:38 | INFO     | __main__:main:78 - Starting dashboard on 0.0.0.0:5000
+2025-05-12 11:30:43 | INFO     | vigilance_system.dashboard.app:login:103 - User admin logged in from IP: 127.0.0.1
+2025-05-12 11:30:43 | INFO     | vigilance_system.dashboard.app:handle_connect:659 - Client connected: wO0ypbn7sjTIhGwpAAAB
+2025-05-12 11:30:55 | INFO     | vigilance_system.dashboard.app:process_video_streams:677 - Starting video processing loop
+2025-05-12 11:30:55 | INFO     | vigilance_system.dashboard.app:start_processing:171 - Started video processing thread
+2025-05-12 11:30:55 | INFO     | vigilance_system.video_acquisition.camera:connect:481 - Successfully opened video file 'Camera 1' with 1785 frames at 30.0 FPS
+2025-05-12 11:30:55 | INFO     | vigilance_system.video_acquisition.camera:start:94 - Started acquisition thread for camera 'Camera 1'
+2025-05-12 11:30:55 | INFO     | vigilance_system.video_acquisition.camera:connect:481 - Successfully opened video file 'Camera 2' with 817 frames at 30.0 FPS
+2025-05-12 11:30:55 | INFO     | vigilance_system.video_acquisition.camera:start:94 - Started acquisition thread for camera 'Camera 2'
+2025-05-12 11:30:55 | INFO     | vigilance_system.video_acquisition.camera:connect:481 - Successfully opened video file 'Camera 3' with 5401 frames at 30.0 FPS
+2025-05-12 11:30:56 | INFO     | vigilance_system.video_acquisition.camera:start:94 - Started acquisition thread for camera 'Camera 3'
+2025-05-12 11:30:56 | INFO     | vigilance_system.video_acquisition.stream_manager:start_all_cameras:164 - Started all cameras (3)
+2025-05-12 11:30:56 | INFO     | vigilance_system.network.simulation:register_camera:216 - Registered camera Camera 1 with the network
+2025-05-12 11:30:56 | INFO     | vigilance_system.alert.decision_maker:get_tracker:276 - Creating new tracker for camera 'Camera 1' with algorithm 'kalman'
+2025-05-12 11:30:56 | INFO     | vigilance_system.detection.ml_algorithms:__init__:48 - Initialized ML tracker with max_disappeared=30, max_distance=50.0
+2025-05-12 11:30:56 | INFO     | vigilance_system.detection.tracking_algorithms:__init__:255 - Initialized Kalman tracker with process_noise=0.01, measurement_noise=0.1
+2025-05-12 11:30:56 | INFO     | vigilance_system.alert.decision_maker:get_tracker:354 - Created Kalman tracker for camera 'Camera 1' with process_noise=0.01, measurement_noise=0.1
+2025-05-12 11:30:56 | WARNING  | vigilance_system.alert.decision_maker:_check_crowd_detection:502 - Crowd alert: 6 people detected on camera 'Camera 1'
+2025-05-12 11:30:56 | INFO     | vigilance_system.alert.notifier:_save_alert:133 - Saved alert to D:\Main EL\alerts\1747029656_Camera 1_crowd.json
+2025-05-12 11:30:59 | ERROR    | vigilance_system.alert.notifier:_send_email_alert:190 - Error sending email alert: (535, b'5.7.8 Username and Password not accepted. For more information, go to\n5.7.8  https://support.google.com/mail/?p=BadCredentials d9443c01a7336-22fc8271aacsm54467485ad.152 - gsmtp')
+2025-05-12 11:30:59 | INFO     | vigilance_system.network.simulation:register_camera:216 - Registered camera Camera 2 with the network
+2025-05-12 11:31:00 | ERROR    | vigilance_system.detection.object_detector:detect:127 - Error detecting objects: 'int' object is not subscriptable
+2025-05-12 11:31:00 | INFO     | vigilance_system.alert.decision_maker:get_tracker:276 - Creating new tracker for camera 'Camera 2' with algorithm 'kalman'
+2025-05-12 11:31:00 | INFO     | vigilance_system.detection.ml_algorithms:__init__:48 - Initialized ML tracker with max_disappeared=30, max_distance=50.0
+2025-05-12 11:31:00 | INFO     | vigilance_system.detection.tracking_algorithms:__init__:255 - Initialized Kalman tracker with process_noise=0.01, measurement_noise=0.1
+2025-05-12 11:31:00 | INFO     | vigilance_system.alert.decision_maker:get_tracker:354 - Created Kalman tracker for camera 'Camera 2' with process_noise=0.01, measurement_noise=0.1
+2025-05-12 11:31:00 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 4.293s per frame
+2025-05-12 11:31:00 | ERROR    | vigilance_system.detection.object_detector:detect:127 - Error detecting objects: 'int' object is not subscriptable
+2025-05-12 11:31:00 | INFO     | vigilance_system.network.simulation:register_camera:216 - Registered camera Camera 3 with the network
+2025-05-12 11:31:00 | INFO     | vigilance_system.alert.decision_maker:get_tracker:276 - Creating new tracker for camera 'Camera 3' with algorithm 'kalman'
+2025-05-12 11:31:00 | INFO     | vigilance_system.detection.ml_algorithms:__init__:48 - Initialized ML tracker with max_disappeared=30, max_distance=50.0
+2025-05-12 11:31:00 | INFO     | vigilance_system.detection.tracking_algorithms:__init__:255 - Initialized Kalman tracker with process_noise=0.01, measurement_noise=0.1
+2025-05-12 11:31:00 | INFO     | vigilance_system.alert.decision_maker:get_tracker:354 - Created Kalman tracker for camera 'Camera 3' with process_noise=0.01, measurement_noise=0.1
+2025-05-12 11:31:00 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.173s per frame
+2025-05-12 11:31:00 | ERROR    | vigilance_system.detection.object_detector:detect:127 - Error detecting objects: 'int' object is not subscriptable
+2025-05-12 11:31:00 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.104s per frame
+2025-05-12 11:31:00 | ERROR    | vigilance_system.detection.object_detector:detect:127 - Error detecting objects: 'int' object is not subscriptable
+2025-05-12 11:31:00 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.105s per frame
+2025-05-12 11:31:00 | ERROR    | vigilance_system.detection.object_detector:detect:127 - Error detecting objects: 'int' object is not subscriptable
+2025-05-12 11:31:00 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.112s per frame
+2025-05-12 11:31:00 | ERROR    | vigilance_system.detection.object_detector:detect:127 - Error detecting objects: 'int' object is not subscriptable
+2025-05-12 11:31:00 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.109s per frame
+2025-05-12 11:31:01 | ERROR    | vigilance_system.detection.object_detector:detect:127 - Error detecting objects: 'int' object is not subscriptable
+2025-05-12 11:31:01 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.107s per frame
+2025-05-12 11:31:01 | ERROR    | vigilance_system.detection.object_detector:detect:127 - Error detecting objects: 'int' object is not subscriptable
+2025-05-12 11:31:01 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.111s per frame
+2025-05-12 11:31:01 | ERROR    | vigilance_system.detection.object_detector:detect:127 - Error detecting objects: 'int' object is not subscriptable
+2025-05-12 11:31:01 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.113s per frame
+2025-05-12 11:31:01 | ERROR    | vigilance_system.detection.object_detector:detect:127 - Error detecting objects: 'int' object is not subscriptable
+2025-05-12 11:31:01 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.104s per frame
+2025-05-12 11:31:01 | ERROR    | vigilance_system.detection.object_detector:detect:127 - Error detecting objects: 'int' object is not subscriptable
+2025-05-12 11:31:01 | ERROR    | vigilance_system.detection.object_detector:detect:127 - Error detecting objects: 'int' object is not subscriptable
+2025-05-12 11:31:01 | ERROR    | vigilance_system.detection.object_detector:detect:127 - Error detecting objects: 'int' object is not subscriptable
+2025-05-12 11:31:01 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.105s per frame
+2025-05-12 11:31:01 | ERROR    | vigilance_system.detection.object_detector:detect:127 - Error detecting objects: 'int' object is not subscriptable
+2025-05-12 11:31:01 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.108s per frame
+2025-05-12 11:31:01 | ERROR    | vigilance_system.detection.object_detector:detect:127 - Error detecting objects: 'int' object is not subscriptable
+2025-05-12 11:31:01 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.103s per frame
+2025-05-12 11:31:01 | WARNING  | vigilance_system.alert.decision_maker:_check_crowd_detection:502 - Crowd alert: 3 people detected on camera 'Camera 2'
+2025-05-12 11:31:01 | INFO     | vigilance_system.dashboard.app:handle_disconnect:665 - Client disconnected: wO0ypbn7sjTIhGwpAAAB
+2025-05-12 11:31:01 | INFO     | vigilance_system.alert.notifier:_save_alert:133 - Saved alert to D:\Main EL\alerts\1747029661_Camera 2_crowd.json
+2025-05-12 11:31:02 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: round_robin
+2025-05-12 11:31:02 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: round_robin
+2025-05-12 11:31:04 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: round_robin
+2025-05-12 11:31:04 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: round_robin
+2025-05-12 11:31:05 | ERROR    | vigilance_system.alert.notifier:_send_email_alert:190 - Error sending email alert: (535, b'5.7.8 Username and Password not accepted. For more information, go to\n5.7.8  https://support.google.com/mail/?p=BadCredentials d9443c01a7336-22fc82bd340sm55029205ad.242 - gsmtp')
+2025-05-12 11:31:05 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 3.504s per frame
+2025-05-12 11:31:06 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: round_robin
+2025-05-12 11:31:06 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: round_robin
+2025-05-12 11:31:08 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: round_robin
+2025-05-12 11:31:08 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: round_robin
+2025-05-12 11:31:10 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: round_robin
+2025-05-12 11:31:10 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: round_robin
+2025-05-12 11:31:12 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: round_robin
+2025-05-12 11:31:12 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: round_robin
+2025-05-12 11:31:14 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: round_robin
+2025-05-12 11:31:14 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: round_robin
+2025-05-12 11:31:16 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: round_robin
+2025-05-12 11:31:16 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: round_robin
+2025-05-12 11:31:17 | INFO     | vigilance_system.dashboard.app:update_algorithms:509 - Updated frame rate to 25
+2025-05-12 11:31:17 | INFO     | vigilance_system.dashboard.app:update_algorithms:517 - Updated resolution to medium
+2025-05-12 11:31:17 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: round_robin
+2025-05-12 11:31:17 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: round_robin
+2025-05-12 11:31:17 | INFO     | vigilance_system.dashboard.app:update_algorithms:562 - Terminating existing node processes before reconnecting...
+2025-05-12 11:31:17 | INFO     | vigilance_system.dashboard.app:update_algorithms:565 - Existing node processes terminated
+2025-05-12 11:31:35 | INFO     | vigilance_system.video_acquisition.camera:read_frame:511 - Reached end of video 'Camera 2', looping back to start
+2025-05-12 11:31:45 | INFO     | vigilance_system.dashboard.app:update_algorithms:577 - Reconnected node client to ensure algorithm change takes effect
+2025-05-12 11:31:45 | INFO     | vigilance_system.dashboard.app:update_algorithms:583 - Algorithm successfully applied after reconnect: round_robin
+2025-05-12 11:31:45 | INFO     | vigilance_system.dashboard.app:update_algorithms:587 - Directly updated node client algorithm to round_robin
+2025-05-12 11:31:45 | INFO     | vigilance_system.dashboard.app:update_algorithms:596 - Configuration reloaded
+2025-05-12 11:31:45 | INFO     | vigilance_system.dashboard.app:update_algorithms:604 - Successfully updated and applied all algorithm and network settings
+2025-05-12 11:31:47 | INFO     | vigilance_system.dashboard.app:update_algorithms:509 - Updated frame rate to 25
+2025-05-12 11:31:47 | INFO     | vigilance_system.dashboard.app:update_algorithms:517 - Updated resolution to medium
+2025-05-12 11:31:47 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: weighted
+2025-05-12 11:31:47 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: weighted
+2025-05-12 11:31:47 | INFO     | vigilance_system.dashboard.app:update_algorithms:562 - Terminating existing node processes before reconnecting...
+2025-05-12 11:31:47 | INFO     | vigilance_system.dashboard.app:update_algorithms:565 - Existing node processes terminated
+2025-05-12 11:31:51 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: weighted
+2025-05-12 11:31:51 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: weighted
+2025-05-12 11:31:52 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: weighted
+2025-05-12 11:31:52 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: weighted
+2025-05-12 11:31:54 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: weighted
+2025-05-12 11:31:54 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: weighted
+2025-05-12 11:31:56 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: weighted
+2025-05-12 11:31:56 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: weighted
+2025-05-12 11:31:58 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: weighted
+2025-05-12 11:31:58 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: weighted
+2025-05-12 11:32:00 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: weighted
+2025-05-12 11:32:00 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: weighted
+2025-05-12 11:32:02 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: weighted
+2025-05-12 11:32:02 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: weighted
+2025-05-12 11:32:04 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: weighted
+2025-05-12 11:32:04 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: weighted
+2025-05-12 11:32:06 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: weighted
+2025-05-12 11:32:06 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: weighted
+2025-05-12 11:32:08 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: weighted
+2025-05-12 11:32:08 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: weighted
+2025-05-12 11:32:10 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: weighted
+2025-05-12 11:32:10 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: weighted
+2025-05-12 11:32:12 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: weighted
+2025-05-12 11:32:12 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: weighted
+2025-05-12 11:32:14 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: weighted
+2025-05-12 11:32:14 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: weighted
+2025-05-12 11:32:15 | INFO     | vigilance_system.dashboard.app:update_algorithms:577 - Reconnected node client to ensure algorithm change takes effect
+2025-05-12 11:32:15 | INFO     | vigilance_system.dashboard.app:update_algorithms:583 - Algorithm successfully applied after reconnect: weighted
+2025-05-12 11:32:15 | INFO     | vigilance_system.dashboard.app:update_algorithms:587 - Directly updated node client algorithm to weighted
+2025-05-12 11:32:15 | INFO     | vigilance_system.dashboard.app:update_algorithms:596 - Configuration reloaded
+2025-05-12 11:32:15 | INFO     | vigilance_system.dashboard.app:update_algorithms:604 - Successfully updated and applied all algorithm and network settings
+2025-05-12 11:32:16 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: weighted
+2025-05-12 11:32:16 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: weighted
+2025-05-12 11:32:16 | INFO     | vigilance_system.video_acquisition.camera:read_frame:511 - Reached end of video 'Camera 2', looping back to start
+2025-05-12 11:32:18 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: weighted
+2025-05-12 11:32:18 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: weighted
+2025-05-12 11:32:20 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: weighted
+2025-05-12 11:32:20 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: weighted
+2025-05-12 11:32:21 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: weighted
+2025-05-12 11:32:21 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: weighted
+2025-05-12 11:32:22 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: weighted
+2025-05-12 11:32:22 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: weighted
+2025-05-12 11:32:24 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: weighted
+2025-05-12 11:32:24 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: weighted
+2025-05-12 11:32:25 | INFO     | vigilance_system.video_acquisition.camera:read_frame:511 - Reached end of video 'Camera 1', looping back to start
+2025-05-12 11:32:26 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: weighted
+2025-05-12 11:32:26 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: weighted
+2025-05-12 11:32:28 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: weighted
+2025-05-12 11:32:28 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: weighted
+2025-05-12 11:32:30 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: weighted
+2025-05-12 11:32:30 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: weighted
+2025-05-12 11:32:32 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: weighted
+2025-05-12 11:32:32 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: weighted
+2025-05-12 11:32:34 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: weighted
+2025-05-12 11:32:34 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: weighted
+2025-05-12 11:32:36 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: weighted
+2025-05-12 11:32:36 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: weighted
+2025-05-12 11:32:38 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: weighted
+2025-05-12 11:32:38 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: weighted
+2025-05-12 11:32:40 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: weighted
+2025-05-12 11:32:40 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: weighted
+2025-05-12 11:32:42 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: weighted
+2025-05-12 11:32:42 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: weighted
+2025-05-12 11:32:44 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: weighted
+2025-05-12 11:32:44 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: weighted
+2025-05-12 11:32:46 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: weighted
+2025-05-12 11:32:46 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: weighted
+2025-05-12 11:32:48 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: weighted
+2025-05-12 11:32:48 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: weighted
+2025-05-12 11:32:50 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: weighted
+2025-05-12 11:32:50 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: weighted
+2025-05-12 11:32:52 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: weighted
+2025-05-12 11:32:52 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: weighted
+2025-05-12 11:32:54 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: weighted
+2025-05-12 11:32:54 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: weighted
+2025-05-12 11:32:56 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: weighted
+2025-05-12 11:32:56 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: weighted
+2025-05-12 11:32:58 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: weighted
+2025-05-12 11:32:58 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: weighted
+2025-05-12 11:33:00 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: weighted
+2025-05-12 11:33:00 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: weighted
+2025-05-12 11:33:02 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: weighted
+2025-05-12 11:33:02 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: weighted
+2025-05-12 11:33:04 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: weighted
+2025-05-12 11:33:04 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: weighted
+2025-05-12 11:33:04 | INFO     | vigilance_system.dashboard.app:update_algorithms:509 - Updated frame rate to 25
+2025-05-12 11:33:04 | INFO     | vigilance_system.dashboard.app:update_algorithms:517 - Updated resolution to medium
+2025-05-12 11:33:04 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: least_connection
+2025-05-12 11:33:04 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: least_connection
+2025-05-12 11:33:04 | INFO     | vigilance_system.dashboard.app:update_algorithms:562 - Terminating existing node processes before reconnecting...
+2025-05-12 11:33:05 | INFO     | vigilance_system.dashboard.app:update_algorithms:565 - Existing node processes terminated
+2025-05-12 11:33:06 | INFO     | vigilance_system.video_acquisition.camera:read_frame:511 - Reached end of video 'Camera 2', looping back to start
+2025-05-12 11:33:33 | INFO     | vigilance_system.dashboard.app:update_algorithms:577 - Reconnected node client to ensure algorithm change takes effect
+2025-05-12 11:33:33 | INFO     | vigilance_system.dashboard.app:update_algorithms:583 - Algorithm successfully applied after reconnect: least_connection
+2025-05-12 11:33:33 | INFO     | vigilance_system.dashboard.app:update_algorithms:587 - Directly updated node client algorithm to least_connection
+2025-05-12 11:33:33 | INFO     | vigilance_system.dashboard.app:update_algorithms:596 - Configuration reloaded
+2025-05-12 11:33:33 | INFO     | vigilance_system.dashboard.app:update_algorithms:604 - Successfully updated and applied all algorithm and network settings
+2025-05-12 11:33:46 | INFO     | vigilance_system.dashboard.app:handle_connect:659 - Client connected: LwAVaRitSPaYotYhAAAD
+2025-05-12 11:33:46 | WARNING  | vigilance_system.alert.decision_maker:_check_crowd_detection:502 - Crowd alert: 8 people detected on camera 'Camera 1'
+2025-05-12 11:33:46 | INFO     | vigilance_system.alert.notifier:_save_alert:133 - Saved alert to D:\Main EL\alerts\1747029826_Camera 1_crowd.json
+2025-05-12 11:33:50 | ERROR    | vigilance_system.alert.notifier:_send_email_alert:190 - Error sending email alert: (535, b'5.7.8 Username and Password not accepted. For more information, go to\n5.7.8  https://support.google.com/mail/?p=BadCredentials 98e67ed59e1d1-30ad4fe2331sm8100551a91.39 - gsmtp')
+2025-05-12 11:33:50 | WARNING  | vigilance_system.alert.decision_maker:_check_crowd_detection:502 - Crowd alert: 8 people detected on camera 'Camera 2'
+2025-05-12 11:33:50 | INFO     | vigilance_system.alert.notifier:_save_alert:133 - Saved alert to D:\Main EL\alerts\1747029830_Camera 2_crowd.json
+2025-05-12 11:33:51 | INFO     | vigilance_system.video_acquisition.camera:read_frame:511 - Reached end of video 'Camera 2', looping back to start
+2025-05-12 11:33:53 | ERROR    | vigilance_system.alert.notifier:_send_email_alert:190 - Error sending email alert: (535, b'5.7.8 Username and Password not accepted. For more information, go to\n5.7.8  https://support.google.com/mail/?p=BadCredentials d2e1a72fcca58-74237704025sm5564400b3a.13 - gsmtp')
+2025-05-12 11:33:53 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 6.239s per frame
+2025-05-12 11:33:54 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 1.390s per frame
+2025-05-12 11:33:54 | ERROR    | vigilance_system.detection.object_detector:detect:127 - Error detecting objects: 'int' object is not subscriptable
+2025-05-12 11:33:54 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.414s per frame
+2025-05-12 11:33:55 | ERROR    | vigilance_system.detection.object_detector:detect:127 - Error detecting objects: 'int' object is not subscriptable
+2025-05-12 11:33:55 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.294s per frame
+2025-05-12 11:33:55 | ERROR    | vigilance_system.detection.object_detector:detect:127 - Error detecting objects: 'int' object is not subscriptable
+2025-05-12 11:33:55 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.245s per frame
+2025-05-12 11:33:55 | ERROR    | vigilance_system.detection.object_detector:detect:127 - Error detecting objects: 'int' object is not subscriptable
+2025-05-12 11:33:56 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.567s per frame
+2025-05-12 11:33:56 | ERROR    | vigilance_system.detection.object_detector:detect:127 - Error detecting objects: 'int' object is not subscriptable
+2025-05-12 11:33:56 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.292s per frame
+2025-05-12 11:33:56 | ERROR    | vigilance_system.detection.object_detector:detect:127 - Error detecting objects: 'int' object is not subscriptable
+2025-05-12 11:33:56 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.249s per frame
+2025-05-12 11:33:56 | ERROR    | vigilance_system.detection.object_detector:detect:127 - Error detecting objects: 'int' object is not subscriptable
+2025-05-12 11:33:56 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.245s per frame
+2025-05-12 11:33:57 | ERROR    | vigilance_system.detection.object_detector:detect:127 - Error detecting objects: 'int' object is not subscriptable
+2025-05-12 11:33:57 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.256s per frame
+2025-05-12 11:33:57 | WARNING  | vigilance_system.alert.decision_maker:_check_crowd_detection:502 - Crowd alert: 9 people detected on camera 'Camera 1'
+2025-05-12 11:33:57 | INFO     | vigilance_system.alert.notifier:_save_alert:133 - Saved alert to D:\Main EL\alerts\1747029837_Camera 1_crowd.json
+2025-05-12 11:34:00 | ERROR    | vigilance_system.alert.notifier:_send_email_alert:190 - Error sending email alert: (535, b'5.7.8 Username and Password not accepted. For more information, go to\n5.7.8  https://support.google.com/mail/?p=BadCredentials 41be03b00d2f7-b2349dd1fd8sm4920305a12.26 - gsmtp')
+2025-05-12 11:34:00 | INFO     | vigilance_system.dashboard.app:update_visualizations:434 - View mode changed to: single
+2025-05-12 11:34:00 | INFO     | vigilance_system.dashboard.app:update_visualizations:447 - Updated visualization settings: {'view_mode': 'single', 'show_stabilization': True, 'show_tracking': False, 'show_decision_making': True, 'show_algorithm_steps': True}
+2025-05-12 11:34:00 | ERROR    | vigilance_system.detection.object_detector:detect:127 - Error detecting objects: 'int' object is not subscriptable
+2025-05-12 11:34:00 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 3.296s per frame
+2025-05-12 11:34:00 | WARNING  | vigilance_system.alert.decision_maker:_check_crowd_detection:502 - Crowd alert: 11 people detected on camera 'Camera 2'
+2025-05-12 11:34:00 | INFO     | vigilance_system.alert.notifier:_save_alert:133 - Saved alert to D:\Main EL\alerts\1747029840_Camera 2_crowd.json
+2025-05-12 11:34:03 | ERROR    | vigilance_system.alert.notifier:_send_email_alert:190 - Error sending email alert: (535, b'5.7.8 Username and Password not accepted. For more information, go to\n5.7.8  https://support.google.com/mail/?p=BadCredentials 41be03b00d2f7-b23493257eesm4917636a12.16 - gsmtp')
+2025-05-12 11:34:03 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 3.251s per frame
+2025-05-12 11:34:03 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.134s per frame
+2025-05-12 11:34:04 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.163s per frame
+2025-05-12 11:34:04 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.101s per frame
+2025-05-12 11:34:04 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.112s per frame
+2025-05-12 11:34:04 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.103s per frame
+2025-05-12 11:34:04 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.110s per frame
+2025-05-12 11:34:04 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.109s per frame
+2025-05-12 11:34:04 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.185s per frame
+2025-05-12 11:34:04 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.194s per frame
+2025-05-12 11:34:05 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.179s per frame
+2025-05-12 11:34:05 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.334s per frame
+2025-05-12 11:34:05 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.231s per frame
+2025-05-12 11:34:05 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.172s per frame
+2025-05-12 11:34:06 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.165s per frame
+2025-05-12 11:34:06 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.165s per frame
+2025-05-12 11:34:06 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.157s per frame
+2025-05-12 11:34:06 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.147s per frame
+2025-05-12 11:34:06 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.161s per frame
+2025-05-12 11:34:06 | ERROR    | vigilance_system.dashboard.app:process_video_streams:1243 - Error in video processing loop: 18
+2025-05-12 11:34:06 | INFO     | vigilance_system.video_acquisition.camera:disconnect:493 - Closed video file 'Camera 1'
+2025-05-12 11:34:06 | INFO     | vigilance_system.video_acquisition.camera:stop:102 - Stopped camera 'Camera 1'
+2025-05-12 11:34:06 | INFO     | vigilance_system.video_acquisition.camera:disconnect:493 - Closed video file 'Camera 2'
+2025-05-12 11:34:06 | INFO     | vigilance_system.video_acquisition.camera:stop:102 - Stopped camera 'Camera 2'
+2025-05-12 11:34:07 | INFO     | vigilance_system.video_acquisition.camera:disconnect:493 - Closed video file 'Camera 3'
+2025-05-12 11:34:07 | INFO     | vigilance_system.video_acquisition.camera:stop:102 - Stopped camera 'Camera 3'
+2025-05-12 11:34:07 | INFO     | vigilance_system.video_acquisition.stream_manager:stop_all_cameras:171 - Stopped all cameras (3)
+2025-05-12 11:34:07 | INFO     | vigilance_system.dashboard.app:process_video_streams:1247 - Video processing loop stopped
+2025-05-12 11:35:03 | INFO     | vigilance_system.dashboard.app:handle_disconnect:665 - Client disconnected: LwAVaRitSPaYotYhAAAD
+2025-05-12 11:35:05 | INFO     | vigilance_system.dashboard.app:handle_connect:659 - Client connected: yml53j-aNyObs-BHAAAF
+2025-05-12 11:35:13 | INFO     | vigilance_system.dashboard.app:handle_disconnect:665 - Client disconnected: yml53j-aNyObs-BHAAAF
+2025-05-12 11:35:18 | INFO     | vigilance_system.dashboard.app:shutdown_server:1254 - Shutting down server...
+2025-05-12 11:35:18 | INFO     | vigilance_system.video_acquisition.camera:stop:102 - Stopped camera 'Camera 1'
+2025-05-12 11:35:18 | INFO     | vigilance_system.video_acquisition.camera:stop:102 - Stopped camera 'Camera 2'
+2025-05-12 11:35:18 | INFO     | vigilance_system.video_acquisition.camera:stop:102 - Stopped camera 'Camera 3'
+2025-05-12 11:35:18 | INFO     | vigilance_system.video_acquisition.stream_manager:stop_all_cameras:171 - Stopped all cameras (3)
+2025-05-12 11:35:18 | INFO     | vigilance_system.dashboard.app:shutdown_server:1267 - Disconnected from network nodes
+2025-05-12 11:35:18 | INFO     | vigilance_system.dashboard.app:shutdown_server:1274 - Terminating all node server processes...
+2025-05-12 11:35:19 | INFO     | vigilance_system.dashboard.app:shutdown_server:1279 - Node server processes terminated
+2025-05-12 19:28:18 | INFO     | vigilance_system.utils.logger:setup_logger:53 - Logger initialized at level INFO
+2025-05-12 19:28:19 | INFO     | vigilance_system.video_acquisition.stream_manager:__init__:50 - Stream manager initialized
+2025-05-12 19:28:26 | INFO     | vigilance_system.detection.model_loader:__init__:56 - Model loader initialized with device: cuda:0
+2025-05-12 19:28:28 | INFO     | vigilance_system.alert.decision_maker:__init__:255 - Initialized decision maker with motion_threshold=0.2, person_loitering_time=30
+2025-05-12 19:28:28 | INFO     | vigilance_system.alert.notifier:__init__:72 - Alert notifier initialized with email=True, SMS=False
+2025-05-12 19:28:28 | INFO     | vigilance_system.network.simulation:_launch_network_nodes:170 - Using existing nodes from D:\Main EL\nodes.json
+2025-05-12 19:28:55 | INFO     | vigilance_system.network.simulation:__init__:158 - Initialized network simulator with 4 nodes and routing algorithm: least_connection
+2025-05-12 19:28:55 | INFO     | vigilance_system.network.visualization:__init__:70 - Initialized network visualizer with size 1024x768
+2025-05-12 19:28:55 | INFO     | vigilance_system.detection.model_loader:load_model:99 - Loading model: yolov5s
+2025-05-12 19:29:10 | INFO     | vigilance_system.detection.object_detector:__init__:75 - Initialized object detector with model: yolov5s, confidence threshold: 0.5
+2025-05-12 19:29:10 | INFO     | vigilance_system.utils.logger:setup_logger:53 - Logger initialized at level INFO
+2025-05-12 19:29:10 | INFO     | __main__:main:66 - Starting Vigilance System
+2025-05-12 19:29:11 | INFO     | vigilance_system.video_acquisition.camera:__init__:54 - Initialized camera 'Camera 1' with URL: D:\Main EL\vigilance_system\videos\WhatsApp Video 2025-04-22 at 20.45.45_529ae150.mp4
+2025-05-12 19:29:11 | INFO     | vigilance_system.video_acquisition.stream_manager:add_camera:102 - Added camera 'Camera 1' to stream manager
+2025-05-12 19:29:11 | INFO     | vigilance_system.video_acquisition.camera:__init__:54 - Initialized camera 'Camera 2' with URL: D:\Main EL\vigilance_system\videos\WhatsApp Video 2025-04-22 at 20.47.50_dd1a37f6.mp4
+2025-05-12 19:29:11 | INFO     | vigilance_system.video_acquisition.stream_manager:add_camera:102 - Added camera 'Camera 2' to stream manager
+2025-05-12 19:29:13 | INFO     | vigilance_system.video_acquisition.camera:__init__:54 - Initialized camera 'Camera 3' with URL: D:\Main EL\vigilance_system\videos\WhatsApp Video 2025-04-22 at 20.48.20_3c3ca36c.mp4
+2025-05-12 19:29:13 | INFO     | vigilance_system.video_acquisition.stream_manager:add_camera:102 - Added camera 'Camera 3' to stream manager
+2025-05-12 19:29:13 | INFO     | __main__:main:78 - Starting dashboard on 0.0.0.0:5000
+2025-05-12 19:29:32 | INFO     | vigilance_system.dashboard.app:login:103 - User admin logged in from IP: 127.0.0.1
+2025-05-12 19:29:32 | INFO     | vigilance_system.dashboard.app:handle_connect:659 - Client connected: 58CTXNo5lJZyYIfCAAAB
+2025-05-12 19:29:34 | INFO     | vigilance_system.dashboard.app:handle_disconnect:665 - Client disconnected: 58CTXNo5lJZyYIfCAAAB
+2025-05-12 19:29:34 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: least_connection
+2025-05-12 19:29:34 | INFO     | vigilance_system.network.visualization:update:91 - Algorithm changed from unknown to least_connection, resetting connections
+2025-05-12 19:29:34 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: least_connection
+2025-05-12 19:29:36 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: least_connection
+2025-05-12 19:29:36 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: least_connection
+2025-05-12 19:29:38 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: least_connection
+2025-05-12 19:29:38 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: least_connection
+2025-05-12 19:29:39 | INFO     | vigilance_system.dashboard.app:handle_connect:659 - Client connected: Ppxod3k3nkWqIHV4AAAD
+2025-05-12 19:29:43 | INFO     | vigilance_system.dashboard.app:process_video_streams:677 - Starting video processing loop
+2025-05-12 19:29:43 | INFO     | vigilance_system.dashboard.app:start_processing:171 - Started video processing thread
+2025-05-12 19:29:46 | INFO     | vigilance_system.video_acquisition.camera:connect:481 - Successfully opened video file 'Camera 1' with 1785 frames at 30.0 FPS
+2025-05-12 19:29:46 | INFO     | vigilance_system.video_acquisition.camera:start:94 - Started acquisition thread for camera 'Camera 1'
+2025-05-12 19:29:46 | INFO     | vigilance_system.video_acquisition.camera:connect:481 - Successfully opened video file 'Camera 2' with 817 frames at 30.0 FPS
+2025-05-12 19:29:46 | INFO     | vigilance_system.video_acquisition.camera:start:94 - Started acquisition thread for camera 'Camera 2'
+2025-05-12 19:29:46 | INFO     | vigilance_system.video_acquisition.camera:connect:481 - Successfully opened video file 'Camera 3' with 5401 frames at 30.0 FPS
+2025-05-12 19:29:46 | INFO     | vigilance_system.video_acquisition.camera:start:94 - Started acquisition thread for camera 'Camera 3'
+2025-05-12 19:29:46 | INFO     | vigilance_system.video_acquisition.stream_manager:start_all_cameras:164 - Started all cameras (3)
+2025-05-12 19:29:46 | INFO     | vigilance_system.network.simulation:register_camera:216 - Registered camera Camera 1 with the network
+2025-05-12 19:29:46 | INFO     | vigilance_system.alert.decision_maker:get_tracker:276 - Creating new tracker for camera 'Camera 1' with algorithm 'kalman'
+2025-05-12 19:29:46 | INFO     | vigilance_system.detection.ml_algorithms:__init__:48 - Initialized ML tracker with max_disappeared=30, max_distance=50.0
+2025-05-12 19:29:46 | INFO     | vigilance_system.detection.tracking_algorithms:__init__:255 - Initialized Kalman tracker with process_noise=0.01, measurement_noise=0.1
+2025-05-12 19:29:46 | INFO     | vigilance_system.alert.decision_maker:get_tracker:354 - Created Kalman tracker for camera 'Camera 1' with process_noise=0.01, measurement_noise=0.1
+2025-05-12 19:29:46 | WARNING  | vigilance_system.alert.decision_maker:_check_crowd_detection:502 - Crowd alert: 6 people detected on camera 'Camera 1'
+2025-05-12 19:29:47 | INFO     | vigilance_system.alert.notifier:_save_alert:133 - Saved alert to D:\Main EL\alerts\1747058386_Camera 1_crowd.json
+2025-05-12 19:29:49 | ERROR    | vigilance_system.alert.notifier:_send_email_alert:190 - Error sending email alert: (535, b'5.7.8 Username and Password not accepted. For more information, go to\n5.7.8  https://support.google.com/mail/?p=BadCredentials d2e1a72fcca58-74237a8f668sm6020912b3a.169 - gsmtp')
+2025-05-12 19:29:49 | INFO     | vigilance_system.network.simulation:register_camera:216 - Registered camera Camera 2 with the network
+2025-05-12 19:29:51 | ERROR    | vigilance_system.detection.object_detector:detect:127 - Error detecting objects: 'int' object is not subscriptable
+2025-05-12 19:29:51 | INFO     | vigilance_system.alert.decision_maker:get_tracker:276 - Creating new tracker for camera 'Camera 2' with algorithm 'kalman'
+2025-05-12 19:29:51 | INFO     | vigilance_system.detection.ml_algorithms:__init__:48 - Initialized ML tracker with max_disappeared=30, max_distance=50.0
+2025-05-12 19:29:51 | INFO     | vigilance_system.detection.tracking_algorithms:__init__:255 - Initialized Kalman tracker with process_noise=0.01, measurement_noise=0.1
+2025-05-12 19:29:51 | INFO     | vigilance_system.alert.decision_maker:get_tracker:354 - Created Kalman tracker for camera 'Camera 2' with process_noise=0.01, measurement_noise=0.1
+2025-05-12 19:29:51 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 5.182s per frame
+2025-05-12 19:29:52 | ERROR    | vigilance_system.detection.object_detector:detect:127 - Error detecting objects: 'int' object is not subscriptable
+2025-05-12 19:29:52 | INFO     | vigilance_system.network.simulation:register_camera:216 - Registered camera Camera 3 with the network
+2025-05-12 19:29:52 | INFO     | vigilance_system.alert.decision_maker:get_tracker:276 - Creating new tracker for camera 'Camera 3' with algorithm 'kalman'
+2025-05-12 19:29:52 | INFO     | vigilance_system.detection.ml_algorithms:__init__:48 - Initialized ML tracker with max_disappeared=30, max_distance=50.0
+2025-05-12 19:29:52 | INFO     | vigilance_system.detection.tracking_algorithms:__init__:255 - Initialized Kalman tracker with process_noise=0.01, measurement_noise=0.1
+2025-05-12 19:29:52 | INFO     | vigilance_system.alert.decision_maker:get_tracker:354 - Created Kalman tracker for camera 'Camera 3' with process_noise=0.01, measurement_noise=0.1
+2025-05-12 19:29:52 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.321s per frame
+2025-05-12 19:29:52 | ERROR    | vigilance_system.detection.object_detector:detect:127 - Error detecting objects: 'int' object is not subscriptable
+2025-05-12 19:29:52 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.644s per frame
+2025-05-12 19:29:53 | ERROR    | vigilance_system.detection.object_detector:detect:127 - Error detecting objects: 'int' object is not subscriptable
+2025-05-12 19:29:53 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.420s per frame
+2025-05-12 19:29:53 | ERROR    | vigilance_system.detection.object_detector:detect:127 - Error detecting objects: 'int' object is not subscriptable
+2025-05-12 19:29:53 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.380s per frame
+2025-05-12 19:29:53 | ERROR    | vigilance_system.detection.object_detector:detect:127 - Error detecting objects: 'int' object is not subscriptable
+2025-05-12 19:29:53 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.240s per frame
+2025-05-12 19:29:54 | ERROR    | vigilance_system.detection.object_detector:detect:127 - Error detecting objects: 'int' object is not subscriptable
+2025-05-12 19:29:54 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.247s per frame
+2025-05-12 19:29:54 | WARNING  | vigilance_system.alert.decision_maker:_check_crowd_detection:502 - Crowd alert: 4 people detected on camera 'Camera 2'
+2025-05-12 19:29:54 | INFO     | vigilance_system.alert.notifier:_save_alert:133 - Saved alert to D:\Main EL\alerts\1747058394_Camera 2_crowd.json
+2025-05-12 19:30:00 | ERROR    | vigilance_system.alert.notifier:_send_email_alert:190 - Error sending email alert: (535, b'5.7.8 Username and Password not accepted. For more information, go to\n5.7.8  https://support.google.com/mail/?p=BadCredentials d9443c01a7336-22fc7546b48sm63565785ad.30 - gsmtp')
+2025-05-12 19:30:00 | INFO     | vigilance_system.dashboard.app:process_video_streams:1232 - Performance: Processing time=6.694s, Target FPS=16.7, Clients=1
+2025-05-12 19:30:00 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 6.694s per frame
+2025-05-12 19:30:01 | WARNING  | vigilance_system.alert.decision_maker:_check_crowd_detection:502 - Crowd alert: 9 people detected on camera 'Camera 1'
+2025-05-12 19:30:01 | INFO     | vigilance_system.alert.notifier:_save_alert:133 - Saved alert to D:\Main EL\alerts\1747058401_Camera 1_crowd.json
+2025-05-12 19:30:02 | INFO     | vigilance_system.dashboard.app:handle_disconnect:665 - Client disconnected: Ppxod3k3nkWqIHV4AAAD
+2025-05-12 19:30:02 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: least_connection
+2025-05-12 19:30:02 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: least_connection
+2025-05-12 19:30:03 | ERROR    | vigilance_system.alert.notifier:_send_email_alert:190 - Error sending email alert: (535, b'5.7.8 Username and Password not accepted. For more information, go to\n5.7.8  https://support.google.com/mail/?p=BadCredentials d9443c01a7336-22fc77413dbsm62897305ad.92 - gsmtp')
+2025-05-12 19:30:03 | WARNING  | vigilance_system.alert.decision_maker:_check_crowd_detection:502 - Crowd alert: 3 people detected on camera 'Camera 3'
+2025-05-12 19:30:03 | INFO     | vigilance_system.alert.notifier:_save_alert:133 - Saved alert to D:\Main EL\alerts\1747058403_Camera 3_crowd.json
+2025-05-12 19:30:04 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: least_connection
+2025-05-12 19:30:04 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: least_connection
+2025-05-12 19:30:05 | ERROR    | vigilance_system.alert.notifier:_send_email_alert:190 - Error sending email alert: (535, b'5.7.8 Username and Password not accepted. For more information, go to\n5.7.8  https://support.google.com/mail/?p=BadCredentials 98e67ed59e1d1-30ad4d2f1e8sm8959046a91.11 - gsmtp')
+2025-05-12 19:30:05 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 4.830s per frame
+2025-05-12 19:30:06 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: least_connection
+2025-05-12 19:30:06 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: least_connection
+2025-05-12 19:30:08 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: least_connection
+2025-05-12 19:30:09 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: least_connection
+2025-05-12 19:30:10 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: least_connection
+2025-05-12 19:30:10 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: least_connection
+2025-05-12 19:30:12 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: least_connection
+2025-05-12 19:30:12 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: least_connection
+2025-05-12 19:30:14 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: least_connection
+2025-05-12 19:30:14 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: least_connection
+2025-05-12 19:30:16 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: least_connection
+2025-05-12 19:30:16 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: least_connection
+2025-05-12 19:30:18 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: least_connection
+2025-05-12 19:30:18 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: least_connection
+2025-05-12 19:30:20 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: least_connection
+2025-05-12 19:30:20 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: least_connection
+2025-05-12 19:30:22 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: least_connection
+2025-05-12 19:30:22 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: least_connection
+2025-05-12 19:30:24 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: least_connection
+2025-05-12 19:30:24 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: least_connection
+2025-05-12 19:30:26 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: least_connection
+2025-05-12 19:30:26 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: least_connection
+2025-05-12 19:30:28 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: least_connection
+2025-05-12 19:30:28 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: least_connection
+2025-05-12 19:30:30 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: least_connection
+2025-05-12 19:30:30 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: least_connection
+2025-05-12 19:30:32 | INFO     | vigilance_system.video_acquisition.camera:read_frame:511 - Reached end of video 'Camera 2', looping back to start
+2025-05-12 19:30:32 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: least_connection
+2025-05-12 19:30:32 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: least_connection
+2025-05-12 19:30:34 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: least_connection
+2025-05-12 19:30:35 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: least_connection
+2025-05-12 19:30:36 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: least_connection
+2025-05-12 19:30:36 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: least_connection
+2025-05-12 19:30:38 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: least_connection
+2025-05-12 19:30:38 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: least_connection
+2025-05-12 19:30:40 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: least_connection
+2025-05-12 19:30:40 | INFO     | vigilance_system.dashboard.app:update_algorithms:509 - Updated frame rate to 25
+2025-05-12 19:30:41 | INFO     | vigilance_system.dashboard.app:update_algorithms:517 - Updated resolution to medium
+2025-05-12 19:30:41 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: round_robin
+2025-05-12 19:30:41 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: round_robin
+2025-05-12 19:30:41 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: round_robin
+2025-05-12 19:30:41 | INFO     | vigilance_system.dashboard.app:update_algorithms:562 - Terminating existing node processes before reconnecting...
+2025-05-12 19:30:41 | INFO     | vigilance_system.dashboard.app:update_algorithms:565 - Existing node processes terminated
+2025-05-12 19:31:08 | INFO     | vigilance_system.dashboard.app:update_algorithms:577 - Reconnected node client to ensure algorithm change takes effect
+2025-05-12 19:31:08 | INFO     | vigilance_system.dashboard.app:update_algorithms:583 - Algorithm successfully applied after reconnect: round_robin
+2025-05-12 19:31:08 | INFO     | vigilance_system.dashboard.app:update_algorithms:587 - Directly updated node client algorithm to round_robin
+2025-05-12 19:31:08 | INFO     | vigilance_system.dashboard.app:update_algorithms:596 - Configuration reloaded
+2025-05-12 19:31:08 | INFO     | vigilance_system.dashboard.app:update_algorithms:604 - Successfully updated and applied all algorithm and network settings
+2025-05-12 19:31:11 | INFO     | vigilance_system.video_acquisition.camera:read_frame:511 - Reached end of video 'Camera 2', looping back to start
+2025-05-12 19:31:14 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: round_robin
+2025-05-12 19:31:15 | INFO     | vigilance_system.network.visualization:update:91 - Algorithm changed from least_connection to round_robin, resetting connections
+2025-05-12 19:31:15 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: round_robin
+2025-05-12 19:31:15 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: round_robin
+2025-05-12 19:31:15 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: round_robin
+2025-05-12 19:31:17 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: round_robin
+2025-05-12 19:31:17 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: round_robin
+2025-05-12 19:31:19 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: round_robin
+2025-05-12 19:31:19 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: round_robin
+2025-05-12 19:31:19 | INFO     | vigilance_system.video_acquisition.camera:read_frame:511 - Reached end of video 'Camera 1', looping back to start
+2025-05-12 19:31:20 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: round_robin
+2025-05-12 19:31:21 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: round_robin
+2025-05-12 19:31:22 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: round_robin
+2025-05-12 19:31:22 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: round_robin
+2025-05-12 19:31:24 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: round_robin
+2025-05-12 19:31:24 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: round_robin
+2025-05-12 19:31:26 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: round_robin
+2025-05-12 19:31:26 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: round_robin
+2025-05-12 19:31:28 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: round_robin
+2025-05-12 19:31:28 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: round_robin
+2025-05-12 19:31:30 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: round_robin
+2025-05-12 19:31:30 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: round_robin
+2025-05-12 19:31:32 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: round_robin
+2025-05-12 19:31:32 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: round_robin
+2025-05-12 19:31:36 | INFO     | vigilance_system.dashboard.app:shutdown_server:1254 - Shutting down server...
+2025-05-12 19:31:37 | INFO     | vigilance_system.video_acquisition.camera:disconnect:493 - Closed video file 'Camera 1'
+2025-05-12 19:31:37 | INFO     | vigilance_system.video_acquisition.camera:stop:102 - Stopped camera 'Camera 1'
+2025-05-12 19:31:37 | INFO     | vigilance_system.video_acquisition.camera:disconnect:493 - Closed video file 'Camera 2'
+2025-05-12 19:31:37 | INFO     | vigilance_system.video_acquisition.camera:stop:102 - Stopped camera 'Camera 2'
+2025-05-12 19:31:37 | INFO     | vigilance_system.video_acquisition.camera:disconnect:493 - Closed video file 'Camera 3'
+2025-05-12 19:31:37 | INFO     | vigilance_system.video_acquisition.camera:stop:102 - Stopped camera 'Camera 3'
+2025-05-12 19:31:37 | INFO     | vigilance_system.video_acquisition.stream_manager:stop_all_cameras:171 - Stopped all cameras (3)
+2025-05-12 19:31:37 | INFO     | vigilance_system.video_acquisition.camera:stop:102 - Stopped camera 'Camera 1'
+2025-05-12 19:31:37 | INFO     | vigilance_system.video_acquisition.camera:stop:102 - Stopped camera 'Camera 2'
+2025-05-12 19:31:37 | INFO     | vigilance_system.video_acquisition.camera:stop:102 - Stopped camera 'Camera 3'
+2025-05-12 19:31:37 | INFO     | vigilance_system.video_acquisition.stream_manager:stop_all_cameras:171 - Stopped all cameras (3)
+2025-05-12 19:31:37 | INFO     | vigilance_system.dashboard.app:process_video_streams:1247 - Video processing loop stopped
+2025-05-12 19:31:37 | INFO     | vigilance_system.dashboard.app:shutdown_server:1262 - Processing thread stopped
+2025-05-12 19:31:37 | INFO     | vigilance_system.dashboard.app:shutdown_server:1267 - Disconnected from network nodes
+2025-05-12 19:31:37 | INFO     | vigilance_system.dashboard.app:shutdown_server:1274 - Terminating all node server processes...
+2025-05-12 19:31:37 | INFO     | vigilance_system.dashboard.app:shutdown_server:1279 - Node server processes terminated
+2025-05-12 20:54:33 | INFO     | vigilance_system.utils.logger:setup_logger:53 - Logger initialized at level INFO
+2025-05-12 20:54:33 | INFO     | vigilance_system.video_acquisition.stream_manager:__init__:50 - Stream manager initialized
+2025-05-12 20:54:36 | INFO     | vigilance_system.detection.model_loader:__init__:56 - Model loader initialized with device: cuda:0
+2025-05-12 20:54:38 | INFO     | vigilance_system.alert.decision_maker:__init__:255 - Initialized decision maker with motion_threshold=0.2, person_loitering_time=30
+2025-05-12 20:54:38 | INFO     | vigilance_system.alert.notifier:__init__:72 - Alert notifier initialized with email=True, SMS=False
+2025-05-12 20:54:38 | INFO     | vigilance_system.network.simulation:_launch_network_nodes:170 - Using existing nodes from D:\Main EL\nodes.json
+2025-05-12 20:55:04 | INFO     | vigilance_system.network.simulation:__init__:158 - Initialized network simulator with 4 nodes and routing algorithm: round_robin
+2025-05-12 20:55:04 | INFO     | vigilance_system.network.visualization:__init__:70 - Initialized network visualizer with size 1024x768
+2025-05-12 20:55:04 | INFO     | vigilance_system.detection.model_loader:load_model:99 - Loading model: yolov5s
+2025-05-12 20:55:14 | INFO     | vigilance_system.detection.object_detector:__init__:75 - Initialized object detector with model: yolov5s, confidence threshold: 0.5
+2025-05-12 20:55:15 | INFO     | vigilance_system.utils.logger:setup_logger:53 - Logger initialized at level INFO
+2025-05-12 20:55:15 | INFO     | __main__:main:66 - Starting Vigilance System
+2025-05-12 20:55:15 | INFO     | vigilance_system.video_acquisition.camera:__init__:54 - Initialized camera 'Camera 1' with URL: D:\Main EL\vigilance_system\videos\WhatsApp Video 2025-04-22 at 20.45.45_529ae150.mp4
+2025-05-12 20:55:15 | INFO     | vigilance_system.video_acquisition.stream_manager:add_camera:102 - Added camera 'Camera 1' to stream manager
+2025-05-12 20:55:15 | INFO     | vigilance_system.video_acquisition.camera:__init__:54 - Initialized camera 'Camera 2' with URL: D:\Main EL\vigilance_system\videos\WhatsApp Video 2025-04-22 at 20.47.50_dd1a37f6.mp4
+2025-05-12 20:55:15 | INFO     | vigilance_system.video_acquisition.stream_manager:add_camera:102 - Added camera 'Camera 2' to stream manager
+2025-05-12 20:55:15 | INFO     | vigilance_system.video_acquisition.camera:__init__:54 - Initialized camera 'Camera 3' with URL: D:\Main EL\vigilance_system\videos\WhatsApp Video 2025-04-22 at 20.48.20_3c3ca36c.mp4
+2025-05-12 20:55:15 | INFO     | vigilance_system.video_acquisition.stream_manager:add_camera:102 - Added camera 'Camera 3' to stream manager
+2025-05-12 20:55:15 | INFO     | __main__:main:78 - Starting dashboard on 0.0.0.0:5000
+2025-05-12 20:55:17 | INFO     | vigilance_system.dashboard.app:login:103 - User admin logged in from IP: 127.0.0.1
+2025-05-12 20:55:18 | INFO     | vigilance_system.dashboard.app:handle_connect:659 - Client connected: smBAfvz29ye_NvymAAAB
+2025-05-12 20:55:19 | INFO     | vigilance_system.dashboard.app:process_video_streams:677 - Starting video processing loop
+2025-05-12 20:55:19 | INFO     | vigilance_system.dashboard.app:start_processing:171 - Started video processing thread
+2025-05-12 20:55:19 | INFO     | vigilance_system.video_acquisition.camera:connect:481 - Successfully opened video file 'Camera 1' with 1785 frames at 30.0 FPS
+2025-05-12 20:55:19 | INFO     | vigilance_system.video_acquisition.camera:start:94 - Started acquisition thread for camera 'Camera 1'
+2025-05-12 20:55:20 | INFO     | vigilance_system.video_acquisition.camera:connect:481 - Successfully opened video file 'Camera 2' with 817 frames at 30.0 FPS
+2025-05-12 20:55:20 | INFO     | vigilance_system.video_acquisition.camera:start:94 - Started acquisition thread for camera 'Camera 2'
+2025-05-12 20:55:20 | INFO     | vigilance_system.video_acquisition.camera:connect:481 - Successfully opened video file 'Camera 3' with 5401 frames at 30.0 FPS
+2025-05-12 20:55:20 | INFO     | vigilance_system.video_acquisition.camera:start:94 - Started acquisition thread for camera 'Camera 3'
+2025-05-12 20:55:20 | INFO     | vigilance_system.video_acquisition.stream_manager:start_all_cameras:164 - Started all cameras (3)
+2025-05-12 20:55:20 | INFO     | vigilance_system.network.simulation:register_camera:216 - Registered camera Camera 1 with the network
+2025-05-12 20:55:20 | INFO     | vigilance_system.alert.decision_maker:get_tracker:276 - Creating new tracker for camera 'Camera 1' with algorithm 'kalman'
+2025-05-12 20:55:20 | INFO     | vigilance_system.detection.ml_algorithms:__init__:48 - Initialized ML tracker with max_disappeared=30, max_distance=50.0
+2025-05-12 20:55:20 | INFO     | vigilance_system.detection.tracking_algorithms:__init__:255 - Initialized Kalman tracker with process_noise=0.01, measurement_noise=0.1
+2025-05-12 20:55:20 | INFO     | vigilance_system.alert.decision_maker:get_tracker:354 - Created Kalman tracker for camera 'Camera 1' with process_noise=0.01, measurement_noise=0.1
+2025-05-12 20:55:20 | WARNING  | vigilance_system.alert.decision_maker:_check_crowd_detection:502 - Crowd alert: 6 people detected on camera 'Camera 1'
+2025-05-12 20:55:20 | INFO     | vigilance_system.alert.notifier:_save_alert:133 - Saved alert to D:\Main EL\alerts\1747063520_Camera 1_crowd.json
+2025-05-12 20:55:22 | ERROR    | vigilance_system.alert.notifier:_send_email_alert:190 - Error sending email alert: (535, b'5.7.8 Username and Password not accepted. For more information, go to\n5.7.8  https://support.google.com/mail/?p=BadCredentials 41be03b00d2f7-b235199034esm4851281a12.66 - gsmtp')
+2025-05-12 20:55:22 | INFO     | vigilance_system.network.simulation:register_camera:216 - Registered camera Camera 2 with the network
+2025-05-12 20:55:23 | ERROR    | vigilance_system.detection.object_detector:detect:127 - Error detecting objects: 'int' object is not subscriptable
+2025-05-12 20:55:23 | INFO     | vigilance_system.alert.decision_maker:get_tracker:276 - Creating new tracker for camera 'Camera 2' with algorithm 'kalman'
+2025-05-12 20:55:23 | INFO     | vigilance_system.detection.ml_algorithms:__init__:48 - Initialized ML tracker with max_disappeared=30, max_distance=50.0
+2025-05-12 20:55:23 | INFO     | vigilance_system.detection.tracking_algorithms:__init__:255 - Initialized Kalman tracker with process_noise=0.01, measurement_noise=0.1
+2025-05-12 20:55:23 | INFO     | vigilance_system.alert.decision_maker:get_tracker:354 - Created Kalman tracker for camera 'Camera 2' with process_noise=0.01, measurement_noise=0.1
+2025-05-12 20:55:23 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 3.092s per frame
+2025-05-12 20:55:23 | ERROR    | vigilance_system.detection.object_detector:detect:127 - Error detecting objects: 'int' object is not subscriptable
+2025-05-12 20:55:23 | INFO     | vigilance_system.network.simulation:register_camera:216 - Registered camera Camera 3 with the network
+2025-05-12 20:55:23 | INFO     | vigilance_system.alert.decision_maker:get_tracker:276 - Creating new tracker for camera 'Camera 3' with algorithm 'kalman'
+2025-05-12 20:55:23 | INFO     | vigilance_system.detection.ml_algorithms:__init__:48 - Initialized ML tracker with max_disappeared=30, max_distance=50.0
+2025-05-12 20:55:23 | INFO     | vigilance_system.detection.tracking_algorithms:__init__:255 - Initialized Kalman tracker with process_noise=0.01, measurement_noise=0.1
+2025-05-12 20:55:23 | INFO     | vigilance_system.alert.decision_maker:get_tracker:354 - Created Kalman tracker for camera 'Camera 3' with process_noise=0.01, measurement_noise=0.1
+2025-05-12 20:55:23 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.194s per frame
+2025-05-12 20:55:23 | ERROR    | vigilance_system.detection.object_detector:detect:127 - Error detecting objects: 'int' object is not subscriptable
+2025-05-12 20:55:23 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.197s per frame
+2025-05-12 20:55:23 | ERROR    | vigilance_system.detection.object_detector:detect:127 - Error detecting objects: 'int' object is not subscriptable
+2025-05-12 20:55:23 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.126s per frame
+2025-05-12 20:55:23 | ERROR    | vigilance_system.detection.object_detector:detect:127 - Error detecting objects: 'int' object is not subscriptable
+2025-05-12 20:55:23 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.135s per frame
+2025-05-12 20:55:23 | ERROR    | vigilance_system.detection.object_detector:detect:127 - Error detecting objects: 'int' object is not subscriptable
+2025-05-12 20:55:23 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.161s per frame
+2025-05-12 20:55:24 | ERROR    | vigilance_system.detection.object_detector:detect:127 - Error detecting objects: 'int' object is not subscriptable
+2025-05-12 20:55:24 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.149s per frame
+2025-05-12 20:55:24 | ERROR    | vigilance_system.detection.object_detector:detect:127 - Error detecting objects: 'int' object is not subscriptable
+2025-05-12 20:55:24 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.172s per frame
+2025-05-12 20:55:24 | ERROR    | vigilance_system.detection.object_detector:detect:127 - Error detecting objects: 'int' object is not subscriptable
+2025-05-12 20:55:24 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.185s per frame
+2025-05-12 20:55:24 | ERROR    | vigilance_system.detection.object_detector:detect:127 - Error detecting objects: 'int' object is not subscriptable
+2025-05-12 20:55:24 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.195s per frame
+2025-05-12 20:55:24 | ERROR    | vigilance_system.detection.object_detector:detect:127 - Error detecting objects: 'int' object is not subscriptable
+2025-05-12 20:55:24 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.161s per frame
+2025-05-12 20:55:24 | ERROR    | vigilance_system.detection.object_detector:detect:127 - Error detecting objects: 'int' object is not subscriptable
+2025-05-12 20:55:24 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.132s per frame
+2025-05-12 20:55:25 | ERROR    | vigilance_system.detection.object_detector:detect:127 - Error detecting objects: 'int' object is not subscriptable
+2025-05-12 20:55:25 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.171s per frame
+2025-05-12 20:55:25 | ERROR    | vigilance_system.detection.object_detector:detect:127 - Error detecting objects: 'int' object is not subscriptable
+2025-05-12 20:55:25 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.145s per frame
+2025-05-12 20:55:25 | ERROR    | vigilance_system.detection.object_detector:detect:127 - Error detecting objects: 'int' object is not subscriptable
+2025-05-12 20:55:25 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.181s per frame
+2025-05-12 20:55:25 | ERROR    | vigilance_system.detection.object_detector:detect:127 - Error detecting objects: 'int' object is not subscriptable
+2025-05-12 20:55:25 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.161s per frame
+2025-05-12 20:55:25 | ERROR    | vigilance_system.detection.object_detector:detect:127 - Error detecting objects: 'int' object is not subscriptable
+2025-05-12 20:55:25 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.222s per frame
+2025-05-12 20:55:26 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.132s per frame
+2025-05-12 20:55:26 | WARNING  | vigilance_system.alert.decision_maker:_check_crowd_detection:502 - Crowd alert: 5 people detected on camera 'Camera 2'
+2025-05-12 20:55:26 | INFO     | vigilance_system.alert.notifier:_save_alert:133 - Saved alert to D:\Main EL\alerts\1747063526_Camera 2_crowd.json
+2025-05-12 20:55:28 | ERROR    | vigilance_system.alert.notifier:_send_email_alert:190 - Error sending email alert: (535, b'5.7.8 Username and Password not accepted. For more information, go to\n5.7.8  https://support.google.com/mail/?p=BadCredentials 41be03b00d2f7-b234ad3f070sm5669632a12.46 - gsmtp')
+2025-05-12 20:55:28 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 2.154s per frame
+2025-05-12 20:55:28 | WARNING  | vigilance_system.alert.decision_maker:_check_crowd_detection:502 - Crowd alert: 3 people detected on camera 'Camera 3'
+2025-05-12 20:55:28 | INFO     | vigilance_system.alert.notifier:_save_alert:133 - Saved alert to D:\Main EL\alerts\1747063528_Camera 3_crowd.json
+2025-05-12 20:55:30 | ERROR    | vigilance_system.alert.notifier:_send_email_alert:190 - Error sending email alert: (535, b'5.7.8 Username and Password not accepted. For more information, go to\n5.7.8  https://support.google.com/mail/?p=BadCredentials d2e1a72fcca58-74237a10906sm6125835b3a.119 - gsmtp')
+2025-05-12 20:55:30 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 2.239s per frame
+2025-05-12 20:55:30 | INFO     | vigilance_system.dashboard.app:handle_disconnect:665 - Client disconnected: smBAfvz29ye_NvymAAAB
+2025-05-12 20:55:30 | WARNING  | vigilance_system.alert.decision_maker:_check_crowd_detection:502 - Crowd alert: 9 people detected on camera 'Camera 1'
+2025-05-12 20:55:30 | INFO     | vigilance_system.alert.notifier:_save_alert:133 - Saved alert to D:\Main EL\alerts\1747063530_Camera 1_crowd.json
+2025-05-12 20:55:30 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: round_robin
+2025-05-12 20:55:31 | INFO     | vigilance_system.network.visualization:update:91 - Algorithm changed from unknown to round_robin, resetting connections
+2025-05-12 20:55:31 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: round_robin
+2025-05-12 20:55:32 | ERROR    | vigilance_system.alert.notifier:_send_email_alert:190 - Error sending email alert: (535, b'5.7.8 Username and Password not accepted. For more information, go to\n5.7.8  https://support.google.com/mail/?p=BadCredentials d9443c01a7336-22fc75498b2sm64256335ad.13 - gsmtp')
+2025-05-12 20:55:32 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 2.389s per frame
+2025-05-12 20:55:33 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: round_robin
+2025-05-12 20:55:33 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: round_robin
+2025-05-12 20:55:34 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: round_robin
+2025-05-12 20:55:35 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: round_robin
+2025-05-12 20:55:37 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: round_robin
+2025-05-12 20:55:37 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: round_robin
+2025-05-12 20:55:38 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: round_robin
+2025-05-12 20:55:39 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: round_robin
+2025-05-12 20:55:41 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: round_robin
+2025-05-12 20:55:41 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: round_robin
+2025-05-12 20:55:42 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: round_robin
+2025-05-12 20:55:43 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: round_robin
+2025-05-12 20:55:45 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: round_robin
+2025-05-12 20:55:45 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: round_robin
+2025-05-12 20:55:46 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: round_robin
+2025-05-12 20:55:47 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: round_robin
+2025-05-12 20:55:49 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: round_robin
+2025-05-12 20:55:49 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: round_robin
+2025-05-12 20:55:51 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: round_robin
+2025-05-12 20:55:51 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: round_robin
+2025-05-12 20:55:53 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: round_robin
+2025-05-12 20:55:53 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: round_robin
+2025-05-12 20:55:54 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: round_robin
+2025-05-12 20:55:55 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: round_robin
+2025-05-12 20:55:57 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: round_robin
+2025-05-12 20:55:57 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: round_robin
+2025-05-12 20:55:59 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: round_robin
+2025-05-12 20:55:59 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: round_robin
+2025-05-12 20:55:59 | INFO     | vigilance_system.video_acquisition.camera:read_frame:511 - Reached end of video 'Camera 2', looping back to start
+2025-05-12 20:56:01 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: round_robin
+2025-05-12 20:56:01 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: round_robin
+2025-05-12 20:56:02 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: round_robin
+2025-05-12 20:56:03 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: round_robin
+2025-05-12 20:56:05 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: round_robin
+2025-05-12 20:56:05 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: round_robin
+2025-05-12 20:56:07 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: round_robin
+2025-05-12 20:56:07 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: round_robin
+2025-05-12 20:56:09 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: round_robin
+2025-05-12 20:56:09 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: round_robin
+2025-05-12 20:56:10 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: round_robin
+2025-05-12 20:56:11 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: round_robin
+2025-05-12 20:56:13 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: round_robin
+2025-05-12 20:56:13 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: round_robin
+2025-05-12 20:56:14 | INFO     | vigilance_system.dashboard.app:update_algorithms:509 - Updated frame rate to 25
+2025-05-12 20:56:14 | INFO     | vigilance_system.dashboard.app:update_algorithms:517 - Updated resolution to medium
+2025-05-12 20:56:14 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: least_connection
+2025-05-12 20:56:14 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: least_connection
+2025-05-12 20:56:14 | INFO     | vigilance_system.dashboard.app:update_algorithms:562 - Terminating existing node processes before reconnecting...
+2025-05-12 20:56:14 | INFO     | vigilance_system.dashboard.app:update_algorithms:565 - Existing node processes terminated
+2025-05-12 20:56:37 | INFO     | vigilance_system.video_acquisition.camera:read_frame:511 - Reached end of video 'Camera 2', looping back to start
+2025-05-12 20:56:41 | INFO     | vigilance_system.dashboard.app:update_algorithms:577 - Reconnected node client to ensure algorithm change takes effect
+2025-05-12 20:56:41 | INFO     | vigilance_system.dashboard.app:update_algorithms:583 - Algorithm successfully applied after reconnect: least_connection
+2025-05-12 20:56:41 | INFO     | vigilance_system.dashboard.app:update_algorithms:587 - Directly updated node client algorithm to least_connection
+2025-05-12 20:56:41 | INFO     | vigilance_system.dashboard.app:update_algorithms:596 - Configuration reloaded
+2025-05-12 20:56:41 | INFO     | vigilance_system.dashboard.app:update_algorithms:604 - Successfully updated and applied all algorithm and network settings
+2025-05-12 20:56:44 | INFO     | vigilance_system.video_acquisition.camera:read_frame:511 - Reached end of video 'Camera 1', looping back to start
+2025-05-12 20:56:49 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: least_connection
+2025-05-12 20:56:49 | INFO     | vigilance_system.network.visualization:update:91 - Algorithm changed from round_robin to least_connection, resetting connections
+2025-05-12 20:56:49 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: least_connection
+2025-05-12 20:56:49 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: least_connection
+2025-05-12 20:56:49 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: least_connection
+2025-05-12 20:56:50 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: least_connection
+2025-05-12 20:56:51 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: least_connection
+2025-05-12 20:56:53 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: least_connection
+2025-05-12 20:56:53 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: least_connection
+2025-05-12 20:56:54 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: least_connection
+2025-05-12 20:56:54 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: least_connection
+2025-05-12 20:56:57 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: least_connection
+2025-05-12 20:56:57 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: least_connection
+2025-05-12 20:56:58 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: least_connection
+2025-05-12 20:56:59 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: least_connection
+2025-05-12 20:57:01 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: least_connection
+2025-05-12 20:57:01 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: least_connection
+2025-05-12 20:57:02 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: least_connection
+2025-05-12 20:57:03 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: least_connection
+2025-05-12 20:57:05 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: least_connection
+2025-05-12 20:57:05 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: least_connection
+2025-05-12 20:57:06 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: least_connection
+2025-05-12 20:57:07 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: least_connection
+2025-05-12 20:57:08 | INFO     | vigilance_system.dashboard.app:handle_connect:659 - Client connected: qWUFJj56Ob81EpIrAAAD
+2025-05-12 20:57:08 | WARNING  | vigilance_system.alert.decision_maker:_check_crowd_detection:502 - Crowd alert: 11 people detected on camera 'Camera 1'
+2025-05-12 20:57:08 | INFO     | vigilance_system.alert.notifier:_save_alert:133 - Saved alert to D:\Main EL\alerts\1747063628_Camera 1_crowd.json
+2025-05-12 20:57:10 | ERROR    | vigilance_system.alert.notifier:_send_email_alert:190 - Error sending email alert: (535, b'5.7.8 Username and Password not accepted. For more information, go to\n5.7.8  https://support.google.com/mail/?p=BadCredentials d2e1a72fcca58-7423773dedfsm6123730b3a.72 - gsmtp')
+2025-05-12 20:57:10 | WARNING  | vigilance_system.alert.decision_maker:_check_crowd_detection:502 - Crowd alert: 12 people detected on camera 'Camera 2'
+2025-05-12 20:57:10 | INFO     | vigilance_system.alert.notifier:_save_alert:133 - Saved alert to D:\Main EL\alerts\1747063630_Camera 2_crowd.json
+2025-05-12 20:57:12 | ERROR    | vigilance_system.alert.notifier:_send_email_alert:190 - Error sending email alert: (535, b'5.7.8 Username and Password not accepted. For more information, go to\n5.7.8  https://support.google.com/mail/?p=BadCredentials 98e67ed59e1d1-30c39e608ccsm6868496a91.34 - gsmtp')
+2025-05-12 20:57:12 | WARNING  | vigilance_system.alert.decision_maker:_check_crowd_detection:502 - Crowd alert: 3 people detected on camera 'Camera 3'
+2025-05-12 20:57:12 | INFO     | vigilance_system.alert.notifier:_save_alert:133 - Saved alert to D:\Main EL\alerts\1747063632_Camera 3_crowd.json
+2025-05-12 20:57:14 | ERROR    | vigilance_system.alert.notifier:_send_email_alert:190 - Error sending email alert: (535, b'5.7.8 Username and Password not accepted. For more information, go to\n5.7.8  https://support.google.com/mail/?p=BadCredentials d9443c01a7336-22fc8271d98sm63415865ad.154 - gsmtp')
+2025-05-12 20:57:14 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 6.490s per frame
+2025-05-12 20:57:14 | ERROR    | vigilance_system.detection.object_detector:detect:127 - Error detecting objects: 'int' object is not subscriptable
+2025-05-12 20:57:14 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.149s per frame
+2025-05-12 20:57:14 | ERROR    | vigilance_system.detection.object_detector:detect:127 - Error detecting objects: 'int' object is not subscriptable
+2025-05-12 20:57:14 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.143s per frame
+2025-05-12 20:57:14 | ERROR    | vigilance_system.detection.object_detector:detect:127 - Error detecting objects: 'int' object is not subscriptable
+2025-05-12 20:57:14 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.174s per frame
+2025-05-12 20:57:15 | ERROR    | vigilance_system.detection.object_detector:detect:127 - Error detecting objects: 'int' object is not subscriptable
+2025-05-12 20:57:15 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.153s per frame
+2025-05-12 20:57:15 | ERROR    | vigilance_system.detection.object_detector:detect:127 - Error detecting objects: 'int' object is not subscriptable
+2025-05-12 20:57:15 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.179s per frame
+2025-05-12 20:57:15 | ERROR    | vigilance_system.detection.object_detector:detect:127 - Error detecting objects: 'int' object is not subscriptable
+2025-05-12 20:57:15 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.137s per frame
+2025-05-12 20:57:15 | ERROR    | vigilance_system.detection.object_detector:detect:127 - Error detecting objects: 'int' object is not subscriptable
+2025-05-12 20:57:15 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.143s per frame
+2025-05-12 20:57:15 | ERROR    | vigilance_system.detection.object_detector:detect:127 - Error detecting objects: 'int' object is not subscriptable
+2025-05-12 20:57:15 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.139s per frame
+2025-05-12 20:57:15 | ERROR    | vigilance_system.detection.object_detector:detect:127 - Error detecting objects: 'int' object is not subscriptable
+2025-05-12 20:57:15 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.155s per frame
+2025-05-12 20:57:15 | ERROR    | vigilance_system.detection.object_detector:detect:127 - Error detecting objects: 'int' object is not subscriptable
+2025-05-12 20:57:15 | INFO     | vigilance_system.video_acquisition.camera:read_frame:511 - Reached end of video 'Camera 2', looping back to start
+2025-05-12 20:57:16 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.131s per frame
+2025-05-12 20:57:16 | ERROR    | vigilance_system.detection.object_detector:detect:127 - Error detecting objects: 'int' object is not subscriptable
+2025-05-12 20:57:16 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.138s per frame
+2025-05-12 20:57:16 | ERROR    | vigilance_system.detection.object_detector:detect:127 - Error detecting objects: 'int' object is not subscriptable
+2025-05-12 20:57:16 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.177s per frame
+2025-05-12 20:57:16 | ERROR    | vigilance_system.detection.object_detector:detect:127 - Error detecting objects: 'int' object is not subscriptable
+2025-05-12 20:57:16 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.199s per frame
+2025-05-12 20:57:16 | ERROR    | vigilance_system.detection.object_detector:detect:127 - Error detecting objects: 'int' object is not subscriptable
+2025-05-12 20:57:16 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.146s per frame
+2025-05-12 20:57:16 | ERROR    | vigilance_system.detection.object_detector:detect:127 - Error detecting objects: 'int' object is not subscriptable
+2025-05-12 20:57:16 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.150s per frame
+2025-05-12 20:57:16 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.137s per frame
+2025-05-12 20:57:17 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.146s per frame
+2025-05-12 20:57:17 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.159s per frame
+2025-05-12 20:57:17 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.149s per frame
+2025-05-12 20:57:17 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.165s per frame
+2025-05-12 20:57:17 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.134s per frame
+2025-05-12 20:57:17 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.152s per frame
+2025-05-12 20:57:18 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.215s per frame
+2025-05-12 20:57:18 | WARNING  | vigilance_system.alert.decision_maker:_check_crowd_detection:502 - Crowd alert: 12 people detected on camera 'Camera 1'
+2025-05-12 20:57:18 | INFO     | vigilance_system.alert.notifier:_save_alert:133 - Saved alert to D:\Main EL\alerts\1747063638_Camera 1_crowd.json
+2025-05-12 20:57:20 | ERROR    | vigilance_system.alert.notifier:_send_email_alert:190 - Error sending email alert: (535, b'5.7.8 Username and Password not accepted. For more information, go to\n5.7.8  https://support.google.com/mail/?p=BadCredentials 41be03b00d2f7-b234ab540f0sm5735947a12.34 - gsmtp')
+2025-05-12 20:57:20 | WARNING  | vigilance_system.alert.decision_maker:_check_crowd_detection:502 - Crowd alert: 12 people detected on camera 'Camera 2'
+2025-05-12 20:57:20 | INFO     | vigilance_system.alert.notifier:_save_alert:133 - Saved alert to D:\Main EL\alerts\1747063640_Camera 2_crowd.json
+2025-05-12 20:57:22 | ERROR    | vigilance_system.alert.notifier:_send_email_alert:190 - Error sending email alert: (535, b'5.7.8 Username and Password not accepted. For more information, go to\n5.7.8  https://support.google.com/mail/?p=BadCredentials d2e1a72fcca58-74237a8ef50sm6401678b3a.171 - gsmtp')
+2025-05-12 20:57:22 | WARNING  | vigilance_system.alert.decision_maker:_check_crowd_detection:502 - Crowd alert: 3 people detected on camera 'Camera 3'
+2025-05-12 20:57:22 | INFO     | vigilance_system.alert.notifier:_save_alert:133 - Saved alert to D:\Main EL\alerts\1747063642_Camera 3_crowd.json
+2025-05-12 20:57:24 | ERROR    | vigilance_system.alert.notifier:_send_email_alert:190 - Error sending email alert: (535, b'5.7.8 Username and Password not accepted. For more information, go to\n5.7.8  https://support.google.com/mail/?p=BadCredentials 41be03b00d2f7-b23519901f1sm5754930a12.68 - gsmtp')
+2025-05-12 20:57:24 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 6.295s per frame
+2025-05-12 20:57:24 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.138s per frame
+2025-05-12 20:57:24 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.124s per frame
+2025-05-12 20:57:24 | ERROR    | vigilance_system.dashboard.app:process_video_streams:1243 - Error in video processing loop: 11
+2025-05-12 20:57:24 | INFO     | vigilance_system.video_acquisition.camera:disconnect:493 - Closed video file 'Camera 1'
+2025-05-12 20:57:24 | INFO     | vigilance_system.video_acquisition.camera:stop:102 - Stopped camera 'Camera 1'
+2025-05-12 20:57:24 | INFO     | vigilance_system.video_acquisition.camera:disconnect:493 - Closed video file 'Camera 2'
+2025-05-12 20:57:24 | INFO     | vigilance_system.video_acquisition.camera:stop:102 - Stopped camera 'Camera 2'
+2025-05-12 20:57:24 | INFO     | vigilance_system.video_acquisition.camera:disconnect:493 - Closed video file 'Camera 3'
+2025-05-12 20:57:24 | INFO     | vigilance_system.video_acquisition.camera:stop:102 - Stopped camera 'Camera 3'
+2025-05-12 20:57:24 | INFO     | vigilance_system.video_acquisition.stream_manager:stop_all_cameras:171 - Stopped all cameras (3)
+2025-05-12 20:57:24 | INFO     | vigilance_system.dashboard.app:process_video_streams:1247 - Video processing loop stopped
+2025-05-12 20:57:37 | INFO     | vigilance_system.dashboard.app:update_algorithms:469 - Updated detection algorithm to yolov5s
+2025-05-12 20:57:37 | INFO     | vigilance_system.dashboard.app:update_algorithms:474 - Updated tracking algorithm to kalman
+2025-05-12 20:57:37 | INFO     | vigilance_system.alert.decision_maker:set_tracking_algorithm:584 - Setting tracking algorithm to kalman
+2025-05-12 20:57:37 | INFO     | vigilance_system.alert.decision_maker:set_tracking_algorithm:588 - Saved tracking algorithm kalman to config
+2025-05-12 20:57:37 | INFO     | vigilance_system.alert.decision_maker:get_tracker:276 - Creating new tracker for camera 'Camera 1' with algorithm 'kalman'
+2025-05-12 20:57:37 | INFO     | vigilance_system.detection.ml_algorithms:__init__:48 - Initialized ML tracker with max_disappeared=30, max_distance=50.0
+2025-05-12 20:57:37 | INFO     | vigilance_system.detection.tracking_algorithms:__init__:255 - Initialized Kalman tracker with process_noise=0.01, measurement_noise=0.1
+2025-05-12 20:57:37 | INFO     | vigilance_system.alert.decision_maker:get_tracker:354 - Created Kalman tracker for camera 'Camera 1' with process_noise=0.01, measurement_noise=0.1
+2025-05-12 20:57:37 | INFO     | vigilance_system.alert.decision_maker:get_tracker:276 - Creating new tracker for camera 'Camera 2' with algorithm 'kalman'
+2025-05-12 20:57:37 | INFO     | vigilance_system.detection.ml_algorithms:__init__:48 - Initialized ML tracker with max_disappeared=30, max_distance=50.0
+2025-05-12 20:57:37 | INFO     | vigilance_system.detection.tracking_algorithms:__init__:255 - Initialized Kalman tracker with process_noise=0.01, measurement_noise=0.1
+2025-05-12 20:57:37 | INFO     | vigilance_system.alert.decision_maker:get_tracker:354 - Created Kalman tracker for camera 'Camera 2' with process_noise=0.01, measurement_noise=0.1
+2025-05-12 20:57:37 | INFO     | vigilance_system.alert.decision_maker:get_tracker:276 - Creating new tracker for camera 'Camera 3' with algorithm 'kalman'
+2025-05-12 20:57:37 | INFO     | vigilance_system.detection.ml_algorithms:__init__:48 - Initialized ML tracker with max_disappeared=30, max_distance=50.0
+2025-05-12 20:57:37 | INFO     | vigilance_system.detection.tracking_algorithms:__init__:255 - Initialized Kalman tracker with process_noise=0.01, measurement_noise=0.1
+2025-05-12 20:57:37 | INFO     | vigilance_system.alert.decision_maker:get_tracker:354 - Created Kalman tracker for camera 'Camera 3' with process_noise=0.01, measurement_noise=0.1
+2025-05-12 20:57:37 | INFO     | vigilance_system.alert.decision_maker:reset_all_trackers:534 - Reset all trackers using algorithm: random_forest
+2025-05-12 20:57:37 | INFO     | vigilance_system.alert.decision_maker:reset_all_trackers:535 - Current tracking algorithm: kalman
+2025-05-12 20:57:37 | INFO     | vigilance_system.alert.decision_maker:set_tracking_algorithm:592 - Reset trackers for new tracking algorithm: kalman
+2025-05-12 20:57:37 | INFO     | vigilance_system.dashboard.app:update_algorithms:481 - Applied tracking algorithm kalman
+2025-05-12 20:57:37 | INFO     | vigilance_system.dashboard.app:update_algorithms:486 - Updated classifier algorithm to decision_tree
+2025-05-12 20:57:37 | INFO     | vigilance_system.alert.decision_maker:set_classifier_algorithm:544 - Setting classifier algorithm to decision_tree
+2025-05-12 20:57:37 | INFO     | vigilance_system.alert.decision_maker:set_classifier_algorithm:551 - Saved classifier algorithm decision_tree to config
+2025-05-12 20:57:37 | INFO     | vigilance_system.alert.decision_maker:get_tracker:276 - Creating new tracker for camera 'Camera 1' with algorithm 'kalman'
+2025-05-12 20:57:37 | INFO     | vigilance_system.detection.ml_algorithms:__init__:48 - Initialized ML tracker with max_disappeared=30, max_distance=50.0
+2025-05-12 20:57:37 | INFO     | vigilance_system.detection.tracking_algorithms:__init__:255 - Initialized Kalman tracker with process_noise=0.01, measurement_noise=0.1
+2025-05-12 20:57:37 | INFO     | vigilance_system.alert.decision_maker:get_tracker:354 - Created Kalman tracker for camera 'Camera 1' with process_noise=0.01, measurement_noise=0.1
+2025-05-12 20:57:37 | INFO     | vigilance_system.alert.decision_maker:get_tracker:276 - Creating new tracker for camera 'Camera 2' with algorithm 'kalman'
+2025-05-12 20:57:37 | INFO     | vigilance_system.detection.ml_algorithms:__init__:48 - Initialized ML tracker with max_disappeared=30, max_distance=50.0
+2025-05-12 20:57:37 | INFO     | vigilance_system.detection.tracking_algorithms:__init__:255 - Initialized Kalman tracker with process_noise=0.01, measurement_noise=0.1
+2025-05-12 20:57:37 | INFO     | vigilance_system.alert.decision_maker:get_tracker:354 - Created Kalman tracker for camera 'Camera 2' with process_noise=0.01, measurement_noise=0.1
+2025-05-12 20:57:37 | INFO     | vigilance_system.alert.decision_maker:get_tracker:276 - Creating new tracker for camera 'Camera 3' with algorithm 'kalman'
+2025-05-12 20:57:37 | INFO     | vigilance_system.detection.ml_algorithms:__init__:48 - Initialized ML tracker with max_disappeared=30, max_distance=50.0
+2025-05-12 20:57:37 | INFO     | vigilance_system.detection.tracking_algorithms:__init__:255 - Initialized Kalman tracker with process_noise=0.01, measurement_noise=0.1
+2025-05-12 20:57:37 | INFO     | vigilance_system.alert.decision_maker:get_tracker:354 - Created Kalman tracker for camera 'Camera 3' with process_noise=0.01, measurement_noise=0.1
+2025-05-12 20:57:37 | INFO     | vigilance_system.alert.decision_maker:reset_all_trackers:534 - Reset all trackers using algorithm: decision_tree
+2025-05-12 20:57:37 | INFO     | vigilance_system.alert.decision_maker:reset_all_trackers:535 - Current tracking algorithm: kalman
+2025-05-12 20:57:37 | INFO     | vigilance_system.alert.decision_maker:set_classifier_algorithm:555 - Reset trackers for new classifier algorithm: decision_tree
+2025-05-12 20:57:37 | INFO     | vigilance_system.dashboard.app:update_algorithms:489 - Applied classifier algorithm decision_tree
+2025-05-12 20:57:37 | INFO     | vigilance_system.dashboard.app:update_algorithms:494 - Updated analysis algorithm to basic
+2025-05-12 20:57:37 | INFO     | vigilance_system.alert.decision_maker:set_analysis_algorithm:564 - Setting analysis algorithm to basic
+2025-05-12 20:57:37 | INFO     | vigilance_system.alert.decision_maker:set_analysis_algorithm:571 - Saved analysis algorithm basic to config
+2025-05-12 20:57:37 | INFO     | vigilance_system.alert.decision_maker:get_tracker:276 - Creating new tracker for camera 'Camera 1' with algorithm 'kalman'
+2025-05-12 20:57:37 | INFO     | vigilance_system.detection.ml_algorithms:__init__:48 - Initialized ML tracker with max_disappeared=30, max_distance=50.0
+2025-05-12 20:57:37 | INFO     | vigilance_system.detection.tracking_algorithms:__init__:255 - Initialized Kalman tracker with process_noise=0.01, measurement_noise=0.1
+2025-05-12 20:57:37 | INFO     | vigilance_system.alert.decision_maker:get_tracker:354 - Created Kalman tracker for camera 'Camera 1' with process_noise=0.01, measurement_noise=0.1
+2025-05-12 20:57:37 | INFO     | vigilance_system.alert.decision_maker:get_tracker:276 - Creating new tracker for camera 'Camera 2' with algorithm 'kalman'
+2025-05-12 20:57:37 | INFO     | vigilance_system.detection.ml_algorithms:__init__:48 - Initialized ML tracker with max_disappeared=30, max_distance=50.0
+2025-05-12 20:57:37 | INFO     | vigilance_system.detection.tracking_algorithms:__init__:255 - Initialized Kalman tracker with process_noise=0.01, measurement_noise=0.1
+2025-05-12 20:57:37 | INFO     | vigilance_system.alert.decision_maker:get_tracker:354 - Created Kalman tracker for camera 'Camera 2' with process_noise=0.01, measurement_noise=0.1
+2025-05-12 20:57:37 | INFO     | vigilance_system.alert.decision_maker:get_tracker:276 - Creating new tracker for camera 'Camera 3' with algorithm 'kalman'
+2025-05-12 20:57:37 | INFO     | vigilance_system.detection.ml_algorithms:__init__:48 - Initialized ML tracker with max_disappeared=30, max_distance=50.0
+2025-05-12 20:57:37 | INFO     | vigilance_system.detection.tracking_algorithms:__init__:255 - Initialized Kalman tracker with process_noise=0.01, measurement_noise=0.1
+2025-05-12 20:57:37 | INFO     | vigilance_system.alert.decision_maker:get_tracker:354 - Created Kalman tracker for camera 'Camera 3' with process_noise=0.01, measurement_noise=0.1
+2025-05-12 20:57:37 | INFO     | vigilance_system.alert.decision_maker:reset_all_trackers:534 - Reset all trackers using algorithm: decision_tree
+2025-05-12 20:57:37 | INFO     | vigilance_system.alert.decision_maker:reset_all_trackers:535 - Current tracking algorithm: kalman
+2025-05-12 20:57:37 | INFO     | vigilance_system.alert.decision_maker:set_analysis_algorithm:575 - Reset trackers for new analysis algorithm: basic
+2025-05-12 20:57:37 | INFO     | vigilance_system.dashboard.app:update_algorithms:497 - Applied analysis algorithm basic
+2025-05-12 20:57:37 | INFO     | vigilance_system.dashboard.app:update_algorithms:509 - Updated frame rate to 25
+2025-05-12 20:57:37 | INFO     | vigilance_system.dashboard.app:update_algorithms:517 - Updated resolution to medium
+2025-05-12 20:57:37 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: least_connection
+2025-05-12 20:57:37 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: least_connection
+2025-05-12 20:57:37 | INFO     | vigilance_system.dashboard.app:update_algorithms:562 - Terminating existing node processes before reconnecting...
+2025-05-12 20:57:38 | INFO     | vigilance_system.dashboard.app:update_algorithms:565 - Existing node processes terminated
+2025-05-12 20:58:04 | INFO     | vigilance_system.dashboard.app:update_algorithms:577 - Reconnected node client to ensure algorithm change takes effect
+2025-05-12 20:58:04 | INFO     | vigilance_system.dashboard.app:update_algorithms:583 - Algorithm successfully applied after reconnect: least_connection
+2025-05-12 20:58:04 | INFO     | vigilance_system.dashboard.app:update_algorithms:587 - Directly updated node client algorithm to least_connection
+2025-05-12 20:58:04 | INFO     | vigilance_system.dashboard.app:update_algorithms:596 - Configuration reloaded
+2025-05-12 20:58:04 | INFO     | vigilance_system.detection.model_loader:load_model:96 - Using cached model: yolov5s
+2025-05-12 20:58:04 | INFO     | vigilance_system.detection.object_detector:__init__:75 - Initialized object detector with model: yolov5s, confidence threshold: 0.5
+2025-05-12 20:58:04 | INFO     | vigilance_system.dashboard.app:update_algorithms:602 - Reloaded detector with yolov5s
+2025-05-12 20:58:04 | INFO     | vigilance_system.dashboard.app:update_algorithms:604 - Successfully updated and applied all algorithm and network settings
+2025-05-12 20:58:04 | INFO     | vigilance_system.dashboard.app:stop_processing:190 - Stopping video processing thread
+2025-05-12 20:58:05 | INFO     | vigilance_system.dashboard.app:process_video_streams:677 - Starting video processing loop
+2025-05-12 20:58:05 | INFO     | vigilance_system.dashboard.app:start_processing:171 - Started video processing thread
+2025-05-12 20:58:05 | INFO     | vigilance_system.video_acquisition.camera:connect:481 - Successfully opened video file 'Camera 1' with 1785 frames at 30.0 FPS
+2025-05-12 20:58:05 | INFO     | vigilance_system.video_acquisition.camera:start:94 - Started acquisition thread for camera 'Camera 1'
+2025-05-12 20:58:05 | INFO     | vigilance_system.video_acquisition.camera:connect:481 - Successfully opened video file 'Camera 2' with 817 frames at 30.0 FPS
+2025-05-12 20:58:05 | INFO     | vigilance_system.video_acquisition.camera:start:94 - Started acquisition thread for camera 'Camera 2'
+2025-05-12 20:58:06 | INFO     | vigilance_system.video_acquisition.camera:connect:481 - Successfully opened video file 'Camera 3' with 5401 frames at 30.0 FPS
+2025-05-12 20:58:06 | INFO     | vigilance_system.video_acquisition.camera:start:94 - Started acquisition thread for camera 'Camera 3'
+2025-05-12 20:58:06 | INFO     | vigilance_system.video_acquisition.stream_manager:start_all_cameras:164 - Started all cameras (3)
+2025-05-12 20:58:06 | WARNING  | vigilance_system.alert.decision_maker:_check_crowd_detection:502 - Crowd alert: 6 people detected on camera 'Camera 1'
+2025-05-12 20:58:06 | INFO     | vigilance_system.alert.notifier:_save_alert:133 - Saved alert to D:\Main EL\alerts\1747063686_Camera 1_crowd.json
+2025-05-12 20:58:08 | ERROR    | vigilance_system.alert.notifier:_send_email_alert:190 - Error sending email alert: (535, b'5.7.8 Username and Password not accepted. For more information, go to\n5.7.8  https://support.google.com/mail/?p=BadCredentials 41be03b00d2f7-b2349dd34edsm5715555a12.30 - gsmtp')
+2025-05-12 20:58:08 | ERROR    | vigilance_system.detection.object_detector:detect:127 - Error detecting objects: 'int' object is not subscriptable
+2025-05-12 20:58:08 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 2.368s per frame
+2025-05-12 20:58:08 | WARNING  | vigilance_system.alert.decision_maker:_check_crowd_detection:502 - Crowd alert: 3 people detected on camera 'Camera 3'
+2025-05-12 20:58:08 | INFO     | vigilance_system.alert.notifier:_save_alert:133 - Saved alert to D:\Main EL\alerts\1747063688_Camera 3_crowd.json
+2025-05-12 20:58:10 | ERROR    | vigilance_system.alert.notifier:_send_email_alert:190 - Error sending email alert: (535, b'5.7.8 Username and Password not accepted. For more information, go to\n5.7.8  https://support.google.com/mail/?p=BadCredentials 41be03b00d2f7-b234a0b3350sm4975581a12.24 - gsmtp')
+2025-05-12 20:58:10 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 2.140s per frame
+2025-05-12 20:58:10 | ERROR    | vigilance_system.detection.object_detector:detect:127 - Error detecting objects: 'int' object is not subscriptable
+2025-05-12 20:58:10 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.153s per frame
+2025-05-12 20:58:10 | ERROR    | vigilance_system.detection.object_detector:detect:127 - Error detecting objects: 'int' object is not subscriptable
+2025-05-12 20:58:10 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.139s per frame
+2025-05-12 20:58:10 | ERROR    | vigilance_system.detection.object_detector:detect:127 - Error detecting objects: 'int' object is not subscriptable
+2025-05-12 20:58:10 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.138s per frame
+2025-05-12 20:58:11 | ERROR    | vigilance_system.detection.object_detector:detect:127 - Error detecting objects: 'int' object is not subscriptable
+2025-05-12 20:58:11 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.136s per frame
+2025-05-12 20:58:11 | ERROR    | vigilance_system.detection.object_detector:detect:127 - Error detecting objects: 'int' object is not subscriptable
+2025-05-12 20:58:11 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.130s per frame
+2025-05-12 20:58:11 | ERROR    | vigilance_system.detection.object_detector:detect:127 - Error detecting objects: 'int' object is not subscriptable
+2025-05-12 20:58:11 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.138s per frame
+2025-05-12 20:58:11 | ERROR    | vigilance_system.detection.object_detector:detect:127 - Error detecting objects: 'int' object is not subscriptable
+2025-05-12 20:58:11 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.117s per frame
+2025-05-12 20:58:11 | ERROR    | vigilance_system.detection.object_detector:detect:127 - Error detecting objects: 'int' object is not subscriptable
+2025-05-12 20:58:11 | ERROR    | vigilance_system.detection.object_detector:detect:127 - Error detecting objects: 'int' object is not subscriptable
+2025-05-12 20:58:11 | ERROR    | vigilance_system.detection.object_detector:detect:127 - Error detecting objects: 'int' object is not subscriptable
+2025-05-12 20:58:11 | ERROR    | vigilance_system.detection.object_detector:detect:127 - Error detecting objects: 'int' object is not subscriptable
+2025-05-12 20:58:11 | ERROR    | vigilance_system.detection.object_detector:detect:127 - Error detecting objects: 'int' object is not subscriptable
+2025-05-12 20:58:12 | WARNING  | vigilance_system.alert.decision_maker:_check_crowd_detection:502 - Crowd alert: 3 people detected on camera 'Camera 2'
+2025-05-12 20:58:12 | INFO     | vigilance_system.alert.notifier:_save_alert:133 - Saved alert to D:\Main EL\alerts\1747063692_Camera 2_crowd.json
+2025-05-12 20:58:14 | ERROR    | vigilance_system.alert.notifier:_send_email_alert:190 - Error sending email alert: (535, b'5.7.8 Username and Password not accepted. For more information, go to\n5.7.8  https://support.google.com/mail/?p=BadCredentials d2e1a72fcca58-74237a11447sm6354041b3a.105 - gsmtp')
+2025-05-12 20:58:14 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 2.070s per frame
+2025-05-12 20:58:15 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.102s per frame
+2025-05-12 20:58:15 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.167s per frame
+2025-05-12 20:58:15 | ERROR    | vigilance_system.dashboard.app:process_video_streams:1243 - Error in video processing loop: 13
+2025-05-12 20:58:15 | INFO     | vigilance_system.video_acquisition.camera:disconnect:493 - Closed video file 'Camera 1'
+2025-05-12 20:58:15 | INFO     | vigilance_system.video_acquisition.camera:stop:102 - Stopped camera 'Camera 1'
+2025-05-12 20:58:15 | INFO     | vigilance_system.video_acquisition.camera:disconnect:493 - Closed video file 'Camera 2'
+2025-05-12 20:58:15 | INFO     | vigilance_system.video_acquisition.camera:stop:102 - Stopped camera 'Camera 2'
+2025-05-12 20:58:15 | INFO     | vigilance_system.video_acquisition.camera:disconnect:493 - Closed video file 'Camera 3'
+2025-05-12 20:58:15 | INFO     | vigilance_system.video_acquisition.camera:stop:102 - Stopped camera 'Camera 3'
+2025-05-12 20:58:15 | INFO     | vigilance_system.video_acquisition.stream_manager:stop_all_cameras:171 - Stopped all cameras (3)
+2025-05-12 20:58:15 | INFO     | vigilance_system.dashboard.app:process_video_streams:1247 - Video processing loop stopped
+2025-05-12 20:59:03 | INFO     | vigilance_system.dashboard.app:update_visualizations:434 - View mode changed to: single
+2025-05-12 20:59:03 | INFO     | vigilance_system.dashboard.app:update_visualizations:447 - Updated visualization settings: {'view_mode': 'single', 'show_stabilization': True, 'show_tracking': False, 'show_decision_making': True, 'show_algorithm_steps': True}
+2025-05-12 20:59:08 | INFO     | vigilance_system.dashboard.app:handle_disconnect:665 - Client disconnected: qWUFJj56Ob81EpIrAAAD
+2025-05-12 20:59:13 | INFO     | vigilance_system.dashboard.app:shutdown_server:1254 - Shutting down server...
+2025-05-12 20:59:13 | INFO     | vigilance_system.video_acquisition.camera:stop:102 - Stopped camera 'Camera 1'
+2025-05-12 20:59:13 | INFO     | vigilance_system.video_acquisition.camera:stop:102 - Stopped camera 'Camera 2'
+2025-05-12 20:59:13 | INFO     | vigilance_system.video_acquisition.camera:stop:102 - Stopped camera 'Camera 3'
+2025-05-12 20:59:13 | INFO     | vigilance_system.video_acquisition.stream_manager:stop_all_cameras:171 - Stopped all cameras (3)
+2025-05-12 20:59:13 | INFO     | vigilance_system.dashboard.app:shutdown_server:1267 - Disconnected from network nodes
+2025-05-12 20:59:13 | INFO     | vigilance_system.dashboard.app:shutdown_server:1274 - Terminating all node server processes...
+2025-05-12 20:59:14 | INFO     | vigilance_system.dashboard.app:shutdown_server:1279 - Node server processes terminated
+2025-05-12 23:09:09 | INFO     | vigilance_system.utils.logger:setup_logger:53 - Logger initialized at level INFO
+2025-05-12 23:09:10 | INFO     | vigilance_system.video_acquisition.stream_manager:__init__:50 - Stream manager initialized
+2025-05-12 23:09:14 | INFO     | vigilance_system.detection.model_loader:__init__:56 - Model loader initialized with device: cuda:0
+2025-05-12 23:09:17 | INFO     | vigilance_system.alert.decision_maker:__init__:255 - Initialized decision maker with motion_threshold=0.2, person_loitering_time=30
+2025-05-12 23:09:17 | INFO     | vigilance_system.alert.notifier:__init__:72 - Alert notifier initialized with email=True, SMS=False
+2025-05-12 23:09:17 | INFO     | vigilance_system.network.simulation:_launch_network_nodes:170 - Using existing nodes from D:\Main EL\nodes.json
+2025-05-12 23:09:43 | INFO     | vigilance_system.network.simulation:__init__:158 - Initialized network simulator with 4 nodes and routing algorithm: least_connection
+2025-05-12 23:09:43 | INFO     | vigilance_system.network.visualization:__init__:70 - Initialized network visualizer with size 1024x768
+2025-05-12 23:09:43 | INFO     | vigilance_system.detection.model_loader:load_model:99 - Loading model: yolov5s
+2025-05-12 23:09:49 | INFO     | vigilance_system.detection.object_detector:__init__:75 - Initialized object detector with model: yolov5s, confidence threshold: 0.5
+2025-05-12 23:09:49 | INFO     | vigilance_system.utils.logger:setup_logger:53 - Logger initialized at level INFO
+2025-05-12 23:09:49 | INFO     | __main__:main:66 - Starting Vigilance System
+2025-05-12 23:09:49 | INFO     | vigilance_system.video_acquisition.camera:__init__:54 - Initialized camera 'Camera 1' with URL: D:\Main EL\vigilance_system\videos\WhatsApp Video 2025-04-22 at 20.45.45_529ae150.mp4
+2025-05-12 23:09:49 | INFO     | vigilance_system.video_acquisition.stream_manager:add_camera:102 - Added camera 'Camera 1' to stream manager
+2025-05-12 23:09:49 | INFO     | vigilance_system.video_acquisition.camera:__init__:54 - Initialized camera 'Camera 2' with URL: D:\Main EL\vigilance_system\videos\WhatsApp Video 2025-04-22 at 20.47.50_dd1a37f6.mp4
+2025-05-12 23:09:49 | INFO     | vigilance_system.video_acquisition.stream_manager:add_camera:102 - Added camera 'Camera 2' to stream manager
+2025-05-12 23:09:49 | INFO     | vigilance_system.video_acquisition.camera:__init__:54 - Initialized camera 'Camera 3' with URL: D:\Main EL\vigilance_system\videos\WhatsApp Video 2025-04-22 at 20.48.20_3c3ca36c.mp4
+2025-05-12 23:09:49 | INFO     | vigilance_system.video_acquisition.stream_manager:add_camera:102 - Added camera 'Camera 3' to stream manager
+2025-05-12 23:09:49 | INFO     | __main__:main:78 - Starting dashboard on 0.0.0.0:5000
+2025-05-12 23:10:05 | INFO     | vigilance_system.dashboard.app:login:103 - User admin logged in from IP: 127.0.0.1
+2025-05-12 23:10:05 | INFO     | vigilance_system.dashboard.app:handle_connect:659 - Client connected: 4E1-7y1u36MmkXlkAAAB
+2025-05-12 23:10:19 | INFO     | vigilance_system.dashboard.app:process_video_streams:677 - Starting video processing loop
+2025-05-12 23:10:19 | INFO     | vigilance_system.dashboard.app:start_processing:171 - Started video processing thread
+2025-05-12 23:10:19 | INFO     | vigilance_system.video_acquisition.camera:connect:481 - Successfully opened video file 'Camera 1' with 1785 frames at 30.0 FPS
+2025-05-12 23:10:19 | INFO     | vigilance_system.video_acquisition.camera:start:94 - Started acquisition thread for camera 'Camera 1'
+2025-05-12 23:10:19 | INFO     | vigilance_system.video_acquisition.camera:connect:481 - Successfully opened video file 'Camera 2' with 817 frames at 30.0 FPS
+2025-05-12 23:10:19 | INFO     | vigilance_system.video_acquisition.camera:start:94 - Started acquisition thread for camera 'Camera 2'
+2025-05-12 23:10:19 | INFO     | vigilance_system.video_acquisition.camera:connect:481 - Successfully opened video file 'Camera 3' with 5401 frames at 30.0 FPS
+2025-05-12 23:10:19 | INFO     | vigilance_system.video_acquisition.camera:start:94 - Started acquisition thread for camera 'Camera 3'
+2025-05-12 23:10:19 | INFO     | vigilance_system.video_acquisition.stream_manager:start_all_cameras:164 - Started all cameras (3)
+2025-05-12 23:10:19 | INFO     | vigilance_system.network.simulation:register_camera:216 - Registered camera Camera 1 with the network
+2025-05-12 23:10:19 | INFO     | vigilance_system.alert.decision_maker:get_tracker:276 - Creating new tracker for camera 'Camera 1' with algorithm 'kalman'
+2025-05-12 23:10:19 | INFO     | vigilance_system.detection.ml_algorithms:__init__:48 - Initialized ML tracker with max_disappeared=30, max_distance=50.0
+2025-05-12 23:10:19 | INFO     | vigilance_system.detection.tracking_algorithms:__init__:255 - Initialized Kalman tracker with process_noise=0.01, measurement_noise=0.1
+2025-05-12 23:10:19 | INFO     | vigilance_system.alert.decision_maker:get_tracker:354 - Created Kalman tracker for camera 'Camera 1' with process_noise=0.01, measurement_noise=0.1
+2025-05-12 23:10:19 | WARNING  | vigilance_system.alert.decision_maker:_check_crowd_detection:502 - Crowd alert: 6 people detected on camera 'Camera 1'
+2025-05-12 23:10:19 | INFO     | vigilance_system.alert.notifier:_save_alert:133 - Saved alert to D:\Main EL\alerts\1747071619_Camera 1_crowd.json
+2025-05-12 23:10:21 | ERROR    | vigilance_system.alert.notifier:_send_email_alert:190 - Error sending email alert: (535, b'5.7.8 Username and Password not accepted. For more information, go to\n5.7.8  https://support.google.com/mail/?p=BadCredentials d9443c01a7336-22fc8271ccesm65692605ad.144 - gsmtp')
+2025-05-12 23:10:21 | INFO     | vigilance_system.network.simulation:register_camera:216 - Registered camera Camera 2 with the network
+2025-05-12 23:10:22 | ERROR    | vigilance_system.detection.object_detector:detect:127 - Error detecting objects: 'int' object is not subscriptable
+2025-05-12 23:10:22 | INFO     | vigilance_system.alert.decision_maker:get_tracker:276 - Creating new tracker for camera 'Camera 2' with algorithm 'kalman'
+2025-05-12 23:10:22 | INFO     | vigilance_system.detection.ml_algorithms:__init__:48 - Initialized ML tracker with max_disappeared=30, max_distance=50.0
+2025-05-12 23:10:22 | INFO     | vigilance_system.detection.tracking_algorithms:__init__:255 - Initialized Kalman tracker with process_noise=0.01, measurement_noise=0.1
+2025-05-12 23:10:22 | INFO     | vigilance_system.alert.decision_maker:get_tracker:354 - Created Kalman tracker for camera 'Camera 2' with process_noise=0.01, measurement_noise=0.1
+2025-05-12 23:10:22 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 3.105s per frame
+2025-05-12 23:10:22 | ERROR    | vigilance_system.detection.object_detector:detect:127 - Error detecting objects: 'int' object is not subscriptable
+2025-05-12 23:10:22 | INFO     | vigilance_system.network.simulation:register_camera:216 - Registered camera Camera 3 with the network
+2025-05-12 23:10:22 | INFO     | vigilance_system.alert.decision_maker:get_tracker:276 - Creating new tracker for camera 'Camera 3' with algorithm 'kalman'
+2025-05-12 23:10:22 | INFO     | vigilance_system.detection.ml_algorithms:__init__:48 - Initialized ML tracker with max_disappeared=30, max_distance=50.0
+2025-05-12 23:10:22 | INFO     | vigilance_system.detection.tracking_algorithms:__init__:255 - Initialized Kalman tracker with process_noise=0.01, measurement_noise=0.1
+2025-05-12 23:10:22 | INFO     | vigilance_system.alert.decision_maker:get_tracker:354 - Created Kalman tracker for camera 'Camera 3' with process_noise=0.01, measurement_noise=0.1
+2025-05-12 23:10:22 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.150s per frame
+2025-05-12 23:10:22 | ERROR    | vigilance_system.detection.object_detector:detect:127 - Error detecting objects: 'int' object is not subscriptable
+2025-05-12 23:10:22 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.130s per frame
+2025-05-12 23:10:22 | ERROR    | vigilance_system.detection.object_detector:detect:127 - Error detecting objects: 'int' object is not subscriptable
+2025-05-12 23:10:22 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.124s per frame
+2025-05-12 23:10:23 | ERROR    | vigilance_system.detection.object_detector:detect:127 - Error detecting objects: 'int' object is not subscriptable
+2025-05-12 23:10:23 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.228s per frame
+2025-05-12 23:10:23 | ERROR    | vigilance_system.detection.object_detector:detect:127 - Error detecting objects: 'int' object is not subscriptable
+2025-05-12 23:10:23 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.138s per frame
+2025-05-12 23:10:23 | ERROR    | vigilance_system.detection.object_detector:detect:127 - Error detecting objects: 'int' object is not subscriptable
+2025-05-12 23:10:23 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.128s per frame
+2025-05-12 23:10:23 | ERROR    | vigilance_system.detection.object_detector:detect:127 - Error detecting objects: 'int' object is not subscriptable
+2025-05-12 23:10:23 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.118s per frame
+2025-05-12 23:10:23 | ERROR    | vigilance_system.detection.object_detector:detect:127 - Error detecting objects: 'int' object is not subscriptable
+2025-05-12 23:10:23 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.132s per frame
+2025-05-12 23:10:23 | ERROR    | vigilance_system.detection.object_detector:detect:127 - Error detecting objects: 'int' object is not subscriptable
+2025-05-12 23:10:23 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.132s per frame
+2025-05-12 23:10:23 | ERROR    | vigilance_system.detection.object_detector:detect:127 - Error detecting objects: 'int' object is not subscriptable
+2025-05-12 23:10:23 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.128s per frame
+2025-05-12 23:10:23 | ERROR    | vigilance_system.detection.object_detector:detect:127 - Error detecting objects: 'int' object is not subscriptable
+2025-05-12 23:10:23 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.120s per frame
+2025-05-12 23:10:24 | ERROR    | vigilance_system.detection.object_detector:detect:127 - Error detecting objects: 'int' object is not subscriptable
+2025-05-12 23:10:24 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.119s per frame
+2025-05-12 23:10:24 | ERROR    | vigilance_system.detection.object_detector:detect:127 - Error detecting objects: 'int' object is not subscriptable
+2025-05-12 23:10:24 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.130s per frame
+2025-05-12 23:10:24 | ERROR    | vigilance_system.detection.object_detector:detect:127 - Error detecting objects: 'int' object is not subscriptable
+2025-05-12 23:10:24 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.149s per frame
+2025-05-12 23:10:24 | ERROR    | vigilance_system.detection.object_detector:detect:127 - Error detecting objects: 'int' object is not subscriptable
+2025-05-12 23:10:24 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.179s per frame
+2025-05-12 23:10:24 | ERROR    | vigilance_system.detection.object_detector:detect:127 - Error detecting objects: 'int' object is not subscriptable
+2025-05-12 23:10:24 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.168s per frame
+2025-05-12 23:10:24 | ERROR    | vigilance_system.detection.object_detector:detect:127 - Error detecting objects: 'int' object is not subscriptable
+2025-05-12 23:10:24 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.166s per frame
+2025-05-12 23:10:25 | ERROR    | vigilance_system.detection.object_detector:detect:127 - Error detecting objects: 'int' object is not subscriptable
+2025-05-12 23:10:25 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.179s per frame
+2025-05-12 23:10:25 | WARNING  | vigilance_system.alert.decision_maker:_check_crowd_detection:502 - Crowd alert: 3 people detected on camera 'Camera 2'
+2025-05-12 23:10:25 | INFO     | vigilance_system.alert.notifier:_save_alert:133 - Saved alert to D:\Main EL\alerts\1747071625_Camera 2_crowd.json
+2025-05-12 23:10:27 | ERROR    | vigilance_system.alert.notifier:_send_email_alert:190 - Error sending email alert: (535, b'5.7.8 Username and Password not accepted. For more information, go to\n5.7.8  https://support.google.com/mail/?p=BadCredentials d9443c01a7336-22fc8271520sm66276585ad.147 - gsmtp')
+2025-05-12 23:10:27 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 2.268s per frame
+2025-05-12 23:10:27 | WARNING  | vigilance_system.alert.decision_maker:_check_crowd_detection:502 - Crowd alert: 3 people detected on camera 'Camera 3'
+2025-05-12 23:10:27 | INFO     | vigilance_system.alert.notifier:_save_alert:133 - Saved alert to D:\Main EL\alerts\1747071627_Camera 3_crowd.json
+2025-05-12 23:10:29 | ERROR    | vigilance_system.alert.notifier:_send_email_alert:190 - Error sending email alert: (535, b'5.7.8 Username and Password not accepted. For more information, go to\n5.7.8  https://support.google.com/mail/?p=BadCredentials 98e67ed59e1d1-30ad4ffbc88sm9061207a91.49 - gsmtp')
+2025-05-12 23:10:29 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 2.490s per frame
+2025-05-12 23:10:29 | WARNING  | vigilance_system.alert.decision_maker:_check_crowd_detection:502 - Crowd alert: 8 people detected on camera 'Camera 1'
+2025-05-12 23:10:29 | INFO     | vigilance_system.alert.notifier:_save_alert:133 - Saved alert to D:\Main EL\alerts\1747071629_Camera 1_crowd.json
+2025-05-12 23:10:32 | ERROR    | vigilance_system.alert.notifier:_send_email_alert:190 - Error sending email alert: (535, b'5.7.8 Username and Password not accepted. For more information, go to\n5.7.8  https://support.google.com/mail/?p=BadCredentials 98e67ed59e1d1-30c39df03a7sm7574288a91.24 - gsmtp')
+2025-05-12 23:10:32 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 2.442s per frame
+2025-05-12 23:10:32 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.108s per frame
+2025-05-12 23:10:32 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.125s per frame
+2025-05-12 23:10:32 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.141s per frame
+2025-05-12 23:10:32 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.100s per frame
+2025-05-12 23:10:32 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.100s per frame
+2025-05-12 23:10:32 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.105s per frame
+2025-05-12 23:10:33 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.119s per frame
+2025-05-12 23:10:33 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.101s per frame
+2025-05-12 23:10:33 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.122s per frame
+2025-05-12 23:10:33 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.130s per frame
+2025-05-12 23:10:33 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.139s per frame
+2025-05-12 23:10:33 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.154s per frame
+2025-05-12 23:10:33 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.128s per frame
+2025-05-12 23:10:34 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.129s per frame
+2025-05-12 23:10:34 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.135s per frame
+2025-05-12 23:10:34 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.121s per frame
+2025-05-12 23:10:34 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.146s per frame
+2025-05-12 23:10:34 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.207s per frame
+2025-05-12 23:10:34 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.134s per frame
+2025-05-12 23:10:34 | ERROR    | vigilance_system.detection.object_detector:detect:127 - Error detecting objects: 'int' object is not subscriptable
+2025-05-12 23:10:34 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.204s per frame
+2025-05-12 23:10:35 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.127s per frame
+2025-05-12 23:10:35 | WARNING  | vigilance_system.alert.decision_maker:_check_crowd_detection:502 - Crowd alert: 18 people detected on camera 'Camera 2'
+2025-05-12 23:10:35 | INFO     | vigilance_system.alert.notifier:_save_alert:133 - Saved alert to D:\Main EL\alerts\1747071635_Camera 2_crowd.json
+2025-05-12 23:10:37 | ERROR    | vigilance_system.alert.notifier:_send_email_alert:190 - Error sending email alert: (535, b'5.7.8 Username and Password not accepted. For more information, go to\n5.7.8  https://support.google.com/mail/?p=BadCredentials 41be03b00d2f7-b235198e384sm5874802a12.65 - gsmtp')
+2025-05-12 23:10:37 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 2.286s per frame
+2025-05-12 23:10:37 | ERROR    | vigilance_system.detection.object_detector:detect:127 - Error detecting objects: 'int' object is not subscriptable
+2025-05-12 23:10:37 | WARNING  | vigilance_system.alert.decision_maker:_check_crowd_detection:502 - Crowd alert: 3 people detected on camera 'Camera 3'
+2025-05-12 23:10:37 | INFO     | vigilance_system.alert.notifier:_save_alert:133 - Saved alert to D:\Main EL\alerts\1747071637_Camera 3_crowd.json
+2025-05-12 23:10:39 | ERROR    | vigilance_system.alert.notifier:_send_email_alert:190 - Error sending email alert: (535, b'5.7.8 Username and Password not accepted. For more information, go to\n5.7.8  https://support.google.com/mail/?p=BadCredentials d2e1a72fcca58-74237a3d1e7sm6191282b3a.126 - gsmtp')
+2025-05-12 23:10:39 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 2.245s per frame
+2025-05-12 23:10:39 | ERROR    | vigilance_system.detection.object_detector:detect:127 - Error detecting objects: 'int' object is not subscriptable
+2025-05-12 23:10:39 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.209s per frame
+2025-05-12 23:10:39 | WARNING  | vigilance_system.alert.decision_maker:_check_crowd_detection:502 - Crowd alert: 12 people detected on camera 'Camera 1'
+2025-05-12 23:10:39 | INFO     | vigilance_system.alert.notifier:_save_alert:133 - Saved alert to D:\Main EL\alerts\1747071639_Camera 1_crowd.json
+2025-05-12 23:10:41 | INFO     | vigilance_system.dashboard.app:update_algorithms:469 - Updated detection algorithm to yolov5s
+2025-05-12 23:10:41 | INFO     | vigilance_system.dashboard.app:update_algorithms:474 - Updated tracking algorithm to kalman
+2025-05-12 23:10:41 | INFO     | vigilance_system.alert.decision_maker:set_tracking_algorithm:584 - Setting tracking algorithm to kalman
+2025-05-12 23:10:41 | INFO     | vigilance_system.alert.decision_maker:set_tracking_algorithm:588 - Saved tracking algorithm kalman to config
+2025-05-12 23:10:41 | INFO     | vigilance_system.alert.decision_maker:get_tracker:276 - Creating new tracker for camera 'Camera 1' with algorithm 'kalman'
+2025-05-12 23:10:41 | INFO     | vigilance_system.detection.ml_algorithms:__init__:48 - Initialized ML tracker with max_disappeared=30, max_distance=50.0
+2025-05-12 23:10:41 | INFO     | vigilance_system.detection.tracking_algorithms:__init__:255 - Initialized Kalman tracker with process_noise=0.01, measurement_noise=0.1
+2025-05-12 23:10:41 | INFO     | vigilance_system.alert.decision_maker:get_tracker:354 - Created Kalman tracker for camera 'Camera 1' with process_noise=0.01, measurement_noise=0.1
+2025-05-12 23:10:41 | INFO     | vigilance_system.alert.decision_maker:get_tracker:276 - Creating new tracker for camera 'Camera 2' with algorithm 'kalman'
+2025-05-12 23:10:41 | INFO     | vigilance_system.detection.ml_algorithms:__init__:48 - Initialized ML tracker with max_disappeared=30, max_distance=50.0
+2025-05-12 23:10:41 | INFO     | vigilance_system.detection.tracking_algorithms:__init__:255 - Initialized Kalman tracker with process_noise=0.01, measurement_noise=0.1
+2025-05-12 23:10:41 | INFO     | vigilance_system.alert.decision_maker:get_tracker:354 - Created Kalman tracker for camera 'Camera 2' with process_noise=0.01, measurement_noise=0.1
+2025-05-12 23:10:41 | INFO     | vigilance_system.alert.decision_maker:get_tracker:276 - Creating new tracker for camera 'Camera 3' with algorithm 'kalman'
+2025-05-12 23:10:41 | INFO     | vigilance_system.detection.ml_algorithms:__init__:48 - Initialized ML tracker with max_disappeared=30, max_distance=50.0
+2025-05-12 23:10:41 | INFO     | vigilance_system.detection.tracking_algorithms:__init__:255 - Initialized Kalman tracker with process_noise=0.01, measurement_noise=0.1
+2025-05-12 23:10:41 | INFO     | vigilance_system.alert.decision_maker:get_tracker:354 - Created Kalman tracker for camera 'Camera 3' with process_noise=0.01, measurement_noise=0.1
+2025-05-12 23:10:41 | INFO     | vigilance_system.alert.decision_maker:reset_all_trackers:534 - Reset all trackers using algorithm: decision_tree
+2025-05-12 23:10:41 | INFO     | vigilance_system.alert.decision_maker:reset_all_trackers:535 - Current tracking algorithm: kalman
+2025-05-12 23:10:41 | INFO     | vigilance_system.alert.decision_maker:set_tracking_algorithm:592 - Reset trackers for new tracking algorithm: kalman
+2025-05-12 23:10:41 | INFO     | vigilance_system.dashboard.app:update_algorithms:481 - Applied tracking algorithm kalman
+2025-05-12 23:10:41 | INFO     | vigilance_system.dashboard.app:update_algorithms:486 - Updated classifier algorithm to decision_tree
+2025-05-12 23:10:41 | INFO     | vigilance_system.alert.decision_maker:set_classifier_algorithm:544 - Setting classifier algorithm to decision_tree
+2025-05-12 23:10:41 | INFO     | vigilance_system.alert.decision_maker:set_classifier_algorithm:551 - Saved classifier algorithm decision_tree to config
+2025-05-12 23:10:41 | INFO     | vigilance_system.alert.decision_maker:get_tracker:276 - Creating new tracker for camera 'Camera 1' with algorithm 'kalman'
+2025-05-12 23:10:41 | INFO     | vigilance_system.detection.ml_algorithms:__init__:48 - Initialized ML tracker with max_disappeared=30, max_distance=50.0
+2025-05-12 23:10:41 | INFO     | vigilance_system.detection.tracking_algorithms:__init__:255 - Initialized Kalman tracker with process_noise=0.01, measurement_noise=0.1
+2025-05-12 23:10:41 | INFO     | vigilance_system.alert.decision_maker:get_tracker:354 - Created Kalman tracker for camera 'Camera 1' with process_noise=0.01, measurement_noise=0.1
+2025-05-12 23:10:41 | INFO     | vigilance_system.alert.decision_maker:get_tracker:276 - Creating new tracker for camera 'Camera 2' with algorithm 'kalman'
+2025-05-12 23:10:41 | INFO     | vigilance_system.detection.ml_algorithms:__init__:48 - Initialized ML tracker with max_disappeared=30, max_distance=50.0
+2025-05-12 23:10:41 | INFO     | vigilance_system.detection.tracking_algorithms:__init__:255 - Initialized Kalman tracker with process_noise=0.01, measurement_noise=0.1
+2025-05-12 23:10:41 | INFO     | vigilance_system.alert.decision_maker:get_tracker:354 - Created Kalman tracker for camera 'Camera 2' with process_noise=0.01, measurement_noise=0.1
+2025-05-12 23:10:41 | INFO     | vigilance_system.alert.decision_maker:get_tracker:276 - Creating new tracker for camera 'Camera 3' with algorithm 'kalman'
+2025-05-12 23:10:41 | INFO     | vigilance_system.detection.ml_algorithms:__init__:48 - Initialized ML tracker with max_disappeared=30, max_distance=50.0
+2025-05-12 23:10:41 | INFO     | vigilance_system.detection.tracking_algorithms:__init__:255 - Initialized Kalman tracker with process_noise=0.01, measurement_noise=0.1
+2025-05-12 23:10:41 | INFO     | vigilance_system.alert.decision_maker:get_tracker:354 - Created Kalman tracker for camera 'Camera 3' with process_noise=0.01, measurement_noise=0.1
+2025-05-12 23:10:41 | INFO     | vigilance_system.alert.decision_maker:reset_all_trackers:534 - Reset all trackers using algorithm: decision_tree
+2025-05-12 23:10:41 | INFO     | vigilance_system.alert.decision_maker:reset_all_trackers:535 - Current tracking algorithm: kalman
+2025-05-12 23:10:41 | INFO     | vigilance_system.alert.decision_maker:set_classifier_algorithm:555 - Reset trackers for new classifier algorithm: decision_tree
+2025-05-12 23:10:41 | INFO     | vigilance_system.dashboard.app:update_algorithms:489 - Applied classifier algorithm decision_tree
+2025-05-12 23:10:41 | INFO     | vigilance_system.dashboard.app:update_algorithms:494 - Updated analysis algorithm to basic
+2025-05-12 23:10:41 | INFO     | vigilance_system.alert.decision_maker:set_analysis_algorithm:564 - Setting analysis algorithm to basic
+2025-05-12 23:10:42 | INFO     | vigilance_system.alert.decision_maker:set_analysis_algorithm:571 - Saved analysis algorithm basic to config
+2025-05-12 23:10:42 | INFO     | vigilance_system.alert.decision_maker:get_tracker:276 - Creating new tracker for camera 'Camera 1' with algorithm 'kalman'
+2025-05-12 23:10:42 | INFO     | vigilance_system.detection.ml_algorithms:__init__:48 - Initialized ML tracker with max_disappeared=30, max_distance=50.0
+2025-05-12 23:10:42 | INFO     | vigilance_system.detection.tracking_algorithms:__init__:255 - Initialized Kalman tracker with process_noise=0.01, measurement_noise=0.1
+2025-05-12 23:10:42 | INFO     | vigilance_system.alert.decision_maker:get_tracker:354 - Created Kalman tracker for camera 'Camera 1' with process_noise=0.01, measurement_noise=0.1
+2025-05-12 23:10:42 | INFO     | vigilance_system.alert.decision_maker:get_tracker:276 - Creating new tracker for camera 'Camera 2' with algorithm 'kalman'
+2025-05-12 23:10:42 | INFO     | vigilance_system.detection.ml_algorithms:__init__:48 - Initialized ML tracker with max_disappeared=30, max_distance=50.0
+2025-05-12 23:10:42 | INFO     | vigilance_system.detection.tracking_algorithms:__init__:255 - Initialized Kalman tracker with process_noise=0.01, measurement_noise=0.1
+2025-05-12 23:10:42 | INFO     | vigilance_system.alert.decision_maker:get_tracker:354 - Created Kalman tracker for camera 'Camera 2' with process_noise=0.01, measurement_noise=0.1
+2025-05-12 23:10:42 | INFO     | vigilance_system.alert.decision_maker:get_tracker:276 - Creating new tracker for camera 'Camera 3' with algorithm 'kalman'
+2025-05-12 23:10:42 | INFO     | vigilance_system.detection.ml_algorithms:__init__:48 - Initialized ML tracker with max_disappeared=30, max_distance=50.0
+2025-05-12 23:10:42 | INFO     | vigilance_system.detection.tracking_algorithms:__init__:255 - Initialized Kalman tracker with process_noise=0.01, measurement_noise=0.1
+2025-05-12 23:10:42 | INFO     | vigilance_system.alert.decision_maker:get_tracker:354 - Created Kalman tracker for camera 'Camera 3' with process_noise=0.01, measurement_noise=0.1
+2025-05-12 23:10:42 | INFO     | vigilance_system.alert.decision_maker:reset_all_trackers:534 - Reset all trackers using algorithm: decision_tree
+2025-05-12 23:10:42 | INFO     | vigilance_system.alert.decision_maker:reset_all_trackers:535 - Current tracking algorithm: kalman
+2025-05-12 23:10:42 | INFO     | vigilance_system.alert.decision_maker:set_analysis_algorithm:575 - Reset trackers for new analysis algorithm: basic
+2025-05-12 23:10:42 | INFO     | vigilance_system.dashboard.app:update_algorithms:497 - Applied analysis algorithm basic
+2025-05-12 23:10:42 | INFO     | vigilance_system.dashboard.app:update_algorithms:509 - Updated frame rate to 25
+2025-05-12 23:10:42 | INFO     | vigilance_system.dashboard.app:update_algorithms:517 - Updated resolution to medium
+2025-05-12 23:10:42 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: least_connection
+2025-05-12 23:10:42 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: least_connection
+2025-05-12 23:10:42 | INFO     | vigilance_system.dashboard.app:update_algorithms:562 - Terminating existing node processes before reconnecting...
+2025-05-12 23:10:42 | ERROR    | vigilance_system.alert.notifier:_send_email_alert:190 - Error sending email alert: (535, b'5.7.8 Username and Password not accepted. For more information, go to\n5.7.8  https://support.google.com/mail/?p=BadCredentials 98e67ed59e1d1-30ad4fe229dsm9999849a91.33 - gsmtp')
+2025-05-12 23:10:42 | ERROR    | vigilance_system.detection.object_detector:detect:127 - Error detecting objects: 'int' object is not subscriptable
+2025-05-12 23:10:42 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 2.701s per frame
+2025-05-12 23:10:42 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.136s per frame
+2025-05-12 23:10:42 | INFO     | vigilance_system.dashboard.app:update_algorithms:565 - Existing node processes terminated
+2025-05-12 23:10:42 | ERROR    | vigilance_system.dashboard.app:update_algorithms:585 - Error reconnecting node client: dictionary changed size during iteration
+2025-05-12 23:10:42 | INFO     | vigilance_system.dashboard.app:update_algorithms:587 - Directly updated node client algorithm to least_connection
+2025-05-12 23:10:42 | INFO     | vigilance_system.dashboard.app:update_algorithms:596 - Configuration reloaded
+2025-05-12 23:10:42 | INFO     | vigilance_system.detection.model_loader:load_model:96 - Using cached model: yolov5s
+2025-05-12 23:10:42 | INFO     | vigilance_system.detection.object_detector:__init__:75 - Initialized object detector with model: yolov5s, confidence threshold: 0.5
+2025-05-12 23:10:42 | INFO     | vigilance_system.dashboard.app:update_algorithms:602 - Reloaded detector with yolov5s
+2025-05-12 23:10:42 | INFO     | vigilance_system.dashboard.app:update_algorithms:604 - Successfully updated and applied all algorithm and network settings
+2025-05-12 23:10:42 | INFO     | vigilance_system.dashboard.app:stop_processing:190 - Stopping video processing thread
+2025-05-12 23:10:42 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.205s per frame
+2025-05-12 23:10:42 | INFO     | vigilance_system.video_acquisition.camera:disconnect:493 - Closed video file 'Camera 1'
+2025-05-12 23:10:42 | INFO     | vigilance_system.video_acquisition.camera:stop:102 - Stopped camera 'Camera 1'
+2025-05-12 23:10:43 | INFO     | vigilance_system.video_acquisition.camera:disconnect:493 - Closed video file 'Camera 2'
+2025-05-12 23:10:43 | INFO     | vigilance_system.video_acquisition.camera:stop:102 - Stopped camera 'Camera 2'
+2025-05-12 23:10:43 | INFO     | vigilance_system.video_acquisition.camera:disconnect:493 - Closed video file 'Camera 3'
+2025-05-12 23:10:43 | INFO     | vigilance_system.video_acquisition.camera:stop:102 - Stopped camera 'Camera 3'
+2025-05-12 23:10:43 | INFO     | vigilance_system.video_acquisition.stream_manager:stop_all_cameras:171 - Stopped all cameras (3)
+2025-05-12 23:10:43 | INFO     | vigilance_system.dashboard.app:process_video_streams:1247 - Video processing loop stopped
+2025-05-12 23:10:43 | INFO     | vigilance_system.dashboard.app:process_video_streams:677 - Starting video processing loop
+2025-05-12 23:10:43 | INFO     | vigilance_system.dashboard.app:start_processing:171 - Started video processing thread
+2025-05-12 23:10:43 | INFO     | vigilance_system.video_acquisition.camera:connect:481 - Successfully opened video file 'Camera 1' with 1785 frames at 30.0 FPS
+2025-05-12 23:10:43 | INFO     | vigilance_system.video_acquisition.camera:start:94 - Started acquisition thread for camera 'Camera 1'
+2025-05-12 23:10:44 | INFO     | vigilance_system.video_acquisition.camera:connect:481 - Successfully opened video file 'Camera 2' with 817 frames at 30.0 FPS
+2025-05-12 23:10:44 | INFO     | vigilance_system.video_acquisition.camera:start:94 - Started acquisition thread for camera 'Camera 2'
+2025-05-12 23:10:44 | INFO     | vigilance_system.video_acquisition.camera:connect:481 - Successfully opened video file 'Camera 3' with 5401 frames at 30.0 FPS
+2025-05-12 23:10:44 | INFO     | vigilance_system.video_acquisition.camera:start:94 - Started acquisition thread for camera 'Camera 3'
+2025-05-12 23:10:44 | INFO     | vigilance_system.video_acquisition.stream_manager:start_all_cameras:164 - Started all cameras (3)
+2025-05-12 23:10:44 | ERROR    | vigilance_system.detection.object_detector:detect:127 - Error detecting objects: 'int' object is not subscriptable
+2025-05-12 23:10:44 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.269s per frame
+2025-05-12 23:10:44 | ERROR    | vigilance_system.detection.object_detector:detect:127 - Error detecting objects: 'int' object is not subscriptable
+2025-05-12 23:10:44 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.203s per frame
+2025-05-12 23:10:44 | ERROR    | vigilance_system.detection.object_detector:detect:127 - Error detecting objects: 'int' object is not subscriptable
+2025-05-12 23:10:44 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.185s per frame
+2025-05-12 23:10:44 | ERROR    | vigilance_system.detection.object_detector:detect:127 - Error detecting objects: 'int' object is not subscriptable
+2025-05-12 23:10:44 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.240s per frame
+2025-05-12 23:10:45 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.190s per frame
+2025-05-12 23:10:45 | WARNING  | vigilance_system.alert.decision_maker:_check_crowd_detection:502 - Crowd alert: 7 people detected on camera 'Camera 2'
+2025-05-12 23:10:45 | INFO     | vigilance_system.alert.notifier:_save_alert:133 - Saved alert to D:\Main EL\alerts\1747071645_Camera 2_crowd.json
+2025-05-12 23:10:47 | ERROR    | vigilance_system.alert.notifier:_send_email_alert:190 - Error sending email alert: (535, b'5.7.8 Username and Password not accepted. For more information, go to\n5.7.8  https://support.google.com/mail/?p=BadCredentials 98e67ed59e1d1-30ad4d2f1dasm9265175a91.17 - gsmtp')
+2025-05-12 23:10:47 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 2.351s per frame
+2025-05-12 23:10:47 | ERROR    | vigilance_system.detection.object_detector:detect:127 - Error detecting objects: 'int' object is not subscriptable
+2025-05-12 23:10:47 | WARNING  | vigilance_system.alert.decision_maker:_check_crowd_detection:502 - Crowd alert: 3 people detected on camera 'Camera 3'
+2025-05-12 23:10:47 | INFO     | vigilance_system.alert.notifier:_save_alert:133 - Saved alert to D:\Main EL\alerts\1747071647_Camera 3_crowd.json
+2025-05-12 23:10:49 | ERROR    | vigilance_system.alert.notifier:_send_email_alert:190 - Error sending email alert: (535, b'5.7.8 Username and Password not accepted. For more information, go to\n5.7.8  https://support.google.com/mail/?p=BadCredentials 98e67ed59e1d1-30c39dc889bsm6892716a91.9 - gsmtp')
+2025-05-12 23:10:49 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 2.330s per frame
+2025-05-12 23:10:49 | WARNING  | vigilance_system.alert.decision_maker:_check_crowd_detection:502 - Crowd alert: 11 people detected on camera 'Camera 1'
+2025-05-12 23:10:49 | INFO     | vigilance_system.alert.notifier:_save_alert:133 - Saved alert to D:\Main EL\alerts\1747071649_Camera 1_crowd.json
+2025-05-12 23:10:52 | ERROR    | vigilance_system.alert.notifier:_send_email_alert:190 - Error sending email alert: (535, b'5.7.8 Username and Password not accepted. For more information, go to\n5.7.8  https://support.google.com/mail/?p=BadCredentials 98e67ed59e1d1-30ad4fe21a6sm9993217a91.31 - gsmtp')
+2025-05-12 23:10:52 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 2.391s per frame
+2025-05-12 23:10:52 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.117s per frame
+2025-05-12 23:10:52 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.116s per frame
+2025-05-12 23:10:53 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.107s per frame
+2025-05-12 23:10:53 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.105s per frame
+2025-05-12 23:10:53 | WARNING  | vigilance_system.dashboard.app:process_video_streams:1240 - Processing falling behind: 0.107s per frame
+2025-05-12 23:10:54 | ERROR    | vigilance_system.dashboard.app:process_video_streams:1243 - Error in video processing loop: 11
+2025-05-12 23:10:54 | INFO     | vigilance_system.video_acquisition.camera:disconnect:493 - Closed video file 'Camera 1'
+2025-05-12 23:10:54 | INFO     | vigilance_system.video_acquisition.camera:stop:102 - Stopped camera 'Camera 1'
+2025-05-12 23:10:54 | INFO     | vigilance_system.video_acquisition.camera:disconnect:493 - Closed video file 'Camera 2'
+2025-05-12 23:10:54 | INFO     | vigilance_system.video_acquisition.camera:stop:102 - Stopped camera 'Camera 2'
+2025-05-12 23:10:54 | INFO     | vigilance_system.video_acquisition.camera:disconnect:493 - Closed video file 'Camera 3'
+2025-05-12 23:10:54 | INFO     | vigilance_system.video_acquisition.camera:stop:102 - Stopped camera 'Camera 3'
+2025-05-12 23:10:54 | INFO     | vigilance_system.video_acquisition.stream_manager:stop_all_cameras:171 - Stopped all cameras (3)
+2025-05-12 23:10:54 | INFO     | vigilance_system.dashboard.app:process_video_streams:1247 - Video processing loop stopped
+2025-05-12 23:10:56 | INFO     | vigilance_system.dashboard.app:handle_disconnect:665 - Client disconnected: 4E1-7y1u36MmkXlkAAAB
+2025-05-12 23:10:56 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: least_connection
+2025-05-12 23:10:56 | INFO     | vigilance_system.network.visualization:update:91 - Algorithm changed from unknown to least_connection, resetting connections
+2025-05-12 23:10:56 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: least_connection
+2025-05-12 23:10:58 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: least_connection
+2025-05-12 23:10:58 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: least_connection
+2025-05-12 23:11:00 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: least_connection
+2025-05-12 23:11:00 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: least_connection
+2025-05-12 23:11:02 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: least_connection
+2025-05-12 23:11:02 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: least_connection
+2025-05-12 23:11:04 | INFO     | vigilance_system.dashboard.app:update_algorithms:509 - Updated frame rate to 25
+2025-05-12 23:11:04 | INFO     | vigilance_system.dashboard.app:update_algorithms:517 - Updated resolution to medium
+2025-05-12 23:11:04 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: round_robin
+2025-05-12 23:11:04 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: round_robin
+2025-05-12 23:11:04 | INFO     | vigilance_system.dashboard.app:update_algorithms:562 - Terminating existing node processes before reconnecting...
+2025-05-12 23:11:04 | INFO     | vigilance_system.dashboard.app:update_algorithms:565 - Existing node processes terminated
+2025-05-12 23:11:31 | INFO     | vigilance_system.dashboard.app:update_algorithms:577 - Reconnected node client to ensure algorithm change takes effect
+2025-05-12 23:11:31 | INFO     | vigilance_system.dashboard.app:update_algorithms:583 - Algorithm successfully applied after reconnect: round_robin
+2025-05-12 23:11:31 | INFO     | vigilance_system.dashboard.app:update_algorithms:587 - Directly updated node client algorithm to round_robin
+2025-05-12 23:11:31 | INFO     | vigilance_system.dashboard.app:update_algorithms:596 - Configuration reloaded
+2025-05-12 23:11:31 | INFO     | vigilance_system.dashboard.app:update_algorithms:604 - Successfully updated and applied all algorithm and network settings
+2025-05-12 23:11:38 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: round_robin
+2025-05-12 23:11:38 | INFO     | vigilance_system.network.visualization:update:91 - Algorithm changed from least_connection to round_robin, resetting connections
+2025-05-12 23:11:39 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: round_robin
+2025-05-12 23:11:39 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: round_robin
+2025-05-12 23:11:39 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: round_robin
+2025-05-12 23:11:40 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: round_robin
+2025-05-12 23:11:41 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: round_robin
+2025-05-12 23:11:42 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: round_robin
+2025-05-12 23:11:43 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: round_robin
+2025-05-12 23:11:44 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: round_robin
+2025-05-12 23:11:45 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: round_robin
+2025-05-12 23:11:46 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: round_robin
+2025-05-12 23:11:47 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: round_robin
+2025-05-12 23:11:48 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: round_robin
+2025-05-12 23:11:48 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: round_robin
+2025-05-12 23:11:50 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: round_robin
+2025-05-12 23:11:50 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: round_robin
+2025-05-12 23:11:52 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: round_robin
+2025-05-12 23:11:52 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: round_robin
+2025-05-12 23:11:54 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: round_robin
+2025-05-12 23:11:54 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: round_robin
+2025-05-12 23:11:56 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: round_robin
+2025-05-12 23:11:56 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: round_robin
+2025-05-12 23:11:58 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: round_robin
+2025-05-12 23:11:58 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: round_robin
+2025-05-12 23:12:00 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: round_robin
+2025-05-12 23:12:00 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: round_robin
+2025-05-12 23:12:02 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: round_robin
+2025-05-12 23:12:02 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: round_robin
+2025-05-12 23:12:04 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: round_robin
+2025-05-12 23:12:04 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: round_robin
+2025-05-12 23:12:06 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: round_robin
+2025-05-12 23:12:06 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: round_robin
+2025-05-12 23:12:08 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: round_robin
+2025-05-12 23:12:08 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: round_robin
+2025-05-12 23:12:10 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: round_robin
+2025-05-12 23:12:10 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: round_robin
+2025-05-12 23:12:12 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: round_robin
+2025-05-12 23:12:12 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: round_robin
+2025-05-12 23:12:14 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: round_robin
+2025-05-12 23:12:14 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: round_robin
+2025-05-12 23:12:16 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: round_robin
+2025-05-12 23:12:16 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: round_robin
+2025-05-12 23:12:18 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: round_robin
+2025-05-12 23:12:18 | INFO     | vigilance_system.dashboard.app:update_algorithms:509 - Updated frame rate to 25
+2025-05-12 23:12:18 | INFO     | vigilance_system.dashboard.app:update_algorithms:517 - Updated resolution to medium
+2025-05-12 23:12:18 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: weighted
+2025-05-12 23:12:18 | INFO     | vigilance_system.dashboard.app:get_network_visualization:383 - Current routing algorithm: weighted
+2025-05-12 23:12:18 | INFO     | vigilance_system.network.simulation:set_routing_algorithm:235 - Set routing algorithm to: weighted
+2025-05-12 23:12:18 | INFO     | vigilance_system.dashboard.app:update_algorithms:562 - Terminating existing node processes before reconnecting...
+2025-05-12 23:12:19 | INFO     | vigilance_system.dashboard.app:update_algorithms:565 - Existing node processes terminated
+2025-05-12 23:12:46 | INFO     | vigilance_system.dashboard.app:update_algorithms:577 - Reconnected node client to ensure algorithm change takes effect
+2025-05-12 23:12:46 | INFO     | vigilance_system.dashboard.app:update_algorithms:583 - Algorithm successfully applied after reconnect: weighted
+2025-05-12 23:12:46 | INFO     | vigilance_system.dashboard.app:update_algorithms:587 - Directly updated node client algorithm to weighted
+2025-05-12 23:12:46 | INFO     | vigilance_system.dashboard.app:update_algorithms:596 - Configuration reloaded
+2025-05-12 23:12:46 | INFO     | vigilance_system.dashboard.app:update_algorithms:604 - Successfully updated and applied all algorithm and network settings
+2025-05-12 23:12:47 | INFO     | vigilance_system.dashboard.app:shutdown_server:1254 - Shutting down server...
+2025-05-12 23:12:47 | INFO     | vigilance_system.video_acquisition.camera:stop:102 - Stopped camera 'Camera 1'
+2025-05-12 23:12:47 | INFO     | vigilance_system.video_acquisition.camera:stop:102 - Stopped camera 'Camera 2'
+2025-05-12 23:12:47 | INFO     | vigilance_system.video_acquisition.camera:stop:102 - Stopped camera 'Camera 3'
+2025-05-12 23:12:47 | INFO     | vigilance_system.video_acquisition.stream_manager:stop_all_cameras:171 - Stopped all cameras (3)
+2025-05-12 23:12:47 | INFO     | vigilance_system.dashboard.app:shutdown_server:1267 - Disconnected from network nodes
+2025-05-12 23:12:47 | INFO     | vigilance_system.dashboard.app:shutdown_server:1274 - Terminating all node server processes...
+2025-05-12 23:12:48 | INFO     | vigilance_system.dashboard.app:shutdown_server:1279 - Node server processes terminated

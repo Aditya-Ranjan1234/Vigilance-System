@@ -1,0 +1,153 @@
+{
+  "type": "crowd",
+  "camera": "Camera 2",
+  "people_count": 11,
+  "timestamp": 1747029840.5612862,
+  "message": "Crowd detected on camera 'Camera 2': 11 people",
+  "algorithm": "random_forest",
+  "people_locations": [
+    {
+      "object_id": 0,
+      "center": [
+        136.0,
+        606.0
+      ],
+      "bbox": [
+        40,
+        381,
+        192,
+        450
+      ]
+    },
+    {
+      "object_id": 1,
+      "center": [
+        188.0,
+        500.0
+      ],
+      "bbox": [
+        0,
+        124,
+        376,
+        752
+      ]
+    },
+    {
+      "object_id": 2,
+      "center": [
+        8.5,
+        43.0
+      ],
+      "bbox": [
+        0,
+        0,
+        17,
+        86
+      ]
+    },
+    {
+      "object_id": 3,
+      "center": [
+        421.5,
+        866.0
+      ],
+      "bbox": [
+        249,
+        529,
+        345,
+        674
+      ]
+    },
+    {
+      "object_id": 4,
+      "center": [
+        208.0,
+        743.0
+      ],
+      "bbox": [
+        0,
+        367,
+        416,
+        752
+      ]
+    },
+    {
+      "object_id": 5,
+      "center": [
+        474.0,
+        255.5
+      ],
+      "bbox": [
+        288,
+        155,
+        372,
+        201
+      ]
+    },
+    {
+      "object_id": 6,
+      "center": [
+        195.0,
+        349.0
+      ],
+      "bbox": [
+        53,
+        110,
+        284,
+        478
+      ]
+    },
+    {
+      "object_id": 7,
+      "center": [
+        110.0,
+        51.5
+      ],
+      "bbox": [
+        0,
+        0,
+        220,
+        103
+      ]
+    },
+    {
+      "object_id": 8,
+      "center": [
+        57.0,
+        651.0
+      ],
+      "bbox": [
+        27,
+        412,
+        60,
+        478
+      ]
+    },
+    {
+      "object_id": 9,
+      "center": [
+        454.0,
+        606.0
+      ],
+      "bbox": [
+        246,
+        380,
+        416,
+        452
+      ]
+    },
+    {
+      "object_id": 10,
+      "center": [
+        324.0,
+        513.0
+      ],
+      "bbox": [
+        116,
+        137,
+        416,
+        752
+      ]
+    }
+  ]
+}

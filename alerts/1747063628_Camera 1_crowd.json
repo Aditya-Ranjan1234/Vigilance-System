@@ -1,0 +1,153 @@
+{
+  "type": "crowd",
+  "camera": "Camera 1",
+  "people_count": 11,
+  "timestamp": 1747063628.07267,
+  "message": "Crowd detected on camera 'Camera 1': 11 people",
+  "algorithm": "random_forest",
+  "people_locations": [
+    {
+      "object_id": 0,
+      "center": [
+        48.5,
+        662.0
+      ],
+      "bbox": [
+        0,
+        422,
+        97,
+        480
+      ]
+    },
+    {
+      "object_id": 1,
+      "center": [
+        197.0,
+        590.5
+      ],
+      "bbox": [
+        82,
+        363,
+        230,
+        455
+      ]
+    },
+    {
+      "object_id": 2,
+      "center": [
+        532.5,
+        536.5
+      ],
+      "bbox": [
+        335,
+        325,
+        395,
+        423
+      ]
+    },
+    {
+      "object_id": 3,
+      "center": [
+        847.5,
+        275.5
+      ],
+      "bbox": [
+        524,
+        128,
+        647,
+        295
+      ]
+    },
+    {
+      "object_id": 4,
+      "center": [
+        258.5,
+        334.5
+      ],
+      "bbox": [
+        1,
+        105,
+        515,
+        459
+      ]
+    },
+    {
+      "object_id": 5,
+      "center": [
+        683.5,
+        32.5
+      ],
+      "bbox": [
+        393,
+        2,
+        581,
+        61
+      ]
+    },
+    {
+      "object_id": 6,
+      "center": [
+        727.5,
+        573.5
+      ],
+      "bbox": [
+        467,
+        357,
+        521,
+        433
+      ]
+    },
+    {
+      "object_id": 7,
+      "center": [
+        805.5,
+        195.0
+      ],
+      "bbox": [
+        515,
+        110,
+        581,
+        170
+      ]
+    },
+    {
+      "object_id": 8,
+      "center": [
+        779.5,
+        505.5
+      ],
+      "bbox": [
+        497,
+        310,
+        565,
+        391
+      ]
+    },
+    {
+      "object_id": 9,
+      "center": [
+        706.0,
+        673.0
+      ],
+      "bbox": [
+        449,
+        433,
+        514,
+        480
+      ]
+    },
+    {
+      "object_id": 10,
+      "center": [
+        790.0,
+        282.5
+      ],
+      "bbox": [
+        501,
+        127,
+        578,
+        311
+      ]
+    }
+  ]
+}

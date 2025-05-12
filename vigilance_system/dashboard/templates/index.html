@@ -147,6 +147,7 @@
                                     <option value="sort">SORT Tracking</option>
                                     <option value="deep_sort">DeepSORT Tracking</option>
                                     <option value="siamese">Siamese Network</option>
+                                    <option value="yolov8">YOLOv8 Tracking</option>
                                 </optgroup>
                             </select>
                         </div>
@@ -204,17 +205,7 @@
                             </div>
                         </div>
 
-                        <div class="mb-3">
-                            <label class="form-label fw-bold">Routing Algorithm:</label>
-                            <select class="form-select form-select-sm" id="routingSelector">
-                                <option value="direct" selected>Direct Connection</option>
-                                <option value="round_robin">Round Robin</option>
-                                <option value="least_connection">Least Connection</option>
-                                <option value="weighted">Weighted Distribution</option>
-                                <option value="ip_hash">IP Hash</option>
-                            </select>
-                            <div class="form-text small">Controls how video streams are routed through the network</div>
-                        </div>
+                        <!-- Routing algorithm selection moved to network dashboard -->
 
                         <div class="mb-3">
                             <label class="form-label fw-bold">Network Metrics:</label>

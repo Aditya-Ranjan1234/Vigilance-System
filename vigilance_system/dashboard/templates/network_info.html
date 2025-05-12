@@ -103,7 +103,7 @@
 
     <div class="container">
         <h2 class="mb-4">Network Information</h2>
-        
+
         <div class="row">
             <div class="col-md-8">
                 <!-- Network Nodes Overview -->
@@ -113,14 +113,14 @@
                     </div>
                     <div class="card-body">
                         <p>The Vigilance System uses a distributed architecture with multiple network nodes to process video frames. Here's what you need to know about these nodes:</p>
-                        
+
                         <h5 class="mt-4">1. Types of Nodes</h5>
                         <ul>
                             <li><strong>Processing Nodes:</strong> These are the main computational units that process video frames from cameras</li>
                             <li><strong>Camera Nodes:</strong> These represent the video sources (either real cameras or simulated video feeds)</li>
                             <li><strong>Central Node:</strong> The main server that coordinates the distribution of frames</li>
                         </ul>
-                        
+
                         <h5 class="mt-4">2. Node Configuration</h5>
                         <p>The system is configured to use multiple processing nodes:</p>
                         <ul>
@@ -131,7 +131,7 @@
                         </ul>
                     </div>
                 </div>
-                
+
                 <!-- How Routing Works -->
                 <div class="card mb-4">
                     <div class="card-header">
@@ -139,7 +139,7 @@
                     </div>
                     <div class="card-body">
                         <p>The system uses different routing algorithms to distribute video frames from cameras to processing nodes:</p>
-                        
+
                         <h5 class="mt-4">1. Available Routing Algorithms</h5>
                         <div class="row">
                             <div class="col-md-6 mb-3">
@@ -187,8 +187,17 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="card algorithm-card">
+                                    <div class="card-body text-center">
+                                        <i class="bi bi-cpu algorithm-icon text-purple"></i>
+                                        <h5>YOLOv8 Optimized</h5>
+                                        <p class="mb-0">Smart routing optimized for YOLOv8 processing, balancing capacity and load.</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        
+
                         <h5 class="mt-4">2. Routing Process</h5>
                         <ol>
                             <li>When a camera captures a frame, it's sent to the central node</li>
@@ -198,7 +207,7 @@
                             <li>Results are sent back to the central node</li>
                             <li>The central node aggregates results for display and alerting</li>
                         </ol>
-                        
+
                         <h5 class="mt-4">3. Simulation Mode</h5>
                         <ul>
                             <li>If real nodes aren't available or can't be connected to, the system falls back to simulated nodes</li>
@@ -207,7 +216,7 @@
                         </ul>
                     </div>
                 </div>
-                
+
                 <!-- Visualizing the Routing -->
                 <div class="card mb-4">
                     <div class="card-header">
@@ -225,7 +234,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="col-md-4">
                 <!-- Current Network Status -->
                 <div class="card mb-4">
@@ -255,7 +264,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Active Nodes -->
                 <div class="card mb-4">
                     <div class="card-header">
@@ -290,43 +299,44 @@
                     case 'least_connection': return 'Least Connection';
                     case 'weighted': return 'Weighted';
                     case 'ip_hash': return 'IP Hash';
+                    case 'yolov8': return 'YOLOv8 Optimized';
                     default: return algorithm;
                 }
             }
-            
+
             // Update network status
             function updateNetworkStatus() {
                 $.get('/api/network_status', function(data) {
                     // Update current algorithm
                     $('#currentAlgorithm').text(formatAlgorithmName(data.current_algorithm));
-                    
+
                     // Update node counts
                     $('#activeNodes').text(data.real_nodes);
                     $('#simulatedNodes').text(data.simulated_nodes);
-                    
+
                     // Update network stats
                     $('#totalBandwidth').text(data.bandwidth.toFixed(2) + ' MB/s');
                     $('#avgLatency').text((data.avg_latency * 1000).toFixed(1) + ' ms');
-                    
+
                     // Update nodes list
                     updateNodesList(data.nodes);
                 });
             }
-            
+
             // Update nodes list
             function updateNodesList(nodes) {
                 if (!nodes || nodes.length === 0) {
                     $('#nodesList').html('<p class="text-center">No active nodes found.</p>');
                     return;
                 }
-                
+
                 let nodesHtml = '';
-                
+
                 nodes.forEach(function(node) {
                     let statusClass = node.simulated ? 'simulated' : (node.active ? 'active' : 'inactive');
                     let statusText = node.simulated ? 'Simulated' : (node.active ? 'Active' : 'Inactive');
                     let capacityPercent = Math.min(100, Math.round(node.load * 100));
-                    
+
                     nodesHtml += `
                         <div class="card node-card">
                             <div class="card-body">
@@ -353,13 +363,13 @@
                         </div>
                     `;
                 });
-                
+
                 $('#nodesList').html(nodesHtml);
             }
-            
+
             // Initial update
             updateNetworkStatus();
-            
+
             // Update every 3 seconds
             setInterval(updateNetworkStatus, 3000);
         });

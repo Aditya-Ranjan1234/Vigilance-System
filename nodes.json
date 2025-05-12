@@ -3,28 +3,28 @@
     "node_id": "node_1",
     "host": "localhost",
     "port": 8000,
-    "capacity": 1.0215219311956627,
-    "latency": 0.02819706504708102
+    "capacity": 0.8515937397234564,
+    "latency": 0.03558660839551073
   },
   {
     "node_id": "node_2",
     "host": "localhost",
     "port": 8010,
-    "capacity": 1.1839440626575906,
-    "latency": 0.041412154155903894
+    "capacity": 1.2522356666924865,
+    "latency": 0.03721897844034861
   },
   {
     "node_id": "node_3",
     "host": "localhost",
     "port": 8020,
-    "capacity": 1.069851844912625,
-    "latency": 0.014331520099630433
+    "capacity": 1.441848491947363,
+    "latency": 0.014727801992353028
   },
   {
     "node_id": "node_4",
     "host": "localhost",
     "port": 8030,
-    "capacity": 1.4691371892420104,
-    "latency": 0.01706725768572224
+    "capacity": 1.2419600711721113,
+    "latency": 0.01786281912101218
   }
 ]

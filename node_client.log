@@ -1134,3 +1134,1199 @@
 2025-05-12 01:37:10,620 - node_client - INFO - Disconnected from node node_3
 2025-05-12 01:37:10,620 - node_client - INFO - Disconnected from node node_4
 2025-05-12 01:37:10,620 - node_client - INFO - Disconnected from all nodes
+2025-05-12 11:30:06,350 - node_client - INFO - Loaded 4 nodes from nodes.json
+2025-05-12 11:30:06,351 - node_client - INFO - Loaded saved algorithm: round_robin
+2025-05-12 11:30:06,351 - node_client - INFO - Initialized node client with 4 nodes
+2025-05-12 11:30:06,352 - node_client - INFO - Launching network nodes using D:\Main EL\vigilance_system\network\launch_nodes.py
+2025-05-12 11:30:06,352 - node_client - INFO - Launching nodes with command: "D:\Main EL\venv\Scripts\python.exe" "D:\Main EL\vigilance_system\network\launch_nodes.py" --nodes 4 --output "nodes.json" --visible
+2025-05-12 11:30:06,368 - node_client - INFO - Launched nodes in visible terminal
+2025-05-12 11:30:06,377 - node_client - INFO - Waiting for nodes to start...
+2025-05-12 11:30:06,382 - node_client - INFO - Waiting for nodes to start... 1/5 seconds
+2025-05-12 11:30:07,385 - node_client - INFO - Waiting for nodes to start... 2/5 seconds
+2025-05-12 11:30:08,432 - node_client - INFO - Waiting for nodes to start... 3/5 seconds
+2025-05-12 11:30:09,478 - node_client - INFO - Waiting for nodes to start... 4/5 seconds
+2025-05-12 11:30:10,480 - node_client - INFO - Waiting for nodes to start... 5/5 seconds
+2025-05-12 11:30:11,483 - node_client - INFO - Attempting to connect to node node_1 at localhost:8000...
+2025-05-12 11:30:11,492 - node_client - INFO - Connected to node node_1 at localhost:8000
+2025-05-12 11:30:11,494 - node_client - INFO - Attempting to connect to node node_2 at localhost:8010...
+2025-05-12 11:30:11,519 - node_client - INFO - Connected to node node_2 at localhost:8010
+2025-05-12 11:30:11,520 - node_client - INFO - Attempting to connect to node node_3 at localhost:8020...
+2025-05-12 11:30:11,546 - node_client - INFO - Connected to node node_3 at localhost:8020
+2025-05-12 11:30:11,550 - node_client - INFO - Attempting to connect to node node_4 at localhost:8030...
+2025-05-12 11:30:12,067 - node_client - INFO - Connected to node node_4 at localhost:8030
+2025-05-12 11:30:12,069 - node_client - INFO - Retry attempt 1/5 to connect to nodes...
+2025-05-12 11:30:12,069 - node_client - INFO - Waiting 2 seconds before retry...
+2025-05-12 11:30:14,085 - node_client - INFO - Retry attempt 2/5 to connect to nodes...
+2025-05-12 11:30:14,087 - node_client - INFO - Waiting 4 seconds before retry...
+2025-05-12 11:30:18,091 - node_client - INFO - Retry attempt 3/5 to connect to nodes...
+2025-05-12 11:30:18,094 - node_client - INFO - Waiting 6 seconds before retry...
+2025-05-12 11:30:24,112 - node_client - INFO - Retry attempt 4/5 to connect to nodes...
+2025-05-12 11:30:24,120 - node_client - INFO - Waiting 8 seconds before retry...
+2025-05-12 11:30:32,138 - node_client - INFO - Creating simulated nodes for any missing connections
+2025-05-12 11:30:32,139 - node_client - INFO - Connected to 4 nodes (4 real, 0 simulated)
+2025-05-12 11:30:32,140 - node_client - INFO - Set routing algorithm from round_robin to round_robin
+2025-05-12 11:30:32,142 - node_client - INFO - Saved algorithm round_robin to current_algorithm.txt
+2025-05-12 11:30:38,431 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.75.134:5000
+2025-05-12 11:30:38,432 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-05-12 11:30:41,544 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:30:41] "[32mGET / HTTP/1.1[0m" 302 -
+2025-05-12 11:30:41,561 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:30:41] "GET /login HTTP/1.1" 200 -
+2025-05-12 11:30:41,654 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:30:41] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-05-12 11:30:43,508 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:30:43] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-05-12 11:30:43,537 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:30:43] "GET / HTTP/1.1" 200 -
+2025-05-12 11:30:43,594 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:30:43] "[33mGET /static/img/camera-placeholder.jpg HTTP/1.1[0m" 404 -
+2025-05-12 11:30:43,680 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:30:43] "[36mGET /static/js/dashboard.js HTTP/1.1[0m" 304 -
+2025-05-12 11:30:43,682 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:30:43] "[36mGET /static/css/dashboard.css HTTP/1.1[0m" 304 -
+2025-05-12 11:30:43,784 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:30:43] "GET /api/status HTTP/1.1" 200 -
+2025-05-12 11:30:43,784 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:30:43] "GET /socket.io/?EIO=4&transport=polling&t=PR35D7g HTTP/1.1" 200 -
+2025-05-12 11:30:43,786 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:30:43] "GET /api/alerts HTTP/1.1" 200 -
+2025-05-12 11:30:43,804 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:30:43] "POST /socket.io/?EIO=4&transport=polling&t=PR35D8G&sid=2g5PgLybXNQ1w1PQAAAA HTTP/1.1" 200 -
+2025-05-12 11:30:43,810 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:30:43] "GET /socket.io/?EIO=4&transport=polling&t=PR35D8H&sid=2g5PgLybXNQ1w1PQAAAA HTTP/1.1" 200 -
+2025-05-12 11:30:43,821 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:30:43] "GET /socket.io/?EIO=4&transport=polling&t=PR35D8g&sid=2g5PgLybXNQ1w1PQAAAA HTTP/1.1" 200 -
+2025-05-12 11:30:48,774 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:30:48] "GET /api/status HTTP/1.1" 200 -
+2025-05-12 11:30:48,784 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:30:48] "GET /api/alerts HTTP/1.1" 200 -
+2025-05-12 11:30:53,776 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:30:53] "GET /api/status HTTP/1.1" 200 -
+2025-05-12 11:30:53,780 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:30:53] "GET /api/alerts HTTP/1.1" 200 -
+2025-05-12 11:30:55,854 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:30:55] "POST /api/start_processing HTTP/1.1" 200 -
+2025-05-12 11:30:58,782 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:30:58] "GET /api/status HTTP/1.1" 200 -
+2025-05-12 11:30:58,795 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:30:58] "GET /api/alerts HTTP/1.1" 200 -
+2025-05-12 11:30:59,554 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:30:59] "[33mGET /static/audio/alert.mp3 HTTP/1.1[0m" 404 -
+2025-05-12 11:31:01,949 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:31:01] "GET /socket.io/?EIO=4&transport=websocket&sid=2g5PgLybXNQ1w1PQAAAA HTTP/1.1" 200 -
+2025-05-12 11:31:01,971 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:31:01] "GET /network HTTP/1.1" 200 -
+2025-05-12 11:31:02,051 - node_client - INFO - Set routing algorithm from round_robin to round_robin
+2025-05-12 11:31:02,052 - node_client - INFO - Saved algorithm round_robin to current_algorithm.txt
+2025-05-12 11:31:02,118 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:31:02] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 11:31:04,058 - node_client - INFO - Set routing algorithm from round_robin to round_robin
+2025-05-12 11:31:04,060 - node_client - INFO - Saved algorithm round_robin to current_algorithm.txt
+2025-05-12 11:31:04,140 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:31:04] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 11:31:06,059 - node_client - INFO - Set routing algorithm from round_robin to round_robin
+2025-05-12 11:31:06,061 - node_client - INFO - Saved algorithm round_robin to current_algorithm.txt
+2025-05-12 11:31:06,131 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:31:06] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 11:31:08,068 - node_client - INFO - Set routing algorithm from round_robin to round_robin
+2025-05-12 11:31:08,070 - node_client - INFO - Saved algorithm round_robin to current_algorithm.txt
+2025-05-12 11:31:08,153 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:31:08] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 11:31:10,065 - node_client - INFO - Set routing algorithm from round_robin to round_robin
+2025-05-12 11:31:10,068 - node_client - INFO - Saved algorithm round_robin to current_algorithm.txt
+2025-05-12 11:31:10,150 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:31:10] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 11:31:12,066 - node_client - INFO - Set routing algorithm from round_robin to round_robin
+2025-05-12 11:31:12,068 - node_client - INFO - Saved algorithm round_robin to current_algorithm.txt
+2025-05-12 11:31:12,156 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:31:12] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 11:31:14,055 - node_client - INFO - Set routing algorithm from round_robin to round_robin
+2025-05-12 11:31:14,056 - node_client - INFO - Saved algorithm round_robin to current_algorithm.txt
+2025-05-12 11:31:14,129 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:31:14] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 11:31:16,056 - node_client - INFO - Set routing algorithm from round_robin to round_robin
+2025-05-12 11:31:16,058 - node_client - INFO - Saved algorithm round_robin to current_algorithm.txt
+2025-05-12 11:31:16,367 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:31:16] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 11:31:17,604 - node_client - INFO - Set routing algorithm from round_robin to round_robin
+2025-05-12 11:31:17,609 - node_client - INFO - Saved algorithm round_robin to current_algorithm.txt
+2025-05-12 11:31:17,637 - node_client - INFO - Set routing algorithm from round_robin to round_robin
+2025-05-12 11:31:17,643 - node_client - INFO - Saved algorithm round_robin to current_algorithm.txt
+2025-05-12 11:31:17,646 - node_client - INFO - Set routing algorithm from round_robin to round_robin
+2025-05-12 11:31:17,648 - node_client - INFO - Saved algorithm round_robin to current_algorithm.txt
+2025-05-12 11:31:17,915 - node_client - INFO - Disconnected from node node_1
+2025-05-12 11:31:17,916 - node_client - INFO - Disconnected from node node_2
+2025-05-12 11:31:17,924 - node_client - INFO - Disconnected from node node_3
+2025-05-12 11:31:17,928 - node_client - INFO - Disconnected from node node_4
+2025-05-12 11:31:17,929 - node_client - INFO - Disconnected from all nodes
+2025-05-12 11:31:18,934 - node_client - INFO - Launching network nodes using D:\Main EL\vigilance_system\network\launch_nodes.py
+2025-05-12 11:31:18,935 - node_client - INFO - Launching nodes with command: "D:\Main EL\venv\Scripts\python.exe" "D:\Main EL\vigilance_system\network\launch_nodes.py" --nodes 4 --output "nodes.json" --visible
+2025-05-12 11:31:18,952 - node_client - INFO - Launched nodes in visible terminal
+2025-05-12 11:31:18,952 - node_client - INFO - Waiting for nodes to start...
+2025-05-12 11:31:18,953 - node_client - INFO - Waiting for nodes to start... 1/5 seconds
+2025-05-12 11:31:19,968 - node_client - INFO - Waiting for nodes to start... 2/5 seconds
+2025-05-12 11:31:20,980 - node_client - INFO - Waiting for nodes to start... 3/5 seconds
+2025-05-12 11:31:21,993 - node_client - INFO - Waiting for nodes to start... 4/5 seconds
+2025-05-12 11:31:23,006 - node_client - INFO - Waiting for nodes to start... 5/5 seconds
+2025-05-12 11:31:24,024 - node_client - INFO - Attempting to connect to node node_1 at localhost:8000...
+2025-05-12 11:31:24,028 - node_client - INFO - Connected to node node_1 at localhost:8000
+2025-05-12 11:31:24,028 - node_client - INFO - Attempting to connect to node node_2 at localhost:8010...
+2025-05-12 11:31:24,073 - node_client - INFO - Connected to node node_2 at localhost:8010
+2025-05-12 11:31:24,075 - node_client - INFO - Attempting to connect to node node_3 at localhost:8020...
+2025-05-12 11:31:24,078 - node_client - INFO - Connected to node node_3 at localhost:8020
+2025-05-12 11:31:24,078 - node_client - INFO - Attempting to connect to node node_4 at localhost:8030...
+2025-05-12 11:31:25,111 - node_client - INFO - Connected to node node_4 at localhost:8030
+2025-05-12 11:31:25,114 - node_client - INFO - Retry attempt 1/5 to connect to nodes...
+2025-05-12 11:31:25,118 - node_client - INFO - Waiting 2 seconds before retry...
+2025-05-12 11:31:27,130 - node_client - INFO - Retry attempt 2/5 to connect to nodes...
+2025-05-12 11:31:27,132 - node_client - INFO - Waiting 4 seconds before retry...
+2025-05-12 11:31:31,141 - node_client - INFO - Retry attempt 3/5 to connect to nodes...
+2025-05-12 11:31:31,142 - node_client - INFO - Waiting 6 seconds before retry...
+2025-05-12 11:31:37,163 - node_client - INFO - Retry attempt 4/5 to connect to nodes...
+2025-05-12 11:31:37,165 - node_client - INFO - Waiting 8 seconds before retry...
+2025-05-12 11:31:45,170 - node_client - INFO - Creating simulated nodes for any missing connections
+2025-05-12 11:31:45,174 - node_client - INFO - Connected to 4 nodes (4 real, 0 simulated)
+2025-05-12 11:31:45,220 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:31:45] "POST /api/update_algorithms HTTP/1.1" 200 -
+2025-05-12 11:31:47,616 - node_client - INFO - Set routing algorithm from round_robin to weighted
+2025-05-12 11:31:47,621 - node_client - INFO - Saved algorithm weighted to current_algorithm.txt
+2025-05-12 11:31:47,664 - node_client - INFO - Set routing algorithm from weighted to weighted
+2025-05-12 11:31:47,666 - node_client - INFO - Saved algorithm weighted to current_algorithm.txt
+2025-05-12 11:31:47,667 - node_client - INFO - Set routing algorithm from weighted to weighted
+2025-05-12 11:31:47,668 - node_client - INFO - Saved algorithm weighted to current_algorithm.txt
+2025-05-12 11:31:47,976 - node_client - INFO - Disconnected from node node_1
+2025-05-12 11:31:47,978 - node_client - INFO - Disconnected from node node_2
+2025-05-12 11:31:47,978 - node_client - INFO - Disconnected from node node_3
+2025-05-12 11:31:47,979 - node_client - INFO - Disconnected from node node_4
+2025-05-12 11:31:47,979 - node_client - INFO - Disconnected from all nodes
+2025-05-12 11:31:48,993 - node_client - INFO - Launching network nodes using D:\Main EL\vigilance_system\network\launch_nodes.py
+2025-05-12 11:31:48,994 - node_client - INFO - Launching nodes with command: "D:\Main EL\venv\Scripts\python.exe" "D:\Main EL\vigilance_system\network\launch_nodes.py" --nodes 4 --output "nodes.json" --visible
+2025-05-12 11:31:49,011 - node_client - INFO - Launched nodes in visible terminal
+2025-05-12 11:31:49,011 - node_client - INFO - Waiting for nodes to start...
+2025-05-12 11:31:49,012 - node_client - INFO - Waiting for nodes to start... 1/5 seconds
+2025-05-12 11:31:50,025 - node_client - INFO - Waiting for nodes to start... 2/5 seconds
+2025-05-12 11:31:51,043 - node_client - INFO - Waiting for nodes to start... 3/5 seconds
+2025-05-12 11:31:51,250 - node_client - INFO - Set routing algorithm from weighted to weighted
+2025-05-12 11:31:51,252 - node_client - INFO - Saved algorithm weighted to current_algorithm.txt
+2025-05-12 11:31:51,313 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:31:51] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 11:31:52,055 - node_client - INFO - Waiting for nodes to start... 4/5 seconds
+2025-05-12 11:31:52,063 - node_client - INFO - Set routing algorithm from weighted to weighted
+2025-05-12 11:31:52,065 - node_client - INFO - Saved algorithm weighted to current_algorithm.txt
+2025-05-12 11:31:52,145 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:31:52] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 11:31:53,067 - node_client - INFO - Waiting for nodes to start... 5/5 seconds
+2025-05-12 11:31:54,067 - node_client - INFO - Set routing algorithm from weighted to weighted
+2025-05-12 11:31:54,069 - node_client - INFO - Saved algorithm weighted to current_algorithm.txt
+2025-05-12 11:31:54,087 - node_client - INFO - Attempting to connect to node node_1 at localhost:8000...
+2025-05-12 11:31:54,317 - node_client - INFO - Connected to node node_1 at localhost:8000
+2025-05-12 11:31:54,320 - node_client - INFO - Attempting to connect to node node_2 at localhost:8010...
+2025-05-12 11:31:54,514 - node_client - INFO - Connected to node node_2 at localhost:8010
+2025-05-12 11:31:54,524 - node_client - INFO - Attempting to connect to node node_3 at localhost:8020...
+2025-05-12 11:31:54,536 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:31:54] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 11:31:54,550 - node_client - INFO - Connected to node node_3 at localhost:8020
+2025-05-12 11:31:54,563 - node_client - INFO - Attempting to connect to node node_4 at localhost:8030...
+2025-05-12 11:31:55,088 - node_client - INFO - Connected to node node_4 at localhost:8030
+2025-05-12 11:31:55,088 - node_client - INFO - Retry attempt 1/5 to connect to nodes...
+2025-05-12 11:31:55,090 - node_client - INFO - Waiting 2 seconds before retry...
+2025-05-12 11:31:56,060 - node_client - INFO - Set routing algorithm from weighted to weighted
+2025-05-12 11:31:56,062 - node_client - INFO - Saved algorithm weighted to current_algorithm.txt
+2025-05-12 11:31:56,139 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:31:56] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 11:31:57,097 - node_client - INFO - Retry attempt 2/5 to connect to nodes...
+2025-05-12 11:31:57,098 - node_client - INFO - Waiting 4 seconds before retry...
+2025-05-12 11:31:58,066 - node_client - INFO - Set routing algorithm from weighted to weighted
+2025-05-12 11:31:58,069 - node_client - INFO - Saved algorithm weighted to current_algorithm.txt
+2025-05-12 11:31:58,134 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:31:58] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 11:32:00,069 - node_client - INFO - Set routing algorithm from weighted to weighted
+2025-05-12 11:32:00,072 - node_client - INFO - Saved algorithm weighted to current_algorithm.txt
+2025-05-12 11:32:00,163 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:32:00] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 11:32:01,100 - node_client - INFO - Retry attempt 3/5 to connect to nodes...
+2025-05-12 11:32:01,102 - node_client - INFO - Waiting 6 seconds before retry...
+2025-05-12 11:32:02,059 - node_client - INFO - Set routing algorithm from weighted to weighted
+2025-05-12 11:32:02,064 - node_client - INFO - Saved algorithm weighted to current_algorithm.txt
+2025-05-12 11:32:02,142 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:32:02] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 11:32:04,072 - node_client - INFO - Set routing algorithm from weighted to weighted
+2025-05-12 11:32:04,074 - node_client - INFO - Saved algorithm weighted to current_algorithm.txt
+2025-05-12 11:32:04,146 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:32:04] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 11:32:06,062 - node_client - INFO - Set routing algorithm from weighted to weighted
+2025-05-12 11:32:06,064 - node_client - INFO - Saved algorithm weighted to current_algorithm.txt
+2025-05-12 11:32:06,153 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:32:06] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 11:32:07,109 - node_client - INFO - Retry attempt 4/5 to connect to nodes...
+2025-05-12 11:32:07,110 - node_client - INFO - Waiting 8 seconds before retry...
+2025-05-12 11:32:08,082 - node_client - INFO - Set routing algorithm from weighted to weighted
+2025-05-12 11:32:08,086 - node_client - INFO - Saved algorithm weighted to current_algorithm.txt
+2025-05-12 11:32:08,191 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:32:08] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 11:32:10,061 - node_client - INFO - Set routing algorithm from weighted to weighted
+2025-05-12 11:32:10,062 - node_client - INFO - Saved algorithm weighted to current_algorithm.txt
+2025-05-12 11:32:10,126 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:32:10] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 11:32:12,177 - node_client - INFO - Set routing algorithm from weighted to weighted
+2025-05-12 11:32:12,186 - node_client - INFO - Saved algorithm weighted to current_algorithm.txt
+2025-05-12 11:32:12,422 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:32:12] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 11:32:14,055 - node_client - INFO - Set routing algorithm from weighted to weighted
+2025-05-12 11:32:14,059 - node_client - INFO - Saved algorithm weighted to current_algorithm.txt
+2025-05-12 11:32:14,199 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:32:14] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 11:32:15,118 - node_client - INFO - Creating simulated nodes for any missing connections
+2025-05-12 11:32:15,121 - node_client - INFO - Connected to 4 nodes (4 real, 0 simulated)
+2025-05-12 11:32:15,193 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:32:15] "POST /api/update_algorithms HTTP/1.1" 200 -
+2025-05-12 11:32:16,068 - node_client - INFO - Set routing algorithm from weighted to weighted
+2025-05-12 11:32:16,070 - node_client - INFO - Saved algorithm weighted to current_algorithm.txt
+2025-05-12 11:32:16,136 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:32:16] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 11:32:18,069 - node_client - INFO - Set routing algorithm from weighted to weighted
+2025-05-12 11:32:18,070 - node_client - INFO - Saved algorithm weighted to current_algorithm.txt
+2025-05-12 11:32:18,152 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:32:18] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 11:32:20,066 - node_client - INFO - Set routing algorithm from weighted to weighted
+2025-05-12 11:32:20,068 - node_client - INFO - Saved algorithm weighted to current_algorithm.txt
+2025-05-12 11:32:20,175 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:32:20] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 11:32:21,419 - node_client - INFO - Set routing algorithm from weighted to weighted
+2025-05-12 11:32:21,602 - node_client - INFO - Saved algorithm weighted to current_algorithm.txt
+2025-05-12 11:32:21,986 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:32:21] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 11:32:22,084 - node_client - INFO - Set routing algorithm from weighted to weighted
+2025-05-12 11:32:22,094 - node_client - INFO - Saved algorithm weighted to current_algorithm.txt
+2025-05-12 11:32:22,372 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:32:22] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 11:32:24,068 - node_client - INFO - Set routing algorithm from weighted to weighted
+2025-05-12 11:32:24,075 - node_client - INFO - Saved algorithm weighted to current_algorithm.txt
+2025-05-12 11:32:24,349 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:32:24] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 11:32:26,079 - node_client - INFO - Set routing algorithm from weighted to weighted
+2025-05-12 11:32:26,089 - node_client - INFO - Saved algorithm weighted to current_algorithm.txt
+2025-05-12 11:32:26,273 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:32:26] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 11:32:28,088 - node_client - INFO - Set routing algorithm from weighted to weighted
+2025-05-12 11:32:28,181 - node_client - INFO - Saved algorithm weighted to current_algorithm.txt
+2025-05-12 11:32:28,461 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:32:28] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 11:32:30,061 - node_client - INFO - Set routing algorithm from weighted to weighted
+2025-05-12 11:32:30,063 - node_client - INFO - Saved algorithm weighted to current_algorithm.txt
+2025-05-12 11:32:30,204 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:32:30] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 11:32:32,069 - node_client - INFO - Set routing algorithm from weighted to weighted
+2025-05-12 11:32:32,072 - node_client - INFO - Saved algorithm weighted to current_algorithm.txt
+2025-05-12 11:32:32,410 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:32:32] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 11:32:34,116 - node_client - INFO - Set routing algorithm from weighted to weighted
+2025-05-12 11:32:34,137 - node_client - INFO - Saved algorithm weighted to current_algorithm.txt
+2025-05-12 11:32:34,384 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:32:34] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 11:32:36,064 - node_client - INFO - Set routing algorithm from weighted to weighted
+2025-05-12 11:32:36,066 - node_client - INFO - Saved algorithm weighted to current_algorithm.txt
+2025-05-12 11:32:36,279 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:32:36] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 11:32:38,055 - node_client - INFO - Set routing algorithm from weighted to weighted
+2025-05-12 11:32:38,057 - node_client - INFO - Saved algorithm weighted to current_algorithm.txt
+2025-05-12 11:32:38,193 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:32:38] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 11:32:40,084 - node_client - INFO - Set routing algorithm from weighted to weighted
+2025-05-12 11:32:40,103 - node_client - INFO - Saved algorithm weighted to current_algorithm.txt
+2025-05-12 11:32:40,486 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:32:40] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 11:32:42,071 - node_client - INFO - Set routing algorithm from weighted to weighted
+2025-05-12 11:32:42,072 - node_client - INFO - Saved algorithm weighted to current_algorithm.txt
+2025-05-12 11:32:42,500 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:32:42] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 11:32:44,097 - node_client - INFO - Set routing algorithm from weighted to weighted
+2025-05-12 11:32:44,103 - node_client - INFO - Saved algorithm weighted to current_algorithm.txt
+2025-05-12 11:32:44,267 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:32:44] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 11:32:46,074 - node_client - INFO - Set routing algorithm from weighted to weighted
+2025-05-12 11:32:46,110 - node_client - INFO - Saved algorithm weighted to current_algorithm.txt
+2025-05-12 11:32:46,325 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:32:46] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 11:32:48,344 - node_client - INFO - Set routing algorithm from weighted to weighted
+2025-05-12 11:32:48,350 - node_client - INFO - Saved algorithm weighted to current_algorithm.txt
+2025-05-12 11:32:48,856 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:32:48] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 11:32:50,202 - node_client - INFO - Set routing algorithm from weighted to weighted
+2025-05-12 11:32:50,214 - node_client - INFO - Saved algorithm weighted to current_algorithm.txt
+2025-05-12 11:32:50,450 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:32:50] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 11:32:52,069 - node_client - INFO - Set routing algorithm from weighted to weighted
+2025-05-12 11:32:52,073 - node_client - INFO - Saved algorithm weighted to current_algorithm.txt
+2025-05-12 11:32:52,308 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:32:52] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 11:32:54,069 - node_client - INFO - Set routing algorithm from weighted to weighted
+2025-05-12 11:32:54,073 - node_client - INFO - Saved algorithm weighted to current_algorithm.txt
+2025-05-12 11:32:54,333 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:32:54] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 11:32:56,059 - node_client - INFO - Set routing algorithm from weighted to weighted
+2025-05-12 11:32:56,061 - node_client - INFO - Saved algorithm weighted to current_algorithm.txt
+2025-05-12 11:32:56,201 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:32:56] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 11:32:58,064 - node_client - INFO - Set routing algorithm from weighted to weighted
+2025-05-12 11:32:58,068 - node_client - INFO - Saved algorithm weighted to current_algorithm.txt
+2025-05-12 11:32:58,209 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:32:58] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 11:33:00,074 - node_client - INFO - Set routing algorithm from weighted to weighted
+2025-05-12 11:33:00,092 - node_client - INFO - Saved algorithm weighted to current_algorithm.txt
+2025-05-12 11:33:00,999 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:33:00] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 11:33:02,390 - node_client - INFO - Set routing algorithm from weighted to weighted
+2025-05-12 11:33:02,410 - node_client - INFO - Saved algorithm weighted to current_algorithm.txt
+2025-05-12 11:33:02,670 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:33:02] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 11:33:04,073 - node_client - INFO - Set routing algorithm from weighted to weighted
+2025-05-12 11:33:04,077 - node_client - INFO - Saved algorithm weighted to current_algorithm.txt
+2025-05-12 11:33:04,259 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:33:04] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 11:33:04,735 - node_client - INFO - Set routing algorithm from weighted to least_connection
+2025-05-12 11:33:04,739 - node_client - INFO - Saved algorithm least_connection to current_algorithm.txt
+2025-05-12 11:33:04,817 - node_client - INFO - Set routing algorithm from least_connection to least_connection
+2025-05-12 11:33:04,820 - node_client - INFO - Saved algorithm least_connection to current_algorithm.txt
+2025-05-12 11:33:04,822 - node_client - INFO - Set routing algorithm from least_connection to least_connection
+2025-05-12 11:33:04,829 - node_client - INFO - Saved algorithm least_connection to current_algorithm.txt
+2025-05-12 11:33:05,233 - node_client - INFO - Disconnected from node node_1
+2025-05-12 11:33:05,246 - node_client - INFO - Disconnected from node node_2
+2025-05-12 11:33:05,298 - node_client - INFO - Disconnected from node node_3
+2025-05-12 11:33:05,311 - node_client - INFO - Disconnected from node node_4
+2025-05-12 11:33:05,325 - node_client - INFO - Disconnected from all nodes
+2025-05-12 11:33:06,345 - node_client - INFO - Launching network nodes using D:\Main EL\vigilance_system\network\launch_nodes.py
+2025-05-12 11:33:06,349 - node_client - INFO - Launching nodes with command: "D:\Main EL\venv\Scripts\python.exe" "D:\Main EL\vigilance_system\network\launch_nodes.py" --nodes 4 --output "nodes.json" --visible
+2025-05-12 11:33:06,398 - node_client - INFO - Launched nodes in visible terminal
+2025-05-12 11:33:06,400 - node_client - INFO - Waiting for nodes to start...
+2025-05-12 11:33:06,410 - node_client - INFO - Waiting for nodes to start... 1/5 seconds
+2025-05-12 11:33:07,435 - node_client - INFO - Waiting for nodes to start... 2/5 seconds
+2025-05-12 11:33:08,449 - node_client - INFO - Waiting for nodes to start... 3/5 seconds
+2025-05-12 11:33:09,471 - node_client - INFO - Waiting for nodes to start... 4/5 seconds
+2025-05-12 11:33:10,492 - node_client - INFO - Waiting for nodes to start... 5/5 seconds
+2025-05-12 11:33:11,584 - node_client - INFO - Attempting to connect to node node_1 at localhost:8000...
+2025-05-12 11:33:11,640 - node_client - INFO - Connected to node node_1 at localhost:8000
+2025-05-12 11:33:11,649 - node_client - INFO - Attempting to connect to node node_2 at localhost:8010...
+2025-05-12 11:33:11,658 - node_client - INFO - Connected to node node_2 at localhost:8010
+2025-05-12 11:33:11,659 - node_client - INFO - Attempting to connect to node node_3 at localhost:8020...
+2025-05-12 11:33:11,825 - node_client - INFO - Connected to node node_3 at localhost:8020
+2025-05-12 11:33:11,830 - node_client - INFO - Attempting to connect to node node_4 at localhost:8030...
+2025-05-12 11:33:12,865 - node_client - INFO - Connected to node node_4 at localhost:8030
+2025-05-12 11:33:12,867 - node_client - INFO - Retry attempt 1/5 to connect to nodes...
+2025-05-12 11:33:12,867 - node_client - INFO - Waiting 2 seconds before retry...
+2025-05-12 11:33:14,874 - node_client - INFO - Retry attempt 2/5 to connect to nodes...
+2025-05-12 11:33:14,876 - node_client - INFO - Waiting 4 seconds before retry...
+2025-05-12 11:33:18,894 - node_client - INFO - Retry attempt 3/5 to connect to nodes...
+2025-05-12 11:33:18,914 - node_client - INFO - Waiting 6 seconds before retry...
+2025-05-12 11:33:22,945 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:33:22] "GET /visualizations HTTP/1.1" 200 -
+2025-05-12 11:33:22,987 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:33:22] "GET /static/visualizations/video_stabilization_explanation.png HTTP/1.1" 200 -
+2025-05-12 11:33:22,993 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:33:22] "GET /static/visualizations/video_stabilization.gif HTTP/1.1" 200 -
+2025-05-12 11:33:23,010 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:33:23] "[36mGET /static/css/dashboard.css HTTP/1.1[0m" 304 -
+2025-05-12 11:33:23,074 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:33:23] "GET /static/visualizations/object_tracking.gif HTTP/1.1" 200 -
+2025-05-12 11:33:23,081 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:33:23] "GET /static/visualizations/object_tracking_explanation.png HTTP/1.1" 200 -
+2025-05-12 11:33:23,108 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:33:23] "GET /static/visualizations/decision_making.gif HTTP/1.1" 200 -
+2025-05-12 11:33:23,120 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:33:23] "GET /static/visualizations/loitering_detection_explanation.png HTTP/1.1" 200 -
+2025-05-12 11:33:23,126 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:33:23] "GET /static/visualizations/crowd_detection_explanation.png HTTP/1.1" 200 -
+2025-05-12 11:33:25,027 - node_client - INFO - Retry attempt 4/5 to connect to nodes...
+2025-05-12 11:33:25,041 - node_client - INFO - Waiting 8 seconds before retry...
+2025-05-12 11:33:33,061 - node_client - INFO - Creating simulated nodes for any missing connections
+2025-05-12 11:33:33,065 - node_client - INFO - Connected to 4 nodes (4 real, 0 simulated)
+2025-05-12 11:33:33,241 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:33:33] "POST /api/update_algorithms HTTP/1.1" 200 -
+2025-05-12 11:33:46,478 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:33:46] "GET / HTTP/1.1" 200 -
+2025-05-12 11:33:46,569 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:33:46] "[36mGET /static/css/dashboard.css HTTP/1.1[0m" 304 -
+2025-05-12 11:33:46,685 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:33:46] "[36mGET /static/js/dashboard.js HTTP/1.1[0m" 304 -
+2025-05-12 11:33:46,702 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:33:46] "[33mGET /static/img/camera-placeholder.jpg HTTP/1.1[0m" 404 -
+2025-05-12 11:33:46,818 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:33:46] "GET /api/alerts HTTP/1.1" 200 -
+2025-05-12 11:33:46,819 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:33:46] "GET /socket.io/?EIO=4&transport=polling&t=PR35voJ HTTP/1.1" 200 -
+2025-05-12 11:33:46,830 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:33:46] "GET /api/status HTTP/1.1" 200 -
+2025-05-12 11:33:46,909 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:33:46] "POST /socket.io/?EIO=4&transport=polling&t=PR35vr8&sid=rSIM1e9vnQNFI7OiAAAC HTTP/1.1" 200 -
+2025-05-12 11:33:46,918 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:33:46] "GET /socket.io/?EIO=4&transport=polling&t=PR35vr9&sid=rSIM1e9vnQNFI7OiAAAC HTTP/1.1" 200 -
+2025-05-12 11:33:46,944 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:33:46] "GET /socket.io/?EIO=4&transport=polling&t=PR35vru&sid=rSIM1e9vnQNFI7OiAAAC HTTP/1.1" 200 -
+2025-05-12 11:33:50,345 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:33:50] "[33mGET /static/audio/alert.mp3 HTTP/1.1[0m" 404 -
+2025-05-12 11:33:51,725 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:33:51] "GET /api/status HTTP/1.1" 200 -
+2025-05-12 11:33:51,733 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:33:51] "GET /api/alerts HTTP/1.1" 200 -
+2025-05-12 11:33:53,076 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:33:53] "[33mGET /static/audio/alert.mp3 HTTP/1.1[0m" 404 -
+2025-05-12 11:33:56,716 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:33:56] "GET /api/status HTTP/1.1" 200 -
+2025-05-12 11:33:56,723 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:33:56] "GET /api/alerts HTTP/1.1" 200 -
+2025-05-12 11:34:00,130 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:34:00] "[33mGET /static/audio/alert.mp3 HTTP/1.1[0m" 404 -
+2025-05-12 11:34:00,274 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:34:00] "POST /api/update_visualizations HTTP/1.1" 200 -
+2025-05-12 11:34:01,757 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:34:01] "GET /api/status HTTP/1.1" 200 -
+2025-05-12 11:34:01,765 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:34:01] "GET /api/alerts HTTP/1.1" 200 -
+2025-05-12 11:34:03,565 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:34:03] "[33mGET /static/audio/alert.mp3 HTTP/1.1[0m" 404 -
+2025-05-12 11:34:06,718 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:34:06] "GET /api/alerts HTTP/1.1" 200 -
+2025-05-12 11:34:06,723 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:34:06] "GET /api/status HTTP/1.1" 200 -
+2025-05-12 11:34:11,726 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:34:11] "GET /api/status HTTP/1.1" 200 -
+2025-05-12 11:34:11,734 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:34:11] "GET /api/alerts HTTP/1.1" 200 -
+2025-05-12 11:34:16,730 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:34:16] "GET /api/status HTTP/1.1" 200 -
+2025-05-12 11:34:16,738 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:34:16] "GET /api/alerts HTTP/1.1" 200 -
+2025-05-12 11:34:21,731 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:34:21] "GET /api/status HTTP/1.1" 200 -
+2025-05-12 11:34:21,735 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:34:21] "GET /api/alerts HTTP/1.1" 200 -
+2025-05-12 11:34:26,738 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:34:26] "GET /api/status HTTP/1.1" 200 -
+2025-05-12 11:34:26,742 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:34:26] "GET /api/alerts HTTP/1.1" 200 -
+2025-05-12 11:34:31,720 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:34:31] "GET /api/status HTTP/1.1" 200 -
+2025-05-12 11:34:31,726 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:34:31] "GET /api/alerts HTTP/1.1" 200 -
+2025-05-12 11:34:36,988 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:34:36] "GET /api/status HTTP/1.1" 200 -
+2025-05-12 11:34:36,993 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:34:36] "GET /api/alerts HTTP/1.1" 200 -
+2025-05-12 11:34:41,976 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:34:41] "GET /api/status HTTP/1.1" 200 -
+2025-05-12 11:34:41,981 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:34:41] "GET /api/alerts HTTP/1.1" 200 -
+2025-05-12 11:34:46,995 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:34:46] "GET /api/alerts HTTP/1.1" 200 -
+2025-05-12 11:34:47,001 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:34:47] "GET /api/status HTTP/1.1" 200 -
+2025-05-12 11:34:51,988 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:34:51] "GET /api/status HTTP/1.1" 200 -
+2025-05-12 11:34:52,004 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:34:52] "GET /api/alerts HTTP/1.1" 200 -
+2025-05-12 11:34:56,720 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:34:56] "GET /api/status HTTP/1.1" 200 -
+2025-05-12 11:34:56,722 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:34:56] "GET /api/alerts HTTP/1.1" 200 -
+2025-05-12 11:35:01,718 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:35:01] "GET /api/status HTTP/1.1" 200 -
+2025-05-12 11:35:01,723 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:35:01] "GET /api/alerts HTTP/1.1" 200 -
+2025-05-12 11:35:03,323 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:35:03] "GET /socket.io/?EIO=4&transport=websocket&sid=rSIM1e9vnQNFI7OiAAAC HTTP/1.1" 200 -
+2025-05-12 11:35:03,328 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:35:03] "GET /visualizations HTTP/1.1" 200 -
+2025-05-12 11:35:03,390 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:35:03] "[36mGET /static/css/dashboard.css HTTP/1.1[0m" 304 -
+2025-05-12 11:35:03,390 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:35:03] "[36mGET /static/visualizations/video_stabilization.gif HTTP/1.1[0m" 304 -
+2025-05-12 11:35:03,395 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:35:03] "[36mGET /static/visualizations/video_stabilization_explanation.png HTTP/1.1[0m" 304 -
+2025-05-12 11:35:03,407 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:35:03] "[36mGET /static/visualizations/object_tracking.gif HTTP/1.1[0m" 304 -
+2025-05-12 11:35:03,416 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:35:03] "[36mGET /static/visualizations/object_tracking_explanation.png HTTP/1.1[0m" 304 -
+2025-05-12 11:35:03,438 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:35:03] "[36mGET /static/visualizations/decision_making.gif HTTP/1.1[0m" 304 -
+2025-05-12 11:35:03,446 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:35:03] "[36mGET /static/visualizations/loitering_detection_explanation.png HTTP/1.1[0m" 304 -
+2025-05-12 11:35:03,455 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:35:03] "[36mGET /static/visualizations/crowd_detection_explanation.png HTTP/1.1[0m" 304 -
+2025-05-12 11:35:05,411 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:35:05] "GET / HTTP/1.1" 200 -
+2025-05-12 11:35:05,469 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:35:05] "[36mGET /static/css/dashboard.css HTTP/1.1[0m" 304 -
+2025-05-12 11:35:05,475 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:35:05] "[36mGET /static/js/dashboard.js HTTP/1.1[0m" 304 -
+2025-05-12 11:35:05,479 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:35:05] "[33mGET /static/img/camera-placeholder.jpg HTTP/1.1[0m" 404 -
+2025-05-12 11:35:05,513 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:35:05] "GET /socket.io/?EIO=4&transport=polling&t=PR36D1M HTTP/1.1" 200 -
+2025-05-12 11:35:05,515 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:35:05] "GET /api/status HTTP/1.1" 200 -
+2025-05-12 11:35:05,539 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:35:05] "GET /api/alerts HTTP/1.1" 200 -
+2025-05-12 11:35:05,544 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:35:05] "POST /socket.io/?EIO=4&transport=polling&t=PR36D1t&sid=xLoGjwClQVyLqIYsAAAE HTTP/1.1" 200 -
+2025-05-12 11:35:05,554 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:35:05] "GET /socket.io/?EIO=4&transport=polling&t=PR36D1u&sid=xLoGjwClQVyLqIYsAAAE HTTP/1.1" 200 -
+2025-05-12 11:35:10,557 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:35:10] "GET /api/status HTTP/1.1" 200 -
+2025-05-12 11:35:10,565 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:35:10] "GET /api/alerts HTTP/1.1" 200 -
+2025-05-12 11:35:13,742 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:35:13] "GET /socket.io/?EIO=4&transport=websocket&sid=xLoGjwClQVyLqIYsAAAE HTTP/1.1" 200 -
+2025-05-12 11:35:18,740 - node_client - INFO - Disconnected from node node_1
+2025-05-12 11:35:18,755 - node_client - INFO - Disconnected from node node_2
+2025-05-12 11:35:18,763 - node_client - INFO - Disconnected from node node_3
+2025-05-12 11:35:18,786 - node_client - INFO - Disconnected from node node_4
+2025-05-12 11:35:18,793 - node_client - INFO - Disconnected from all nodes
+2025-05-12 19:28:28,397 - node_client - INFO - Loaded 4 nodes from nodes.json
+2025-05-12 19:28:28,398 - node_client - INFO - Loaded saved algorithm: least_connection
+2025-05-12 19:28:28,398 - node_client - INFO - Initialized node client with 4 nodes
+2025-05-12 19:28:28,400 - node_client - INFO - Launching network nodes using D:\Main EL\vigilance_system\network\launch_nodes.py
+2025-05-12 19:28:28,400 - node_client - INFO - Launching nodes with command: "D:\Main EL\venv\Scripts\python.exe" "D:\Main EL\vigilance_system\network\launch_nodes.py" --nodes 4 --output "nodes.json" --visible
+2025-05-12 19:28:28,414 - node_client - INFO - Launched nodes in visible terminal
+2025-05-12 19:28:28,414 - node_client - INFO - Waiting for nodes to start...
+2025-05-12 19:28:28,414 - node_client - INFO - Waiting for nodes to start... 1/5 seconds
+2025-05-12 19:28:29,429 - node_client - INFO - Waiting for nodes to start... 2/5 seconds
+2025-05-12 19:28:30,441 - node_client - INFO - Waiting for nodes to start... 3/5 seconds
+2025-05-12 19:28:31,452 - node_client - INFO - Waiting for nodes to start... 4/5 seconds
+2025-05-12 19:28:32,463 - node_client - INFO - Waiting for nodes to start... 5/5 seconds
+2025-05-12 19:28:33,475 - node_client - INFO - Attempting to connect to node node_1 at localhost:8000...
+2025-05-12 19:28:33,481 - node_client - INFO - Connected to node node_1 at localhost:8000
+2025-05-12 19:28:33,482 - node_client - INFO - Attempting to connect to node node_2 at localhost:8010...
+2025-05-12 19:28:33,486 - node_client - INFO - Connected to node node_2 at localhost:8010
+2025-05-12 19:28:33,486 - node_client - INFO - Attempting to connect to node node_3 at localhost:8020...
+2025-05-12 19:28:33,992 - node_client - INFO - Connected to node node_3 at localhost:8020
+2025-05-12 19:28:33,992 - node_client - INFO - Attempting to connect to node node_4 at localhost:8030...
+2025-05-12 19:28:35,010 - node_client - INFO - Connected to node node_4 at localhost:8030
+2025-05-12 19:28:35,010 - node_client - INFO - Retry attempt 1/5 to connect to nodes...
+2025-05-12 19:28:35,011 - node_client - INFO - Waiting 2 seconds before retry...
+2025-05-12 19:28:37,020 - node_client - INFO - Retry attempt 2/5 to connect to nodes...
+2025-05-12 19:28:37,022 - node_client - INFO - Waiting 4 seconds before retry...
+2025-05-12 19:28:41,038 - node_client - INFO - Retry attempt 3/5 to connect to nodes...
+2025-05-12 19:28:41,039 - node_client - INFO - Waiting 6 seconds before retry...
+2025-05-12 19:28:47,051 - node_client - INFO - Retry attempt 4/5 to connect to nodes...
+2025-05-12 19:28:47,053 - node_client - INFO - Waiting 8 seconds before retry...
+2025-05-12 19:28:55,066 - node_client - INFO - Creating simulated nodes for any missing connections
+2025-05-12 19:28:55,068 - node_client - INFO - Connected to 4 nodes (4 real, 0 simulated)
+2025-05-12 19:28:55,068 - node_client - INFO - Algorithm already set to least_connection, no change needed
+2025-05-12 19:29:13,884 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.75.134:5000
+2025-05-12 19:29:13,886 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-05-12 19:29:30,445 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 19:29:30] "[32mGET / HTTP/1.1[0m" 302 -
+2025-05-12 19:29:30,475 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 19:29:30] "GET /login HTTP/1.1" 200 -
+2025-05-12 19:29:30,607 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 19:29:30] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-05-12 19:29:32,568 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 19:29:32] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-05-12 19:29:32,596 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 19:29:32] "GET / HTTP/1.1" 200 -
+2025-05-12 19:29:32,642 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 19:29:32] "[33mGET /static/img/camera-placeholder.jpg HTTP/1.1[0m" 404 -
+2025-05-12 19:29:32,729 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 19:29:32] "[36mGET /static/js/dashboard.js HTTP/1.1[0m" 304 -
+2025-05-12 19:29:32,730 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 19:29:32] "[36mGET /static/css/dashboard.css HTTP/1.1[0m" 304 -
+2025-05-12 19:29:32,817 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 19:29:32] "GET /api/status HTTP/1.1" 200 -
+2025-05-12 19:29:32,818 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 19:29:32] "GET /socket.io/?EIO=4&transport=polling&t=PR4op36 HTTP/1.1" 200 -
+2025-05-12 19:29:32,824 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 19:29:32] "GET /api/alerts HTTP/1.1" 200 -
+2025-05-12 19:29:32,854 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 19:29:32] "POST /socket.io/?EIO=4&transport=polling&t=PR4op3U&sid=hyMZ7sy2kTudfdm-AAAA HTTP/1.1" 200 -
+2025-05-12 19:29:32,861 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 19:29:32] "GET /socket.io/?EIO=4&transport=polling&t=PR4op3W&sid=hyMZ7sy2kTudfdm-AAAA HTTP/1.1" 200 -
+2025-05-12 19:29:34,648 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 19:29:34] "GET /socket.io/?EIO=4&transport=websocket&sid=hyMZ7sy2kTudfdm-AAAA HTTP/1.1" 200 -
+2025-05-12 19:29:34,701 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 19:29:34] "GET /network HTTP/1.1" 200 -
+2025-05-12 19:29:34,780 - node_client - INFO - Algorithm already set to least_connection, no change needed
+2025-05-12 19:29:34,837 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 19:29:34] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 19:29:36,797 - node_client - INFO - Algorithm already set to least_connection, no change needed
+2025-05-12 19:29:36,868 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 19:29:36] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 19:29:38,784 - node_client - INFO - Algorithm already set to least_connection, no change needed
+2025-05-12 19:29:38,868 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 19:29:38] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 19:29:38,902 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 19:29:38] "GET / HTTP/1.1" 200 -
+2025-05-12 19:29:38,946 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 19:29:38] "[36mGET /static/css/dashboard.css HTTP/1.1[0m" 304 -
+2025-05-12 19:29:38,948 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 19:29:38] "[33mGET /static/img/camera-placeholder.jpg HTTP/1.1[0m" 404 -
+2025-05-12 19:29:38,956 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 19:29:38] "[36mGET /static/js/dashboard.js HTTP/1.1[0m" 304 -
+2025-05-12 19:29:38,981 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 19:29:38] "GET /socket.io/?EIO=4&transport=polling&t=PR4oqZG HTTP/1.1" 200 -
+2025-05-12 19:29:38,983 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 19:29:38] "GET /api/status HTTP/1.1" 200 -
+2025-05-12 19:29:38,986 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 19:29:38] "GET /api/alerts HTTP/1.1" 200 -
+2025-05-12 19:29:39,008 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 19:29:39] "POST /socket.io/?EIO=4&transport=polling&t=PR4oqZg&sid=CLsennte4brQ9TYbAAAC HTTP/1.1" 200 -
+2025-05-12 19:29:39,015 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 19:29:39] "GET /socket.io/?EIO=4&transport=polling&t=PR4oqZg.0&sid=CLsennte4brQ9TYbAAAC HTTP/1.1" 200 -
+2025-05-12 19:29:43,931 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 19:29:43] "POST /api/start_processing HTTP/1.1" 200 -
+2025-05-12 19:29:46,229 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 19:29:46] "GET /api/alerts HTTP/1.1" 200 -
+2025-05-12 19:29:46,725 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 19:29:46] "GET /api/status HTTP/1.1" 200 -
+2025-05-12 19:29:48,987 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 19:29:48] "GET /api/status HTTP/1.1" 200 -
+2025-05-12 19:29:48,989 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 19:29:48] "GET /api/alerts HTTP/1.1" 200 -
+2025-05-12 19:29:49,867 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 19:29:49] "[33mGET /static/audio/alert.mp3 HTTP/1.1[0m" 404 -
+2025-05-12 19:29:53,983 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 19:29:53] "GET /api/status HTTP/1.1" 200 -
+2025-05-12 19:29:53,991 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 19:29:53] "GET /api/alerts HTTP/1.1" 200 -
+2025-05-12 19:29:59,087 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 19:29:59] "GET /api/alerts HTTP/1.1" 200 -
+2025-05-12 19:29:59,114 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 19:29:59] "GET /api/status HTTP/1.1" 200 -
+2025-05-12 19:30:00,860 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 19:30:00] "[33mGET /static/audio/alert.mp3 HTTP/1.1[0m" 404 -
+2025-05-12 19:30:02,806 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 19:30:02] "GET /socket.io/?EIO=4&transport=websocket&sid=CLsennte4brQ9TYbAAAC HTTP/1.1" 200 -
+2025-05-12 19:30:02,826 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 19:30:02] "GET /network HTTP/1.1" 200 -
+2025-05-12 19:30:02,884 - node_client - INFO - Algorithm already set to least_connection, no change needed
+2025-05-12 19:30:02,965 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 19:30:02] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 19:30:04,899 - node_client - INFO - Algorithm already set to least_connection, no change needed
+2025-05-12 19:30:04,965 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 19:30:04] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 19:30:06,894 - node_client - INFO - Algorithm already set to least_connection, no change needed
+2025-05-12 19:30:06,974 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 19:30:06] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 19:30:08,887 - node_client - INFO - Algorithm already set to least_connection, no change needed
+2025-05-12 19:30:09,197 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 19:30:09] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 19:30:10,892 - node_client - INFO - Algorithm already set to least_connection, no change needed
+2025-05-12 19:30:10,982 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 19:30:10] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 19:30:12,889 - node_client - INFO - Algorithm already set to least_connection, no change needed
+2025-05-12 19:30:12,991 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 19:30:12] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 19:30:14,899 - node_client - INFO - Algorithm already set to least_connection, no change needed
+2025-05-12 19:30:14,981 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 19:30:14] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 19:30:16,898 - node_client - INFO - Algorithm already set to least_connection, no change needed
+2025-05-12 19:30:16,977 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 19:30:16] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 19:30:18,892 - node_client - INFO - Algorithm already set to least_connection, no change needed
+2025-05-12 19:30:18,978 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 19:30:18] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 19:30:20,901 - node_client - INFO - Algorithm already set to least_connection, no change needed
+2025-05-12 19:30:20,979 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 19:30:20] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 19:30:22,900 - node_client - INFO - Algorithm already set to least_connection, no change needed
+2025-05-12 19:30:22,990 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 19:30:22] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 19:30:24,896 - node_client - INFO - Algorithm already set to least_connection, no change needed
+2025-05-12 19:30:24,976 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 19:30:24] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 19:30:26,899 - node_client - INFO - Algorithm already set to least_connection, no change needed
+2025-05-12 19:30:26,996 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 19:30:26] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 19:30:28,891 - node_client - INFO - Algorithm already set to least_connection, no change needed
+2025-05-12 19:30:28,964 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 19:30:28] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 19:30:30,901 - node_client - INFO - Algorithm already set to least_connection, no change needed
+2025-05-12 19:30:30,993 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 19:30:30] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 19:30:32,893 - node_client - INFO - Algorithm already set to least_connection, no change needed
+2025-05-12 19:30:32,979 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 19:30:32] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 19:30:34,911 - node_client - INFO - Algorithm already set to least_connection, no change needed
+2025-05-12 19:30:35,011 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 19:30:35] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 19:30:36,891 - node_client - INFO - Algorithm already set to least_connection, no change needed
+2025-05-12 19:30:36,980 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 19:30:36] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 19:30:38,888 - node_client - INFO - Algorithm already set to least_connection, no change needed
+2025-05-12 19:30:38,975 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 19:30:38] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 19:30:40,891 - node_client - INFO - Algorithm already set to least_connection, no change needed
+2025-05-12 19:30:41,060 - node_client - INFO - Set routing algorithm from least_connection to round_robin
+2025-05-12 19:30:41,062 - node_client - INFO - Notified node node_1 about algorithm change to round_robin
+2025-05-12 19:30:41,063 - node_client - INFO - Notified node node_2 about algorithm change to round_robin
+2025-05-12 19:30:41,064 - node_client - INFO - Notified node node_3 about algorithm change to round_robin
+2025-05-12 19:30:41,064 - node_client - INFO - Notified node node_4 about algorithm change to round_robin
+2025-05-12 19:30:41,067 - node_client - INFO - Saved algorithm round_robin to current_algorithm.txt
+2025-05-12 19:30:41,087 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 19:30:41] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 19:30:41,111 - node_client - INFO - Algorithm already set to round_robin, no change needed
+2025-05-12 19:30:41,112 - node_client - INFO - Algorithm already set to round_robin, no change needed
+2025-05-12 19:30:41,469 - node_client - INFO - Disconnected from node node_1
+2025-05-12 19:30:41,469 - node_client - INFO - Disconnected from node node_2
+2025-05-12 19:30:41,473 - node_client - INFO - Disconnected from node node_3
+2025-05-12 19:30:41,481 - node_client - INFO - Disconnected from node node_4
+2025-05-12 19:30:41,483 - node_client - INFO - Disconnected from all nodes
+2025-05-12 19:30:42,490 - node_client - INFO - Launching network nodes using D:\Main EL\vigilance_system\network\launch_nodes.py
+2025-05-12 19:30:42,496 - node_client - INFO - Launching nodes with command: "D:\Main EL\venv\Scripts\python.exe" "D:\Main EL\vigilance_system\network\launch_nodes.py" --nodes 4 --output "nodes.json" --visible
+2025-05-12 19:30:42,531 - node_client - INFO - Launched nodes in visible terminal
+2025-05-12 19:30:42,531 - node_client - INFO - Waiting for nodes to start...
+2025-05-12 19:30:42,532 - node_client - INFO - Waiting for nodes to start... 1/5 seconds
+2025-05-12 19:30:43,533 - node_client - INFO - Waiting for nodes to start... 2/5 seconds
+2025-05-12 19:30:44,544 - node_client - INFO - Waiting for nodes to start... 3/5 seconds
+2025-05-12 19:30:45,550 - node_client - INFO - Waiting for nodes to start... 4/5 seconds
+2025-05-12 19:30:46,561 - node_client - INFO - Waiting for nodes to start... 5/5 seconds
+2025-05-12 19:30:47,562 - node_client - INFO - Attempting to connect to node node_1 at localhost:8000...
+2025-05-12 19:30:47,582 - node_client - INFO - Connected to node node_1 at localhost:8000
+2025-05-12 19:30:47,583 - node_client - INFO - Attempting to connect to node node_2 at localhost:8010...
+2025-05-12 19:30:47,589 - node_client - INFO - Connected to node node_2 at localhost:8010
+2025-05-12 19:30:47,590 - node_client - INFO - Attempting to connect to node node_3 at localhost:8020...
+2025-05-12 19:30:47,599 - node_client - INFO - Connected to node node_3 at localhost:8020
+2025-05-12 19:30:47,600 - node_client - INFO - Attempting to connect to node node_4 at localhost:8030...
+2025-05-12 19:30:48,626 - node_client - INFO - Connected to node node_4 at localhost:8030
+2025-05-12 19:30:48,628 - node_client - INFO - Retry attempt 1/5 to connect to nodes...
+2025-05-12 19:30:48,631 - node_client - INFO - Waiting 2 seconds before retry...
+2025-05-12 19:30:50,632 - node_client - INFO - Retry attempt 2/5 to connect to nodes...
+2025-05-12 19:30:50,633 - node_client - INFO - Waiting 4 seconds before retry...
+2025-05-12 19:30:54,649 - node_client - INFO - Retry attempt 3/5 to connect to nodes...
+2025-05-12 19:30:54,651 - node_client - INFO - Waiting 6 seconds before retry...
+2025-05-12 19:31:00,663 - node_client - INFO - Retry attempt 4/5 to connect to nodes...
+2025-05-12 19:31:00,664 - node_client - INFO - Waiting 8 seconds before retry...
+2025-05-12 19:31:08,670 - node_client - INFO - Creating simulated nodes for any missing connections
+2025-05-12 19:31:08,671 - node_client - INFO - Connected to 4 nodes (4 real, 0 simulated)
+2025-05-12 19:31:08,702 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 19:31:08] "POST /api/update_algorithms HTTP/1.1" 200 -
+2025-05-12 19:31:14,984 - node_client - INFO - Algorithm already set to round_robin, no change needed
+2025-05-12 19:31:15,143 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 19:31:15] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 19:31:15,158 - node_client - INFO - Algorithm already set to round_robin, no change needed
+2025-05-12 19:31:15,233 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 19:31:15] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 19:31:17,016 - node_client - INFO - Algorithm already set to round_robin, no change needed
+2025-05-12 19:31:17,075 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 19:31:17] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 19:31:19,003 - node_client - INFO - Algorithm already set to round_robin, no change needed
+2025-05-12 19:31:19,071 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 19:31:19] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 19:31:20,983 - node_client - INFO - Algorithm already set to round_robin, no change needed
+2025-05-12 19:31:21,053 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 19:31:21] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 19:31:22,895 - node_client - INFO - Algorithm already set to round_robin, no change needed
+2025-05-12 19:31:22,950 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 19:31:22] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 19:31:24,892 - node_client - INFO - Algorithm already set to round_robin, no change needed
+2025-05-12 19:31:24,950 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 19:31:24] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 19:31:26,888 - node_client - INFO - Algorithm already set to round_robin, no change needed
+2025-05-12 19:31:26,996 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 19:31:26] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 19:31:28,900 - node_client - INFO - Algorithm already set to round_robin, no change needed
+2025-05-12 19:31:28,978 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 19:31:28] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 19:31:30,898 - node_client - INFO - Algorithm already set to round_robin, no change needed
+2025-05-12 19:31:30,969 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 19:31:30] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 19:31:32,905 - node_client - INFO - Algorithm already set to round_robin, no change needed
+2025-05-12 19:31:32,990 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 19:31:32] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 19:31:37,149 - node_client - INFO - Disconnected from node node_1
+2025-05-12 19:31:37,150 - node_client - INFO - Disconnected from node node_2
+2025-05-12 19:31:37,151 - node_client - INFO - Disconnected from node node_3
+2025-05-12 19:31:37,152 - node_client - INFO - Disconnected from node node_4
+2025-05-12 19:31:37,152 - node_client - INFO - Disconnected from all nodes
+2025-05-12 20:54:38,394 - node_client - INFO - Loaded 4 nodes from nodes.json
+2025-05-12 20:54:38,395 - node_client - INFO - Loaded saved algorithm: round_robin
+2025-05-12 20:54:38,395 - node_client - INFO - Initialized node client with 4 nodes
+2025-05-12 20:54:38,396 - node_client - INFO - Launching network nodes using D:\Main EL\vigilance_system\network\launch_nodes.py
+2025-05-12 20:54:38,396 - node_client - INFO - Launching nodes with command: "D:\Main EL\venv\Scripts\python.exe" "D:\Main EL\vigilance_system\network\launch_nodes.py" --nodes 4 --output "nodes.json" --visible
+2025-05-12 20:54:38,407 - node_client - INFO - Launched nodes in visible terminal
+2025-05-12 20:54:38,407 - node_client - INFO - Waiting for nodes to start...
+2025-05-12 20:54:38,408 - node_client - INFO - Waiting for nodes to start... 1/5 seconds
+2025-05-12 20:54:39,416 - node_client - INFO - Waiting for nodes to start... 2/5 seconds
+2025-05-12 20:54:40,426 - node_client - INFO - Waiting for nodes to start... 3/5 seconds
+2025-05-12 20:54:41,437 - node_client - INFO - Waiting for nodes to start... 4/5 seconds
+2025-05-12 20:54:42,446 - node_client - INFO - Waiting for nodes to start... 5/5 seconds
+2025-05-12 20:54:43,459 - node_client - INFO - Attempting to connect to node node_1 at localhost:8000...
+2025-05-12 20:54:43,498 - node_client - INFO - Connected to node node_1 at localhost:8000
+2025-05-12 20:54:43,502 - node_client - INFO - Attempting to connect to node node_2 at localhost:8010...
+2025-05-12 20:54:43,512 - node_client - INFO - Connected to node node_2 at localhost:8010
+2025-05-12 20:54:43,515 - node_client - INFO - Attempting to connect to node node_3 at localhost:8020...
+2025-05-12 20:54:43,539 - node_client - INFO - Connected to node node_3 at localhost:8020
+2025-05-12 20:54:43,540 - node_client - INFO - Attempting to connect to node node_4 at localhost:8030...
+2025-05-12 20:54:44,051 - node_client - INFO - Connected to node node_4 at localhost:8030
+2025-05-12 20:54:44,053 - node_client - INFO - Retry attempt 1/5 to connect to nodes...
+2025-05-12 20:54:44,054 - node_client - INFO - Waiting 2 seconds before retry...
+2025-05-12 20:54:46,058 - node_client - INFO - Retry attempt 2/5 to connect to nodes...
+2025-05-12 20:54:46,058 - node_client - INFO - Waiting 4 seconds before retry...
+2025-05-12 20:54:50,066 - node_client - INFO - Retry attempt 3/5 to connect to nodes...
+2025-05-12 20:54:50,067 - node_client - INFO - Waiting 6 seconds before retry...
+2025-05-12 20:54:56,072 - node_client - INFO - Retry attempt 4/5 to connect to nodes...
+2025-05-12 20:54:56,072 - node_client - INFO - Waiting 8 seconds before retry...
+2025-05-12 20:55:04,088 - node_client - INFO - Creating simulated nodes for any missing connections
+2025-05-12 20:55:04,094 - node_client - INFO - Connected to 4 nodes (4 real, 0 simulated)
+2025-05-12 20:55:04,103 - node_client - INFO - Algorithm already set to round_robin, no change needed
+2025-05-12 20:55:15,291 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.75.134:5000
+2025-05-12 20:55:15,292 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-05-12 20:55:15,397 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:55:15] "[32mGET / HTTP/1.1[0m" 302 -
+2025-05-12 20:55:15,439 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:55:15] "GET /login HTTP/1.1" 200 -
+2025-05-12 20:55:15,658 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:55:15] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-05-12 20:55:17,258 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:55:17] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-05-12 20:55:17,292 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:55:17] "GET / HTTP/1.1" 200 -
+2025-05-12 20:55:17,648 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:55:17] "[36mGET /static/css/dashboard.css HTTP/1.1[0m" 304 -
+2025-05-12 20:55:17,664 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:55:17] "[33mGET /static/img/camera-placeholder.jpg HTTP/1.1[0m" 404 -
+2025-05-12 20:55:17,678 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:55:17] "[36mGET /static/js/dashboard.js HTTP/1.1[0m" 304 -
+2025-05-12 20:55:18,173 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:55:18] "GET /api/status HTTP/1.1" 200 -
+2025-05-12 20:55:18,177 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:55:18] "GET /api/alerts HTTP/1.1" 200 -
+2025-05-12 20:55:18,178 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:55:18] "GET /socket.io/?EIO=4&transport=polling&t=PR56RAQ HTTP/1.1" 200 -
+2025-05-12 20:55:18,416 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:55:18] "POST /socket.io/?EIO=4&transport=polling&t=PR56RFi&sid=tspdxtRlJfg0AqW4AAAA HTTP/1.1" 200 -
+2025-05-12 20:55:18,496 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:55:18] "GET /socket.io/?EIO=4&transport=polling&t=PR56RG1&sid=tspdxtRlJfg0AqW4AAAA HTTP/1.1" 200 -
+2025-05-12 20:55:18,522 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:55:18] "GET /socket.io/?EIO=4&transport=polling&t=PR56RKe&sid=tspdxtRlJfg0AqW4AAAA HTTP/1.1" 200 -
+2025-05-12 20:55:19,850 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:55:19] "POST /api/start_processing HTTP/1.1" 200 -
+2025-05-12 20:55:22,836 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:55:22] "[33mGET /static/audio/alert.mp3 HTTP/1.1[0m" 404 -
+2025-05-12 20:55:23,100 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:55:23] "GET /api/status HTTP/1.1" 200 -
+2025-05-12 20:55:23,194 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:55:23] "GET /api/alerts HTTP/1.1" 200 -
+2025-05-12 20:55:27,866 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:55:27] "GET /api/status HTTP/1.1" 200 -
+2025-05-12 20:55:28,187 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:55:28] "GET /api/alerts HTTP/1.1" 200 -
+2025-05-12 20:55:28,440 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:55:28] "[33mGET /static/audio/alert.mp3 HTTP/1.1[0m" 404 -
+2025-05-12 20:55:30,452 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:55:30] "GET /socket.io/?EIO=4&transport=websocket&sid=tspdxtRlJfg0AqW4AAAA HTTP/1.1" 200 -
+2025-05-12 20:55:30,719 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:55:30] "GET /network HTTP/1.1" 200 -
+2025-05-12 20:55:30,787 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:55:30] "[33mGET /static/audio/alert.mp3 HTTP/1.1[0m" 404 -
+2025-05-12 20:55:30,971 - node_client - INFO - Algorithm already set to round_robin, no change needed
+2025-05-12 20:55:31,111 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:55:31] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 20:55:33,281 - node_client - INFO - Algorithm already set to round_robin, no change needed
+2025-05-12 20:55:33,403 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:55:33] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 20:55:34,971 - node_client - INFO - Algorithm already set to round_robin, no change needed
+2025-05-12 20:55:35,066 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:55:35] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 20:55:37,296 - node_client - INFO - Algorithm already set to round_robin, no change needed
+2025-05-12 20:55:37,459 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:55:37] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 20:55:38,969 - node_client - INFO - Algorithm already set to round_robin, no change needed
+2025-05-12 20:55:39,071 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:55:39] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 20:55:41,282 - node_client - INFO - Algorithm already set to round_robin, no change needed
+2025-05-12 20:55:41,513 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:55:41] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 20:55:42,981 - node_client - INFO - Algorithm already set to round_robin, no change needed
+2025-05-12 20:55:43,347 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:55:43] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 20:55:45,289 - node_client - INFO - Algorithm already set to round_robin, no change needed
+2025-05-12 20:55:45,415 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:55:45] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 20:55:46,975 - node_client - INFO - Algorithm already set to round_robin, no change needed
+2025-05-12 20:55:47,100 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:55:47] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 20:55:49,311 - node_client - INFO - Algorithm already set to round_robin, no change needed
+2025-05-12 20:55:49,432 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:55:49] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 20:55:51,121 - node_client - INFO - Algorithm already set to round_robin, no change needed
+2025-05-12 20:55:51,248 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:55:51] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 20:55:53,291 - node_client - INFO - Algorithm already set to round_robin, no change needed
+2025-05-12 20:55:53,449 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:55:53] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 20:55:54,985 - node_client - INFO - Algorithm already set to round_robin, no change needed
+2025-05-12 20:55:55,026 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:55:55] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 20:55:57,292 - node_client - INFO - Algorithm already set to round_robin, no change needed
+2025-05-12 20:55:57,344 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:55:57] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 20:55:59,012 - node_client - INFO - Algorithm already set to round_robin, no change needed
+2025-05-12 20:55:59,081 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:55:59] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 20:56:01,292 - node_client - INFO - Algorithm already set to round_robin, no change needed
+2025-05-12 20:56:01,349 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:56:01] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 20:56:02,996 - node_client - INFO - Algorithm already set to round_robin, no change needed
+2025-05-12 20:56:03,041 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:56:03] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 20:56:05,294 - node_client - INFO - Algorithm already set to round_robin, no change needed
+2025-05-12 20:56:05,349 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:56:05] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 20:56:07,076 - node_client - INFO - Algorithm already set to round_robin, no change needed
+2025-05-12 20:56:07,121 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:56:07] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 20:56:09,300 - node_client - INFO - Algorithm already set to round_robin, no change needed
+2025-05-12 20:56:09,412 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:56:09] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 20:56:10,976 - node_client - INFO - Algorithm already set to round_robin, no change needed
+2025-05-12 20:56:11,036 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:56:11] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 20:56:13,286 - node_client - INFO - Algorithm already set to round_robin, no change needed
+2025-05-12 20:56:13,363 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:56:13] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 20:56:14,232 - node_client - INFO - Set routing algorithm from round_robin to least_connection
+2025-05-12 20:56:14,233 - node_client - INFO - Notified node node_1 about algorithm change to least_connection
+2025-05-12 20:56:14,234 - node_client - INFO - Notified node node_2 about algorithm change to least_connection
+2025-05-12 20:56:14,235 - node_client - INFO - Notified node node_3 about algorithm change to least_connection
+2025-05-12 20:56:14,236 - node_client - INFO - Notified node node_4 about algorithm change to least_connection
+2025-05-12 20:56:14,238 - node_client - INFO - Saved algorithm least_connection to current_algorithm.txt
+2025-05-12 20:56:14,264 - node_client - INFO - Algorithm already set to least_connection, no change needed
+2025-05-12 20:56:14,264 - node_client - INFO - Algorithm already set to least_connection, no change needed
+2025-05-12 20:56:14,642 - node_client - INFO - Disconnected from node node_1
+2025-05-12 20:56:14,642 - node_client - INFO - Disconnected from node node_2
+2025-05-12 20:56:14,643 - node_client - INFO - Disconnected from node node_3
+2025-05-12 20:56:14,644 - node_client - INFO - Disconnected from node node_4
+2025-05-12 20:56:14,644 - node_client - INFO - Disconnected from all nodes
+2025-05-12 20:56:15,655 - node_client - INFO - Launching network nodes using D:\Main EL\vigilance_system\network\launch_nodes.py
+2025-05-12 20:56:15,656 - node_client - INFO - Launching nodes with command: "D:\Main EL\venv\Scripts\python.exe" "D:\Main EL\vigilance_system\network\launch_nodes.py" --nodes 4 --output "nodes.json" --visible
+2025-05-12 20:56:15,676 - node_client - INFO - Launched nodes in visible terminal
+2025-05-12 20:56:15,676 - node_client - INFO - Waiting for nodes to start...
+2025-05-12 20:56:15,677 - node_client - INFO - Waiting for nodes to start... 1/5 seconds
+2025-05-12 20:56:16,686 - node_client - INFO - Waiting for nodes to start... 2/5 seconds
+2025-05-12 20:56:17,696 - node_client - INFO - Waiting for nodes to start... 3/5 seconds
+2025-05-12 20:56:18,708 - node_client - INFO - Waiting for nodes to start... 4/5 seconds
+2025-05-12 20:56:19,720 - node_client - INFO - Waiting for nodes to start... 5/5 seconds
+2025-05-12 20:56:20,730 - node_client - INFO - Attempting to connect to node node_1 at localhost:8000...
+2025-05-12 20:56:20,750 - node_client - INFO - Connected to node node_1 at localhost:8000
+2025-05-12 20:56:20,751 - node_client - INFO - Attempting to connect to node node_2 at localhost:8010...
+2025-05-12 20:56:20,758 - node_client - INFO - Connected to node node_2 at localhost:8010
+2025-05-12 20:56:20,759 - node_client - INFO - Attempting to connect to node node_3 at localhost:8020...
+2025-05-12 20:56:20,767 - node_client - INFO - Connected to node node_3 at localhost:8020
+2025-05-12 20:56:20,770 - node_client - INFO - Attempting to connect to node node_4 at localhost:8030...
+2025-05-12 20:56:21,278 - node_client - INFO - Connected to node node_4 at localhost:8030
+2025-05-12 20:56:21,279 - node_client - INFO - Retry attempt 1/5 to connect to nodes...
+2025-05-12 20:56:21,280 - node_client - INFO - Waiting 2 seconds before retry...
+2025-05-12 20:56:23,293 - node_client - INFO - Retry attempt 2/5 to connect to nodes...
+2025-05-12 20:56:23,294 - node_client - INFO - Waiting 4 seconds before retry...
+2025-05-12 20:56:27,309 - node_client - INFO - Retry attempt 3/5 to connect to nodes...
+2025-05-12 20:56:27,310 - node_client - INFO - Waiting 6 seconds before retry...
+2025-05-12 20:56:33,325 - node_client - INFO - Retry attempt 4/5 to connect to nodes...
+2025-05-12 20:56:33,325 - node_client - INFO - Waiting 8 seconds before retry...
+2025-05-12 20:56:41,331 - node_client - INFO - Creating simulated nodes for any missing connections
+2025-05-12 20:56:41,341 - node_client - INFO - Connected to 4 nodes (4 real, 0 simulated)
+2025-05-12 20:56:41,423 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:56:41] "POST /api/update_algorithms HTTP/1.1" 200 -
+2025-05-12 20:56:49,291 - node_client - INFO - Algorithm already set to least_connection, no change needed
+2025-05-12 20:56:49,330 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:56:49] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 20:56:49,559 - node_client - INFO - Algorithm already set to least_connection, no change needed
+2025-05-12 20:56:49,604 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:56:49] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 20:56:50,978 - node_client - INFO - Algorithm already set to least_connection, no change needed
+2025-05-12 20:56:51,011 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:56:51] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 20:56:53,289 - node_client - INFO - Algorithm already set to least_connection, no change needed
+2025-05-12 20:56:53,340 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:56:53] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 20:56:54,973 - node_client - INFO - Algorithm already set to least_connection, no change needed
+2025-05-12 20:56:54,996 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:56:54] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 20:56:57,304 - node_client - INFO - Algorithm already set to least_connection, no change needed
+2025-05-12 20:56:57,345 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:56:57] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 20:56:58,979 - node_client - INFO - Algorithm already set to least_connection, no change needed
+2025-05-12 20:56:59,077 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:56:59] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 20:57:01,291 - node_client - INFO - Algorithm already set to least_connection, no change needed
+2025-05-12 20:57:01,380 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:57:01] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 20:57:02,979 - node_client - INFO - Algorithm already set to least_connection, no change needed
+2025-05-12 20:57:03,072 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:57:03] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 20:57:05,281 - node_client - INFO - Algorithm already set to least_connection, no change needed
+2025-05-12 20:57:05,409 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:57:05] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 20:57:06,975 - node_client - INFO - Algorithm already set to least_connection, no change needed
+2025-05-12 20:57:07,076 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:57:07] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 20:57:07,296 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:57:07] "GET / HTTP/1.1" 200 -
+2025-05-12 20:57:07,668 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:57:07] "[33mGET /static/img/camera-placeholder.jpg HTTP/1.1[0m" 404 -
+2025-05-12 20:57:07,669 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:57:07] "[36mGET /static/css/dashboard.css HTTP/1.1[0m" 304 -
+2025-05-12 20:57:07,674 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:57:07] "[36mGET /static/js/dashboard.js HTTP/1.1[0m" 304 -
+2025-05-12 20:57:07,928 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:57:07] "GET /socket.io/?EIO=4&transport=polling&t=PR56r-Z HTTP/1.1" 200 -
+2025-05-12 20:57:08,005 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:57:08] "GET /api/status HTTP/1.1" 200 -
+2025-05-12 20:57:08,007 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:57:08] "GET /api/alerts HTTP/1.1" 200 -
+2025-05-12 20:57:08,014 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:57:08] "POST /socket.io/?EIO=4&transport=polling&t=PR56s2S&sid=CXRp0LrsVWTapbKyAAAC HTTP/1.1" 200 -
+2025-05-12 20:57:08,238 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:57:08] "GET /socket.io/?EIO=4&transport=polling&t=PR56s2T&sid=CXRp0LrsVWTapbKyAAAC HTTP/1.1" 200 -
+2025-05-12 20:57:08,250 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:57:08] "GET /socket.io/?EIO=4&transport=polling&t=PR56s7K&sid=CXRp0LrsVWTapbKyAAAC HTTP/1.1" 200 -
+2025-05-12 20:57:10,478 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:57:10] "[33mGET /static/audio/alert.mp3 HTTP/1.1[0m" 404 -
+2025-05-12 20:57:12,335 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:57:12] "[33mGET /static/audio/alert.mp3 HTTP/1.1[0m" 404 -
+2025-05-12 20:57:13,008 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:57:13] "GET /api/status HTTP/1.1" 200 -
+2025-05-12 20:57:13,010 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:57:13] "GET /api/alerts HTTP/1.1" 200 -
+2025-05-12 20:57:14,512 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:57:14] "[33mGET /static/audio/alert.mp3 HTTP/1.1[0m" 404 -
+2025-05-12 20:57:18,012 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:57:18] "GET /api/status HTTP/1.1" 200 -
+2025-05-12 20:57:18,015 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:57:18] "GET /api/alerts HTTP/1.1" 200 -
+2025-05-12 20:57:20,249 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:57:20] "[33mGET /static/audio/alert.mp3 HTTP/1.1[0m" 404 -
+2025-05-12 20:57:22,686 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:57:22] "[33mGET /static/audio/alert.mp3 HTTP/1.1[0m" 404 -
+2025-05-12 20:57:22,941 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:57:22] "GET /api/status HTTP/1.1" 200 -
+2025-05-12 20:57:22,998 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:57:22] "GET /api/alerts HTTP/1.1" 200 -
+2025-05-12 20:57:24,419 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:57:24] "[33mGET /static/audio/alert.mp3 HTTP/1.1[0m" 404 -
+2025-05-12 20:57:28,004 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:57:28] "GET /api/status HTTP/1.1" 200 -
+2025-05-12 20:57:28,009 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:57:28] "GET /api/alerts HTTP/1.1" 200 -
+2025-05-12 20:57:32,702 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:57:32] "GET /api/status HTTP/1.1" 200 -
+2025-05-12 20:57:33,015 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:57:33] "GET /api/alerts HTTP/1.1" 200 -
+2025-05-12 20:57:37,704 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:57:37] "GET /api/status HTTP/1.1" 200 -
+2025-05-12 20:57:37,806 - node_client - INFO - Algorithm already set to least_connection, no change needed
+2025-05-12 20:57:37,837 - node_client - INFO - Algorithm already set to least_connection, no change needed
+2025-05-12 20:57:37,838 - node_client - INFO - Algorithm already set to least_connection, no change needed
+2025-05-12 20:57:38,002 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:57:38] "GET /api/alerts HTTP/1.1" 200 -
+2025-05-12 20:57:38,301 - node_client - INFO - Disconnected from node node_1
+2025-05-12 20:57:38,302 - node_client - INFO - Disconnected from node node_2
+2025-05-12 20:57:38,306 - node_client - INFO - Disconnected from node node_3
+2025-05-12 20:57:38,310 - node_client - INFO - Disconnected from node node_4
+2025-05-12 20:57:38,310 - node_client - INFO - Disconnected from all nodes
+2025-05-12 20:57:39,320 - node_client - INFO - Launching network nodes using D:\Main EL\vigilance_system\network\launch_nodes.py
+2025-05-12 20:57:39,321 - node_client - INFO - Launching nodes with command: "D:\Main EL\venv\Scripts\python.exe" "D:\Main EL\vigilance_system\network\launch_nodes.py" --nodes 4 --output "nodes.json" --visible
+2025-05-12 20:57:39,338 - node_client - INFO - Launched nodes in visible terminal
+2025-05-12 20:57:39,340 - node_client - INFO - Waiting for nodes to start...
+2025-05-12 20:57:39,340 - node_client - INFO - Waiting for nodes to start... 1/5 seconds
+2025-05-12 20:57:40,345 - node_client - INFO - Waiting for nodes to start... 2/5 seconds
+2025-05-12 20:57:41,350 - node_client - INFO - Waiting for nodes to start... 3/5 seconds
+2025-05-12 20:57:42,361 - node_client - INFO - Waiting for nodes to start... 4/5 seconds
+2025-05-12 20:57:43,003 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:57:43] "GET /api/status HTTP/1.1" 200 -
+2025-05-12 20:57:43,008 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:57:43] "GET /api/alerts HTTP/1.1" 200 -
+2025-05-12 20:57:43,375 - node_client - INFO - Waiting for nodes to start... 5/5 seconds
+2025-05-12 20:57:44,384 - node_client - INFO - Attempting to connect to node node_1 at localhost:8000...
+2025-05-12 20:57:44,391 - node_client - INFO - Connected to node node_1 at localhost:8000
+2025-05-12 20:57:44,394 - node_client - INFO - Attempting to connect to node node_2 at localhost:8010...
+2025-05-12 20:57:44,410 - node_client - INFO - Connected to node node_2 at localhost:8010
+2025-05-12 20:57:44,412 - node_client - INFO - Attempting to connect to node node_3 at localhost:8020...
+2025-05-12 20:57:44,426 - node_client - INFO - Connected to node node_3 at localhost:8020
+2025-05-12 20:57:44,427 - node_client - INFO - Attempting to connect to node node_4 at localhost:8030...
+2025-05-12 20:57:44,439 - node_client - INFO - Connected to node node_4 at localhost:8030
+2025-05-12 20:57:44,443 - node_client - INFO - Retry attempt 1/5 to connect to nodes...
+2025-05-12 20:57:44,446 - node_client - INFO - Waiting 2 seconds before retry...
+2025-05-12 20:57:46,465 - node_client - INFO - Retry attempt 2/5 to connect to nodes...
+2025-05-12 20:57:46,466 - node_client - INFO - Waiting 4 seconds before retry...
+2025-05-12 20:57:48,001 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:57:48] "GET /api/status HTTP/1.1" 200 -
+2025-05-12 20:57:48,006 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:57:48] "GET /api/alerts HTTP/1.1" 200 -
+2025-05-12 20:57:50,467 - node_client - INFO - Retry attempt 3/5 to connect to nodes...
+2025-05-12 20:57:50,468 - node_client - INFO - Waiting 6 seconds before retry...
+2025-05-12 20:57:53,001 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:57:53] "GET /api/status HTTP/1.1" 200 -
+2025-05-12 20:57:53,004 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:57:53] "GET /api/alerts HTTP/1.1" 200 -
+2025-05-12 20:57:56,479 - node_client - INFO - Retry attempt 4/5 to connect to nodes...
+2025-05-12 20:57:56,480 - node_client - INFO - Waiting 8 seconds before retry...
+2025-05-12 20:57:58,005 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:57:58] "GET /api/status HTTP/1.1" 200 -
+2025-05-12 20:57:58,010 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:57:58] "GET /api/alerts HTTP/1.1" 200 -
+2025-05-12 20:58:03,002 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:58:03] "GET /api/status HTTP/1.1" 200 -
+2025-05-12 20:58:03,006 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:58:03] "GET /api/alerts HTTP/1.1" 200 -
+2025-05-12 20:58:04,491 - node_client - INFO - Creating simulated nodes for any missing connections
+2025-05-12 20:58:04,492 - node_client - INFO - Connected to 4 nodes (4 real, 0 simulated)
+2025-05-12 20:58:04,520 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:58:04] "POST /api/update_algorithms HTTP/1.1" 200 -
+2025-05-12 20:58:04,840 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:58:04] "POST /api/stop_processing HTTP/1.1" 200 -
+2025-05-12 20:58:04,843 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:58:04] "GET /api/status HTTP/1.1" 200 -
+2025-05-12 20:58:05,102 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:58:05] "GET /api/status HTTP/1.1" 200 -
+2025-05-12 20:58:05,860 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:58:05] "POST /api/start_processing HTTP/1.1" 200 -
+2025-05-12 20:58:08,286 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:58:08] "GET /api/status HTTP/1.1" 200 -
+2025-05-12 20:58:08,290 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:58:08] "GET /api/alerts HTTP/1.1" 200 -
+2025-05-12 20:58:12,988 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:58:12] "GET /api/status HTTP/1.1" 200 -
+2025-05-12 20:58:13,294 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:58:13] "GET /api/alerts HTTP/1.1" 200 -
+2025-05-12 20:58:18,283 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:58:18] "GET /api/status HTTP/1.1" 200 -
+2025-05-12 20:58:18,288 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:58:18] "GET /api/alerts HTTP/1.1" 200 -
+2025-05-12 20:58:22,984 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:58:22] "GET /api/status HTTP/1.1" 200 -
+2025-05-12 20:58:23,295 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:58:23] "GET /api/alerts HTTP/1.1" 200 -
+2025-05-12 20:58:28,298 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:58:28] "GET /api/status HTTP/1.1" 200 -
+2025-05-12 20:58:28,301 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:58:28] "GET /api/alerts HTTP/1.1" 200 -
+2025-05-12 20:58:32,978 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:58:32] "GET /api/status HTTP/1.1" 200 -
+2025-05-12 20:58:33,286 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:58:33] "GET /api/alerts HTTP/1.1" 200 -
+2025-05-12 20:58:38,284 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:58:38] "GET /api/status HTTP/1.1" 200 -
+2025-05-12 20:58:38,291 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:58:38] "GET /api/alerts HTTP/1.1" 200 -
+2025-05-12 20:58:42,986 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:58:42] "GET /api/status HTTP/1.1" 200 -
+2025-05-12 20:58:43,300 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:58:43] "GET /api/alerts HTTP/1.1" 200 -
+2025-05-12 20:58:48,280 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:58:48] "GET /api/status HTTP/1.1" 200 -
+2025-05-12 20:58:48,285 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:58:48] "GET /api/alerts HTTP/1.1" 200 -
+2025-05-12 20:58:52,980 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:58:52] "GET /api/status HTTP/1.1" 200 -
+2025-05-12 20:58:53,287 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:58:53] "GET /api/alerts HTTP/1.1" 200 -
+2025-05-12 20:58:58,293 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:58:58] "GET /api/status HTTP/1.1" 200 -
+2025-05-12 20:58:58,296 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:58:58] "GET /api/alerts HTTP/1.1" 200 -
+2025-05-12 20:58:59,521 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:58:59] "[33mGET /static/audio/alert.mp3 HTTP/1.1[0m" 404 -
+2025-05-12 20:58:59,833 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:58:59] "[33mGET /static/audio/alert.mp3 HTTP/1.1[0m" 404 -
+2025-05-12 20:58:59,835 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:58:59] "[33mGET /static/audio/alert.mp3 HTTP/1.1[0m" 404 -
+2025-05-12 20:59:03,006 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:59:03] "GET /api/status HTTP/1.1" 200 -
+2025-05-12 20:59:03,011 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:59:03] "GET /api/alerts HTTP/1.1" 200 -
+2025-05-12 20:59:03,851 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:59:03] "POST /api/update_visualizations HTTP/1.1" 200 -
+2025-05-12 20:59:08,008 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:59:08] "GET /api/status HTTP/1.1" 200 -
+2025-05-12 20:59:08,010 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:59:08] "GET /api/alerts HTTP/1.1" 200 -
+2025-05-12 20:59:08,776 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 20:59:08] "GET /socket.io/?EIO=4&transport=websocket&sid=CXRp0LrsVWTapbKyAAAC HTTP/1.1" 200 -
+2025-05-12 20:59:13,885 - node_client - INFO - Disconnected from node node_1
+2025-05-12 20:59:13,886 - node_client - INFO - Disconnected from node node_2
+2025-05-12 20:59:13,888 - node_client - INFO - Disconnected from node node_3
+2025-05-12 20:59:13,889 - node_client - INFO - Disconnected from node node_4
+2025-05-12 20:59:13,890 - node_client - INFO - Disconnected from all nodes
+2025-05-12 23:09:17,352 - node_client - INFO - Loaded 4 nodes from nodes.json
+2025-05-12 23:09:17,353 - node_client - INFO - Loaded saved algorithm: least_connection
+2025-05-12 23:09:17,354 - node_client - INFO - Initialized node client with 4 nodes
+2025-05-12 23:09:17,357 - node_client - INFO - Launching network nodes using D:\Main EL\vigilance_system\network\launch_nodes.py
+2025-05-12 23:09:17,357 - node_client - INFO - Launching nodes with command: "D:\Main EL\venv\Scripts\python.exe" "D:\Main EL\vigilance_system\network\launch_nodes.py" --nodes 4 --output "nodes.json" --visible
+2025-05-12 23:09:17,379 - node_client - INFO - Launched nodes in visible terminal
+2025-05-12 23:09:17,380 - node_client - INFO - Waiting for nodes to start...
+2025-05-12 23:09:17,381 - node_client - INFO - Waiting for nodes to start... 1/5 seconds
+2025-05-12 23:09:18,387 - node_client - INFO - Waiting for nodes to start... 2/5 seconds
+2025-05-12 23:09:19,399 - node_client - INFO - Waiting for nodes to start... 3/5 seconds
+2025-05-12 23:09:20,413 - node_client - INFO - Waiting for nodes to start... 4/5 seconds
+2025-05-12 23:09:21,428 - node_client - INFO - Waiting for nodes to start... 5/5 seconds
+2025-05-12 23:09:22,444 - node_client - INFO - Attempting to connect to node node_1 at localhost:8000...
+2025-05-12 23:09:22,451 - node_client - INFO - Connected to node node_1 at localhost:8000
+2025-05-12 23:09:22,452 - node_client - INFO - Attempting to connect to node node_2 at localhost:8010...
+2025-05-12 23:09:22,455 - node_client - INFO - Connected to node node_2 at localhost:8010
+2025-05-12 23:09:22,455 - node_client - INFO - Attempting to connect to node node_3 at localhost:8020...
+2025-05-12 23:09:22,459 - node_client - INFO - Connected to node node_3 at localhost:8020
+2025-05-12 23:09:22,460 - node_client - INFO - Attempting to connect to node node_4 at localhost:8030...
+2025-05-12 23:09:23,474 - node_client - INFO - Connected to node node_4 at localhost:8030
+2025-05-12 23:09:23,474 - node_client - INFO - Retry attempt 1/5 to connect to nodes...
+2025-05-12 23:09:23,474 - node_client - INFO - Waiting 2 seconds before retry...
+2025-05-12 23:09:25,488 - node_client - INFO - Retry attempt 2/5 to connect to nodes...
+2025-05-12 23:09:25,488 - node_client - INFO - Waiting 4 seconds before retry...
+2025-05-12 23:09:29,502 - node_client - INFO - Retry attempt 3/5 to connect to nodes...
+2025-05-12 23:09:29,503 - node_client - INFO - Waiting 6 seconds before retry...
+2025-05-12 23:09:35,518 - node_client - INFO - Retry attempt 4/5 to connect to nodes...
+2025-05-12 23:09:35,518 - node_client - INFO - Waiting 8 seconds before retry...
+2025-05-12 23:09:43,530 - node_client - INFO - Creating simulated nodes for any missing connections
+2025-05-12 23:09:43,531 - node_client - INFO - Connected to 4 nodes (4 real, 0 simulated)
+2025-05-12 23:09:43,532 - node_client - INFO - Algorithm already set to least_connection, no change needed
+2025-05-12 23:09:49,841 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.75.134:5000
+2025-05-12 23:09:49,844 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-05-12 23:09:54,859 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 23:09:54] "[32mGET / HTTP/1.1[0m" 302 -
+2025-05-12 23:09:54,884 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 23:09:54] "GET /login HTTP/1.1" 200 -
+2025-05-12 23:09:55,110 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 23:09:55] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-05-12 23:10:05,373 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 23:10:05] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-05-12 23:10:05,405 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 23:10:05] "GET / HTTP/1.1" 200 -
+2025-05-12 23:10:05,472 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 23:10:05] "[33mGET /static/img/camera-placeholder.jpg HTTP/1.1[0m" 404 -
+2025-05-12 23:10:05,688 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 23:10:05] "GET /static/css/dashboard.css HTTP/1.1" 200 -
+2025-05-12 23:10:05,688 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 23:10:05] "GET /static/js/dashboard.js HTTP/1.1" 200 -
+2025-05-12 23:10:05,717 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 23:10:05] "GET /api/status HTTP/1.1" 200 -
+2025-05-12 23:10:05,718 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 23:10:05] "GET /socket.io/?EIO=4&transport=polling&t=PR5bHlD HTTP/1.1" 200 -
+2025-05-12 23:10:05,725 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 23:10:05] "GET /api/alerts HTTP/1.1" 200 -
+2025-05-12 23:10:05,737 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 23:10:05] "POST /socket.io/?EIO=4&transport=polling&t=PR5bHlQ&sid=010xMLKsstUOtcSnAAAA HTTP/1.1" 200 -
+2025-05-12 23:10:05,748 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 23:10:05] "GET /socket.io/?EIO=4&transport=polling&t=PR5bHlR&sid=010xMLKsstUOtcSnAAAA HTTP/1.1" 200 -
+2025-05-12 23:10:10,984 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 23:10:10] "GET /api/status HTTP/1.1" 200 -
+2025-05-12 23:10:10,987 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 23:10:10] "GET /api/alerts HTTP/1.1" 200 -
+2025-05-12 23:10:15,993 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 23:10:15] "GET /api/status HTTP/1.1" 200 -
+2025-05-12 23:10:16,000 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 23:10:15] "GET /api/alerts HTTP/1.1" 200 -
+2025-05-12 23:10:19,203 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 23:10:19] "POST /api/start_processing HTTP/1.1" 200 -
+2025-05-12 23:10:20,725 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 23:10:20] "GET /api/status HTTP/1.1" 200 -
+2025-05-12 23:10:20,737 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 23:10:20] "GET /api/alerts HTTP/1.1" 200 -
+2025-05-12 23:10:21,790 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 23:10:21] "[33mGET /static/audio/alert.mp3 HTTP/1.1[0m" 404 -
+2025-05-12 23:10:25,733 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 23:10:25] "GET /api/status HTTP/1.1" 200 -
+2025-05-12 23:10:25,735 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 23:10:25] "GET /api/alerts HTTP/1.1" 200 -
+2025-05-12 23:10:27,312 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 23:10:27] "[33mGET /static/audio/alert.mp3 HTTP/1.1[0m" 404 -
+2025-05-12 23:10:29,860 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 23:10:29] "[33mGET /static/audio/alert.mp3 HTTP/1.1[0m" 404 -
+2025-05-12 23:10:30,722 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 23:10:30] "GET /api/status HTTP/1.1" 200 -
+2025-05-12 23:10:30,732 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 23:10:30] "GET /api/alerts HTTP/1.1" 200 -
+2025-05-12 23:10:32,207 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 23:10:32] "[33mGET /static/audio/alert.mp3 HTTP/1.1[0m" 404 -
+2025-05-12 23:10:35,722 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 23:10:35] "GET /api/status HTTP/1.1" 200 -
+2025-05-12 23:10:35,726 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 23:10:35] "GET /api/alerts HTTP/1.1" 200 -
+2025-05-12 23:10:37,339 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 23:10:37] "[33mGET /static/audio/alert.mp3 HTTP/1.1[0m" 404 -
+2025-05-12 23:10:39,664 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 23:10:39] "[33mGET /static/audio/alert.mp3 HTTP/1.1[0m" 404 -
+2025-05-12 23:10:40,722 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 23:10:40] "GET /api/status HTTP/1.1" 200 -
+2025-05-12 23:10:40,727 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 23:10:40] "GET /api/alerts HTTP/1.1" 200 -
+2025-05-12 23:10:42,213 - node_client - INFO - Algorithm already set to least_connection, no change needed
+2025-05-12 23:10:42,276 - node_client - INFO - Algorithm already set to least_connection, no change needed
+2025-05-12 23:10:42,276 - node_client - INFO - Algorithm already set to least_connection, no change needed
+2025-05-12 23:10:42,381 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 23:10:42] "[33mGET /static/audio/alert.mp3 HTTP/1.1[0m" 404 -
+2025-05-12 23:10:42,727 - node_client - INFO - Disconnected from node node_1
+2025-05-12 23:10:42,732 - node_client - ERROR - Error sending frame to node node_1: [WinError 10038] An operation was attempted on something that is not a socket
+2025-05-12 23:10:42,735 - node_client - INFO - Creating simulated node as fallback
+2025-05-12 23:10:42,733 - node_client - INFO - Disconnected from node node_2
+2025-05-12 23:10:42,741 - node_client - INFO - Created simulated node: simulated_node
+2025-05-12 23:10:42,760 - node_client - ERROR - Error sending frame to node node_2: [WinError 10038] An operation was attempted on something that is not a socket
+2025-05-12 23:10:42,797 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 23:10:42] "POST /api/update_algorithms HTTP/1.1" 200 -
+2025-05-12 23:10:42,815 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 23:10:42] "POST /api/stop_processing HTTP/1.1" 200 -
+2025-05-12 23:10:42,818 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 23:10:42] "GET /api/status HTTP/1.1" 200 -
+2025-05-12 23:10:42,840 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 23:10:42] "GET /api/status HTTP/1.1" 200 -
+2025-05-12 23:10:42,873 - node_client - ERROR - Error sending frame to node node_1: [WinError 10038] An operation was attempted on something that is not a socket
+2025-05-12 23:10:43,905 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 23:10:43] "POST /api/start_processing HTTP/1.1" 200 -
+2025-05-12 23:10:44,082 - node_client - ERROR - Error sending frame to node node_3: [WinError 10054] An existing connection was forcibly closed by the remote host
+2025-05-12 23:10:44,135 - node_client - ERROR - Error sending frame to node node_2: [WinError 10038] An operation was attempted on something that is not a socket
+2025-05-12 23:10:44,304 - node_client - ERROR - Error sending frame to node node_1: [WinError 10038] An operation was attempted on something that is not a socket
+2025-05-12 23:10:44,359 - node_client - ERROR - Error sending frame to node node_4: [WinError 10054] An existing connection was forcibly closed by the remote host
+2025-05-12 23:10:44,418 - node_client - ERROR - Error sending frame to node node_3: [WinError 10054] An existing connection was forcibly closed by the remote host
+2025-05-12 23:10:44,519 - node_client - ERROR - Error sending frame to node node_2: [WinError 10038] An operation was attempted on something that is not a socket
+2025-05-12 23:10:44,561 - node_client - ERROR - Error sending frame to node node_1: [WinError 10038] An operation was attempted on something that is not a socket
+2025-05-12 23:10:44,640 - node_client - ERROR - Error sending frame to node node_4: [WinError 10054] An existing connection was forcibly closed by the remote host
+2025-05-12 23:10:44,707 - node_client - ERROR - Error sending frame to node node_3: [WinError 10054] An existing connection was forcibly closed by the remote host
+2025-05-12 23:10:44,753 - node_client - ERROR - Error sending frame to node node_2: [WinError 10038] An operation was attempted on something that is not a socket
+2025-05-12 23:10:44,830 - node_client - ERROR - Error sending frame to node node_1: [WinError 10038] An operation was attempted on something that is not a socket
+2025-05-12 23:10:44,964 - node_client - ERROR - Error sending frame to node node_4: [WinError 10054] An existing connection was forcibly closed by the remote host
+2025-05-12 23:10:44,993 - node_client - ERROR - Error sending frame to node node_3: [WinError 10054] An existing connection was forcibly closed by the remote host
+2025-05-12 23:10:45,059 - node_client - ERROR - Error sending frame to node node_2: [WinError 10038] An operation was attempted on something that is not a socket
+2025-05-12 23:10:45,150 - node_client - ERROR - Error sending frame to node node_1: [WinError 10038] An operation was attempted on something that is not a socket
+2025-05-12 23:10:45,198 - node_client - ERROR - Error sending frame to node node_4: [WinError 10054] An existing connection was forcibly closed by the remote host
+2025-05-12 23:10:45,271 - node_client - ERROR - Error sending frame to node node_3: [WinError 10054] An existing connection was forcibly closed by the remote host
+2025-05-12 23:10:45,732 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 23:10:45] "GET /api/status HTTP/1.1" 200 -
+2025-05-12 23:10:45,746 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 23:10:45] "GET /api/alerts HTTP/1.1" 200 -
+2025-05-12 23:10:47,489 - node_client - ERROR - Error sending frame to node node_2: [WinError 10038] An operation was attempted on something that is not a socket
+2025-05-12 23:10:47,496 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 23:10:47] "[33mGET /static/audio/alert.mp3 HTTP/1.1[0m" 404 -
+2025-05-12 23:10:47,564 - node_client - ERROR - Error sending frame to node node_1: [WinError 10038] An operation was attempted on something that is not a socket
+2025-05-12 23:10:47,643 - node_client - ERROR - Error sending frame to node node_4: [WinError 10054] An existing connection was forcibly closed by the remote host
+2025-05-12 23:10:47,713 - node_client - ERROR - Error sending frame to node node_3: [WinError 10054] An existing connection was forcibly closed by the remote host
+2025-05-12 23:10:49,892 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 23:10:49] "[33mGET /static/audio/alert.mp3 HTTP/1.1[0m" 404 -
+2025-05-12 23:10:49,896 - node_client - ERROR - Error sending frame to node node_2: [WinError 10038] An operation was attempted on something that is not a socket
+2025-05-12 23:10:50,729 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 23:10:50] "GET /api/status HTTP/1.1" 200 -
+2025-05-12 23:10:50,732 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 23:10:50] "GET /api/alerts HTTP/1.1" 200 -
+2025-05-12 23:10:52,194 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 23:10:52] "[33mGET /static/audio/alert.mp3 HTTP/1.1[0m" 404 -
+2025-05-12 23:10:52,221 - node_client - ERROR - Error sending frame to node node_1: [WinError 10038] An operation was attempted on something that is not a socket
+2025-05-12 23:10:52,245 - node_client - ERROR - Error sending frame to node node_4: [WinError 10054] An existing connection was forcibly closed by the remote host
+2025-05-12 23:10:52,275 - node_client - ERROR - Error sending frame to node node_3: [WinError 10054] An existing connection was forcibly closed by the remote host
+2025-05-12 23:10:52,323 - node_client - ERROR - Error sending frame to node node_2: [WinError 10038] An operation was attempted on something that is not a socket
+2025-05-12 23:10:52,343 - node_client - ERROR - Error sending frame to node node_1: [WinError 10038] An operation was attempted on something that is not a socket
+2025-05-12 23:10:52,367 - node_client - ERROR - Error sending frame to node node_4: [WinError 10054] An existing connection was forcibly closed by the remote host
+2025-05-12 23:10:52,418 - node_client - ERROR - Error sending frame to node node_3: [WinError 10054] An existing connection was forcibly closed by the remote host
+2025-05-12 23:10:52,442 - node_client - ERROR - Error sending frame to node node_2: [WinError 10038] An operation was attempted on something that is not a socket
+2025-05-12 23:10:52,477 - node_client - ERROR - Error sending frame to node node_1: [WinError 10038] An operation was attempted on something that is not a socket
+2025-05-12 23:10:52,532 - node_client - ERROR - Error sending frame to node node_4: [WinError 10054] An existing connection was forcibly closed by the remote host
+2025-05-12 23:10:52,553 - node_client - ERROR - Error sending frame to node node_3: [WinError 10054] An existing connection was forcibly closed by the remote host
+2025-05-12 23:10:52,585 - node_client - ERROR - Error sending frame to node node_2: [WinError 10038] An operation was attempted on something that is not a socket
+2025-05-12 23:10:52,632 - node_client - ERROR - Error sending frame to node node_1: [WinError 10038] An operation was attempted on something that is not a socket
+2025-05-12 23:10:52,656 - node_client - ERROR - Error sending frame to node node_4: [WinError 10054] An existing connection was forcibly closed by the remote host
+2025-05-12 23:10:52,674 - node_client - ERROR - Error sending frame to node node_3: [WinError 10054] An existing connection was forcibly closed by the remote host
+2025-05-12 23:10:52,721 - node_client - ERROR - Error sending frame to node node_2: [WinError 10038] An operation was attempted on something that is not a socket
+2025-05-12 23:10:52,745 - node_client - ERROR - Error sending frame to node node_1: [WinError 10038] An operation was attempted on something that is not a socket
+2025-05-12 23:10:52,764 - node_client - ERROR - Error sending frame to node node_4: [WinError 10054] An existing connection was forcibly closed by the remote host
+2025-05-12 23:10:52,808 - node_client - ERROR - Error sending frame to node node_3: [WinError 10054] An existing connection was forcibly closed by the remote host
+2025-05-12 23:10:52,832 - node_client - ERROR - Error sending frame to node node_2: [WinError 10038] An operation was attempted on something that is not a socket
+2025-05-12 23:10:52,856 - node_client - ERROR - Error sending frame to node node_1: [WinError 10038] An operation was attempted on something that is not a socket
+2025-05-12 23:10:52,914 - node_client - ERROR - Error sending frame to node node_4: [WinError 10054] An existing connection was forcibly closed by the remote host
+2025-05-12 23:10:52,945 - node_client - ERROR - Error sending frame to node node_3: [WinError 10054] An existing connection was forcibly closed by the remote host
+2025-05-12 23:10:52,975 - node_client - ERROR - Error sending frame to node node_2: [WinError 10038] An operation was attempted on something that is not a socket
+2025-05-12 23:10:53,019 - node_client - ERROR - Error sending frame to node node_1: [WinError 10038] An operation was attempted on something that is not a socket
+2025-05-12 23:10:53,040 - node_client - ERROR - Error sending frame to node node_4: [WinError 10054] An existing connection was forcibly closed by the remote host
+2025-05-12 23:10:53,063 - node_client - ERROR - Error sending frame to node node_3: [WinError 10054] An existing connection was forcibly closed by the remote host
+2025-05-12 23:10:53,114 - node_client - ERROR - Error sending frame to node node_2: [WinError 10038] An operation was attempted on something that is not a socket
+2025-05-12 23:10:53,135 - node_client - ERROR - Error sending frame to node node_1: [WinError 10038] An operation was attempted on something that is not a socket
+2025-05-12 23:10:53,169 - node_client - ERROR - Error sending frame to node node_4: [WinError 10054] An existing connection was forcibly closed by the remote host
+2025-05-12 23:10:53,221 - node_client - ERROR - Error sending frame to node node_3: [WinError 10054] An existing connection was forcibly closed by the remote host
+2025-05-12 23:10:53,244 - node_client - ERROR - Error sending frame to node node_2: [WinError 10038] An operation was attempted on something that is not a socket
+2025-05-12 23:10:53,266 - node_client - ERROR - Error sending frame to node node_1: [WinError 10038] An operation was attempted on something that is not a socket
+2025-05-12 23:10:53,316 - node_client - ERROR - Error sending frame to node node_4: [WinError 10054] An existing connection was forcibly closed by the remote host
+2025-05-12 23:10:53,341 - node_client - ERROR - Error sending frame to node node_3: [WinError 10054] An existing connection was forcibly closed by the remote host
+2025-05-12 23:10:53,364 - node_client - ERROR - Error sending frame to node node_2: [WinError 10038] An operation was attempted on something that is not a socket
+2025-05-12 23:10:53,413 - node_client - ERROR - Error sending frame to node node_1: [WinError 10038] An operation was attempted on something that is not a socket
+2025-05-12 23:10:53,436 - node_client - ERROR - Error sending frame to node node_4: [WinError 10054] An existing connection was forcibly closed by the remote host
+2025-05-12 23:10:53,461 - node_client - ERROR - Error sending frame to node node_3: [WinError 10054] An existing connection was forcibly closed by the remote host
+2025-05-12 23:10:53,517 - node_client - ERROR - Error sending frame to node node_2: [WinError 10038] An operation was attempted on something that is not a socket
+2025-05-12 23:10:53,539 - node_client - ERROR - Error sending frame to node node_1: [WinError 10038] An operation was attempted on something that is not a socket
+2025-05-12 23:10:53,568 - node_client - ERROR - Error sending frame to node node_4: [WinError 10054] An existing connection was forcibly closed by the remote host
+2025-05-12 23:10:53,626 - node_client - ERROR - Error sending frame to node node_3: [WinError 10054] An existing connection was forcibly closed by the remote host
+2025-05-12 23:10:53,654 - node_client - ERROR - Error sending frame to node node_2: [WinError 10038] An operation was attempted on something that is not a socket
+2025-05-12 23:10:53,675 - node_client - ERROR - Error sending frame to node node_1: [WinError 10038] An operation was attempted on something that is not a socket
+2025-05-12 23:10:53,718 - node_client - ERROR - Error sending frame to node node_4: [WinError 10054] An existing connection was forcibly closed by the remote host
+2025-05-12 23:10:53,743 - node_client - ERROR - Error sending frame to node node_3: [WinError 10054] An existing connection was forcibly closed by the remote host
+2025-05-12 23:10:53,762 - node_client - ERROR - Error sending frame to node node_2: [WinError 10038] An operation was attempted on something that is not a socket
+2025-05-12 23:10:53,805 - node_client - ERROR - Error sending frame to node node_1: [WinError 10038] An operation was attempted on something that is not a socket
+2025-05-12 23:10:53,827 - node_client - ERROR - Error sending frame to node node_4: [WinError 10054] An existing connection was forcibly closed by the remote host
+2025-05-12 23:10:53,850 - node_client - ERROR - Error sending frame to node node_3: [WinError 10054] An existing connection was forcibly closed by the remote host
+2025-05-12 23:10:53,894 - node_client - ERROR - Error sending frame to node node_2: [WinError 10038] An operation was attempted on something that is not a socket
+2025-05-12 23:10:53,915 - node_client - ERROR - Error sending frame to node node_1: [WinError 10038] An operation was attempted on something that is not a socket
+2025-05-12 23:10:53,937 - node_client - ERROR - Error sending frame to node node_4: [WinError 10054] An existing connection was forcibly closed by the remote host
+2025-05-12 23:10:53,978 - node_client - ERROR - Error sending frame to node node_3: [WinError 10054] An existing connection was forcibly closed by the remote host
+2025-05-12 23:10:53,997 - node_client - ERROR - Error sending frame to node node_2: [WinError 10038] An operation was attempted on something that is not a socket
+2025-05-12 23:10:54,014 - node_client - ERROR - Error sending frame to node node_1: [WinError 10038] An operation was attempted on something that is not a socket
+2025-05-12 23:10:54,058 - node_client - ERROR - Error sending frame to node node_4: [WinError 10054] An existing connection was forcibly closed by the remote host
+2025-05-12 23:10:54,080 - node_client - ERROR - Error sending frame to node node_3: [WinError 10054] An existing connection was forcibly closed by the remote host
+2025-05-12 23:10:54,105 - node_client - ERROR - Error sending frame to node node_2: [WinError 10038] An operation was attempted on something that is not a socket
+2025-05-12 23:10:54,149 - node_client - ERROR - Error sending frame to node node_1: [WinError 10038] An operation was attempted on something that is not a socket
+2025-05-12 23:10:54,177 - node_client - ERROR - Error sending frame to node node_4: [WinError 10054] An existing connection was forcibly closed by the remote host
+2025-05-12 23:10:54,198 - node_client - ERROR - Error sending frame to node node_3: [WinError 10054] An existing connection was forcibly closed by the remote host
+2025-05-12 23:10:54,246 - node_client - ERROR - Error sending frame to node node_2: [WinError 10038] An operation was attempted on something that is not a socket
+2025-05-12 23:10:54,268 - node_client - ERROR - Error sending frame to node node_1: [WinError 10038] An operation was attempted on something that is not a socket
+2025-05-12 23:10:54,287 - node_client - ERROR - Error sending frame to node node_4: [WinError 10054] An existing connection was forcibly closed by the remote host
+2025-05-12 23:10:54,334 - node_client - ERROR - Error sending frame to node node_3: [WinError 10054] An existing connection was forcibly closed by the remote host
+2025-05-12 23:10:54,363 - node_client - ERROR - Error sending frame to node node_2: [WinError 10038] An operation was attempted on something that is not a socket
+2025-05-12 23:10:54,383 - node_client - ERROR - Error sending frame to node node_1: [WinError 10038] An operation was attempted on something that is not a socket
+2025-05-12 23:10:55,721 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 23:10:55] "GET /api/status HTTP/1.1" 200 -
+2025-05-12 23:10:55,727 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 23:10:55] "GET /api/alerts HTTP/1.1" 200 -
+2025-05-12 23:10:56,436 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 23:10:56] "GET /socket.io/?EIO=4&transport=websocket&sid=010xMLKsstUOtcSnAAAA HTTP/1.1" 200 -
+2025-05-12 23:10:56,489 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 23:10:56] "GET /network HTTP/1.1" 200 -
+2025-05-12 23:10:56,756 - node_client - INFO - Algorithm already set to least_connection, no change needed
+2025-05-12 23:10:56,847 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 23:10:56] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 23:10:58,767 - node_client - INFO - Algorithm already set to least_connection, no change needed
+2025-05-12 23:10:58,903 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 23:10:58] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 23:11:00,769 - node_client - INFO - Algorithm already set to least_connection, no change needed
+2025-05-12 23:11:00,851 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 23:11:00] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 23:11:02,763 - node_client - INFO - Algorithm already set to least_connection, no change needed
+2025-05-12 23:11:02,844 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 23:11:02] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 23:11:04,276 - node_client - INFO - Set routing algorithm from least_connection to round_robin
+2025-05-12 23:11:04,277 - node_client - ERROR - Failed to notify node node_1 about algorithm change: [WinError 10038] An operation was attempted on something that is not a socket
+2025-05-12 23:11:04,277 - node_client - ERROR - Failed to notify node node_2 about algorithm change: [WinError 10038] An operation was attempted on something that is not a socket
+2025-05-12 23:11:04,277 - node_client - ERROR - Failed to notify node node_3 about algorithm change: [WinError 10054] An existing connection was forcibly closed by the remote host
+2025-05-12 23:11:04,278 - node_client - ERROR - Failed to notify node node_4 about algorithm change: [WinError 10054] An existing connection was forcibly closed by the remote host
+2025-05-12 23:11:04,278 - node_client - INFO - Saved algorithm round_robin to current_algorithm.txt
+2025-05-12 23:11:04,289 - node_client - INFO - Algorithm already set to round_robin, no change needed
+2025-05-12 23:11:04,289 - node_client - INFO - Algorithm already set to round_robin, no change needed
+2025-05-12 23:11:04,600 - node_client - INFO - Disconnected from node node_1
+2025-05-12 23:11:04,601 - node_client - INFO - Disconnected from node node_2
+2025-05-12 23:11:04,601 - node_client - INFO - Disconnected from node node_3
+2025-05-12 23:11:04,602 - node_client - INFO - Disconnected from node node_4
+2025-05-12 23:11:04,602 - node_client - ERROR - Error disconnecting from node simulated_node: 'NoneType' object has no attribute 'close'
+2025-05-12 23:11:04,603 - node_client - INFO - Disconnected from all nodes
+2025-05-12 23:11:05,616 - node_client - INFO - Launching network nodes using D:\Main EL\vigilance_system\network\launch_nodes.py
+2025-05-12 23:11:05,617 - node_client - INFO - Launching nodes with command: "D:\Main EL\venv\Scripts\python.exe" "D:\Main EL\vigilance_system\network\launch_nodes.py" --nodes 4 --output "nodes.json" --visible
+2025-05-12 23:11:05,640 - node_client - INFO - Launched nodes in visible terminal
+2025-05-12 23:11:05,640 - node_client - INFO - Waiting for nodes to start...
+2025-05-12 23:11:05,641 - node_client - INFO - Waiting for nodes to start... 1/5 seconds
+2025-05-12 23:11:06,655 - node_client - INFO - Waiting for nodes to start... 2/5 seconds
+2025-05-12 23:11:07,667 - node_client - INFO - Waiting for nodes to start... 3/5 seconds
+2025-05-12 23:11:08,676 - node_client - INFO - Waiting for nodes to start... 4/5 seconds
+2025-05-12 23:11:09,692 - node_client - INFO - Waiting for nodes to start... 5/5 seconds
+2025-05-12 23:11:10,705 - node_client - INFO - Attempting to connect to node node_1 at localhost:8000...
+2025-05-12 23:11:10,710 - node_client - INFO - Connected to node node_1 at localhost:8000
+2025-05-12 23:11:10,711 - node_client - INFO - Attempting to connect to node node_2 at localhost:8010...
+2025-05-12 23:11:10,717 - node_client - INFO - Connected to node node_2 at localhost:8010
+2025-05-12 23:11:10,718 - node_client - INFO - Attempting to connect to node node_3 at localhost:8020...
+2025-05-12 23:11:10,723 - node_client - INFO - Connected to node node_3 at localhost:8020
+2025-05-12 23:11:10,725 - node_client - INFO - Attempting to connect to node node_4 at localhost:8030...
+2025-05-12 23:11:11,242 - node_client - INFO - Connected to node node_4 at localhost:8030
+2025-05-12 23:11:11,243 - node_client - INFO - Retry attempt 1/5 to connect to nodes...
+2025-05-12 23:11:11,243 - node_client - INFO - Waiting 2 seconds before retry...
+2025-05-12 23:11:13,256 - node_client - INFO - Retry attempt 2/5 to connect to nodes...
+2025-05-12 23:11:13,257 - node_client - INFO - Waiting 4 seconds before retry...
+2025-05-12 23:11:17,266 - node_client - INFO - Retry attempt 3/5 to connect to nodes...
+2025-05-12 23:11:17,267 - node_client - INFO - Waiting 6 seconds before retry...
+2025-05-12 23:11:23,275 - node_client - INFO - Retry attempt 4/5 to connect to nodes...
+2025-05-12 23:11:23,275 - node_client - INFO - Waiting 8 seconds before retry...
+2025-05-12 23:11:31,291 - node_client - INFO - Creating simulated nodes for any missing connections
+2025-05-12 23:11:31,291 - node_client - INFO - Connected to 4 nodes (4 real, 0 simulated)
+2025-05-12 23:11:31,307 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 23:11:31] "POST /api/update_algorithms HTTP/1.1" 200 -
+2025-05-12 23:11:38,981 - node_client - INFO - Algorithm already set to round_robin, no change needed
+2025-05-12 23:11:39,013 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 23:11:39] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 23:11:39,019 - node_client - INFO - Algorithm already set to round_robin, no change needed
+2025-05-12 23:11:39,061 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 23:11:39] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 23:11:40,982 - node_client - INFO - Algorithm already set to round_robin, no change needed
+2025-05-12 23:11:41,036 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 23:11:41] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 23:11:42,986 - node_client - INFO - Algorithm already set to round_robin, no change needed
+2025-05-12 23:11:43,043 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 23:11:43] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 23:11:44,989 - node_client - INFO - Algorithm already set to round_robin, no change needed
+2025-05-12 23:11:45,037 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 23:11:45] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 23:11:46,994 - node_client - INFO - Algorithm already set to round_robin, no change needed
+2025-05-12 23:11:47,071 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 23:11:47] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 23:11:48,761 - node_client - INFO - Algorithm already set to round_robin, no change needed
+2025-05-12 23:11:48,797 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 23:11:48] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 23:11:50,760 - node_client - INFO - Algorithm already set to round_robin, no change needed
+2025-05-12 23:11:50,798 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 23:11:50] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 23:11:52,760 - node_client - INFO - Algorithm already set to round_robin, no change needed
+2025-05-12 23:11:52,803 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 23:11:52] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 23:11:54,771 - node_client - INFO - Algorithm already set to round_robin, no change needed
+2025-05-12 23:11:54,824 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 23:11:54] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 23:11:56,767 - node_client - INFO - Algorithm already set to round_robin, no change needed
+2025-05-12 23:11:56,818 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 23:11:56] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 23:11:58,775 - node_client - INFO - Algorithm already set to round_robin, no change needed
+2025-05-12 23:11:58,840 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 23:11:58] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 23:12:00,760 - node_client - INFO - Algorithm already set to round_robin, no change needed
+2025-05-12 23:12:00,812 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 23:12:00] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 23:12:02,766 - node_client - INFO - Algorithm already set to round_robin, no change needed
+2025-05-12 23:12:02,846 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 23:12:02] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 23:12:04,777 - node_client - INFO - Algorithm already set to round_robin, no change needed
+2025-05-12 23:12:04,823 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 23:12:04] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 23:12:06,768 - node_client - INFO - Algorithm already set to round_robin, no change needed
+2025-05-12 23:12:06,834 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 23:12:06] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 23:12:08,764 - node_client - INFO - Algorithm already set to round_robin, no change needed
+2025-05-12 23:12:08,819 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 23:12:08] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 23:12:10,764 - node_client - INFO - Algorithm already set to round_robin, no change needed
+2025-05-12 23:12:10,873 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 23:12:10] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 23:12:12,769 - node_client - INFO - Algorithm already set to round_robin, no change needed
+2025-05-12 23:12:12,862 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 23:12:12] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 23:12:14,765 - node_client - INFO - Algorithm already set to round_robin, no change needed
+2025-05-12 23:12:14,816 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 23:12:14] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 23:12:16,765 - node_client - INFO - Algorithm already set to round_robin, no change needed
+2025-05-12 23:12:16,813 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 23:12:16] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 23:12:18,769 - node_client - INFO - Algorithm already set to round_robin, no change needed
+2025-05-12 23:12:18,922 - node_client - INFO - Set routing algorithm from round_robin to weighted
+2025-05-12 23:12:18,923 - node_client - INFO - Notified node node_1 about algorithm change to weighted
+2025-05-12 23:12:18,923 - node_client - INFO - Notified node node_2 about algorithm change to weighted
+2025-05-12 23:12:18,923 - node_client - INFO - Notified node node_3 about algorithm change to weighted
+2025-05-12 23:12:18,925 - node_client - INFO - Notified node node_4 about algorithm change to weighted
+2025-05-12 23:12:18,926 - node_client - INFO - Saved algorithm weighted to current_algorithm.txt
+2025-05-12 23:12:18,936 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 23:12:18] "GET /api/network_visualization HTTP/1.1" 200 -
+2025-05-12 23:12:18,945 - node_client - INFO - Algorithm already set to weighted, no change needed
+2025-05-12 23:12:18,945 - node_client - INFO - Algorithm already set to weighted, no change needed
+2025-05-12 23:12:19,388 - node_client - INFO - Disconnected from node node_1
+2025-05-12 23:12:19,389 - node_client - INFO - Disconnected from node node_2
+2025-05-12 23:12:19,390 - node_client - INFO - Disconnected from node node_3
+2025-05-12 23:12:19,391 - node_client - INFO - Disconnected from node node_4
+2025-05-12 23:12:19,391 - node_client - INFO - Disconnected from all nodes
+2025-05-12 23:12:20,403 - node_client - INFO - Launching network nodes using D:\Main EL\vigilance_system\network\launch_nodes.py
+2025-05-12 23:12:20,404 - node_client - INFO - Launching nodes with command: "D:\Main EL\venv\Scripts\python.exe" "D:\Main EL\vigilance_system\network\launch_nodes.py" --nodes 4 --output "nodes.json" --visible
+2025-05-12 23:12:20,417 - node_client - INFO - Launched nodes in visible terminal
+2025-05-12 23:12:20,417 - node_client - INFO - Waiting for nodes to start...
+2025-05-12 23:12:20,417 - node_client - INFO - Waiting for nodes to start... 1/5 seconds
+2025-05-12 23:12:21,423 - node_client - INFO - Waiting for nodes to start... 2/5 seconds
+2025-05-12 23:12:22,438 - node_client - INFO - Waiting for nodes to start... 3/5 seconds
+2025-05-12 23:12:23,451 - node_client - INFO - Waiting for nodes to start... 4/5 seconds
+2025-05-12 23:12:24,462 - node_client - INFO - Waiting for nodes to start... 5/5 seconds
+2025-05-12 23:12:25,474 - node_client - INFO - Attempting to connect to node node_1 at localhost:8000...
+2025-05-12 23:12:25,479 - node_client - INFO - Connected to node node_1 at localhost:8000
+2025-05-12 23:12:25,479 - node_client - INFO - Attempting to connect to node node_2 at localhost:8010...
+2025-05-12 23:12:25,482 - node_client - INFO - Connected to node node_2 at localhost:8010
+2025-05-12 23:12:25,483 - node_client - INFO - Attempting to connect to node node_3 at localhost:8020...
+2025-05-12 23:12:25,507 - node_client - INFO - Connected to node node_3 at localhost:8020
+2025-05-12 23:12:25,508 - node_client - INFO - Attempting to connect to node node_4 at localhost:8030...
+2025-05-12 23:12:26,522 - node_client - INFO - Connected to node node_4 at localhost:8030
+2025-05-12 23:12:26,522 - node_client - INFO - Retry attempt 1/5 to connect to nodes...
+2025-05-12 23:12:26,522 - node_client - INFO - Waiting 2 seconds before retry...
+2025-05-12 23:12:28,532 - node_client - INFO - Retry attempt 2/5 to connect to nodes...
+2025-05-12 23:12:28,532 - node_client - INFO - Waiting 4 seconds before retry...
+2025-05-12 23:12:32,541 - node_client - INFO - Retry attempt 3/5 to connect to nodes...
+2025-05-12 23:12:32,541 - node_client - INFO - Waiting 6 seconds before retry...
+2025-05-12 23:12:38,557 - node_client - INFO - Retry attempt 4/5 to connect to nodes...
+2025-05-12 23:12:38,557 - node_client - INFO - Waiting 8 seconds before retry...
+2025-05-12 23:12:46,568 - node_client - INFO - Creating simulated nodes for any missing connections
+2025-05-12 23:12:46,569 - node_client - INFO - Connected to 4 nodes (4 real, 0 simulated)
+2025-05-12 23:12:46,607 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 23:12:46] "POST /api/update_algorithms HTTP/1.1" 200 -
+2025-05-12 23:12:47,765 - node_client - INFO - Disconnected from node node_1
+2025-05-12 23:12:47,766 - node_client - INFO - Disconnected from node node_2
+2025-05-12 23:12:47,766 - node_client - INFO - Disconnected from node node_3
+2025-05-12 23:12:47,767 - node_client - INFO - Disconnected from node node_4
+2025-05-12 23:12:47,767 - node_client - INFO - Disconnected from all nodes
