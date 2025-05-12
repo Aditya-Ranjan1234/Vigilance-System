@@ -197,6 +197,14 @@ class NetworkNode:
         self.connected_clients.add(client_socket)
         self.client_ips[client_socket] = client_ip
 
+        # Log the new connection with client count
+        client_count = len(self.connected_clients)
+        logger.info(f"Node {self.node_id} new connection from {client_ip} - Total clients: {client_count}")
+
+        # Print client count to terminal
+        print(f"\rClients: {client_count} | New connection from {client_ip}", end="")
+        sys.stdout.flush()
+
         try:
             # Receive data from client
             while self.running:
@@ -231,7 +239,14 @@ class NetworkNode:
             self.connected_clients.remove(client_socket)
             del self.client_ips[client_socket]
             client_socket.close()
-            logger.info(f"Node {self.node_id} closed connection from {client_ip}")
+
+            # Log the disconnection with updated client count
+            client_count = len(self.connected_clients)
+            logger.info(f"Node {self.node_id} closed connection from {client_ip} - Remaining clients: {client_count}")
+
+            # Print updated client count to terminal
+            print(f"\rClients: {client_count} | Disconnected: {client_ip}", end="")
+            sys.stdout.flush()
 
     def _process_message(self, message_data: bytes, client_socket: socket.socket, client_ip: str):
         """
@@ -254,8 +269,10 @@ class NetworkNode:
                 # Process frame
                 self._process_frame(message, client_socket, client_ip)
 
-                # Update load to show activity
-                self.current_load = min(0.9, 0.3 + random.random() * 0.3)  # 30-60% load
+                # Update load based on number of connected clients
+                client_count = len(self.connected_clients)
+                # Calculate load: more clients = higher load, scaled by capacity
+                self.current_load = min(0.9, (client_count / (self.capacity * 5)) + random.random() * 0.2)
 
                 # Simulate processing activity
                 if random.random() < 0.5:  # 50% chance to increment counter
@@ -270,6 +287,23 @@ class NetworkNode:
                 if random.random() < 0.3:  # 30% chance
                     self.current_load = max(0.1, self.current_load - random.random() * 0.2)  # Reduce load a bit
                     logger.info(f"Node {self.node_id} updated load to {self.current_load:.2f}")
+
+                # Print current status to terminal
+                client_count = len(self.connected_clients)
+                print(f"\rClients: {client_count} | Load: {self.current_load:.2f} | Frames: {self.frames_processed}", end="")
+                sys.stdout.flush()
+
+            elif message_type == 'algorithm_change':
+                # Handle algorithm change notification
+                algorithm = message.get('algorithm', 'unknown')
+                logger.info(f"Node {self.node_id} received algorithm change to {algorithm}")
+
+                # Print algorithm change to terminal
+                print(f"\rAlgorithm changed to: {algorithm} | Clients: {len(self.connected_clients)}", end="")
+                sys.stdout.flush()
+
+                # Send status update in response
+                self._send_status(client_socket)
 
             else:
                 # Even for unknown messages, show some activity
@@ -386,6 +420,13 @@ class NetworkNode:
         else:
             drop_rate = 0
 
+        # Get client count
+        client_count = len(self.connected_clients)
+
+        # Update load based on client count
+        # More realistic load calculation based on client count and capacity
+        self.current_load = min(0.95, max(0.1, (client_count / (self.capacity * 5)) + random.random() * 0.1))
+
         # Create status response
         status = {
             'type': 'status_response',
@@ -400,10 +441,14 @@ class NetworkNode:
             'frame_rate': frame_rate,
             'drop_rate': drop_rate,
             'current_load': self.current_load,
-            'connected_clients': len(self.connected_clients),
+            'connected_clients': client_count,
             'client_ips': list(self.client_ips.values()),
             'timestamp': time.time()
         }
+
+        # Print status update to terminal
+        print(f"\rClients: {client_count} | Load: {self.current_load:.2f} | Frames: {self.frames_processed}", end="")
+        sys.stdout.flush()
 
         # Send status
         self._send_response(status, client_socket)
@@ -496,10 +541,17 @@ def main():
             elif node.current_load > 0.3:
                 load_color = '\033[93m'  # Yellow for medium load
 
+            # Set client count color based on number of clients
+            client_count = len(node.connected_clients)
+            client_color = '\033[92m'  # Green for connected clients
+            if client_count == 0:
+                client_color = '\033[90m'  # Gray for no clients
+
             reset_color = '\033[0m'
 
-            # Clear the terminal line for cleaner output
-            print("\r" + " " * 80 + "\r", end="")
+            # Print client status to terminal
+            print(f"\r{load_color}Load: {node.current_load:.2f}{reset_color} | {client_color}Clients: {client_count}{reset_color} | Frames: {node.frames_processed} | Dropped: {node.frames_dropped} | FPS: {frame_rate:.1f}", end="")
+            sys.stdout.flush()
 
             # Print with color and more detailed information
             status_line = (

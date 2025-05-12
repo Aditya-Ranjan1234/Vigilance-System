@@ -41,7 +41,7 @@ class NetworkVisualizer:
         self.line_color = (70, 70, 90)  # Slightly brighter lines
         self.active_line_color = (120, 220, 120)  # Brighter active lines
 
-        # Packet colors for different cameras
+        # Packet colors for different cameras - brighter colors for better visibility
         self.packet_colors = [
             (255, 100, 100),  # Red
             (100, 255, 100),  # Green
@@ -49,6 +49,10 @@ class NetworkVisualizer:
             (255, 255, 100),  # Yellow
             (255, 100, 255),  # Magenta
             (100, 255, 255),  # Cyan
+            (255, 150, 0),    # Orange
+            (180, 0, 255),    # Purple
+            (0, 255, 200),    # Teal
+            (255, 0, 150),    # Pink
         ]
 
         # Node and camera positions
@@ -112,16 +116,42 @@ class NetworkVisualizer:
         if set(cameras.keys()) != set(self.camera_positions.keys()):
             self._calculate_camera_positions(list(cameras.keys()))
 
-        # Update active connections
-        for camera_id, camera_info in cameras.items():
-            last_node = camera_info.get('last_node')
-            if last_node:
-                self.active_connections[camera_id] = last_node
+        # Update active connections - get real connections from node_client
+        try:
+            from vigilance_system.network.node_client import node_client
+            client_stats = node_client.get_stats()
 
-                # Create packet animation if not exists
-                if camera_id not in self.packet_positions:
-                    self.packet_positions[camera_id] = 0.0
-                    self.packet_speeds[camera_id] = 0.05 + 0.05 * np.random.random()
+            # Clear existing connections first
+            self.active_connections = {}
+
+            # Get the actual camera-to-node mappings from node_client
+            camera_last_nodes = node_client.camera_last_nodes
+
+            # Update active connections based on real data
+            for camera_id, node_id in camera_last_nodes.items():
+                if node_id:
+                    self.active_connections[camera_id] = node_id
+
+                    # Create packet animation if not exists
+                    if camera_id not in self.packet_positions:
+                        self.packet_positions[camera_id] = 0.0
+                        self.packet_speeds[camera_id] = 0.05 + 0.05 * np.random.random()
+
+            # Log the active connections for debugging
+            logger.debug(f"Active connections: {self.active_connections}")
+        except Exception as e:
+            logger.error(f"Error updating active connections: {str(e)}")
+
+            # Fallback to using camera info from stats if node_client access fails
+            for camera_id, camera_info in cameras.items():
+                last_node = camera_info.get('last_node')
+                if last_node:
+                    self.active_connections[camera_id] = last_node
+
+                    # Create packet animation if not exists
+                    if camera_id not in self.packet_positions:
+                        self.packet_positions[camera_id] = 0.0
+                        self.packet_speeds[camera_id] = 0.05 + 0.05 * np.random.random()
 
         # Update packet animations
         current_time = time.time()
@@ -331,8 +361,8 @@ class NetworkVisualizer:
 
                 # Draw connection line with algorithm-specific styling
                 if current_algorithm == 'direct':
-                    # Direct: Simple solid line
-                    cv2.line(image, camera_pos, node_pos, self.line_color, 1, cv2.LINE_AA)
+                    # Direct: Simple solid line with higher visibility
+                    cv2.line(image, camera_pos, node_pos, (100, 100, 200), 2, cv2.LINE_AA)
 
                 elif current_algorithm == 'round_robin':
                     # Round Robin: Dashed line with rotating pattern
@@ -385,17 +415,45 @@ class NetworkVisualizer:
                 elif current_algorithm == 'weighted':
                     # Weighted: Line thickness based on node capacity
                     node_id = self.active_connections[camera_id]
+                    # Get actual node load and check if it's a simulated node
+                    node_load = 0.0
+                    is_simulated = False
+
+                    try:
+                        from vigilance_system.network.node_client import node_client
+                        node_stats = node_client.get_stats()
+
+                        # Check if this is a simulated node
+                        if node_id in node_client.node_sockets:
+                            is_simulated = node_client.node_sockets[node_id] is None
+
+                        if 'node_stats' in node_stats and node_id in node_stats['node_stats']:
+                            node_load = node_stats['node_stats'][node_id].get('load', 0.0)
+                    except Exception as e:
+                        logger.error(f"Error getting node load: {str(e)}")
+
                     # Determine capacity based on node ID
                     capacity = 1.0
-                    if 'node_1' in node_id or 'node_2' in node_id:
-                        capacity = 1.5
-                        color = (100, 200, 100)  # Bright green for high capacity
-                    elif 'node_3' in node_id or 'node_4' in node_id:
-                        capacity = 1.2
-                        color = (100, 200, 200)  # Teal for medium capacity
+
+                    # If it's a simulated node, use a distinct visual style
+                    if is_simulated:
+                        # Use a dashed pattern for simulated nodes
+                        color = (80, 80, 80)  # Grey for simulated nodes
                     else:
-                        capacity = 1.0
-                        color = (200, 100, 100)  # Red for low capacity
+                        # Real nodes with different capacities
+                        if 'node_1' in node_id or 'node_2' in node_id:
+                            capacity = 1.5
+                            color = (100, 200, 100)  # Bright green for high capacity
+                        elif 'node_3' in node_id or 'node_4' in node_id:
+                            capacity = 1.2
+                            # If node has no clients, use a different color
+                            if node_load < 0.01:
+                                color = (100, 100, 100)  # Grey for unused nodes
+                            else:
+                                color = (100, 200, 200)  # Teal for medium capacity
+                        else:
+                            capacity = 1.0
+                            color = (200, 100, 100)  # Red for low capacity
 
                     # Thicker line for higher capacity
                     thickness = max(1, int(capacity * 1.5))
@@ -487,8 +545,13 @@ class NetworkVisualizer:
                             cv2.line(image, (node_x, node_y), (branch2_x, branch2_y), branch_color, 1, cv2.LINE_AA)
 
                 else:
-                    # Default: Simple line
-                    cv2.line(image, camera_pos, node_pos, self.line_color, 1, cv2.LINE_AA)
+                    # Default: More visible line for active connections
+                    # Use a brighter color for active connections
+                    active_color = (120, 120, 220)  # Brighter blue for active connections
+                    cv2.line(image, camera_pos, node_pos, active_color, 2, cv2.LINE_AA)
+
+                    # Add arrow to show direction
+                    self._draw_arrow(image, camera_pos, node_pos, active_color)
 
                 # Draw packet animation with algorithm-specific styling
                 if camera_id in self.packet_positions:
@@ -661,11 +724,21 @@ class NetworkVisualizer:
                                    cv2.FONT_HERSHEY_SIMPLEX, 0.4, yolo_color, 1, cv2.LINE_AA)
 
                     else:
-                        # Default: Simple circles with tail
-                        cv2.circle(image, (x, y), 6, packet_color, -1, cv2.LINE_AA)
+                        # Default: Enhanced packet visualization with larger circles and longer tail
+                        # Draw a glowing effect around the packet
+                        for r in range(12, 6, -2):
+                            alpha = (12 - r) / 6.0
+                            glow_color = tuple([int(c * alpha) for c in packet_color])
+                            cv2.circle(image, (x, y), r, glow_color, 1, cv2.LINE_AA)
 
-                        # Draw a tail behind the packet
-                        tail_length = 3
+                        # Draw the main packet
+                        cv2.circle(image, (x, y), 8, packet_color, -1, cv2.LINE_AA)
+
+                        # Add a white center for better visibility
+                        cv2.circle(image, (x, y), 3, (255, 255, 255), -1, cv2.LINE_AA)
+
+                        # Draw a longer, more visible tail behind the packet
+                        tail_length = 5
                         for i in range(1, tail_length + 1):
                             tail_pos = packet_pos - (i * 0.05)
                             if tail_pos >= 0:
@@ -673,7 +746,7 @@ class NetworkVisualizer:
                                 tail_y = int(camera_pos[1] + (node_pos[1] - camera_pos[1]) * tail_pos)
                                 tail_alpha = 1.0 - (i / (tail_length + 1))
                                 tail_color = tuple([int(c * tail_alpha) for c in packet_color])
-                                cv2.circle(image, (tail_x, tail_y), 6 - i, tail_color, -1, cv2.LINE_AA)
+                                cv2.circle(image, (tail_x, tail_y), 8 - i, tail_color, -1, cv2.LINE_AA)
 
         # Draw nodes
         for node_id, pos in self.node_positions.items():
@@ -683,7 +756,8 @@ class NetworkVisualizer:
             # Get node info from network simulator
             node_info = network_simulator.nodes.get(node_id, {})
 
-            # Calculate load based on active connections
+            # Calculate load and client connections
+            connection_count = 0
             if node_id in self.active_connections.values():
                 # Count how many cameras are using this node
                 connection_count = list(self.active_connections.values()).count(node_id)
@@ -702,22 +776,74 @@ class NetworkVisualizer:
             load = node_load
 
             # Check if this is a simulated node
-            is_simulated = "simulated" in node_id.lower() or node_id not in self.stats.get('client_stats', {}).get('real_node_ids', [])
+            is_simulated = False
+            try:
+                from vigilance_system.network.node_client import node_client
+                # A node is simulated if it's in node_sockets but the socket is None
+                if node_id in node_client.node_sockets:
+                    is_simulated = node_client.node_sockets[node_id] is None
+            except Exception as e:
+                logger.error(f"Error checking if node is simulated: {str(e)}")
+                # Fallback to checking node ID
+                is_simulated = "simulated" in node_id.lower() or node_id not in self.stats.get('client_stats', {}).get('real_node_ids', [])
+
+            # Get actual client count from node_client
+            client_count = 0
+            try:
+                from vigilance_system.network.node_client import node_client
+                # Check if this node is in the active connections
+                client_count = list(node_client.camera_last_nodes.values()).count(node_id)
+            except Exception as e:
+                logger.error(f"Error getting client count: {str(e)}")
+                # Fallback to connection_count
+                client_count = connection_count
+
+            # Determine node status color based on client count
+            if client_count > 0:
+                status_color = (0, 255, 0)  # Green for active connections
+                status_text = f"CLIENTS: {client_count}"
+            else:
+                status_color = (100, 100, 100)  # Gray for no connections
+                status_text = "CLIENTS: 0"
 
             # Draw terminal-like rectangle for node with different color for simulated nodes
-            bg_color = (20, 20, 40) if is_simulated else (30, 30, 30)
-            border_color = (80, 80, 160) if is_simulated else (100, 100, 100)
+            # Use more vibrant colors for better visibility
+            bg_color = (30, 30, 60) if is_simulated else (40, 40, 40)
 
-            cv2.rectangle(image, (pos[0] - 30, pos[1] - 20), (pos[0] + 30, pos[1] + 20), bg_color, -1, cv2.LINE_AA)
-            cv2.rectangle(image, (pos[0] - 30, pos[1] - 20), (pos[0] + 30, pos[1] + 20), border_color, 2, cv2.LINE_AA)
+            # Use a more visible border color based on connection status
+            if connection_count > 0:
+                # Active node with connections - use a bright green border
+                border_color = (80, 200, 80) if not is_simulated else (80, 160, 80)
+            else:
+                # Inactive node - use a gray/blue border
+                border_color = (100, 100, 180) if is_simulated else (120, 120, 120)
 
-            # Draw terminal title bar
-            title_color = (50, 50, 180) if is_simulated else (50, 50, 150)
-            cv2.rectangle(image, (pos[0] - 30, pos[1] - 20), (pos[0] + 30, pos[1] - 12), title_color, -1, cv2.LINE_AA)
+            # Make the node terminal larger to fit more information
+            # Add a glow effect for active nodes
+            if connection_count > 0:
+                # Draw outer glow for active nodes
+                for i in range(5, 0, -1):
+                    alpha = 0.2 - (i * 0.03)
+                    glow_color = tuple([int(c * (1 + alpha)) for c in border_color])
+                    cv2.rectangle(image,
+                                 (pos[0] - 40 - i, pos[1] - 25 - i),
+                                 (pos[0] + 40 + i, pos[1] + 25 + i),
+                                 glow_color, 1, cv2.LINE_AA)
+
+            # Draw main node rectangle
+            cv2.rectangle(image, (pos[0] - 40, pos[1] - 25), (pos[0] + 40, pos[1] + 25), bg_color, -1, cv2.LINE_AA)
+            cv2.rectangle(image, (pos[0] - 40, pos[1] - 25), (pos[0] + 40, pos[1] + 25), border_color, 2, cv2.LINE_AA)
+
+            # Draw terminal title bar with more vibrant colors
+            title_color = (70, 70, 200) if is_simulated else (70, 70, 170)
+            cv2.rectangle(image, (pos[0] - 40, pos[1] - 25), (pos[0] + 40, pos[1] - 15), title_color, -1, cv2.LINE_AA)
 
             # Draw node label in title bar
             label = f"{node_id}" + (" (SIM)" if is_simulated else "")
-            safe_putText(image, label, (pos[0] - 25, pos[1] - 14), cv2.FONT_HERSHEY_SIMPLEX, 0.4, (255, 255, 255), 1, cv2.LINE_AA)
+            safe_putText(image, label, (pos[0] - 35, pos[1] - 17), cv2.FONT_HERSHEY_SIMPLEX, 0.4, (255, 255, 255), 1, cv2.LINE_AA)
+
+            # Draw client connection status with appropriate color
+            safe_putText(image, status_text, (pos[0] - 35, pos[1] - 5), cv2.FONT_HERSHEY_SIMPLEX, 0.4, status_color, 1, cv2.LINE_AA)
 
             # Draw terminal content with real IP if available
             if 'client_ip' in self.stats:
@@ -725,25 +851,88 @@ class NetworkVisualizer:
             else:
                 ip_address = "127.0.0.1"
 
-            safe_putText(image, ip_address, (pos[0] - 25, pos[1]), cv2.FONT_HERSHEY_SIMPLEX, 0.4, (0, 255, 0), 1, cv2.LINE_AA)
-            safe_putText(image, f"Load: {load:.1%}", (pos[0] - 25, pos[1] + 10), cv2.FONT_HERSHEY_SIMPLEX, 0.4, (0, 255, 0), 1, cv2.LINE_AA)
+            safe_putText(image, ip_address, (pos[0] - 35, pos[1] + 10), cv2.FONT_HERSHEY_SIMPLEX, 0.4, (0, 255, 0), 1, cv2.LINE_AA)
+            safe_putText(image, f"Load: {load:.1%}", (pos[0] - 35, pos[1] + 20), cv2.FONT_HERSHEY_SIMPLEX, 0.4, (0, 255, 0), 1, cv2.LINE_AA)
 
             # Draw load indicator bar below terminal
-            cv2.rectangle(image, (pos[0] - 30, pos[1] + 25), (pos[0] + 30, pos[1] + 30), (50, 50, 50), -1, cv2.LINE_AA)
-            cv2.rectangle(image, (pos[0] - 30, pos[1] + 25), (pos[0] - 30 + int(60 * load), pos[1] + 30), (50, 200, 50), -1, cv2.LINE_AA)
+            cv2.rectangle(image, (pos[0] - 40, pos[1] + 30), (pos[0] + 40, pos[1] + 35), (50, 50, 50), -1, cv2.LINE_AA)
+
+            # Color the load bar based on load level
+            if load < 0.3:
+                load_color = (50, 200, 50)  # Green for low load
+            elif load < 0.7:
+                load_color = (50, 200, 200)  # Yellow for medium load
+            else:
+                load_color = (50, 50, 200)  # Red for high load
+
+            cv2.rectangle(image, (pos[0] - 40, pos[1] + 30), (pos[0] - 40 + int(80 * load), pos[1] + 35), load_color, -1, cv2.LINE_AA)
 
             # Draw node label below load bar
-            safe_putText(image, f"{node_id} ({load:.0%})", (pos[0] - 25, pos[1] + 45), cv2.FONT_HERSHEY_SIMPLEX, 0.5, self.text_color, 1, cv2.LINE_AA)
+            label = f"{node_id} ({load:.0%})"
+
+            # Add SIM label for simulated nodes
+            if is_simulated:
+                label += " (SIM)"
+
+            # Add client count to label
+            try:
+                from vigilance_system.network.node_client import node_client
+                node_stats = node_client.get_stats()
+                if 'node_stats' in node_stats and node_id in node_stats['node_stats']:
+                    client_count = node_stats['node_stats'][node_id].get('clients', 0)
+                    label += f" CLIENTS: {client_count}"
+            except Exception as e:
+                logger.error(f"Error getting client count: {str(e)}")
+
+            safe_putText(image, label, (pos[0] - 35, pos[1] + 50), cv2.FONT_HERSHEY_SIMPLEX, 0.5, self.text_color, 1, cv2.LINE_AA)
 
         # Draw cameras
         for camera_id, pos in self.camera_positions.items():
-            # Draw camera icon
-            cv2.rectangle(image, (pos[0] - 15, pos[1] - 10), (pos[0] + 15, pos[1] + 10), self.camera_color, -1, cv2.LINE_AA)
-            cv2.rectangle(image, (pos[0] - 15, pos[1] - 10), (pos[0] + 15, pos[1] + 10), (30, 30, 100), 2, cv2.LINE_AA)
-            cv2.circle(image, (pos[0] + 20, pos[1]), 5, self.camera_color, -1, cv2.LINE_AA)
+            # Check if this camera has active connections
+            is_active = camera_id in self.active_connections
+
+            # Use brighter colors for active cameras
+            camera_color = (100, 100, 220) if is_active else self.camera_color
+            border_color = (50, 50, 180) if is_active else (30, 30, 100)
+
+            # Draw camera icon with improved visibility
+            # Add glow effect for active cameras
+            if is_active:
+                # Draw outer glow
+                for i in range(4, 0, -1):
+                    alpha = 0.3 - (i * 0.05)
+                    glow_color = tuple([int(c * (1 + alpha)) for c in camera_color])
+                    cv2.rectangle(image,
+                                 (pos[0] - 15 - i, pos[1] - 10 - i),
+                                 (pos[0] + 15 + i, pos[1] + 10 + i),
+                                 glow_color, 1, cv2.LINE_AA)
+
+            # Draw main camera body
+            cv2.rectangle(image, (pos[0] - 15, pos[1] - 10), (pos[0] + 15, pos[1] + 10), camera_color, -1, cv2.LINE_AA)
+            cv2.rectangle(image, (pos[0] - 15, pos[1] - 10), (pos[0] + 15, pos[1] + 10), border_color, 2, cv2.LINE_AA)
+
+            # Draw camera lens
+            cv2.circle(image, (pos[0] + 20, pos[1]), 5, camera_color, -1, cv2.LINE_AA)
+            cv2.circle(image, (pos[0] + 20, pos[1]), 5, border_color, 1, cv2.LINE_AA)
+
+            # Add a small indicator light
+            indicator_color = (50, 220, 50) if is_active else (220, 50, 50)  # Green if active, red if inactive
+            cv2.circle(image, (pos[0] - 10, pos[1] - 5), 3, indicator_color, -1, cv2.LINE_AA)
+
+            # Draw camera label with better visibility
+            # Add a small background for the text
+            text_size = cv2.getTextSize(camera_id, cv2.FONT_HERSHEY_SIMPLEX, 0.5, 1)[0]
+            text_bg_x1 = pos[0] - text_size[0] // 2 - 2
+            text_bg_y1 = pos[1] + 20
+            text_bg_x2 = pos[0] + text_size[0] // 2 + 2
+            text_bg_y2 = pos[1] + 20 + text_size[1] + 2
+
+            # Draw text background
+            cv2.rectangle(image, (text_bg_x1, text_bg_y1), (text_bg_x2, text_bg_y2), (0, 0, 0, 128), -1, cv2.LINE_AA)
 
             # Draw camera label
-            safe_putText(image, camera_id, (pos[0], pos[1] + 25), cv2.FONT_HERSHEY_SIMPLEX, 0.5, self.text_color, 1, cv2.LINE_AA)
+            safe_putText(image, camera_id, (pos[0] - text_size[0] // 2, pos[1] + 25),
+                       cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
 
         # Draw statistics
         self._draw_statistics(image)
@@ -764,9 +953,18 @@ class NetworkVisualizer:
         # Calculate positions in a circle
         center_x = self.width // 2
         center_y = self.height // 2
-        radius = min(self.width, self.height) // 3
 
-        for i, node_id in enumerate(node_ids):
+        # Adjust radius based on number of nodes
+        if num_nodes <= 5:
+            radius = min(self.width, self.height) // 3
+        else:
+            # For more nodes, use a larger radius to avoid overcrowding
+            radius = min(self.width, self.height) // 2.5
+
+        # Sort node IDs to ensure consistent positioning
+        sorted_node_ids = sorted(node_ids)
+
+        for i, node_id in enumerate(sorted_node_ids):
             angle = 2 * math.pi * i / num_nodes
             x = int(center_x + radius * math.cos(angle))
             y = int(center_y + radius * math.sin(angle))
@@ -891,6 +1089,53 @@ class NetworkVisualizer:
         }
 
         return descriptions.get(algorithm, "Unknown algorithm")
+
+    def _draw_arrow(self, image, start_point, end_point, color, arrow_size=15):
+        """
+        Draw an arrow from start_point to end_point.
+
+        Args:
+            image: Image to draw on
+            start_point: Starting point (x, y)
+            end_point: Ending point (x, y)
+            color: Arrow color (B, G, R)
+            arrow_size: Size of the arrow head
+        """
+        # Calculate direction vector
+        dx = end_point[0] - start_point[0]
+        dy = end_point[1] - start_point[1]
+
+        # Normalize the direction vector
+        length = math.sqrt(dx*dx + dy*dy)
+        if length == 0:
+            return
+
+        dx = dx / length
+        dy = dy / length
+
+        # Calculate arrow head points
+        # Position the arrow head at 70% of the way from start to end
+        arrow_pos = (
+            int(start_point[0] + dx * length * 0.7),
+            int(start_point[1] + dy * length * 0.7)
+        )
+
+        # Calculate perpendicular vector
+        perpx = -dy
+        perpy = dx
+
+        # Calculate arrow head points
+        p1 = (
+            int(arrow_pos[0] - dx * arrow_size + perpx * arrow_size * 0.5),
+            int(arrow_pos[1] - dy * arrow_size + perpy * arrow_size * 0.5)
+        )
+        p2 = (
+            int(arrow_pos[0] - dx * arrow_size - perpx * arrow_size * 0.5),
+            int(arrow_pos[1] - dy * arrow_size - perpy * arrow_size * 0.5)
+        )
+
+        # Draw arrow head
+        cv2.fillPoly(image, [np.array([arrow_pos, p1, p2])], color)
 
 
 # Create a default instance

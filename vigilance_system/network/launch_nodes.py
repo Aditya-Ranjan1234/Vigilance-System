@@ -167,7 +167,7 @@ def main():
     """Main function to launch network nodes."""
     # Parse command line arguments
     parser = argparse.ArgumentParser(description='Launch Network Nodes')
-    parser.add_argument('--nodes', type=int, default=8, help='Number of nodes to launch')
+    parser.add_argument('--nodes', type=int, default=10, help='Number of nodes to launch')
     parser.add_argument('--base-port', type=int, default=8000, help='Base port number')
     parser.add_argument('--output', type=str, default='nodes.json', help='Output file for node information')
     parser.add_argument('--visible', action='store_true', help='Launch nodes in visible terminals')
@@ -200,8 +200,8 @@ def main():
         # Create the command with proper quoting
         cmd_str = f'"{python_exe}" "{node_script_abs}" --id {node_id} --host localhost --port {port} --capacity {capacity} --latency {latency}'
 
-        # Add a small delay to ensure previous process has released any resources
-        time.sleep(0.5)
+        # Add a larger delay to ensure previous process has released any resources
+        time.sleep(1.0)
 
         # Create the full terminal command
         terminal_cmd = f'start "Node {node_id} - Port {port}" cmd /k "{cmd_str}"'
@@ -210,6 +210,9 @@ def main():
 
         # Launch the process in a visible terminal
         process = subprocess.Popen(terminal_cmd, shell=True)
+
+        # Wait a bit to ensure the process has started
+        time.sleep(0.5)
 
         # Store node info
         node_info = {

@@ -94,6 +94,31 @@ document.addEventListener('DOMContentLoaded', function() {
         processingStatus.className = 'status-value status-inactive';
     });
 
+    socket.on('alert', function(data) {
+        console.log('Alert received:', data);
+
+        // Show alert message
+        if (data.type === 'error') {
+            // Create a Bootstrap alert
+            const alertDiv = document.createElement('div');
+            alertDiv.className = 'alert alert-danger alert-dismissible fade show';
+            alertDiv.setAttribute('role', 'alert');
+            alertDiv.innerHTML = `
+                <strong>Error:</strong> ${data.message}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            `;
+
+            // Insert at the top of the page
+            document.querySelector('.container-fluid').insertBefore(alertDiv, document.querySelector('.container-fluid').firstChild);
+
+            // Auto-dismiss after 10 seconds
+            setTimeout(() => {
+                alertDiv.classList.remove('show');
+                setTimeout(() => alertDiv.remove(), 500);
+            }, 10000);
+        }
+    });
+
     // Track frame timestamps for frame rate calculation
     let frameTimestamps = {};
 
@@ -260,6 +285,30 @@ document.addEventListener('DOMContentLoaded', function() {
                     processingStatus.className = 'status-value status-inactive';
                 }
 
+                // Check if we're in simulation mode
+                const simulationModeAlert = document.getElementById('simulationModeAlert');
+                if (data.network && data.network.metrics) {
+                    // Get network stats
+                    fetch('/api/network_status')
+                        .then(response => response.json())
+                        .then(networkData => {
+                            const realNodes = networkData.real_nodes || 0;
+                            const simulatedNodes = networkData.simulated_nodes || 0;
+                            const usingSimulation = networkData.using_simulation || (realNodes === 0 && simulatedNodes > 0);
+
+                            if (usingSimulation) {
+                                // Show simulation mode alert
+                                simulationModeAlert.classList.remove('d-none');
+                            } else {
+                                // Hide simulation mode alert
+                                simulationModeAlert.classList.add('d-none');
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error fetching network status:', error);
+                        });
+                }
+
                 // Update camera count
                 cameraCount.textContent = data.camera_count;
 
@@ -307,10 +356,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
                     // Update network metrics display
                     if (data.network.metrics) {
+                        // Format the metrics with proper units
                         bandwidthDisplay.value = data.network.metrics.bandwidth;
                         latencyDisplay.value = data.network.metrics.latency;
                         packetLossDisplay.value = data.network.metrics.packet_loss;
                         jitterDisplay.value = data.network.metrics.jitter;
+
+                        // Also update the metrics in real-time
+                        updateNetworkMetricsRealTime();
                     } else {
                         // Calculate metrics based on current settings
                         updateNetworkMetrics({
@@ -918,6 +971,114 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize with grid view
     viewModeGrid.classList.add('active');
 
+    // Function to update network metrics in real-time
+    function updateNetworkMetricsRealTime() {
+        // Fetch the latest network metrics
+        fetch('/api/network_status')
+            .then(response => response.json())
+            .then(data => {
+                if (data) {
+                    // Format the metrics with proper units
+                    const bandwidth = data.bandwidth ? data.bandwidth.toFixed(2) + " MB/s" : "0.00 MB/s";
+                    const latency = data.avg_latency ? (data.avg_latency * 1000).toFixed(1) + " ms" : "0.0 ms";
+                    const packetLoss = data.packet_loss ? data.packet_loss.toFixed(1) + "%" : "0.0%";
+                    const jitter = data.jitter ? (data.jitter * 1000).toFixed(1) + " ms" : "0.0 ms";
+
+                    // Update the display elements with animation to show they're changing
+                    let metricsChanged = false;
+
+                    if (bandwidthDisplay && bandwidthDisplay.value !== bandwidth) {
+                        bandwidthDisplay.value = bandwidth;
+                        bandwidthDisplay.classList.add('highlight-update');
+                        setTimeout(() => bandwidthDisplay.classList.remove('highlight-update'), 1000);
+                        metricsChanged = true;
+                    }
+
+                    if (latencyDisplay && latencyDisplay.value !== latency) {
+                        latencyDisplay.value = latency;
+                        latencyDisplay.classList.add('highlight-update');
+                        setTimeout(() => latencyDisplay.classList.remove('highlight-update'), 1000);
+                        metricsChanged = true;
+                    }
+
+                    if (packetLossDisplay && packetLossDisplay.value !== packetLoss) {
+                        packetLossDisplay.value = packetLoss;
+                        packetLossDisplay.classList.add('highlight-update');
+                        setTimeout(() => packetLossDisplay.classList.remove('highlight-update'), 1000);
+                        metricsChanged = true;
+                    }
+
+                    if (jitterDisplay && jitterDisplay.value !== jitter) {
+                        jitterDisplay.value = jitter;
+                        jitterDisplay.classList.add('highlight-update');
+                        setTimeout(() => jitterDisplay.classList.remove('highlight-update'), 1000);
+                        metricsChanged = true;
+                    }
+
+                    // Update the last update time if metrics changed
+                    const metricsUpdateTime = document.getElementById('metricsUpdateTime');
+                    if (metricsUpdateTime) {
+                        if (metricsChanged) {
+                            const now = new Date();
+                            metricsUpdateTime.textContent = `Last updated: ${now.toLocaleTimeString()}`;
+                            metricsUpdateTime.classList.add('text-success');
+                            setTimeout(() => metricsUpdateTime.classList.remove('text-success'), 2000);
+                        } else {
+                            // If no changes, just show that we're monitoring
+                            if (!metricsUpdateTime.textContent.includes('Last updated')) {
+                                metricsUpdateTime.textContent = 'Monitoring network in real-time...';
+                            }
+                        }
+                    }
+
+                    // Also update the routing algorithm display if available
+                    const currentAlgorithm = data.current_algorithm || data.routing_algorithm;
+                    if (currentAlgorithm) {
+                        const routingDisplay = document.getElementById('routingAlgorithmDisplay');
+                        if (routingDisplay && routingDisplay.textContent !== currentAlgorithm) {
+                            routingDisplay.textContent = formatAlgorithmName(currentAlgorithm);
+                            routingDisplay.classList.add('highlight-update');
+                            setTimeout(() => routingDisplay.classList.remove('highlight-update'), 1000);
+                        }
+                    }
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching real-time network metrics:', error);
+            });
+    }
+
+    // Helper function to format algorithm names
+    function formatAlgorithmName(algorithm) {
+        switch(algorithm) {
+            case 'direct': return 'Direct Connection';
+            case 'round_robin': return 'Round Robin';
+            case 'least_connection': return 'Least Connection';
+            case 'weighted': return 'Weighted';
+            case 'ip_hash': return 'IP Hash';
+            case 'yolov8': return 'YOLOv8 Optimized';
+            default: return algorithm;
+        }
+    }
+
+    // Add CSS for highlighting updates
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes highlight-update {
+            0% { background-color: #f8f9fa; }
+            50% { background-color: #e2f0ff; }
+            100% { background-color: #f8f9fa; }
+        }
+
+        .highlight-update {
+            animation: highlight-update 1s ease;
+        }
+    `;
+    document.head.appendChild(style);
+
     // Refresh status every 5 seconds
     setInterval(updateStatus, 5000);
+
+    // Update network metrics every 2 seconds
+    setInterval(updateNetworkMetricsRealTime, 2000);
 });

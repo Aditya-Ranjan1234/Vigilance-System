@@ -49,6 +49,14 @@
     </nav>
 
     <div class="container-fluid mt-3">
+        <!-- Simulation Mode Warning Banner -->
+        <div class="alert alert-warning alert-dismissible fade show d-none" role="alert" id="simulationModeAlert">
+            <strong><i class="bi bi-exclamation-triangle-fill"></i> Simulation Mode Active!</strong>
+            No real network nodes are connected. Video processing is using simulated nodes.
+            Please start network nodes for actual video processing.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+
         <div class="row">
             <div class="col-md-9">
                 <div class="card">
@@ -236,6 +244,9 @@
                                         <input type="text" class="form-control" id="jitterDisplay" value="12 ms" readonly>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="text-center mt-2">
+                                <small class="text-muted" id="metricsUpdateTime">Updating in real-time...</small>
                             </div>
                         </div>
 

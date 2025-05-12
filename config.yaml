@@ -68,7 +68,7 @@ logging:
 network:
   frame_rate: 25
   resolution: medium
-  routing_algorithm: weighted
+  routing_algorithm: round_robin
 preprocessing:
   denoising:
     enabled: true
@@ -78,6 +78,9 @@ preprocessing:
     smoothing_radius: 15
 tracking:
   algorithm: yolov8
+  kalman:
+    measurement_noise: 0.1
+    process_noise: 0.01
   knn:
     n_neighbors: 3
   max_disappeared: 30
@@ -85,8 +88,5 @@ tracking:
   svm:
     C: 1.0
   yolov8:
-    iou_threshold: 0.3
     confidence_threshold: 0.5
-  kalman:
-    process_noise: 0.01
-    measurement_noise: 0.1
+    iou_threshold: 0.3

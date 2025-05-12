@@ -108,15 +108,19 @@ class NodeClient:
         # Try to launch nodes if they don't exist
         self._ensure_nodes_running()
 
+        # Wait longer for nodes to start up
+        logger.info("Waiting 15 seconds for nodes to start up...")
+        time.sleep(15)  # Give nodes more time to start up
+
         # Try to connect to each node with a reasonable timeout
-        max_retries = 5  # Increase max retries for better reliability
+        max_retries = 5  # Reduced number of retries to avoid excessive waiting
         connected_count = 0
 
         for retry in range(max_retries):
             if retry > 0:
                 logger.info(f"Retry attempt {retry}/{max_retries} to connect to nodes...")
-                # Increase wait time between retries
-                wait_time = retry * 2  # Progressive backoff
+                # Use a fixed wait time to avoid excessive waiting
+                wait_time = 3
                 logger.info(f"Waiting {wait_time} seconds before retry...")
                 time.sleep(wait_time)
 
@@ -126,13 +130,13 @@ class NodeClient:
                 port = node['port']
 
                 # Skip if already connected
-                if node_id in self.node_sockets:
+                if node_id in self.node_sockets and self.node_sockets[node_id] is not None:
                     continue
 
                 try:
                     # Create socket
                     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-                    sock.settimeout(3)  # Longer timeout to give nodes more time to respond
+                    sock.settimeout(5)  # Longer timeout to give nodes more time to respond
                     logger.info(f"Attempting to connect to node {node_id} at {host}:{port}...")
 
                     # Try to connect
@@ -194,6 +198,11 @@ class NodeClient:
                 except Exception as e:
                     logger.warning(f"Could not connect to node {node_id} at {host}:{port}: {str(e)}")
 
+            # If we've connected to at least 4 nodes, that's good enough
+            if connected_count >= 4:
+                logger.info(f"Connected to {connected_count} nodes, which is sufficient")
+                break
+
         # Check if we need to use simulation mode
         if connected_count == 0:
             logger.warning("No real nodes connected, switching to simulation mode")
@@ -214,6 +223,44 @@ class NodeClient:
             logger.info("Already in simulation mode, skipping node launch")
             return
 
+        # Check if nodes are already running by checking for processes
+        try:
+            import psutil
+            node_processes = []
+            for proc in psutil.process_iter(['pid', 'name', 'cmdline']):
+                try:
+                    cmdline = proc.info['cmdline']
+                    if cmdline and len(cmdline) > 2 and 'node_server.py' in ' '.join(cmdline):
+                        node_processes.append(proc)
+                except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
+                    pass
+
+            if node_processes:
+                logger.info(f"Found {len(node_processes)} node processes already running, skipping launch")
+                return
+        except ImportError:
+            logger.warning("psutil not available, can't check for existing node processes")
+
+        # Check if nodes.json exists and has 10 nodes
+        if os.path.exists(self.nodes_file):
+            try:
+                with open(self.nodes_file, 'r') as f:
+                    existing_nodes = json.load(f)
+                    if len(existing_nodes) != 10:
+                        logger.warning(f"Found {len(existing_nodes)} nodes in {self.nodes_file}, but 10 are required. Removing file to recreate nodes.")
+                        os.remove(self.nodes_file)
+                        # Also clear self.nodes to force recreation
+                        self.nodes = []
+            except Exception as e:
+                logger.error(f"Error reading nodes file: {str(e)}")
+                # If there's an error reading the file, remove it and recreate
+                try:
+                    os.remove(self.nodes_file)
+                    # Also clear self.nodes to force recreation
+                    self.nodes = []
+                except:
+                    pass
+
         try:
             # Check if we need to launch nodes
             import subprocess
@@ -230,8 +277,8 @@ class NodeClient:
                 python_exe = sys.executable
                 script_path_abs = os.path.abspath(script_path)
 
-                # Create the command with proper quoting
-                cmd_str = f'"{python_exe}" "{script_path_abs}" --nodes {len(self.nodes)} --output "{self.nodes_file}" --visible'
+                # Create the command with proper quoting - always launch 10 nodes
+                cmd_str = f'"{python_exe}" "{script_path_abs}" --nodes 10 --output "{self.nodes_file}" --visible'
 
                 # Create the terminal command
                 terminal_cmd = f'start "Network Nodes Launcher" cmd /k "{cmd_str}"'
@@ -250,8 +297,8 @@ class NodeClient:
                 if launched:
                     logger.info("Waiting for nodes to start...")
                     # Wait longer to ensure nodes have time to initialize
-                    for i in range(5):
-                        logger.info(f"Waiting for nodes to start... {i+1}/5 seconds")
+                    for i in range(10):
+                        logger.info(f"Waiting for nodes to start... {i+1}/10 seconds")
                         time.sleep(1)
                 else:
                     # If all launch methods failed, mark as simulation mode
@@ -278,6 +325,16 @@ class NodeClient:
 
             # Create simulated node
             self._create_simulated_node(node_id)
+            logger.info(f"Created simulated node for {node_id} because it failed to connect")
+
+        # Make sure we have at least 10 nodes total (real + simulated)
+        # This ensures we always have 10 nodes even if some failed to connect
+        existing_nodes = list(self.node_sockets.keys())
+        for i in range(1, 11):
+            node_id = f"node_{i}"
+            if node_id not in existing_nodes:
+                self._create_simulated_node(node_id)
+                logger.info(f"Created additional simulated node {node_id} to ensure 10 total nodes")
 
     def _simulate_frame_processing(self, message):
         """
@@ -298,6 +355,12 @@ class NodeClient:
         # In a real implementation, we would decode the frame and process it
         # For now, we just simulate a small delay
         time.sleep(0.01)
+
+        # Simulate occasional frame drops to make it clear this is simulated
+        if random.random() < 0.3:  # 30% chance to drop a frame in simulation
+            return False  # Indicate frame was dropped
+
+        return True  # Indicate frame was processed
 
     def _create_simulated_node(self, node_id="simulated_node"):
         """
@@ -323,8 +386,8 @@ class NodeClient:
         """Create a default nodes file if none exists."""
         default_nodes = []
 
-        # Create 8 nodes with different capacities and latencies
-        for i in range(8):
+        # Create 10 nodes with different capacities and latencies
+        for i in range(10):
             node_id = f"node_{i+1}"
 
             # Vary capacity and latency to demonstrate different node capabilities
@@ -340,10 +403,14 @@ class NodeClient:
                 # Medium capacity nodes
                 capacity = 1.0
                 latency = 0.01
-            else:
+            elif i < 8:
                 # Lower capacity nodes
                 capacity = 0.7
                 latency = 0.015
+            else:
+                # Edge nodes
+                capacity = 0.5
+                latency = 0.02
 
             node_info = {
                 'node_id': node_id,
@@ -351,7 +418,7 @@ class NodeClient:
                 'port': 8000 + (i * 10),  # Use bigger gaps between ports to avoid conflicts
                 'capacity': capacity,
                 'latency': latency,
-                'node_type': 'processing' if i < 6 else 'edge'
+                'node_type': 'processing' if i < 8 else 'edge'
             }
             default_nodes.append(node_info)
 
@@ -447,16 +514,37 @@ class NodeClient:
         """Disconnect from all nodes."""
         self.running = False
 
+        # Signal to any video processing that nodes are disconnected
+        self.frames_processed = 0
+        self.frames_dropped = 0
+        self.frame_counter = 0
+        self.camera_counters.clear()
+        self.camera_last_nodes.clear()
+
+        # Stop all active connections
         for node_id, sock in self.node_sockets.items():
             try:
-                sock.close()
+                if sock is not None:  # Check if it's not a simulated node
+                    sock.close()
                 logger.info(f"Disconnected from node {node_id}")
             except Exception as e:
                 logger.error(f"Error disconnecting from node {node_id}: {str(e)}")
 
         self.node_sockets.clear()
         self.response_queues.clear()
+
+        # Signal that we're disconnected
+        self.using_simulation_mode = True
         logger.info("Disconnected from all nodes")
+
+        # Notify any listeners that we've disconnected
+        try:
+            # Import here to avoid circular imports
+            from vigilance_system.video_acquisition.stream_manager import stream_manager
+            if stream_manager:
+                stream_manager.on_network_disconnect()
+        except Exception as e:
+            logger.error(f"Error notifying stream manager of disconnect: {str(e)}")
 
     def _handle_responses(self, node_id: str, sock: socket.socket):
         """
@@ -602,11 +690,18 @@ class NodeClient:
 
                 # Simulate processing the frame
                 # This ensures frames are processed even with simulated nodes
-                self._simulate_frame_processing(message)
+                processed = self._simulate_frame_processing(message)
 
                 # Update statistics
                 self.frames_sent += 1
-                self.frames_processed += 1  # Count as processed
+
+                if processed:
+                    self.frames_processed += 1  # Count as processed
+                else:
+                    self.frames_dropped += 1  # Count as dropped
+
+                # Log simulation status
+                logger.info(f"Simulated node {node_id} {'processed' if processed else 'dropped'} frame {self.frame_counter} from camera {camera_id}")
 
                 # Return routing information
                 return {
@@ -708,25 +803,53 @@ class NodeClient:
             return min(node_loads.items(), key=lambda x: x[1])[0]
 
         elif self.current_algorithm == 'weighted':
-            # Use weighted random selection
+            # Use weighted random selection based on node capacity and current load
             node_weights = {}
 
+            # First, get current load for each node
+            node_loads = {}
+            for node_id in self.node_sockets.keys():
+                # Count how many cameras are using this node
+                count = sum(1 for last_node in self.camera_last_nodes.values() if last_node == node_id)
+                node_loads[node_id] = count
+
+            # Calculate weights based on capacity and current load
             for node in self.nodes:
                 node_id = node['node_id']
                 if node_id in self.node_sockets:
-                    node_weights[node_id] = node.get('capacity', 1.0)
+                    # Get capacity from node info
+                    capacity = node.get('capacity', 1.0)
+
+                    # Get current load
+                    current_load = node_loads.get(node_id, 0)
+
+                    # Calculate weight: higher capacity and lower load = higher weight
+                    # Add 1 to load to avoid division by zero
+                    weight = capacity / (current_load + 1)
+
+                    # Store the weight
+                    node_weights[node_id] = weight
+
+                    # Log the weight calculation for debugging
+                    logger.debug(f"Node {node_id}: capacity={capacity}, load={current_load}, weight={weight}")
+
+            # If no weights were calculated, use default behavior
+            if not node_weights:
+                return list(self.node_sockets.keys())[0]
 
             # Select node based on weights
             total_weight = sum(node_weights.values())
             if total_weight <= 0:
                 return list(self.node_sockets.keys())[0]
 
-            r = np.random.random() * total_weight
+            r = random.random() * total_weight
             cumulative_weight = 0
 
             for node_id, weight in node_weights.items():
                 cumulative_weight += weight
                 if r <= cumulative_weight:
+                    # Log the selected node for debugging
+                    logger.debug(f"Weighted algorithm selected node {node_id} with weight {weight}")
                     return node_id
 
             return list(self.node_sockets.keys())[0]
@@ -820,9 +943,72 @@ class NodeClient:
                 # Send message
                 sock.sendall(message_data)
 
+                # Force a status request to update client counts
+                status_message = {
+                    'type': 'status',
+                    'timestamp': time.time()
+                }
+
+                # Encode status message
+                status_data = json.dumps(status_message).encode('utf-8')
+
+                # Send status message size
+                size_data = len(status_data).to_bytes(4, byteorder='big')
+                sock.sendall(size_data)
+
+                # Send status message
+                sock.sendall(status_data)
+
                 logger.info(f"Notified node {node_id} about algorithm change to {algorithm}")
             except Exception as e:
                 logger.error(f"Failed to notify node {node_id} about algorithm change: {str(e)}")
+
+                # Try to reconnect if the connection was lost
+                try:
+                    # Find the node info
+                    node_info = next((node for node in self.nodes if node['node_id'] == node_id), None)
+                    if node_info:
+                        # Close the old socket
+                        try:
+                            sock.close()
+                        except:
+                            pass
+
+                        # Create a new socket
+                        new_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                        new_sock.settimeout(3)
+
+                        # Try to connect
+                        host = node_info.get('host', 'localhost')
+                        port = node_info.get('port', 8000)
+                        logger.info(f"Attempting to reconnect to node {node_id} at {host}:{port}...")
+
+                        try:
+                            new_sock.connect((host, port))
+                            new_sock.settimeout(None)
+
+                            # Update the socket
+                            self.node_sockets[node_id] = new_sock
+
+                            # Create a new response queue
+                            self.response_queues[node_id] = queue.Queue()
+
+                            # Start a new response handler thread
+                            thread = threading.Thread(
+                                target=self._handle_responses,
+                                args=(node_id, new_sock)
+                            )
+                            thread.daemon = True
+                            thread.start()
+
+                            logger.info(f"Successfully reconnected to node {node_id}")
+                        except Exception as reconnect_error:
+                            logger.error(f"Failed to reconnect to node {node_id}: {str(reconnect_error)}")
+
+                            # Create a simulated node as fallback
+                            self._create_simulated_node(node_id)
+                except Exception as node_error:
+                    logger.error(f"Error handling node {node_id} reconnection: {str(node_error)}")
 
         # For simulated nodes, we don't need to do anything special
         # as they'll pick up the new algorithm from self.current_algorithm
@@ -853,10 +1039,12 @@ class NodeClient:
         real_nodes = 0
         simulated_nodes = 0
         real_node_ids = []
+        simulated_node_ids = []
 
         for node_id, sock in self.node_sockets.items():
             if sock is None:
                 simulated_nodes += 1
+                simulated_node_ids.append(node_id)
             else:
                 real_nodes += 1
                 real_node_ids.append(node_id)
@@ -877,6 +1065,7 @@ class NodeClient:
             'real_nodes': real_nodes,
             'simulated_nodes': simulated_nodes,
             'real_node_ids': real_node_ids,
+            'simulated_node_ids': simulated_node_ids,
             'cameras': len(self.camera_counters),
             'frames_sent': self.frames_sent,
             'frames_processed': self.frames_processed,

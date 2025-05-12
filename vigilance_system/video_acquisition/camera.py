@@ -101,6 +101,17 @@ class Camera(ABC):
         self.disconnect()
         logger.info(f"Stopped camera '{self.name}'")
 
+    def pause(self) -> None:
+        """
+        Pause the frame acquisition thread without disconnecting.
+
+        This allows the camera to be resumed later without reconnecting.
+        """
+        self.is_running = False
+        if hasattr(self, 'acquisition_thread') and self.acquisition_thread.is_alive():
+            self.acquisition_thread.join(timeout=1.0)
+        logger.info(f"Paused camera '{self.name}'")
+
     def get_latest_frame(self) -> Tuple[bool, Optional[np.ndarray]]:
         """
         Get the most recent frame from the camera.

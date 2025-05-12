@@ -8,6 +8,7 @@ and demonstrate different routing algorithms.
 import time
 import random
 import numpy as np
+import json
 from typing import List, Dict, Any, Tuple, Optional
 from collections import defaultdict, deque
 import threading
@@ -128,15 +129,16 @@ class NetworkNode:
 class NetworkSimulator:
     """Simulates a distributed camera network with different routing algorithms."""
 
-    def __init__(self, num_nodes: int = 4):
+    def __init__(self, num_nodes: int = 10):
         """
         Initialize the network simulator.
 
         Args:
-            num_nodes: Number of nodes in the network
+            num_nodes: Number of nodes in the network (default: 10)
         """
         self.nodes = {}
         self.cameras = {}
+        self.num_nodes = num_nodes  # Store the number of nodes
         self.routing_algorithm = config.get('network.routing_algorithm', 'direct')
         self.frame_rate = config.get('network.frame_rate', 25)
         self.resolution = config.get('network.resolution', 'medium')
@@ -164,11 +166,20 @@ class NetworkSimulator:
         Args:
             num_nodes: Number of nodes to launch
         """
+        # First, make sure no old nodes are running
+        self._stop_all_node_processes()
+
         # Check if nodes are already running
         nodes_file = os.path.join(os.getcwd(), 'nodes.json')
+
+        # Remove the nodes.json file to force recreation
         if os.path.exists(nodes_file):
-            logger.info(f"Using existing nodes from {nodes_file}")
-            return
+            try:
+                os.remove(nodes_file)
+                logger.info(f"Removed existing {nodes_file} to ensure clean node creation")
+            except Exception as e:
+                logger.error(f"Error removing nodes file: {str(e)}")
+                # If we can't remove the file, try to continue anyway
 
         # Get the path to the launch_nodes script
         script_path = os.path.join(os.path.dirname(__file__), 'launch_nodes.py')
@@ -180,14 +191,31 @@ class NetworkSimulator:
                 python_exe,
                 script_path,
                 '--nodes', str(num_nodes),
-                '--output', nodes_file
+                '--output', nodes_file,
+                '--visible'
             ]
 
             # Launch in a separate process
             process = subprocess.Popen(cmd)
 
-            # Wait for nodes to start
-            time.sleep(num_nodes * 1.5)
+            # Store the process ID for later cleanup
+            self.node_processes.append(process.pid)
+
+            # Wait for nodes to start - increase wait time to ensure all nodes have time to initialize
+            wait_time = num_nodes * 2.0  # 2 seconds per node
+            logger.info(f"Waiting {wait_time} seconds for {num_nodes} nodes to start...")
+            time.sleep(wait_time)
+
+            # Verify nodes were created
+            if os.path.exists(nodes_file):
+                try:
+                    with open(nodes_file, 'r') as f:
+                        created_nodes = json.load(f)
+                        logger.info(f"Successfully created {len(created_nodes)} nodes")
+                except Exception as e:
+                    logger.error(f"Error reading created nodes file: {str(e)}")
+            else:
+                logger.error(f"Nodes file {nodes_file} was not created")
 
             logger.info(f"Launched {num_nodes} network nodes")
 
@@ -227,15 +255,77 @@ class NetworkSimulator:
             logger.warning(f"Invalid routing algorithm: {algorithm}. Using 'direct' instead.")
             algorithm = 'direct'
 
+        # If the algorithm is changing, restart the nodes
+        if hasattr(self, 'routing_algorithm') and self.routing_algorithm != algorithm:
+            logger.info(f"Routing algorithm changing from {self.routing_algorithm} to {algorithm}, restarting nodes")
+
+            # Stop all nodes
+            self._stop_all_node_processes()
+
+            # Remove nodes.json to force recreation with new algorithm
+            nodes_file = os.path.join(os.getcwd(), 'nodes.json')
+            if os.path.exists(nodes_file):
+                try:
+                    os.remove(nodes_file)
+                    logger.info(f"Removed {nodes_file} to force node recreation with new algorithm")
+                except Exception as e:
+                    logger.error(f"Error removing nodes file: {str(e)}")
+
+            # Wait a moment for processes to terminate
+            time.sleep(2)
+
+            # Launch new nodes
+            self._launch_network_nodes(self.num_nodes)
+
+            # Reconnect the node client
+            try:
+                node_client.disconnect()
+                time.sleep(1)  # Give time for disconnect to complete
+                node_client.connect()
+
+                # Set the algorithm in the node client
+                node_client.set_algorithm(algorithm)
+
+                # Wait for the algorithm to be applied
+                time.sleep(1)
+
+                # Verify the algorithm was set correctly
+                if node_client.current_algorithm != algorithm:
+                    logger.warning(f"Algorithm mismatch: set {algorithm}, but node_client has {node_client.current_algorithm}")
+                    # Try again
+                    node_client.set_algorithm(algorithm)
+            except Exception as e:
+                logger.error(f"Error reconnecting node client: {str(e)}")
+
         self.routing_algorithm = algorithm
 
-        # Update the node client
-        node_client.set_algorithm(algorithm)
+        # Update the node client even if algorithm didn't change
+        try:
+            node_client.set_algorithm(algorithm)
+        except Exception as e:
+            logger.error(f"Error setting algorithm in node client: {str(e)}")
 
         logger.info(f"Set routing algorithm to: {algorithm}")
 
         # Save to config
         config.set('network.routing_algorithm', algorithm, save=True)
+
+    def _stop_all_node_processes(self):
+        """Stop all node processes."""
+        try:
+            import psutil
+            for proc in psutil.process_iter(['pid', 'name', 'cmdline']):
+                try:
+                    cmdline = proc.info['cmdline']
+                    if cmdline and len(cmdline) > 2:
+                        cmd_str = ' '.join(cmdline)
+                        if 'node_server.py' in cmd_str or 'Network Nodes Launcher' in cmd_str:
+                            logger.info(f"Terminating node process: {proc.pid}")
+                            proc.terminate()
+                except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess) as e:
+                    logger.error(f"Error terminating process: {str(e)}")
+        except ImportError:
+            logger.warning("psutil not available, can't terminate node processes")
 
     def send_frame(self, camera_id: str, frame: np.ndarray, frame_id: int) -> Dict[str, Any]:
         """
@@ -351,6 +441,24 @@ class NetworkSimulator:
         # This ensures we're showing the correct algorithm
         self.routing_algorithm = client_stats.get('algorithm', self.routing_algorithm)
 
+        # If we were previously in simulation mode but now have real connections,
+        # resume any paused cameras
+        was_simulation = getattr(self, 'was_simulation_mode', True)
+        current_simulation = client_stats.get('using_simulation_mode', True)
+
+        if was_simulation and not current_simulation:
+            try:
+                # Import here to avoid circular imports
+                from vigilance_system.video_acquisition.stream_manager import stream_manager
+                if stream_manager:
+                    stream_manager.resume_cameras()
+                    logger.info("Resumed cameras after reconnecting to network nodes")
+            except Exception as e:
+                logger.error(f"Error resuming cameras: {str(e)}")
+
+        # Store current simulation mode for next check
+        self.was_simulation_mode = current_simulation
+
         # Calculate metrics
         current_time = time.time()
         elapsed_time = current_time - self.last_update_time
@@ -403,8 +511,25 @@ class NetworkSimulator:
         """Stop all nodes in the network."""
         # Disconnect from nodes
         node_client.disconnect()
+
+        # Kill all node processes
+        try:
+            import psutil
+            for proc in psutil.process_iter(['pid', 'name', 'cmdline']):
+                try:
+                    cmdline = proc.info['cmdline']
+                    if cmdline and len(cmdline) > 2:
+                        cmd_str = ' '.join(cmdline)
+                        if 'node_server.py' in cmd_str or 'Network Nodes Launcher' in cmd_str:
+                            logger.info(f"Terminating node process: {proc.pid}")
+                            proc.terminate()
+                except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess) as e:
+                    logger.error(f"Error terminating process: {str(e)}")
+        except ImportError:
+            logger.warning("psutil not available, can't terminate node processes")
+
         logger.info("Disconnected from all network nodes")
 
 
 # Create a default instance
-network_simulator = NetworkSimulator(num_nodes=4)
+network_simulator = NetworkSimulator(num_nodes=10)

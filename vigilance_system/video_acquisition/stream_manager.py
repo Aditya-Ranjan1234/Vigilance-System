@@ -193,6 +193,16 @@ class StreamManager:
         Returns:
             Dict[str, np.ndarray]: Dictionary mapping camera names to frames
         """
+        # First check if we have real network nodes available
+        from vigilance_system.network.node_client import node_client
+        stats = node_client.get_stats()
+        real_nodes = stats.get('real_nodes', 0)
+
+        # If no real nodes are available, log a warning and return empty frames
+        if real_nodes == 0:
+            logger.warning("No real network nodes available - cannot process video frames")
+            return {}
+
         frames = {}
         with self.camera_lock:
             for name, camera in self.cameras.items():
@@ -200,6 +210,33 @@ class StreamManager:
                 if success:
                     frames[name] = frame
         return frames
+
+    def on_network_disconnect(self) -> None:
+        """
+        Handle network disconnection event.
+
+        This method is called when the network nodes are disconnected.
+        It pauses all camera streams to ensure video processing stops.
+        """
+        logger.warning("Network disconnected - pausing all camera streams")
+        with self.camera_lock:
+            for camera in self.cameras.values():
+                # Don't fully stop the cameras, just pause them
+                camera.pause()
+            logger.info(f"Paused all cameras ({len(self.cameras)}) due to network disconnect")
+
+    def resume_cameras(self) -> None:
+        """
+        Resume all paused cameras.
+
+        This method can be called when network connectivity is restored.
+        """
+        logger.info("Resuming all paused cameras")
+        with self.camera_lock:
+            for camera in self.cameras.values():
+                if not camera.is_running and camera.is_connected:
+                    camera.start()
+            logger.info(f"Resumed cameras ({len(self.cameras)})")
 
 
 # Create a default instance

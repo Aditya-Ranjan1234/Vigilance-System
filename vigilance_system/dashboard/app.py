@@ -528,66 +528,27 @@ def update_algorithms():
                 # Update configuration
                 config.set('network.routing_algorithm', routing_algorithm, save=True)
 
-                # Update the network simulator
-                network_simulator.set_routing_algorithm(routing_algorithm)
+                # Get current algorithm
+                current_algorithm = network_simulator.routing_algorithm
 
-                # Force immediate update to ensure changes take effect
-                try:
-                    # Make sure node client is updated directly
-                    from vigilance_system.network.node_client import node_client
-                    node_client.set_algorithm(routing_algorithm)
+                # Only restart nodes if algorithm is changing
+                if current_algorithm != routing_algorithm:
+                    logger.info(f"Changing routing algorithm from {current_algorithm} to {routing_algorithm}")
 
-                    # Double-check that the change took effect
-                    actual_algorithm = node_client.current_algorithm
-                    if actual_algorithm != routing_algorithm:
-                        logger.warning(f"Algorithm mismatch: set to {routing_algorithm} but got {actual_algorithm}")
-                        # Try again with more force
-                        node_client.set_algorithm(routing_algorithm)
-
-                        # Verify again
-                        actual_algorithm = node_client.current_algorithm
-                        if actual_algorithm != routing_algorithm:
-                            logger.error(f"Failed to set algorithm after retry: {actual_algorithm} != {routing_algorithm}")
-                        else:
-                            logger.info(f"Algorithm set successfully after retry: {routing_algorithm}")
-
-                    # Force a reload of the network simulator with the new algorithm
+                    # This will stop all nodes, remove nodes.json, and restart with new algorithm
                     network_simulator.set_routing_algorithm(routing_algorithm)
 
-                    # Kill existing node processes before reconnecting
-                    try:
-                        import subprocess
+                    # Wait for nodes to restart
+                    logger.info("Waiting for nodes to restart with new routing algorithm...")
+                    time.sleep(5)
 
-                        # Kill all node server processes
-                        logger.info("Terminating existing node processes before reconnecting...")
-                        # Kill all python processes running node_server.py
-                        subprocess.run(['taskkill', '/F', '/FI', 'WINDOWTITLE eq Node*'], shell=True)
-                        logger.info("Existing node processes terminated")
-                    except Exception as kill_error:
-                        logger.error(f"Error terminating node processes: {str(kill_error)}")
-
-                    # Force a reconnect to ensure the algorithm takes effect
-                    try:
-                        # Disconnect first
-                        node_client.disconnect()
-                        time.sleep(1)  # Give time for connections to close
-
-                        # Connect with the new algorithm
-                        node_client.connect()
-                        logger.info(f"Reconnected node client to ensure algorithm change takes effect")
-
-                        # Verify the algorithm was applied
-                        if node_client.current_algorithm != routing_algorithm:
-                            logger.error(f"Algorithm still not applied after reconnect: {node_client.current_algorithm} != {routing_algorithm}")
-                        else:
-                            logger.info(f"Algorithm successfully applied after reconnect: {routing_algorithm}")
-                    except Exception as reconnect_error:
-                        logger.error(f"Error reconnecting node client: {str(reconnect_error)}")
-
-                    logger.info(f"Directly updated node client algorithm to {routing_algorithm}")
+                    logger.info(f"Updated network routing algorithm to {routing_algorithm}")
                     changes_made = True
-                except Exception as e:
-                    logger.error(f"Error updating node client algorithm: {str(e)}")
+                else:
+                    logger.info(f"Routing algorithm already set to {routing_algorithm}, no change needed")
+                    network_simulator.set_routing_algorithm(routing_algorithm)
+
+                changes_made = True
 
         # Apply changes to running components
         if changes_made:
@@ -675,6 +636,19 @@ def process_video_streams():
     global last_frames, last_detections, last_alerts
 
     logger.info("Starting video processing loop")
+
+    # Check if we have real network nodes available
+    from vigilance_system.network.node_client import node_client
+    stats = node_client.get_stats()
+    real_nodes = stats.get('real_nodes', 0)
+
+    if real_nodes == 0:
+        logger.warning("No real network nodes available - cannot process video streams")
+        socketio.emit('alert', {
+            'type': 'error',
+            'message': 'No real network nodes available. Please start network nodes before processing video.'
+        })
+        return
 
     # Start all cameras
     stream_manager.start_all_cameras()
@@ -1261,10 +1235,10 @@ def shutdown_server():
         processing_thread.join(timeout=5)
         logger.info("Processing thread stopped")
 
-    # Disconnect from nodes
-    from vigilance_system.network.node_client import node_client
-    node_client.disconnect()
-    logger.info("Disconnected from network nodes")
+    # Stop the network simulator (this will also disconnect from nodes and terminate node processes)
+    from vigilance_system.network.simulation import network_simulator
+    network_simulator.stop()
+    logger.info("Stopped network simulator and disconnected from network nodes")
 
     # Terminate all node processes
     try:
