@@ -1,0 +1,3 @@
+@echo off
+echo Starting Algorithm Visualization Demo...
+python run.py
