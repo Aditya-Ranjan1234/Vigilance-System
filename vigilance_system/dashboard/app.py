@@ -280,12 +280,28 @@ def get_network_status():
         # Get network stats
         stats = network_simulator.get_stats()
 
+        # First check the current_algorithm.txt file - this is the source of truth
+        algorithm_file = os.path.join(os.getcwd(), 'current_algorithm.txt')
+        file_algorithm = None
+        if os.path.exists(algorithm_file):
+            try:
+                with open(algorithm_file, 'r') as f:
+                    file_algorithm = f.read().strip()
+                    # Validate the algorithm
+                    valid_algorithms = ['direct', 'round_robin', 'least_connection', 'weighted']
+                    if file_algorithm not in valid_algorithms:
+                        logger.warning(f"Invalid algorithm in file: {file_algorithm}, using direct instead")
+                        file_algorithm = "direct"
+                    logger.debug(f"Read algorithm from file for network status: {file_algorithm}")
+            except Exception as file_error:
+                logger.error(f"Error reading algorithm file for network status: {str(file_error)}")
+
         # Get node client stats
         from vigilance_system.network.node_client import node_client
         client_stats = node_client.get_stats()
 
-        # Get current algorithm
-        current_algorithm = client_stats.get('algorithm', stats.get('routing_algorithm', 'direct'))
+        # Get current algorithm - prioritize file algorithm over node client
+        current_algorithm = file_algorithm if file_algorithm else client_stats.get('algorithm', stats.get('routing_algorithm', 'direct'))
 
         # Count real vs simulated nodes
         real_nodes = client_stats.get('real_nodes', 0)
@@ -325,9 +341,22 @@ def get_network_status():
         })
     except Exception as e:
         logger.error(f"Error in network status API: {str(e)}")
+        # Get the current algorithm from file as the source of truth
+        current_algorithm = 'direct'  # Default fallback
+        try:
+            algorithm_file = os.path.join(os.getcwd(), 'current_algorithm.txt')
+            if os.path.exists(algorithm_file):
+                with open(algorithm_file, 'r') as f:
+                    file_algorithm = f.read().strip()
+                    if file_algorithm in ['direct', 'round_robin', 'least_connection', 'weighted']:
+                        current_algorithm = file_algorithm
+                        logger.info(f"Using algorithm from file for network status fallback: {current_algorithm}")
+        except Exception as file_error:
+            logger.error(f"Error reading algorithm file for network status fallback: {str(file_error)}")
+
         return jsonify({
             'error': str(e),
-            'current_algorithm': 'direct',
+            'current_algorithm': current_algorithm,
             'real_nodes': 0,
             'simulated_nodes': 0,
             'total_nodes': 0,
@@ -371,16 +400,32 @@ def get_network_visualization():
         # Add client IP to stats
         stats['client_ip'] = client_ip
 
-        # Make sure routing algorithm is correctly reported
+        # First check the current_algorithm.txt file - this is the source of truth
+        algorithm_file = os.path.join(os.getcwd(), 'current_algorithm.txt')
+        file_algorithm = None
+        if os.path.exists(algorithm_file):
+            try:
+                with open(algorithm_file, 'r') as f:
+                    file_algorithm = f.read().strip()
+                    # Validate the algorithm
+                    valid_algorithms = ['direct', 'round_robin', 'least_connection', 'weighted']
+                    if file_algorithm not in valid_algorithms:
+                        logger.warning(f"Invalid algorithm in file: {file_algorithm}, using direct instead")
+                        file_algorithm = "direct"
+                    logger.debug(f"Read algorithm from file for visualization: {file_algorithm}")
+            except Exception as file_error:
+                logger.error(f"Error reading algorithm file for visualization: {str(file_error)}")
+
+        # Get node client stats
         from vigilance_system.network.node_client import node_client
         client_stats = node_client.get_stats()
 
-        # Ensure routing algorithm is correctly reported
-        current_algorithm = client_stats.get('algorithm', stats.get('routing_algorithm', 'direct'))
+        # Ensure routing algorithm is correctly reported - prioritize file algorithm
+        current_algorithm = file_algorithm if file_algorithm else client_stats.get('algorithm', stats.get('routing_algorithm', 'direct'))
         stats['routing_algorithm'] = current_algorithm
 
-        # Log the current routing algorithm for debugging
-        logger.info(f"Current routing algorithm: {current_algorithm}")
+        # Log the current routing algorithm for debugging (only at debug level)
+        logger.debug(f"Current routing algorithm: {current_algorithm}")
 
         return jsonify({
             'frame': frame_base64,
@@ -388,11 +433,24 @@ def get_network_visualization():
         })
     except Exception as e:
         logger.error(f"Error in network visualization API: {str(e)}")
-        # Return a fallback response with error information
+        # Get the current algorithm from file as the source of truth
+        current_algorithm = 'direct'  # Default fallback
+        try:
+            algorithm_file = os.path.join(os.getcwd(), 'current_algorithm.txt')
+            if os.path.exists(algorithm_file):
+                with open(algorithm_file, 'r') as f:
+                    file_algorithm = f.read().strip()
+                    if file_algorithm in ['direct', 'round_robin', 'least_connection', 'weighted']:
+                        current_algorithm = file_algorithm
+                        logger.info(f"Using algorithm from file for fallback: {current_algorithm}")
+        except Exception as file_error:
+            logger.error(f"Error reading algorithm file for fallback: {str(file_error)}")
+
+        # Return a fallback response with error information but correct algorithm
         return jsonify({
             'frame': '',  # Empty frame
             'stats': {
-                'routing_algorithm': 'direct',
+                'routing_algorithm': current_algorithm,
                 'frame_rate': 25,
                 'resolution': 'medium',
                 'bandwidth': 0.0,
@@ -520,7 +578,7 @@ def update_algorithms():
                 routing_algorithm = network_data['routing_algorithm']
 
                 # Validate the algorithm
-                valid_algorithms = ['direct', 'round_robin', 'least_connection', 'weighted', 'ip_hash', 'yolov8']
+                valid_algorithms = ['direct', 'round_robin', 'least_connection', 'weighted']
                 if routing_algorithm not in valid_algorithms:
                     logger.warning(f"Invalid routing algorithm: {routing_algorithm}. Using 'direct' instead.")
                     routing_algorithm = 'direct'
@@ -575,6 +633,67 @@ def update_algorithms():
         except Exception as save_error:
             logger.error(f"Error saving configuration: {str(save_error)}")
         return jsonify({'status': 'error', 'message': str(e)})
+
+
+@app.route('/api/set_algorithm', methods=['POST'])
+@requires_auth
+def set_algorithm():
+    """
+    Set the routing algorithm directly.
+    This is a dedicated endpoint for changing just the algorithm.
+    """
+    try:
+        data = request.get_json()
+        algorithm = data.get('algorithm', 'direct')
+
+        # Validate algorithm
+        valid_algorithms = ['direct', 'round_robin', 'least_connection', 'weighted']
+        if algorithm not in valid_algorithms:
+            logger.warning(f"Invalid algorithm: {algorithm}. Using 'direct' instead.")
+            return jsonify({'error': f'Invalid algorithm: {algorithm}'}), 400
+
+        # First save to file for persistence - this is the source of truth
+        algorithm_file = os.path.join(os.getcwd(), 'current_algorithm.txt')
+        try:
+            with open(algorithm_file, 'w') as f:
+                f.write(algorithm)
+            logger.info(f"Successfully saved algorithm to file: {algorithm}")
+        except Exception as file_error:
+            logger.error(f"Error saving algorithm to file: {str(file_error)}")
+            return jsonify({'error': f'Error saving algorithm to file: {str(file_error)}'}), 500
+
+        # Update the algorithm in node_client
+        try:
+            from vigilance_system.network.node_client import node_client
+            node_client.set_algorithm(algorithm)
+            logger.info(f"Successfully set algorithm in node_client: {algorithm}")
+        except Exception as client_error:
+            logger.error(f"Error setting algorithm in node_client: {str(client_error)}")
+            # Continue anyway since the file is the source of truth
+
+        # Force a recalculation of connections in the network visualizer
+        try:
+            from vigilance_system.network.visualization import network_visualizer
+            network_visualizer.stats['routing_algorithm'] = algorithm
+            network_visualizer._calculate_connections()
+            logger.info(f"Successfully recalculated connections for algorithm: {algorithm}")
+        except Exception as viz_error:
+            logger.error(f"Error recalculating connections: {str(viz_error)}")
+            # Continue anyway since the file is the source of truth
+
+        # Also update the network simulator
+        try:
+            from vigilance_system.network.simulation import network_simulator
+            network_simulator.set_routing_algorithm(algorithm)
+            logger.info(f"Successfully set algorithm in network_simulator: {algorithm}")
+        except Exception as sim_error:
+            logger.error(f"Error setting algorithm in network_simulator: {str(sim_error)}")
+            # Continue anyway since the file is the source of truth
+
+        return jsonify({'success': True, 'algorithm': algorithm})
+    except Exception as e:
+        logger.error(f"Error setting algorithm: {str(e)}")
+        return jsonify({'error': str(e)}), 500
 
 
 @app.route('/visualizations')
@@ -643,12 +762,25 @@ def process_video_streams():
     real_nodes = stats.get('real_nodes', 0)
 
     if real_nodes == 0:
-        logger.warning("No real network nodes available - cannot process video streams")
+        logger.warning("No real network nodes available - will use simulated nodes")
         socketio.emit('alert', {
-            'type': 'error',
-            'message': 'No real network nodes available. Please start network nodes before processing video.'
+            'type': 'warning',
+            'message': 'No real network nodes available. Using simulated nodes for processing.'
         })
-        return
+
+        # Create simulated nodes if needed
+        if not hasattr(node_client, 'using_simulation_mode') or not node_client.using_simulation_mode:
+            logger.info("Setting up simulation mode for node client")
+            node_client.using_simulation_mode = True
+            node_client._create_simulated_nodes()
+
+        # Ensure we have at least some nodes
+        if not node_client.node_sockets:
+            logger.info("Creating default simulated nodes")
+            for i in range(1, 11):
+                node_id = f"node_{i}"
+                if node_id not in node_client.node_sockets:
+                    node_client._create_simulated_node(node_id)
 
     # Start all cameras
     stream_manager.start_all_cameras()
@@ -1115,58 +1247,109 @@ def process_video_streams():
                           (10, 15), cv2.FONT_HERSHEY_SIMPLEX, 0.4, (255, 255, 255), 1)
 
                 # Make sure the frame is not empty
-                if frame_with_detections is not None and frame_with_detections.size > 0:
-                    # Resize the frame to reduce bandwidth (based on resolution setting)
-                    resolution_setting = config.get('network.resolution', 'medium')
-                    if resolution_setting == 'low':
-                        target_width = 640  # 480p
-                    elif resolution_setting == 'medium':
-                        target_width = 854  # 720p (16:9 aspect ratio)
+                try:
+                    if frame_with_detections is not None and frame_with_detections.size > 0:
+                        # Resize the frame to reduce bandwidth (based on resolution setting)
+                        resolution_setting = config.get('network.resolution', 'medium')
+                        if resolution_setting == 'low':
+                            target_width = 640  # 480p
+                        elif resolution_setting == 'medium':
+                            target_width = 854  # 720p (16:9 aspect ratio)
+                        else:
+                            target_width = 1280  # 1080p
+
+                        # Calculate height to maintain aspect ratio
+                        h, w = frame_with_detections.shape[:2]
+                        target_height = int(h * (target_width / w))
+
+                        # Resize only if the frame is larger than target size
+                        if w > target_width:
+                            frame_with_detections = cv2.resize(frame_with_detections, (target_width, target_height),
+                                                              interpolation=cv2.INTER_AREA)  # Better quality downsampling
+
+                        # Optimize JPEG encoding quality based on resolution
+                        # Lower quality for better performance
+                        if resolution_setting == 'low':
+                            quality = 65
+                        elif resolution_setting == 'medium':
+                            quality = 75
+                        else:
+                            quality = 85
+
+                        # Convert frame to JPEG with optimized quality
+                        encode_params = [int(cv2.IMWRITE_JPEG_QUALITY), quality]
+                        success, buffer = cv2.imencode('.jpg', frame_with_detections, encode_params)
+
+                        if not success:
+                            raise ValueError("Failed to encode frame to JPEG")
+
+                        frame_bytes = buffer.tobytes()
+
+                        # Encode as base64 for sending to clients
+                        frame_base64 = base64.b64encode(frame_bytes).decode('utf-8')
+
+                        # Log successful encoding occasionally
+                        if random.random() < 0.01:  # Log roughly 1% of frames
+                            logger.info(f"Successfully encoded frame for camera {camera_name}: {len(frame_base64)} bytes")
                     else:
-                        target_width = 1280  # 1080p
+                        # Create a blank frame with error message if the frame is empty
+                        blank_frame = np.zeros((480, 640, 3), dtype=np.uint8)
+                        # Ensure coordinates are integers
+                        text_position = (50, 240)  # x, y coordinates as integers
+                        safe_putText(blank_frame, "No video feed available", text_position,
+                                   cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2)
 
-                    # Calculate height to maintain aspect ratio
-                    h, w = frame_with_detections.shape[:2]
-                    target_height = int(h * (target_width / w))
+                        # Add timestamp to show it's updating
+                        timestamp = time.strftime("%H:%M:%S", time.localtime())
+                        safe_putText(blank_frame, f"Time: {timestamp}", (50, 300),
+                                   cv2.FONT_HERSHEY_SIMPLEX, 0.7, (200, 200, 200), 2)
 
-                    # Resize only if the frame is larger than target size
-                    if w > target_width:
-                        frame_with_detections = cv2.resize(frame_with_detections, (target_width, target_height),
-                                                          interpolation=cv2.INTER_AREA)  # Better quality downsampling
+                        # Convert blank frame to JPEG
+                        success, buffer = cv2.imencode('.jpg', blank_frame)
 
-                    # Optimize JPEG encoding quality based on resolution
-                    # Lower quality for better performance
-                    if resolution_setting == 'low':
-                        quality = 65
-                    elif resolution_setting == 'medium':
-                        quality = 75
-                    else:
-                        quality = 85
+                        if not success:
+                            raise ValueError("Failed to encode blank frame to JPEG")
 
-                    # Convert frame to JPEG with optimized quality
-                    encode_params = [int(cv2.IMWRITE_JPEG_QUALITY), quality]
-                    _, buffer = cv2.imencode('.jpg', frame_with_detections, encode_params)
-                    frame_bytes = buffer.tobytes()
+                        frame_bytes = buffer.tobytes()
 
-                    # Encode as base64 for sending to clients
-                    frame_base64 = base64.b64encode(frame_bytes).decode('utf-8')
-                else:
-                    # Create a blank frame with error message if the frame is empty
-                    blank_frame = np.zeros((480, 640, 3), dtype=np.uint8)
-                    # Ensure coordinates are integers
-                    text_position = (50, 240)  # x, y coordinates as integers
-                    safe_putText(blank_frame, "No video feed available", text_position,
+                        # Encode as base64 for sending to clients
+                        frame_base64 = base64.b64encode(frame_bytes).decode('utf-8')
+
+                        # Log the error
+                        logger.warning(f"Empty frame detected for camera {camera_name}")
+                except Exception as frame_error:
+                    # Create a fallback error frame
+                    error_frame = np.zeros((480, 640, 3), dtype=np.uint8)
+                    safe_putText(error_frame, "Error processing video", (50, 100),
                                cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2)
+                    safe_putText(error_frame, f"Error: {str(frame_error)}", (50, 150),
+                               cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 255, 255), 2)
+                    safe_putText(error_frame, "Please check your video configuration", (50, 200),
+                               cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 255, 255), 2)
 
-                    # Convert blank frame to JPEG
-                    _, buffer = cv2.imencode('.jpg', blank_frame)
-                    frame_bytes = buffer.tobytes()
+                    # Add timestamp to show it's updating
+                    timestamp = time.strftime("%H:%M:%S", time.localtime())
+                    safe_putText(error_frame, f"Time: {timestamp}", (50, 300),
+                               cv2.FONT_HERSHEY_SIMPLEX, 0.7, (200, 200, 200), 2)
 
-                    # Encode as base64 for sending to clients
-                    frame_base64 = base64.b64encode(frame_bytes).decode('utf-8')
+                    # Add a moving element to make it look like a video
+                    current_time = time.time()
+                    position = int(((current_time % 5) / 5) * 540)  # Move across the screen every 5 seconds
+                    cv2.circle(error_frame, (50 + position, 350), 20, (0, 165, 255), -1)
+
+                    # Convert error frame to JPEG
+                    try:
+                        _, buffer = cv2.imencode('.jpg', error_frame)
+                        frame_bytes = buffer.tobytes()
+                        frame_base64 = base64.b64encode(frame_bytes).decode('utf-8')
+                    except Exception as e:
+                        # Last resort - create a minimal base64 encoded image
+                        logger.error(f"Critical error encoding frame: {str(e)}")
+                        # Create a minimal 1x1 pixel JPEG
+                        frame_base64 = "R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
 
                     # Log the error
-                    logger.warning(f"Empty frame detected for camera {camera_name}")
+                    logger.error(f"Error processing frame for camera {camera_name}: {str(frame_error)}")
 
                 # Emit frame to clients
                 socketio.emit('frame_update', {

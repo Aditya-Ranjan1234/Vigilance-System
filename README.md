@@ -88,7 +88,7 @@ python -m vigilance_system
 
 ## Configuration
 
-The system is configured using a `config.yaml` file in the root directory. A default configuration file is provided, but you should modify it to match your setup.
+The system is configured using a `config.yaml` file in the `config` directory. A default configuration file is provided, but you should modify it to match your setup.
 
 ### Camera Configuration
 
@@ -127,7 +127,7 @@ cameras:
 
 ### Video File Support
 
-If no cameras are configured, the system will automatically use video files from the `vigilance_system/videos` directory. This is useful for:
+If no cameras are configured, the system will automatically use video files from the `videos` directory. This is useful for:
 
 1. Testing the system without actual cameras
 2. Analyzing pre-recorded surveillance footage
@@ -138,17 +138,20 @@ To use this feature:
 1. Download sample videos:
    ```bash
    # Download a single sample video
-   python download_sample_videos.py
+   python utils/download_sample_videos.py
 
    # Download all sample videos
-   python download_sample_videos.py --all
+   python utils/download_sample_videos.py --all
    ```
 
-2. Or place your own video files in the `vigilance_system/videos` directory
+2. Or place your own video files in the appropriate subdirectory:
+   - `videos/samples/` - For sample videos
+   - `videos/surveillance/` - For surveillance videos
+   - `videos/test/` - For test videos
 
 The system will automatically detect and use these videos as camera sources. The system supports various video formats including MP4, AVI, MOV, MKV, WMV, and FLV.
 
-**Note**: The system currently includes sample WhatsApp video files that demonstrate different scenarios like loitering and crowd detection.
+**Note**: The system currently includes sample video files that demonstrate different scenarios like loitering and crowd detection.
 
 ### Detection Configuration
 
@@ -225,77 +228,71 @@ Check out the `examples` directory for sample scripts demonstrating how to use d
 
 ```
 Main EL/
-├── vigilance_system/         # Main package
+├── alerts/                     # Alert images and data
+│   ├── crowd/                  # Crowd-related alerts
+│   └── loitering/              # Loitering-related alerts
+├── config/                     # Configuration files
+│   ├── config.yaml             # Main configuration
+│   ├── current_algorithm.txt   # Current algorithm setting
+│   └── nodes.json              # Network node configuration
+├── docs/                       # Documentation files
+│   ├── COMPONENTS_GUIDE.md
+│   ├── DEPENDENCIES.md
+│   ├── QUICK_START.md
+│   ├── REORGANIZATION_SUMMARY.md
+│   ├── SYSTEM_OVERVIEW.md
+│   └── Vigilance_System_Project_Report.txt
+├── logs/                       # Log files
+├── models/                     # Model files
+│   └── yolov5s.pt              # YOLOv5 model
+├── scripts/                    # Script files
+├── tests/                      # Test files
+│   └── test_*.py               # Test scripts
+├── utils/                      # Utility scripts
+│   ├── check_sklearn.py
+│   ├── download_sample_videos.py
+│   └── reorganize.py
+├── videos/                     # Video files
+│   ├── samples/                # Sample videos
+│   ├── surveillance/           # Surveillance videos
+│   └── test/                   # Test videos
+├── vigilance_system/           # Main package
 │   ├── __init__.py
 │   ├── __main__.py
-│   ├── video_acquisition/    # Camera and stream handling
+│   ├── algorithms/             # Algorithm implementations
 │   │   ├── __init__.py
-│   │   ├── camera.py
-│   │   └── stream_manager.py
-│   ├── preprocessing/        # Video preprocessing
-│   │   ├── __init__.py
-│   │   ├── frame_extractor.py
-│   │   └── video_stabilizer.py
-│   ├── detection/            # Object detection
-│   │   ├── __init__.py
-│   │   ├── model_loader.py
-│   │   └── object_detector.py
-│   ├── alert/                # Alert generation
-│   │   ├── __init__.py
-│   │   ├── decision_maker.py
-│   │   └── notifier.py
-│   ├── alerts/               # Stored alert images and metadata
-│   │   └── [alert files]
-│   ├── dashboard/            # Web interface
+│   │   ├── tracking/           # Tracking algorithms (centroid, kalman, etc.)
+│   │   ├── classification/     # Classification algorithms (SVM, KNN, Naive Bayes)
+│   │   └── analysis/           # Analysis algorithms (basic, weighted, fuzzy)
+│   ├── dashboard/              # Web interface
 │   │   ├── __init__.py
 │   │   ├── app.py
 │   │   ├── templates/
 │   │   └── static/
-│   │       ├── css/          # Stylesheets
-│   │       ├── js/           # JavaScript files
-│   │       └── img/          # Images and icons
-│   ├── algorithms/           # Algorithm implementations and visualizations
+│   │       ├── css/            # Stylesheets
+│   │       ├── js/             # JavaScript files
+│   │       └── img/            # Images and icons
+│   ├── detection/              # Object detection
 │   │   ├── __init__.py
-│   │   ├── tracking/         # Tracking algorithms (centroid, kalman, etc.)
-│   │   ├── classification/   # Classification algorithms (SVM, KNN, Naive Bayes)
-│   │   └── analysis/         # Analysis algorithms (basic, weighted, fuzzy)
-│   ├── network/              # Network simulation components
+│   │   ├── model_loader.py
+│   │   └── object_detector.py
+│   ├── network/                # Network simulation components
 │   │   ├── __init__.py
-│   │   ├── routing.py        # Routing algorithm implementations
-│   │   └── metrics.py        # Network performance metrics
-│   ├── utils/                # Utility functions
+│   │   ├── routing.py          # Routing algorithm implementations
+│   │   └── metrics.py          # Network performance metrics
+│   ├── preprocessing/          # Video preprocessing
+│   │   ├── __init__.py
+│   │   ├── frame_extractor.py
+│   │   └── video_stabilizer.py
+│   ├── tracking/               # Object tracking
+│   ├── utils/                  # Utility functions
 │   │   ├── __init__.py
 │   │   ├── config.py
 │   │   └── logger.py
-│   └── videos/               # Video files for testing
-│       ├── README.md
-│       └── [video files]
-├── alerts/                   # Generated alert images and metadata
-│   └── [alert files]
-├── logs/                     # Log files
-│   └── vigilance.log
-├── models/                   # Downloaded ML models
-│   └── [model files]
-├── tests/                    # Test files
-│   ├── test_config.py
-│   ├── test_camera.py
-│   └── README.md
-├── algorithms/               # Algorithm visualizations
-│   ├── README.md
-│   ├── visualization.py
-│   └── run_visualizations.py
-├── examples/                 # Example scripts
-│   ├── simple_detection.py
-│   └── README.md
-├── videos/                   # Additional video files
-│   └── [video files]
-├── config.yaml               # Configuration file
-├── requirements.txt          # Dependencies
-├── setup.py                  # Package setup
-├── setup.sh                  # Linux/Mac setup script
-├── setup.bat                 # Windows setup script
-├── download_sample_videos.py # Script to download sample videos
-└── README.md                 # This file
+│   └── videos -> ../videos     # Symbolic link to videos directory
+├── requirements.txt            # Dependencies
+├── setup.py                    # Package setup
+└── README.md                   # This file
 ```
 
 ### Running Tests
@@ -355,8 +352,8 @@ pytest --cov=vigilance_system
 
 2. **Video file issues**:
    - Make sure video files are in a supported format (MP4, AVI, MOV, MKV, WMV, FLV)
-   - Check that the video files are in the correct directory (`vigilance_system/videos`)
-   - Try downloading sample videos using the provided script: `python download_sample_videos.py --all`
+   - Check that the video files are in the correct directory (`videos` with appropriate subdirectories)
+   - Try downloading sample videos using the provided script: `python utils/download_sample_videos.py --all`
    - If a video file won't play, try converting it to MP4 using a tool like FFmpeg
 
 3. **Slow detection performance**:

@@ -1,0 +1,179 @@
+{
+  "type": "crowd",
+  "camera": "Camera 1 - Entrance",
+  "people_count": 13,
+  "timestamp": 1747169847.4191704,
+  "message": "Crowd detected on camera 'Camera 1 - Entrance': 13 people",
+  "algorithm": "decision_tree",
+  "people_locations": [
+    {
+      "object_id": 0,
+      "center": [
+        46.5,
+        662.0
+      ],
+      "bbox": [
+        0,
+        422,
+        93,
+        480
+      ]
+    },
+    {
+      "object_id": 1,
+      "center": [
+        196.5,
+        592.0
+      ],
+      "bbox": [
+        82,
+        363,
+        229,
+        458
+      ]
+    },
+    {
+      "object_id": 2,
+      "center": [
+        537.5,
+        535.5
+      ],
+      "bbox": [
+        335,
+        324,
+        405,
+        423
+      ]
+    },
+    {
+      "object_id": 3,
+      "center": [
+        828.0,
+        242.5
+      ],
+      "bbox": [
+        526,
+        90,
+        604,
+        305
+      ]
+    },
+    {
+      "object_id": 4,
+      "center": [
+        264.5,
+        332.5
+      ],
+      "bbox": [
+        1,
+        103,
+        527,
+        459
+      ]
+    },
+    {
+      "object_id": 5,
+      "center": [
+        682.5,
+        32.5
+      ],
+      "bbox": [
+        399,
+        2,
+        567,
+        61
+      ]
+    },
+    {
+      "object_id": 6,
+      "center": [
+        769.5,
+        520.5
+      ],
+      "bbox": [
+        489,
+        322,
+        561,
+        397
+      ]
+    },
+    {
+      "object_id": 7,
+      "center": [
+        781.0,
+        245.5
+      ],
+      "bbox": [
+        479,
+        90,
+        604,
+        311
+      ]
+    },
+    {
+      "object_id": 8,
+      "center": [
+        715.0,
+        579.5
+      ],
+      "bbox": [
+        458,
+        362,
+        514,
+        435
+      ]
+    },
+    {
+      "object_id": 9,
+      "center": [
+        700.5,
+        681.0
+      ],
+      "bbox": [
+        440,
+        441,
+        521,
+        480
+      ]
+    },
+    {
+      "object_id": 10,
+      "center": [
+        790.0,
+        282.5
+      ],
+      "bbox": [
+        501,
+        128,
+        578,
+        309
+      ]
+    },
+    {
+      "object_id": 11,
+      "center": [
+        751.0,
+        300.0
+      ],
+      "bbox": [
+        479,
+        176,
+        544,
+        248
+      ]
+    },
+    {
+      "object_id": 12,
+      "center": [
+        799.0,
+        201.0
+      ],
+      "bbox": [
+        515,
+        116,
+        568,
+        170
+      ]
+    }
+  ]
+}

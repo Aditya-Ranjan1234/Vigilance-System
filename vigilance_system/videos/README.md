@@ -1,10 +1,18 @@
-# Video Files for Vigilance System
+# Video Files Directory
 
-This directory is used to store video files that can be used by the Vigilance System when no cameras are configured.
+This directory contains video files used by the Vigilance System for testing and demonstration purposes.
+
+## Adding Videos
+
+To add new videos to the system:
+
+1. Simply place your video files in this directory or any subdirectory
+2. The system will automatically detect and load all video files with supported extensions
+3. Videos will appear in the dashboard with their filename as the camera name
 
 ## Supported Video Formats
 
-The system supports the following video formats:
+The following video formats are supported:
 - MP4 (.mp4)
 - AVI (.avi)
 - MOV (.mov)
@@ -12,44 +20,29 @@ The system supports the following video formats:
 - WMV (.wmv)
 - FLV (.flv)
 
-## How to Use
+## Organizing Videos
 
-1. Place your surveillance video files in this directory
-2. The system will automatically detect and use these videos if no cameras are configured in `config.yaml`
-3. Each video file will be treated as a separate camera source
-4. Videos will loop by default
+You can organize your videos into subdirectories for better management:
 
-## Example
-
-If you have the following files in this directory:
-- `store_entrance.mp4`
-- `parking_lot.mp4`
-
-The system will create two virtual cameras named "store_entrance" and "parking_lot" that will continuously play these videos.
-
-## Finding Sample Videos
-
-If you don't have your own surveillance videos, you can find sample videos from various sources:
-
-1. Public datasets:
-   - [VIRAT Video Dataset](https://viratdata.org/)
-   - [PETS Dataset](https://www.cvg.reading.ac.uk/PETS2009/a.html)
-
-2. Stock video websites:
-   - [Pexels](https://www.pexels.com/videos/)
-   - [Pixabay](https://pixabay.com/videos/)
-
-3. YouTube (download with permission)
-
-## Configuration
-
-If you want more control over how video files are used, you can explicitly configure them in the `config.yaml` file:
-
-```yaml
-cameras:
-  - name: custom_name
-    url: videos/your_video.mp4
-    type: video
-    fps: null  # null means use the video's native FPS
-    loop: true  # Loop the video when it reaches the end
 ```
+videos/
+├── traffic/
+│   ├── highway.mp4
+│   └── intersection.mp4
+├── surveillance/
+│   ├── parking_lot.mp4
+│   └── building_entrance.mp4
+└── test_videos/
+    ├── test1.mp4
+    └── test2.mp4
+```
+
+The system will recursively scan all subdirectories and load all video files.
+
+## Video Properties
+
+For optimal performance:
+- Resolution: 640x480 or higher
+- Frame rate: 25-30 FPS
+- Codec: H.264 or H.265
+- Duration: At least 10 seconds (videos will loop automatically)

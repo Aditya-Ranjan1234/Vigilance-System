@@ -325,14 +325,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6 mb-3">
-                                    <div id="ipHashCard" class="card algorithm-card" data-algorithm="ip_hash">
-                                        <div class="card-body text-center">
-                                            <i class="bi bi-hash mb-2" style="font-size: 1.5rem; color: #fd7e14;"></i>
-                                            <h6>IP Hash</h6>
-                                        </div>
-                                    </div>
-                                </div>
+                                <!-- IP Hash and YOLOv8 removed as they are not routing algorithms -->
                             </div>
                         </div>
 
@@ -383,8 +376,7 @@
                 weighted: `<h6>Weighted Distribution</h6>
                         <p>Routes based on node capacity weights. More powerful nodes receive more traffic proportional to their capacity.</p>`,
 
-                ip_hash: `<h6>IP Hash</h6>
-                        <p>Consistently routes the same camera to the same node. This ensures session persistence and consistent processing.</p>`
+                // IP Hash and YOLOv8 descriptions removed as they are not routing algorithms
             };
 
             // Update visualization periodically

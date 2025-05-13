@@ -51,19 +51,29 @@ class NodeClient:
         # Initialize with default algorithm
         self.current_algorithm = 'direct'
 
-        # Try to load saved algorithm
+        # Try to load saved algorithm from current_algorithm.txt in the current directory
         try:
-            algorithm_file = os.path.join(os.path.dirname(self.nodes_file), 'current_algorithm.txt')
+            # First check for current_algorithm.txt in the current working directory
+            algorithm_file = os.path.join(os.getcwd(), 'current_algorithm.txt')
             if os.path.exists(algorithm_file):
                 with open(algorithm_file, 'r') as f:
                     saved_algorithm = f.read().strip()
-                    if saved_algorithm in ['direct', 'round_robin', 'least_connection', 'weighted', 'ip_hash']:
+                    if saved_algorithm in ['direct', 'round_robin', 'least_connection', 'weighted']:
                         self.current_algorithm = saved_algorithm
-                        logger.info(f"Loaded saved algorithm: {saved_algorithm}")
+                        logger.info(f"Loaded saved algorithm from current directory: {saved_algorithm}")
                     else:
-                        logger.warning(f"Invalid saved algorithm: {saved_algorithm}, using default")
+                        logger.warning(f"Invalid saved algorithm in current directory: {saved_algorithm}, using default")
+                        # Write the default algorithm to the file
+                        with open(algorithm_file, 'w') as f:
+                            f.write('direct')
+                        logger.info("Wrote default algorithm 'direct' to current_algorithm.txt")
+            else:
+                # If file doesn't exist in current directory, create it with default algorithm
+                with open(algorithm_file, 'w') as f:
+                    f.write('direct')
+                logger.info("Created current_algorithm.txt with default algorithm 'direct'")
         except Exception as e:
-            logger.warning(f"Failed to load saved algorithm: {str(e)}")
+            logger.warning(f"Failed to load/create algorithm file in current directory: {str(e)}")
 
         self.frame_counter = 0
         self.camera_counters = {}
@@ -109,8 +119,8 @@ class NodeClient:
         self._ensure_nodes_running()
 
         # Wait longer for nodes to start up
-        logger.info("Waiting 15 seconds for nodes to start up...")
-        time.sleep(15)  # Give nodes more time to start up
+        logger.info("Waiting 5 seconds for nodes to start up...")
+        time.sleep(5)  # Give nodes more time to start up, but not too long
 
         # Try to connect to each node with a reasonable timeout
         max_retries = 5  # Reduced number of retries to avoid excessive waiting
@@ -335,6 +345,23 @@ class NodeClient:
             if node_id not in existing_nodes:
                 self._create_simulated_node(node_id)
                 logger.info(f"Created additional simulated node {node_id} to ensure 10 total nodes")
+
+        # Create default camera connections if none exist
+        if not self.camera_last_nodes:
+            logger.info("No camera connections found, creating default connections")
+
+            # Create 3 default cameras
+            for i in range(1, 4):
+                camera_id = f"Camera {i}"
+
+                # Distribute cameras evenly across nodes
+                node_index = (i - 1) % len(self.node_sockets)
+                node_id = list(self.node_sockets.keys())[node_index]
+
+                # Set the camera's last node
+                self.camera_last_nodes[camera_id] = node_id
+
+                logger.info(f"Created default connection: Camera {i} -> {node_id}")
 
     def _simulate_frame_processing(self, message):
         """
@@ -758,10 +785,10 @@ class NodeClient:
         Select a node based on the current routing algorithm.
 
         Args:
-            camera_id: Camera ID
+            camera_id: ID of the camera to route
 
         Returns:
-            str: Selected node ID
+            str: ID of the selected node
         """
         if not self.node_sockets:
             return "no_nodes"
@@ -854,16 +881,11 @@ class NodeClient:
 
             return list(self.node_sockets.keys())[0]
 
-        elif self.current_algorithm == 'ip_hash':
-            # Use camera ID hash for consistent routing
-            node_ids = list(self.node_sockets.keys())
-            hash_value = hash(camera_id)
-            return node_ids[hash_value % len(node_ids)]
-
-
-
-        # Default to first node
-        return list(self.node_sockets.keys())[0]
+        # Default fallback for any algorithm
+        # If we reach here, use the first available node
+        if self.node_sockets:
+            return list(self.node_sockets.keys())[0]
+        return None
 
     def set_algorithm(self, algorithm: str):
         """
@@ -872,7 +894,7 @@ class NodeClient:
         Args:
             algorithm: Routing algorithm name
         """
-        valid_algorithms = ['direct', 'round_robin', 'least_connection', 'weighted', 'ip_hash']
+        valid_algorithms = ['direct', 'round_robin', 'least_connection', 'weighted']
 
         if algorithm not in valid_algorithms:
             logger.warning(f"Invalid algorithm: {algorithm}. Using 'direct' instead.")
@@ -891,6 +913,16 @@ class NodeClient:
 
         # Log the change
         logger.info(f"Set routing algorithm from {previous_algorithm} to {algorithm}")
+
+        # Save the algorithm to current_algorithm.txt in the current directory
+        try:
+            # Always save to current_algorithm.txt in the current working directory
+            algorithm_file = os.path.join(os.getcwd(), 'current_algorithm.txt')
+            with open(algorithm_file, 'w') as f:
+                f.write(algorithm)
+            logger.info(f"Saved algorithm to current_algorithm.txt: {algorithm}")
+        except Exception as e:
+            logger.error(f"Failed to save algorithm to current_algorithm.txt: {str(e)}")
 
         # Force a reset of active connections to ensure the new algorithm takes effect
         self.camera_last_nodes = {}

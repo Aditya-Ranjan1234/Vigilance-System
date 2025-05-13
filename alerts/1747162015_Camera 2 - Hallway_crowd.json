@@ -1,0 +1,114 @@
+{
+  "type": "crowd",
+  "camera": "Camera 2 - Hallway",
+  "people_count": 8,
+  "timestamp": 1747162015.261377,
+  "message": "Crowd detected on camera 'Camera 2 - Hallway': 8 people",
+  "algorithm": "decision_tree",
+  "people_locations": [
+    {
+      "object_id": 24,
+      "center": [
+        190.5,
+        601.5
+      ],
+      "bbox": [
+        98,
+        385,
+        185,
+        433
+      ]
+    },
+    {
+      "object_id": 25,
+      "center": [
+        208.0,
+        798.5
+      ],
+      "bbox": [
+        0,
+        424,
+        416,
+        749
+      ]
+    },
+    {
+      "object_id": 26,
+      "center": [
+        313.0,
+        500.5
+      ],
+      "bbox": [
+        105,
+        126,
+        416,
+        749
+      ]
+    },
+    {
+      "object_id": 27,
+      "center": [
+        90.0,
+        46.0
+      ],
+      "bbox": [
+        0,
+        0,
+        180,
+        92
+      ]
+    },
+    {
+      "object_id": 28,
+      "center": [
+        451.0,
+        601.0
+      ],
+      "bbox": [
+        243,
+        374,
+        416,
+        454
+      ]
+    },
+    {
+      "object_id": 29,
+      "center": [
+        241.0,
+        794.0
+      ],
+      "bbox": [
+        150,
+        500,
+        182,
+        588
+      ]
+    },
+    {
+      "object_id": 30,
+      "center": [
+        48.5,
+        1004.0
+      ],
+      "bbox": [
+        0,
+        651,
+        97,
+        706
+      ]
+    },
+    {
+      "object_id": 31,
+      "center": [
+        15.5,
+        694.5
+      ],
+      "bbox": [
+        0,
+        433,
+        31,
+        523
+      ]
+    }
+  ]
+}

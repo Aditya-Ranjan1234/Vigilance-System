@@ -12,6 +12,7 @@ import time
 import math
 import colorsys
 import random
+import os
 
 from vigilance_system.utils.logger import get_logger
 from vigilance_system.utils.cv_utils import safe_putText
@@ -84,9 +85,74 @@ class NetworkVisualizer:
         # Force refresh of routing algorithm from node client
         try:
             from vigilance_system.network.node_client import node_client
-            current_algorithm = node_client.current_algorithm
-            # Update the stats with the current algorithm from node_client
+
+            # First check the current_algorithm.txt file - this is the source of truth
+            algorithm_file = os.path.join(os.getcwd(), 'current_algorithm.txt')
+            file_algorithm = None
+
+            # Try to read the algorithm from file
+            if os.path.exists(algorithm_file):
+                try:
+                    with open(algorithm_file, 'r') as f:
+                        file_algorithm = f.read().strip()
+                        # Validate the algorithm
+                        valid_algorithms = ['direct', 'round_robin', 'least_connection', 'weighted']
+                        if file_algorithm not in valid_algorithms:
+                            logger.warning(f"Invalid algorithm in file: {file_algorithm}, using direct instead")
+                            file_algorithm = "direct"
+                            # Fix the file
+                            with open(algorithm_file, 'w') as f:
+                                f.write("direct")
+                        logger.info(f"Read algorithm from file: {file_algorithm}")
+                except Exception as file_error:
+                    logger.error(f"Error reading algorithm file: {str(file_error)}")
+                    # If there's an error reading, create a new file with default algorithm
+                    try:
+                        with open(algorithm_file, 'w') as f:
+                            f.write("direct")
+                        file_algorithm = "direct"
+                        logger.info(f"Created new algorithm file with default algorithm after read error")
+                    except Exception as write_error:
+                        logger.error(f"Error creating algorithm file after read error: {str(write_error)}")
+            else:
+                # If file doesn't exist, create it with default algorithm
+                try:
+                    with open(algorithm_file, 'w') as f:
+                        f.write("direct")
+                    file_algorithm = "direct"
+                    logger.info(f"Created algorithm file with default algorithm: {file_algorithm}")
+                except Exception as file_error:
+                    logger.error(f"Error creating algorithm file: {str(file_error)}")
+
+            # Get the algorithm from node_client
+            client_algorithm = node_client.current_algorithm
+
+            # ALWAYS use the file algorithm as the source of truth if available
+            if file_algorithm:
+                # If there's a mismatch, update node_client to match the file
+                if file_algorithm != client_algorithm:
+                    logger.warning(f"Algorithm mismatch: file={file_algorithm}, client={client_algorithm}")
+                    # Update node_client to match the file
+                    try:
+                        node_client.set_algorithm(file_algorithm)
+                    except Exception as e:
+                        logger.error(f"Error updating node_client algorithm: {str(e)}")
+                current_algorithm = file_algorithm
+            else:
+                # If we couldn't read from file, use client algorithm
+                current_algorithm = client_algorithm
+
+                # Try to write it to file for future consistency
+                try:
+                    with open(algorithm_file, 'w') as f:
+                        f.write(current_algorithm)
+                    logger.info(f"Saved client algorithm to file: {current_algorithm}")
+                except Exception as e:
+                    logger.error(f"Error saving client algorithm to file: {str(e)}")
+
+            # Update the stats with the current algorithm
             self.stats['routing_algorithm'] = current_algorithm
+
             # Also update the simulator with the current algorithm
             network_simulator.set_routing_algorithm(current_algorithm)
 
@@ -98,6 +164,26 @@ class NetworkVisualizer:
                 self.packet_speeds = {}
                 # Force node client to reset connections
                 node_client.camera_last_nodes = {}
+
+                # Force network simulator to update routing
+                try:
+                    # Update the routing algorithm in the simulator
+                    network_simulator.set_routing_algorithm(current_algorithm)
+
+                    # Wait a moment for the algorithm to take effect
+                    time.sleep(0.5)
+
+                    # Force recalculation of connections based on new algorithm
+                    # This is critical for the visualization to update properly
+                    self._calculate_connections()
+
+                    # Log the new connections
+                    logger.info(f"New connections after algorithm change: {self.active_connections}")
+
+                    # Update node_client with the new connections
+                    node_client.camera_last_nodes = self.active_connections.copy()
+                except Exception as e:
+                    logger.error(f"Error updating network simulator algorithm: {str(e)}")
         except Exception as e:
             logger.error(f"Error updating routing algorithm in visualization: {str(e)}")
 
@@ -121,24 +207,118 @@ class NetworkVisualizer:
             from vigilance_system.network.node_client import node_client
             client_stats = node_client.get_stats()
 
-            # Clear existing connections first
-            self.active_connections = {}
-
             # Get the actual camera-to-node mappings from node_client
             camera_last_nodes = node_client.camera_last_nodes
 
-            # Update active connections based on real data
-            for camera_id, node_id in camera_last_nodes.items():
-                if node_id:
-                    self.active_connections[camera_id] = node_id
+            # Log the camera_last_nodes for debugging (only at debug level)
+            logger.debug(f"Camera to node mappings: {camera_last_nodes}")
 
-                    # Create packet animation if not exists
-                    if camera_id not in self.packet_positions:
-                        self.packet_positions[camera_id] = 0.0
-                        self.packet_speeds[camera_id] = 0.05 + 0.05 * np.random.random()
+            # Check if we have any active connections
+            if not camera_last_nodes:
+                logger.info("No active connections found in node_client, recalculating connections")
+                # Force recalculation of connections based on current algorithm
+                self._calculate_connections()
+            else:
+                # Get current algorithm for special handling
+                current_algorithm = self.stats.get('routing_algorithm', 'direct')
 
-            # Log the active connections for debugging
+                # Handle algorithm-specific virtual connections
+                if current_algorithm == 'direct':
+                    # Direct: Keep existing virtual connections (those with _direct_ in the name)
+                    preserved_connections = {k: v for k, v in self.active_connections.items() if '_direct_' in k}
+                    self.active_connections = preserved_connections
+
+                    # If we don't have any virtual connections yet, force a recalculation
+                    if not preserved_connections:
+                        logger.info("No virtual Direct connections found, recalculating")
+                        self._calculate_connections()
+                        return
+
+                elif current_algorithm == 'round_robin':
+                    # Round Robin: Keep existing virtual connections (those with _rr_ in the name)
+                    preserved_connections = {k: v for k, v in self.active_connections.items() if '_rr_' in k}
+                    self.active_connections = preserved_connections
+
+                    # If we don't have any virtual connections yet, force a recalculation
+                    if not preserved_connections:
+                        logger.info("No virtual Round Robin connections found, recalculating")
+                        self._calculate_connections()
+                        return
+
+                elif current_algorithm == 'least_connection':
+                    # Least Connection: Keep existing virtual connections (those with _lc_ in the name)
+                    preserved_connections = {k: v for k, v in self.active_connections.items() if '_lc_' in k}
+                    self.active_connections = preserved_connections
+
+                    # If we don't have any virtual connections yet, force a recalculation
+                    if not preserved_connections:
+                        logger.info("No virtual Least Connection connections found, recalculating")
+                        self._calculate_connections()
+                        return
+
+                elif current_algorithm == 'weighted':
+                    # Weighted: Keep existing virtual connections (those with _weighted_ in the name)
+                    preserved_connections = {k: v for k, v in self.active_connections.items() if '_weighted_' in k}
+                    self.active_connections = preserved_connections
+
+                    # If we don't have any virtual connections yet, force a recalculation
+                    if not preserved_connections:
+                        logger.info("No virtual Weighted connections found, recalculating")
+                        self._calculate_connections()
+                        return
+                else:
+                    # For other algorithms, clear all connections
+                    self.active_connections = {}
+
+                # Update active connections based on real data
+                for camera_id, node_id in camera_last_nodes.items():
+                    if node_id:
+                        self.active_connections[camera_id] = node_id
+
+                        # Create packet animation if not exists
+                        if camera_id not in self.packet_positions:
+                            self.packet_positions[camera_id] = 0.0
+                            self.packet_speeds[camera_id] = 0.05 + 0.05 * np.random.random()
+
+                # Check if we need to recalculate virtual connections for the current algorithm
+                if current_algorithm == 'direct':
+                    has_virtual_connections = any('_direct_' in k for k in self.active_connections.keys())
+                    if not has_virtual_connections:
+                        logger.info("Direct algorithm active but no virtual connections found, recalculating")
+                        self._calculate_connections()
+
+                elif current_algorithm == 'round_robin':
+                    has_virtual_connections = any('_rr_' in k for k in self.active_connections.keys())
+                    if not has_virtual_connections:
+                        logger.info("Round Robin algorithm active but no virtual connections found, recalculating")
+                        self._calculate_connections()
+
+                elif current_algorithm == 'least_connection':
+                    has_virtual_connections = any('_lc_' in k for k in self.active_connections.keys())
+                    if not has_virtual_connections:
+                        logger.info("Least Connection algorithm active but no virtual connections found, recalculating")
+                        self._calculate_connections()
+
+                elif current_algorithm == 'weighted':
+                    has_virtual_connections = any('_weighted_' in k for k in self.active_connections.keys())
+                    if not has_virtual_connections:
+                        logger.info("Weighted algorithm active but no virtual connections found, recalculating")
+                        self._calculate_connections()
+
+            # Log the active connections for debugging (only at debug level)
             logger.debug(f"Active connections: {self.active_connections}")
+
+            # If still no active connections after trying to get them from node_client,
+            # force a recalculation
+            if not self.active_connections:
+                logger.warning("No active connections found after checking node_client, forcing recalculation")
+                self._calculate_connections()
+
+                # Log the new connections
+                logger.info(f"Recalculated connections: {self.active_connections}")
+
+                # Update node_client with the new connections
+                node_client.camera_last_nodes = self.active_connections.copy()
         except Exception as e:
             logger.error(f"Error updating active connections: {str(e)}")
 
@@ -153,6 +333,28 @@ class NetworkVisualizer:
                         self.packet_positions[camera_id] = 0.0
                         self.packet_speeds[camera_id] = 0.05 + 0.05 * np.random.random()
 
+            # If still no active connections, create default connections
+            if not self.active_connections:
+                logger.warning("No active connections found in fallback, creating default connections")
+
+                # Get available cameras and nodes
+                camera_ids = list(self.camera_positions.keys())
+                node_ids = list(self.node_positions.keys())
+
+                if camera_ids and node_ids:
+                    # Create default connections - distribute cameras evenly across nodes
+                    for i, camera_id in enumerate(camera_ids):
+                        node_index = i % len(node_ids)
+                        node_id = node_ids[node_index]
+                        self.active_connections[camera_id] = node_id
+
+                        # Create packet animation
+                        if camera_id not in self.packet_positions:
+                            self.packet_positions[camera_id] = 0.0
+                            self.packet_speeds[camera_id] = 0.05 + 0.05 * np.random.random()
+
+                    logger.info(f"Created default connections in fallback: {self.active_connections}")
+
         # Update packet animations
         current_time = time.time()
         elapsed_time = current_time - self.last_update_time
@@ -161,10 +363,14 @@ class NetworkVisualizer:
         # Get current algorithm for algorithm-specific animations
         current_algorithm = self.stats.get('routing_algorithm', 'direct')
 
-        for camera_id in list(self.packet_positions.keys()):
-            if camera_id in self.active_connections:
+        # Make a copy of the keys to avoid "dictionary changed size during iteration" error
+        packet_position_keys = list(self.packet_positions.keys())
+        active_connections_copy = self.active_connections.copy()
+
+        for camera_id in packet_position_keys:
+            if camera_id in active_connections_copy:
                 # Get node ID for this connection
-                node_id = self.active_connections[camera_id]
+                node_id = active_connections_copy[camera_id]
 
                 # Adjust speed based on algorithm
                 speed_multiplier = 5.0  # Default speed multiplier
@@ -191,10 +397,7 @@ class NetworkVisualizer:
                         speed_multiplier = 5.5
                     else:
                         speed_multiplier = 4.0
-                elif current_algorithm == 'ip_hash':
-                    # IP Hash: Consistent speed per camera
-                    hash_val = hash(camera_id) % 100
-                    speed_multiplier = 4.0 + (hash_val / 100.0) * 3.0  # Range from 4.0 to 7.0
+                # IP Hash removed as it is not a routing algorithm
 
                 # Move packet along the connection with algorithm-specific speed
                 self.packet_positions[camera_id] += self.packet_speeds[camera_id] * elapsed_time * speed_multiplier
@@ -205,15 +408,19 @@ class NetworkVisualizer:
                     if current_algorithm == 'round_robin' and random.random() < 0.3:
                         # Round Robin: Sometimes send packets in bursts
                         self.packet_positions[camera_id] = 0.0
-                        # Add 1-3 more packets at different positions
-                        for _ in range(random.randint(1, 3)):
-                            # Create a new packet ID
-                            new_packet_id = f"{camera_id}_burst_{random.randint(1000, 9999)}"
-                            # Add at a random position
-                            self.packet_positions[new_packet_id] = random.uniform(0.1, 0.3)
-                            self.packet_speeds[new_packet_id] = self.packet_speeds[camera_id] * random.uniform(0.8, 1.2)
-                            # Set active connection for this packet
-                            self.active_connections[new_packet_id] = node_id
+                        # Add 1-2 more packets at different positions (reduced from 1-3 to avoid too many)
+                        for _ in range(random.randint(1, 2)):
+                            # Create a new packet ID - use a more unique ID to avoid collisions
+                            burst_id = random.randint(10000, 99999)
+                            new_packet_id = f"{camera_id}_burst_{burst_id}"
+
+                            # Only add if this packet ID doesn't already exist
+                            if new_packet_id not in self.packet_positions:
+                                # Add at a random position
+                                self.packet_positions[new_packet_id] = random.uniform(0.1, 0.3)
+                                self.packet_speeds[new_packet_id] = self.packet_speeds[camera_id] * random.uniform(0.8, 1.2)
+                                # Set active connection for this packet
+                                self.active_connections[new_packet_id] = node_id
                     else:
                         # Normal reset
                         self.packet_positions[camera_id] = 0.0
@@ -273,72 +480,13 @@ class NetworkVisualizer:
                         self.packet_positions[camera_id] = 0.0
                         self.packet_speeds[camera_id] = 0.05 + 0.03 * random.random()
 
-        elif current_algorithm == 'ip_hash':
-            # IP Hash: Consistent packet generation per camera
-            for camera_id in self.camera_positions.keys():
-                if camera_id not in self.packet_positions and camera_id in self.active_connections:
-                    # Use hash of camera ID for consistent behavior
-                    hash_val = hash(camera_id) % 100
-                    prob = 0.05 + (hash_val / 500.0)  # Range from 0.05 to 0.25
-
-                    if random.random() < prob:
-                        self.packet_positions[camera_id] = 0.0
-                        # Consistent speed based on camera ID
-                        base_speed = 0.04 + (hash_val / 1000.0)  # Range from 0.04 to 0.14
-                        self.packet_speeds[camera_id] = base_speed + 0.01 * random.random()
-
-        elif current_algorithm == 'yolov8':
-            # YOLOv8: Smart packet generation based on node scores
-            for camera_id in self.camera_positions.keys():
-                if camera_id not in self.packet_positions and camera_id in self.active_connections:
-                    node_id = self.active_connections[camera_id]
-
-                    # Get node load
-                    node_load = 0.5  # Default load
-                    if node_id in network_simulator.nodes:
-                        node_load = network_simulator.nodes[node_id].get('load', 0.5)
-
-                    # Determine capacity based on node ID
-                    capacity = 1.0
-                    if 'node_1' in node_id or 'node_2' in node_id:
-                        capacity = 1.5
-                    elif 'node_3' in node_id or 'node_4' in node_id:
-                        capacity = 1.2
-
-                    # Calculate score (higher is better)
-                    if node_load < 0.1:  # Very low load
-                        score = capacity * 10  # Heavily favor capacity for unused nodes
-                    else:
-                        score = capacity / (node_load + 0.1)  # Balance capacity and load
-
-                    # Higher probability for higher scores
-                    prob = min(0.3, 0.05 + (score / 50.0))
-
-                    # Batch processing - sometimes send multiple packets at once
-                    if random.random() < prob:
-                        # Add main packet
-                        self.packet_positions[camera_id] = 0.0
-                        self.packet_speeds[camera_id] = 0.05 + 0.03 * random.random()
-
-                        # Sometimes add batch of additional packets (simulating YOLO batch processing)
-                        if random.random() < 0.2:  # 20% chance of batch
-                            batch_size = random.randint(2, 4)
-                            for i in range(batch_size):
-                                # Create unique ID for additional packets
-                                batch_id = f"{camera_id}_batch_{self.frame_count}_{i}"
-                                # Stagger the starting positions slightly
-                                self.packet_positions[batch_id] = 0.02 * i
-                                self.packet_speeds[batch_id] = self.packet_speeds[camera_id] * random.uniform(0.9, 1.1)
-                                # Set active connection for this packet
-                                self.active_connections[batch_id] = node_id
-
-        else:
-            # Default behavior for other algorithms
-            for camera_id in self.camera_positions.keys():
-                if camera_id not in self.packet_positions and camera_id in self.active_connections:
-                    if random.random() < 0.1:  # 10% chance each update
-                        self.packet_positions[camera_id] = 0.0
-                        self.packet_speeds[camera_id] = 0.05 + 0.05 * random.random()
+        # Default packet generation for any algorithm
+        for camera_id in self.camera_positions.keys():
+            if camera_id not in self.packet_positions and camera_id in self.active_connections:
+                # Generate packets with a random probability
+                if random.random() < 0.1:  # 10% chance to generate a packet
+                    self.packet_positions[camera_id] = 0.0
+                    self.packet_speeds[camera_id] = 0.05 + 0.03 * random.random()
 
     def draw(self) -> np.ndarray:
         """
@@ -459,99 +607,26 @@ class NetworkVisualizer:
                     thickness = max(1, int(capacity * 1.5))
                     cv2.line(image, camera_pos, node_pos, color, thickness, cv2.LINE_AA)
 
-                elif current_algorithm == 'ip_hash':
-                    # IP Hash: Consistent color per camera
-                    # Use hash of camera ID for consistent color
-                    hash_val = hash(camera_id) % 360
-                    # Convert to HSV and then to BGR
-                    hue = hash_val / 360.0
-                    line_color = tuple([int(c) for c in colorsys.hsv_to_rgb(hue, 0.6, 0.7) * np.array([255, 255, 255])])
-
-                    # Draw line with consistent color
-                    cv2.line(image, camera_pos, node_pos, line_color, 2, cv2.LINE_AA)
-
-                    # Draw small hash markers along the line
-                    num_markers = 3
-                    for i in range(1, num_markers + 1):
-                        t = i / (num_markers + 1)
-                        marker_x = int(camera_pos[0] + (node_pos[0] - camera_pos[0]) * t)
-                        marker_y = int(camera_pos[1] + (node_pos[1] - camera_pos[1]) * t)
-                        cv2.drawMarker(image, (marker_x, marker_y), line_color, cv2.MARKER_DIAMOND, 8, 1)
-
-                elif current_algorithm == 'yolov8':
-                    # YOLOv8: Advanced visualization with AI-inspired elements
-                    node_id = self.active_connections[camera_id]
-
-                    # Get node load and capacity
-                    node_load = 0.5  # Default load
-                    if node_id in network_simulator.nodes:
-                        node_load = network_simulator.nodes[node_id].get('load', 0.5)
-
-                    # Determine capacity based on node ID
-                    capacity = 1.0
-                    if 'node_1' in node_id or 'node_2' in node_id:
-                        capacity = 1.5
-                    elif 'node_3' in node_id or 'node_4' in node_id:
-                        capacity = 1.2
-
-                    # Calculate score (higher is better)
-                    if node_load < 0.1:  # Very low load
-                        score = capacity * 10  # Heavily favor capacity for unused nodes
-                    else:
-                        score = capacity / (node_load + 0.1)  # Balance capacity and load
-
-                    # Color based on score (green for high score, yellow for medium, red for low)
-                    if score > 10:
-                        color = (50, 220, 50)  # Bright green for high score
-                    elif score > 5:
-                        color = (50, 220, 220)  # Yellow for medium score
-                    else:
-                        color = (50, 50, 220)  # Red for low score
-
-                    # Draw a neural network inspired line
-                    # Main line
-                    cv2.line(image, camera_pos, node_pos, color, 2, cv2.LINE_AA)
-
-                    # Draw neural network nodes along the line
-                    num_nodes = 4
-                    for i in range(1, num_nodes + 1):
-                        t = i / (num_nodes + 1)
-                        node_x = int(camera_pos[0] + (node_pos[0] - camera_pos[0]) * t)
-                        node_y = int(camera_pos[1] + (node_pos[1] - camera_pos[1]) * t)
-
-                        # Draw neural node with pulsing effect
-                        node_size = int(6 + 3 * math.sin(self.frame_count / 10.0 + i))
-                        cv2.circle(image, (node_x, node_y), node_size, color, -1, cv2.LINE_AA)
-                        cv2.circle(image, (node_x, node_y), node_size + 2, color, 1, cv2.LINE_AA)
-
-                        # Add small connecting lines to simulate neural network
-                        if i < num_nodes:
-                            next_t = (i + 1) / (num_nodes + 1)
-                            next_x = int(camera_pos[0] + (node_pos[0] - camera_pos[0]) * next_t)
-                            next_y = int(camera_pos[1] + (node_pos[1] - camera_pos[1]) * next_t)
-
-                            # Draw small branch lines
-                            branch_len = 10
-                            angle = math.atan2(next_y - node_y, next_x - node_x) + math.pi/2
-                            branch1_x = int(node_x + branch_len * math.cos(angle))
-                            branch1_y = int(node_y + branch_len * math.sin(angle))
-                            branch2_x = int(node_x - branch_len * math.cos(angle))
-                            branch2_y = int(node_y - branch_len * math.sin(angle))
-
-                            # Draw branches with fading effect
-                            alpha = 0.7 - (i / num_nodes * 0.3)
-                            branch_color = tuple([int(c * alpha) for c in color])
-                            cv2.line(image, (node_x, node_y), (branch1_x, branch1_y), branch_color, 1, cv2.LINE_AA)
-                            cv2.line(image, (node_x, node_y), (branch2_x, branch2_y), branch_color, 1, cv2.LINE_AA)
+                # IP Hash algorithm removed as it is not a routing algorithm
 
                 else:
-                    # Default: More visible line for active connections
-                    # Use a brighter color for active connections
-                    active_color = (120, 120, 220)  # Brighter blue for active connections
-                    cv2.line(image, camera_pos, node_pos, active_color, 2, cv2.LINE_AA)
+                    # Default visualization for any other algorithm
+                    # Draw a simple line with a gradient effect
+                    cv2.line(image, camera_pos, node_pos, (50, 150, 200), 2, cv2.LINE_AA)
+
+                    # Add some visual interest with small circles along the line
+                    num_circles = 3
+                    for i in range(1, num_circles + 1):
+                        t = i / (num_circles + 1)
+                        circle_x = int(camera_pos[0] + (node_pos[0] - camera_pos[0]) * t)
+                        circle_y = int(camera_pos[1] + (node_pos[1] - camera_pos[1]) * t)
+
+                        # Draw circle with pulsing effect
+                        circle_size = int(4 + 2 * math.sin(self.frame_count / 15.0 + i))
+                        cv2.circle(image, (circle_x, circle_y), circle_size, (50, 150, 200), 1, cv2.LINE_AA)
 
                     # Add arrow to show direction
-                    self._draw_arrow(image, camera_pos, node_pos, active_color)
+                    self._draw_arrow(image, camera_pos, node_pos, (50, 150, 200))
 
                 # Draw packet animation with algorithm-specific styling
                 if camera_id in self.packet_positions:
@@ -635,101 +710,21 @@ class NetworkVisualizer:
                         text_y = y - 10
                         safe_putText(image, weight_text, (text_x, text_y), cv2.FONT_HERSHEY_SIMPLEX, 0.4, (255, 255, 255), 1, cv2.LINE_AA)
 
-                    elif current_algorithm == 'ip_hash':
-                        # IP Hash: Diamond shapes with consistent color per camera
-                        # Use hash of camera ID for consistent color
-                        hash_val = hash(camera_id) % 360
-                        # Convert to HSV and then to BGR
-                        hue = hash_val / 360.0
-                        consistent_color = tuple([int(c) for c in colorsys.hsv_to_rgb(hue, 0.8, 1.0) * np.array([255, 255, 255])])
-
-                        # Draw diamond
-                        diamond_size = 10
-                        cv2.drawMarker(image, (x, y), consistent_color, cv2.MARKER_DIAMOND, diamond_size, 2)
-
-                        # Draw hash indicator
-                        hash_text = f"#{hash_val % 100:02d}"
-                        text_size = cv2.getTextSize(hash_text, cv2.FONT_HERSHEY_SIMPLEX, 0.4, 1)[0]
-                        text_x = x - text_size[0] // 2
-                        text_y = y - 10
-                        safe_putText(image, hash_text, (text_x, text_y), cv2.FONT_HERSHEY_SIMPLEX, 0.4, (255, 255, 255), 1, cv2.LINE_AA)
-
-                    elif current_algorithm == 'yolov8':
-                        # YOLOv8: AI-inspired visualization with bounding box style
-                        # Get node ID for this connection
-                        node_id = self.active_connections[camera_id]
-
-                        # Get node load and capacity for color
-                        node_load = 0.5  # Default load
-                        if node_id in network_simulator.nodes:
-                            node_load = network_simulator.nodes[node_id].get('load', 0.5)
-
-                        # Determine capacity based on node ID
-                        capacity = 1.0
-                        if 'node_1' in node_id or 'node_2' in node_id:
-                            capacity = 1.5
-                        elif 'node_3' in node_id or 'node_4' in node_id:
-                            capacity = 1.2
-
-                        # Calculate score (higher is better)
-                        if node_load < 0.1:  # Very low load
-                            score = capacity * 10  # Heavily favor capacity for unused nodes
-                        else:
-                            score = capacity / (node_load + 0.1)  # Balance capacity and load
-
-                        # Color based on score
-                        if score > 10:
-                            yolo_color = (0, 255, 0)  # Green for high score
-                        elif score > 5:
-                            yolo_color = (0, 255, 255)  # Yellow for medium score
-                        else:
-                            yolo_color = (0, 0, 255)  # Red for low score
-
-                        # Draw YOLO-style bounding box
-                        box_size = 12
-                        # Draw corners only (YOLO style)
-                        line_length = int(box_size * 0.6)
-
-                        # Top-left corner
-                        cv2.line(image, (x - box_size, y - box_size), (x - box_size + line_length, y - box_size), yolo_color, 2, cv2.LINE_AA)
-                        cv2.line(image, (x - box_size, y - box_size), (x - box_size, y - box_size + line_length), yolo_color, 2, cv2.LINE_AA)
-
-                        # Top-right corner
-                        cv2.line(image, (x + box_size, y - box_size), (x + box_size - line_length, y - box_size), yolo_color, 2, cv2.LINE_AA)
-                        cv2.line(image, (x + box_size, y - box_size), (x + box_size, y - box_size + line_length), yolo_color, 2, cv2.LINE_AA)
-
-                        # Bottom-left corner
-                        cv2.line(image, (x - box_size, y + box_size), (x - box_size + line_length, y + box_size), yolo_color, 2, cv2.LINE_AA)
-                        cv2.line(image, (x - box_size, y + box_size), (x - box_size, y + box_size - line_length), yolo_color, 2, cv2.LINE_AA)
-
-                        # Bottom-right corner
-                        cv2.line(image, (x + box_size, y + box_size), (x + box_size - line_length, y + box_size), yolo_color, 2, cv2.LINE_AA)
-                        cv2.line(image, (x + box_size, y + box_size), (x + box_size, y + box_size - line_length), yolo_color, 2, cv2.LINE_AA)
-
-                        # Add confidence score like YOLO
-                        conf_score = min(0.99, score / 15.0)  # Scale score to 0-0.99 range
-                        conf_text = f"{conf_score:.2f}"
-                        text_size = cv2.getTextSize(conf_text, cv2.FONT_HERSHEY_SIMPLEX, 0.4, 1)[0]
-                        text_x = x - text_size[0] // 2
-                        text_y = y - box_size - 5
-
-                        # Draw text background
-                        cv2.rectangle(image,
-                                     (text_x - 2, text_y - text_size[1] - 2),
-                                     (text_x + text_size[0] + 2, text_y + 2),
-                                     (0, 0, 0), -1, cv2.LINE_AA)
-
-                        # Draw confidence text
-                        safe_putText(image, conf_text, (text_x, text_y),
-                                   cv2.FONT_HERSHEY_SIMPLEX, 0.4, yolo_color, 1, cv2.LINE_AA)
-
                     else:
-                        # Default: Enhanced packet visualization with larger circles and longer tail
-                        # Draw a glowing effect around the packet
-                        for r in range(12, 6, -2):
-                            alpha = (12 - r) / 6.0
-                            glow_color = tuple([int(c * alpha) for c in packet_color])
-                            cv2.circle(image, (x, y), r, glow_color, 1, cv2.LINE_AA)
+                        # Handle any other algorithm with default visualization
+                        # This ensures backward compatibility with any algorithm
+                        cv2.circle(image, (x, y), 6, packet_color, -1, cv2.LINE_AA)
+
+                        # Draw a tail behind the packet for visibility
+                        tail_length = 3
+                        for i in range(1, tail_length + 1):
+                            tail_pos = packet_pos - (i * 0.05)
+                            if tail_pos >= 0:
+                                tail_x = int(camera_pos[0] + (node_pos[0] - camera_pos[0]) * tail_pos)
+                                tail_y = int(camera_pos[1] + (node_pos[1] - camera_pos[1]) * tail_pos)
+                                tail_alpha = 1.0 - (i / (tail_length + 1))
+                                tail_color = tuple([int(c * tail_alpha) for c in packet_color])
+                                cv2.circle(image, (tail_x, tail_y), 6 - i, tail_color, -1, cv2.LINE_AA)
 
                         # Draw the main packet
                         cv2.circle(image, (x, y), 8, packet_color, -1, cv2.LINE_AA)
@@ -992,6 +987,289 @@ class NetworkVisualizer:
             y = int(center_y + radius * math.sin(angle))
             self.camera_positions[camera_id] = (x, y)
 
+    def _calculate_connections(self) -> None:
+        """
+        Calculate connections between cameras and nodes based on the current routing algorithm.
+        This is used to force a recalculation of connections when the algorithm changes.
+        """
+        try:
+            # Get the current algorithm from file first - this is the source of truth
+            algorithm_file = os.path.join(os.getcwd(), 'current_algorithm.txt')
+            file_algorithm = None
+            if os.path.exists(algorithm_file):
+                try:
+                    with open(algorithm_file, 'r') as f:
+                        file_algorithm = f.read().strip()
+                        # Validate the algorithm
+                        valid_algorithms = ['direct', 'round_robin', 'least_connection', 'weighted']
+                        if file_algorithm not in valid_algorithms:
+                            logger.warning(f"Invalid algorithm in file: {file_algorithm}, using direct instead")
+                            file_algorithm = "direct"
+                except Exception as file_error:
+                    logger.error(f"Error reading algorithm file: {str(file_error)}")
+
+            # Use file algorithm if available, otherwise fall back to stats
+            current_algorithm = file_algorithm if file_algorithm else self.stats.get('routing_algorithm', 'direct')
+
+            # Update stats to match the file
+            self.stats['routing_algorithm'] = current_algorithm
+
+            logger.info(f"Calculating connections for algorithm: {current_algorithm}")
+
+            # Get available cameras and nodes
+            camera_ids = list(self.camera_positions.keys())
+            node_ids = list(self.node_positions.keys())
+
+            if not camera_ids or not node_ids:
+                logger.warning("No cameras or nodes available for connection calculation")
+                return
+
+            # Clear existing connections
+            self.active_connections = {}
+
+            # Calculate new connections based on algorithm
+            if current_algorithm == 'direct':
+                # Direct: All cameras connect to the first node
+                first_node = node_ids[0]
+
+                # Store existing animation state to preserve it
+                existing_virtual_positions = {k: v for k, v in self.packet_positions.items() if '_direct_' in k}
+                existing_virtual_speeds = {k: v for k, v in self.packet_speeds.items() if '_direct_' in k}
+
+                # Create virtual connections for visualization
+                # For Direct, we want to show all cameras connecting to a single node
+                for camera_id in camera_ids:
+                    # Create a virtual connection for each camera to the first node
+                    virtual_camera_id = f"{camera_id}_direct_0"
+                    self.active_connections[virtual_camera_id] = first_node
+
+                    # Add camera position for virtual camera
+                    if camera_id in self.camera_positions:
+                        self.camera_positions[virtual_camera_id] = self.camera_positions[camera_id]
+
+                    # Initialize packet positions for new connections
+                    # Preserve existing animation state if available
+                    if virtual_camera_id in existing_virtual_positions:
+                        self.packet_positions[virtual_camera_id] = existing_virtual_positions[virtual_camera_id]
+                    elif virtual_camera_id not in self.packet_positions:
+                        # Start new packets at different positions along the path
+                        self.packet_positions[virtual_camera_id] = random.random() * 0.5  # Random position in first half
+
+                    # Preserve existing speeds if available
+                    if virtual_camera_id in existing_virtual_speeds:
+                        self.packet_speeds[virtual_camera_id] = existing_virtual_speeds[virtual_camera_id]
+                    elif virtual_camera_id not in self.packet_speeds:
+                        # Vary speeds slightly to avoid synchronized animation
+                        self.packet_speeds[virtual_camera_id] = 0.05 + 0.03 * np.random.random()
+
+                # Also keep the original camera connections for compatibility
+                for camera_id in camera_ids:
+                    self.active_connections[camera_id] = first_node
+
+                    # Make sure we have packet positions for real cameras too
+                    if camera_id not in self.packet_positions:
+                        self.packet_positions[camera_id] = 0.0
+                        self.packet_speeds[camera_id] = 0.05 + 0.03 * np.random.random()
+
+                # Log the number of virtual connections created
+                virtual_count = sum(1 for k in self.active_connections if '_direct_' in k)
+                logger.info(f"Created {virtual_count} virtual connections for Direct visualization")
+
+            elif current_algorithm == 'round_robin':
+                # Round Robin: Distribute cameras evenly across ALL nodes
+                # Create multiple connections for each camera to show distribution
+
+                # Store existing animation state to preserve it
+                existing_virtual_positions = {k: v for k, v in self.packet_positions.items() if '_rr_' in k}
+                existing_virtual_speeds = {k: v for k, v in self.packet_speeds.items() if '_rr_' in k}
+
+                # Create virtual connections for visualization
+                for camera_id in camera_ids:
+                    # For visualization purposes, create multiple virtual camera IDs
+                    # to show connections to all nodes in round robin fashion
+                    for i, node_id in enumerate(sorted(node_ids)):
+                        virtual_camera_id = f"{camera_id}_rr_{i}"
+                        self.active_connections[virtual_camera_id] = node_id
+
+                        # Add camera position for virtual camera
+                        if camera_id in self.camera_positions:
+                            self.camera_positions[virtual_camera_id] = self.camera_positions[camera_id]
+
+                        # Initialize packet positions for new connections
+                        # Preserve existing animation state if available
+                        if virtual_camera_id in existing_virtual_positions:
+                            self.packet_positions[virtual_camera_id] = existing_virtual_positions[virtual_camera_id]
+                        elif virtual_camera_id not in self.packet_positions:
+                            # Start new packets at different positions along the path
+                            self.packet_positions[virtual_camera_id] = random.random() * 0.5  # Random position in first half
+
+                        # Preserve existing speeds if available
+                        if virtual_camera_id in existing_virtual_speeds:
+                            self.packet_speeds[virtual_camera_id] = existing_virtual_speeds[virtual_camera_id]
+                        elif virtual_camera_id not in self.packet_speeds:
+                            # Vary speeds slightly to avoid synchronized animation
+                            self.packet_speeds[virtual_camera_id] = 0.05 + 0.03 * np.random.random()
+
+                # Also keep the original camera connections for compatibility
+                for i, camera_id in enumerate(camera_ids):
+                    node_index = i % len(node_ids)
+                    self.active_connections[camera_id] = node_ids[node_index]
+
+                    # Make sure we have packet positions for real cameras too
+                    if camera_id not in self.packet_positions:
+                        self.packet_positions[camera_id] = 0.0
+                        self.packet_speeds[camera_id] = 0.05 + 0.03 * np.random.random()
+
+                # Log the number of virtual connections created
+                virtual_count = sum(1 for k in self.active_connections if '_rr_' in k)
+                logger.info(f"Created {virtual_count} virtual connections for Round Robin visualization")
+
+            elif current_algorithm == 'least_connection':
+                # Least Connection: Distribute based on node load
+                # Get node loads or use default distribution
+                node_loads = {}
+                for node_id in node_ids:
+                    if node_id in network_simulator.nodes:
+                        node_loads[node_id] = network_simulator.nodes[node_id].get('load', 0.5)
+                    else:
+                        node_loads[node_id] = 0.5
+
+                # Sort nodes by load (least loaded first)
+                sorted_nodes = sorted(node_loads.items(), key=lambda x: x[1])
+
+                # Store existing animation state to preserve it
+                existing_virtual_positions = {k: v for k, v in self.packet_positions.items() if '_lc_' in k}
+                existing_virtual_speeds = {k: v for k, v in self.packet_speeds.items() if '_lc_' in k}
+
+                # Create virtual connections for visualization
+                # For Least Connection, we want to show more traffic going to less loaded nodes
+                for camera_id in camera_ids:
+                    # Create virtual connections to all nodes with varying packet rates based on load
+                    for i, (node_id, load) in enumerate(sorted_nodes):
+                        virtual_camera_id = f"{camera_id}_lc_{i}"
+                        self.active_connections[virtual_camera_id] = node_id
+
+                        # Add camera position for virtual camera
+                        if camera_id in self.camera_positions:
+                            self.camera_positions[virtual_camera_id] = self.camera_positions[camera_id]
+
+                        # Initialize packet positions for new connections
+                        # Preserve existing animation state if available
+                        if virtual_camera_id in existing_virtual_positions:
+                            self.packet_positions[virtual_camera_id] = existing_virtual_positions[virtual_camera_id]
+                        elif virtual_camera_id not in self.packet_positions:
+                            # Start new packets at different positions along the path
+                            self.packet_positions[virtual_camera_id] = random.random() * 0.5  # Random position in first half
+
+                        # Preserve existing speeds if available
+                        if virtual_camera_id in existing_virtual_speeds:
+                            self.packet_speeds[virtual_camera_id] = existing_virtual_speeds[virtual_camera_id]
+                        elif virtual_camera_id not in self.packet_speeds:
+                            # Vary speeds based on load - faster for less loaded nodes
+                            # This creates a visual effect where less loaded nodes get packets faster
+                            speed_factor = 1.0 - load  # Invert load to make less loaded nodes faster
+                            self.packet_speeds[virtual_camera_id] = 0.05 + 0.05 * speed_factor + 0.02 * np.random.random()
+
+                # Also keep the original camera connections for compatibility
+                # Distribute cameras to least loaded nodes
+                for i, camera_id in enumerate(camera_ids):
+                    # Use modulo to cycle through sorted nodes
+                    node_index = i % len(sorted_nodes)
+                    self.active_connections[camera_id] = sorted_nodes[node_index][0]
+
+                # Log the number of virtual connections created
+                virtual_count = sum(1 for k in self.active_connections if '_lc_' in k)
+                logger.info(f"Created {virtual_count} virtual connections for Least Connection visualization")
+
+            elif current_algorithm == 'weighted':
+                # Weighted: Distribute based on node capacity
+                # Higher capacity nodes get more cameras
+                capacities = {}
+                for node_id in node_ids:
+                    if 'node_1' in node_id or 'node_2' in node_id:
+                        capacities[node_id] = 3  # High capacity
+                    elif 'node_3' in node_id or 'node_4' in node_id:
+                        capacities[node_id] = 2  # Medium capacity
+                    else:
+                        capacities[node_id] = 1  # Standard capacity
+
+                # Store existing animation state to preserve it
+                existing_virtual_positions = {k: v for k, v in self.packet_positions.items() if '_weighted_' in k}
+                existing_virtual_speeds = {k: v for k, v in self.packet_speeds.items() if '_weighted_' in k}
+
+                # Create virtual connections for visualization
+                # For Weighted, we want to show more traffic going to higher capacity nodes
+                for camera_id in camera_ids:
+                    # Create virtual connections to all nodes with varying packet rates based on capacity
+                    for i, node_id in enumerate(sorted(node_ids)):
+                        # Create multiple virtual connections based on capacity
+                        # Higher capacity nodes get more virtual connections
+                        node_capacity = capacities.get(node_id, 1)
+
+                        # Create multiple virtual connections for each node based on its capacity
+                        for j in range(node_capacity):
+                            virtual_camera_id = f"{camera_id}_weighted_{i}_{j}"
+                            self.active_connections[virtual_camera_id] = node_id
+
+                            # Add camera position for virtual camera
+                            if camera_id in self.camera_positions:
+                                self.camera_positions[virtual_camera_id] = self.camera_positions[camera_id]
+
+                            # Initialize packet positions for new connections
+                            # Preserve existing animation state if available
+                            if virtual_camera_id in existing_virtual_positions:
+                                self.packet_positions[virtual_camera_id] = existing_virtual_positions[virtual_camera_id]
+                            elif virtual_camera_id not in self.packet_positions:
+                                # Start new packets at different positions along the path
+                                self.packet_positions[virtual_camera_id] = random.random() * 0.5  # Random position in first half
+
+                            # Preserve existing speeds if available
+                            if virtual_camera_id in existing_virtual_speeds:
+                                self.packet_speeds[virtual_camera_id] = existing_virtual_speeds[virtual_camera_id]
+                            elif virtual_camera_id not in self.packet_speeds:
+                                # Vary speeds based on capacity - faster for higher capacity nodes
+                                # This creates a visual effect where higher capacity nodes process packets faster
+                                speed_factor = node_capacity / 3.0  # Normalize to max capacity
+                                self.packet_speeds[virtual_camera_id] = 0.05 + 0.05 * speed_factor + 0.02 * np.random.random()
+
+                # Create a list with repeated node IDs based on capacity for real connections
+                weighted_nodes = []
+                for node_id, capacity in capacities.items():
+                    weighted_nodes.extend([node_id] * capacity)
+
+                # Distribute cameras across weighted nodes for real connections
+                for i, camera_id in enumerate(camera_ids):
+                    node_index = i % len(weighted_nodes)
+                    self.active_connections[camera_id] = weighted_nodes[node_index]
+
+                # Log the number of virtual connections created
+                virtual_count = sum(1 for k in self.active_connections if '_weighted_' in k)
+                logger.info(f"Created {virtual_count} virtual connections for Weighted visualization")
+
+            else:
+                # Default: Distribute evenly
+                for i, camera_id in enumerate(camera_ids):
+                    node_index = i % len(node_ids)
+                    self.active_connections[camera_id] = node_ids[node_index]
+
+            # Initialize packet positions for new connections
+            for camera_id in self.active_connections:
+                if camera_id not in self.packet_positions:
+                    self.packet_positions[camera_id] = 0.0
+                    self.packet_speeds[camera_id] = 0.05 + 0.05 * np.random.random()
+
+            # Update node_client's camera_last_nodes to reflect these connections
+            # Only update with real camera IDs, not virtual ones for visualization
+            from vigilance_system.network.node_client import node_client
+            real_connections = {cam_id: node_id for cam_id, node_id in self.active_connections.items()
+                               if "_rr_" not in cam_id}
+            node_client.camera_last_nodes = real_connections.copy()
+
+            logger.info(f"Recalculated connections for algorithm {current_algorithm}: {len(self.active_connections)} connections")
+
+        except Exception as e:
+            logger.error(f"Error calculating connections: {str(e)}")
+
     def _draw_statistics(self, image: np.ndarray) -> None:
         """
         Draw network statistics on the image.
@@ -1020,8 +1298,7 @@ class NetworkVisualizer:
             'DIRECT': 0.0,
             'ROUND_ROBIN': 0.2,
             'LEAST_CONNECTION': 0.4,
-            'WEIGHTED': 0.6,
-            'IP_HASH': 0.8
+            'WEIGHTED': 0.6
         }
 
         # Get base hue for the algorithm
@@ -1080,12 +1357,14 @@ class NetworkVisualizer:
             str: Description of the algorithm
         """
         descriptions = {
-            'direct': "Direct Connection: All traffic goes to a single node.\nSimple but not scalable. Good for small deployments with one powerful server.",
-            'round_robin': "Round Robin: Distributes traffic evenly across all nodes in sequence.\nBalances load but doesn't consider node capacity or current load.",
-            'least_connection': "Least Connection: Sends traffic to the node with the fewest active connections.\nAdaptive to changing loads. Good for mixed workloads.",
-            'weighted': "Weighted Distribution: Routes based on node capacity weights.\nSends more traffic to higher capacity nodes. Good for heterogeneous clusters.",
-            'ip_hash': "IP Hash: Consistently routes the same camera to the same node.\nEnsures session persistence. Good for stateful processing.",
-            'yolov8': "YOLOv8 Optimized: Smart routing optimized for YOLOv8 processing.\nBalances between node capacity and current load. Ideal for AI workloads."
+            'direct': "Direct Connection: All traffic goes to a single node.\nSimple but not scalable. Good for small deployments with one powerful server.\nVisualization shows all cameras sending packets to the first node.",
+
+            'round_robin': "Round Robin: Distributes traffic evenly across ALL nodes in sequence.\nEach packet is sent to the next node in the rotation, creating connections to every node.\nBalances load but doesn't consider node capacity or current load.\nVisualization shows cameras connecting to all nodes with equal packet distribution.",
+
+            'least_connection': "Least Connection: Sends traffic to the node with the fewest active connections.\nAdaptive to changing loads. Good for mixed workloads.\nVisualization shows more packets flowing to less loaded nodes (green bars).",
+
+            'weighted': "Weighted Distribution: Routes based on node capacity weights.\nSends more traffic to higher capacity nodes. Good for heterogeneous clusters.\nVisualization shows higher capacity nodes (green) receiving more packets than lower capacity nodes (red)."
+            # IP Hash and YOLOv8 removed as they are not routing algorithms
         }
 
         return descriptions.get(algorithm, "Unknown algorithm")

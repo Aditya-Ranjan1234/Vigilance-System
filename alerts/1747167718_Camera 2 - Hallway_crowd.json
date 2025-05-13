@@ -1,0 +1,75 @@
+{
+  "type": "crowd",
+  "camera": "Camera 2 - Hallway",
+  "people_count": 5,
+  "timestamp": 1747167718.6393685,
+  "message": "Crowd detected on camera 'Camera 2 - Hallway': 5 people",
+  "algorithm": "decision_tree",
+  "people_locations": [
+    {
+      "object_id": 0,
+      "center": [
+        238.0,
+        795.5
+      ],
+      "bbox": [
+        148,
+        501,
+        180,
+        589
+      ]
+    },
+    {
+      "object_id": 1,
+      "center": [
+        208.0,
+        802.0
+      ],
+      "bbox": [
+        0,
+        426,
+        416,
+        752
+      ]
+    },
+    {
+      "object_id": 2,
+      "center": [
+        415.5,
+        598.5
+      ],
+      "bbox": [
+        239,
+        374,
+        353,
+        449
+      ]
+    },
+    {
+      "object_id": 3,
+      "center": [
+        223.5,
+        295.0
+      ],
+      "bbox": [
+        107,
+        110,
+        233,
+        370
+      ]
+    },
+    {
+      "object_id": 4,
+      "center": [
+        50.5,
+        37.0
+      ],
+      "bbox": [
+        0,
+        0,
+        101,
+        74
+      ]
+    }
+  ]
+}

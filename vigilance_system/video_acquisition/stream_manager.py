@@ -4,13 +4,14 @@ Stream manager module for handling multiple camera streams.
 This module provides a centralized manager for all camera streams in the system.
 """
 
+import os
 import time
 from typing import Dict, List, Optional, Tuple, Any
 import numpy as np
 from threading import Lock
 
 from vigilance_system.utils.logger import get_logger
-from vigilance_system.utils.config import config
+from vigilance_system.utils.config import config as app_config
 from vigilance_system.video_acquisition.camera import Camera, create_camera, find_video_files
 
 # Initialize logger
@@ -56,12 +57,70 @@ class StreamManager:
         Loads camera configurations from the config file and creates camera instances.
         If no cameras are configured, falls back to video files in the videos directory.
         """
-        camera_configs = config.get('cameras', [])
+        camera_configs = app_config.get('cameras', [])
 
-        # If no cameras are configured, look for video files
+        # DIRECT FIX: Always use the WhatsApp videos from the surveillance directory
+        # Ensure each camera gets a different video
+        surveillance_dir = 'D:\\Main EL\\videos\\surveillance'
+
+        # Define the exact file paths for each WhatsApp video
+        whatsapp_video1 = os.path.join(surveillance_dir, "WhatsApp Video 2025-04-22 at 20.45.45_529ae150.mp4")
+        whatsapp_video2 = os.path.join(surveillance_dir, "WhatsApp Video 2025-04-22 at 20.47.50_dd1a37f6.mp4")
+        whatsapp_video3 = os.path.join(surveillance_dir, "WhatsApp Video 2025-04-22 at 20.48.20_3c3ca36c.mp4")
+
+        # Create a list of video paths and check if they exist
+        whatsapp_videos = [whatsapp_video1, whatsapp_video2, whatsapp_video3]
+        existing_videos = []
+
+        # Check which videos actually exist
+        for video_path in whatsapp_videos:
+            if os.path.exists(video_path):
+                logger.info(f"Found WhatsApp video: {video_path}")
+                existing_videos.append(video_path)
+            else:
+                logger.warning(f"WhatsApp video does not exist: {video_path}")
+
+        # Create camera configurations for each existing video
+        camera_configs = []
+        for i, video_path in enumerate(existing_videos):
+            # Create a unique name for each camera based on the video file
+            video_name = os.path.basename(video_path)
+            # Extract a shorter name from the video file name
+            if "20.45.45" in video_path:
+                camera_name = "Camera 1 - Entrance"
+            elif "20.47.50" in video_path:
+                camera_name = "Camera 2 - Hallway"
+            elif "20.48.20" in video_path:
+                camera_name = "Camera 3 - Parking"
+            else:
+                camera_name = f"Camera {i+1}"
+
+            logger.info(f"Creating camera config for: {camera_name} with video: {video_path}")
+
+            # Create a camera configuration for this video
+            camera_config = {
+                'name': camera_name,
+                'url': video_path,
+                'type': 'video',
+                'fps': None,  # Use video's native FPS
+                'loop': True
+            }
+            camera_configs.append(camera_config)
+
+        # Log the found camera configs
+        logger.info(f"Found {len(camera_configs)} WhatsApp videos")
+        for config in camera_configs:
+            logger.info(f"Using WhatsApp video: {config.get('name')} at {config.get('url')}")
+
+        # If no WhatsApp videos found, fall back to regular video search
         if not camera_configs:
-            logger.warning("No cameras configured in config file, looking for video files...")
+            logger.warning("No WhatsApp videos found, looking for other video files...")
             camera_configs = find_video_files()
+
+            # Log the found camera configs
+            logger.info(f"Found {len(camera_configs)} video files")
+            for config in camera_configs:
+                logger.info(f"Found video: {config.get('name')} at {config.get('url')}")
 
             # If still no cameras, try to use the default webcam
             if not camera_configs:
@@ -78,6 +137,9 @@ class StreamManager:
             camera = create_camera(camera_config)
             if camera:
                 self.add_camera(camera)
+                logger.info(f"Successfully created camera: {camera.name}")
+            else:
+                logger.warning(f"Failed to create camera from config: {camera_config}")
 
         # If no cameras were added, log an error
         if not self.cameras:
@@ -197,11 +259,17 @@ class StreamManager:
         from vigilance_system.network.node_client import node_client
         stats = node_client.get_stats()
         real_nodes = stats.get('real_nodes', 0)
+        simulated_nodes = stats.get('simulated_nodes', 0)
 
-        # If no real nodes are available, log a warning and return empty frames
-        if real_nodes == 0:
-            logger.warning("No real network nodes available - cannot process video frames")
-            return {}
+        # If no nodes (real or simulated) are available, log a warning
+        if real_nodes == 0 and simulated_nodes == 0:
+            logger.warning("No network nodes available (real or simulated) - trying to create simulated nodes")
+
+            # Try to create simulated nodes
+            if not hasattr(node_client, 'using_simulation_mode') or not node_client.using_simulation_mode:
+                logger.info("Setting up simulation mode for node client")
+                node_client.using_simulation_mode = True
+                node_client._create_simulated_nodes()
 
         frames = {}
         with self.camera_lock:
@@ -209,6 +277,13 @@ class StreamManager:
                 success, frame = camera.get_latest_frame()
                 if success:
                     frames[name] = frame
+                else:
+                    logger.warning(f"Failed to get frame from camera {name}")
+
+            # If no frames were obtained, log a warning
+            if not frames:
+                logger.warning("No frames obtained from any camera")
+
         return frames
 
     def on_network_disconnect(self) -> None:

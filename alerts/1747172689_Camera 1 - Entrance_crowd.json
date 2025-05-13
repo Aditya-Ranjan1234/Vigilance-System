@@ -1,0 +1,140 @@
+{
+  "type": "crowd",
+  "camera": "Camera 1 - Entrance",
+  "people_count": 10,
+  "timestamp": 1747172689.7805207,
+  "message": "Crowd detected on camera 'Camera 1 - Entrance': 10 people",
+  "algorithm": "decision_tree",
+  "people_locations": [
+    {
+      "object_id": 0,
+      "center": [
+        47.5,
+        662.0
+      ],
+      "bbox": [
+        0,
+        422,
+        95,
+        480
+      ]
+    },
+    {
+      "object_id": 1,
+      "center": [
+        196.5,
+        592.5
+      ],
+      "bbox": [
+        82,
+        363,
+        229,
+        459
+      ]
+    },
+    {
+      "object_id": 2,
+      "center": [
+        532.5,
+        535.5
+      ],
+      "bbox": [
+        335,
+        324,
+        395,
+        423
+      ]
+    },
+    {
+      "object_id": 3,
+      "center": [
+        847.5,
+        275.5
+      ],
+      "bbox": [
+        524,
+        128,
+        647,
+        295
+      ]
+    },
+    {
+      "object_id": 4,
+      "center": [
+        258.5,
+        332.5
+      ],
+      "bbox": [
+        1,
+        103,
+        515,
+        459
+      ]
+    },
+    {
+      "object_id": 5,
+      "center": [
+        701.5,
+        32.5
+      ],
+      "bbox": [
+        413,
+        2,
+        577,
+        61
+      ]
+    },
+    {
+      "object_id": 6,
+      "center": [
+        779.5,
+        505.5
+      ],
+      "bbox": [
+        497,
+        310,
+        565,
+        391
+      ]
+    },
+    {
+      "object_id": 7,
+      "center": [
+        805.5,
+        195.0
+      ],
+      "bbox": [
+        515,
+        110,
+        581,
+        170
+      ]
+    },
+    {
+      "object_id": 8,
+      "center": [
+        727.5,
+        573.5
+      ],
+      "bbox": [
+        467,
+        357,
+        521,
+        433
+      ]
+    },
+    {
+      "object_id": 9,
+      "center": [
+        276.0,
+        177.5
+      ],
+      "bbox": [
+        140,
+        106,
+        272,
+        143
+      ]
+    }
+  ]
+}

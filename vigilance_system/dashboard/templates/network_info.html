@@ -78,23 +78,25 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
+                <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="/">Dashboard</a>
+                        <a class="nav-link" href="{{ url_for('index') }}">Dashboard</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/visualizations">Algorithm Visualizations</a>
+                        <a class="nav-link" href="{{ url_for('visualizations') }}">Algorithm Visualizations</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/network">Network Routing</a>
+                        <a class="nav-link" href="{{ url_for('network') }}">Network Routing</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="/network/info">Network Info</a>
+                        <a class="nav-link active" href="{{ url_for('network_info') }}">Network Info</a>
                     </li>
                 </ul>
-                <ul class="navbar-nav ms-auto">
+                <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="/logout">Logout</a>
+                        <a class="nav-link" href="{{ url_for('logout') }}">
+                            <i class="bi bi-box-arrow-right"></i> Logout
+                        </a>
                     </li>
                 </ul>
             </div>
@@ -178,24 +180,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6 mb-3">
-                                <div class="card algorithm-card">
-                                    <div class="card-body text-center">
-                                        <i class="bi bi-hash algorithm-icon text-warning"></i>
-                                        <h5>IP Hash</h5>
-                                        <p class="mb-0">Uses a hash of the camera's IP address to determine which node processes its frames.</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <div class="card algorithm-card">
-                                    <div class="card-body text-center">
-                                        <i class="bi bi-cpu algorithm-icon text-purple"></i>
-                                        <h5>YOLOv8 Optimized</h5>
-                                        <p class="mb-0">Smart routing optimized for YOLOv8 processing, balancing capacity and load.</p>
-                                    </div>
-                                </div>
-                            </div>
+
                         </div>
 
                         <h5 class="mt-4">2. Routing Process</h5>
@@ -298,8 +283,6 @@
                     case 'round_robin': return 'Round Robin';
                     case 'least_connection': return 'Least Connection';
                     case 'weighted': return 'Weighted';
-                    case 'ip_hash': return 'IP Hash';
-                    case 'yolov8': return 'YOLOv8 Optimized';
                     default: return algorithm;
                 }
             }

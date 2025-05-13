@@ -336,43 +336,6 @@ class WebcamCamera(Camera):
         self.device_id = device_id
         self.cap = None
 
-
-class VideoFileCamera(Camera):
-    """Camera implementation for video files."""
-
-    def __init__(self, name: str, file_path: str, fps: Optional[int] = None, resolution: Optional[Tuple[int, int]] = None, loop: bool = True):
-        """
-        Initialize a video file camera.
-
-        Args:
-            name: Unique identifier for the camera
-            file_path: Path to the video file
-            fps: Target frames per second to process (if None, uses video's native FPS)
-            resolution: Desired resolution as (width, height)
-            loop: Whether to loop the video when it reaches the end
-        """
-        self.file_path = file_path
-        self.loop = loop
-        self.cap = None
-        self.video_fps = 0
-        self.frame_count = 0
-        self.current_frame = 0
-
-        # Open the video file to get its properties
-        try:
-            temp_cap = cv2.VideoCapture(file_path)
-            if temp_cap.isOpened():
-                self.video_fps = temp_cap.get(cv2.CAP_PROP_FPS)
-                self.frame_count = int(temp_cap.get(cv2.CAP_PROP_FRAME_COUNT))
-                temp_cap.release()
-        except Exception as e:
-            logger.error(f"Error getting video properties: {str(e)}")
-
-        # If fps is not specified, use the video's native FPS
-        target_fps = fps if fps is not None else self.video_fps
-
-        super().__init__(name, file_path, target_fps, resolution)
-
     def connect(self) -> bool:
         """
         Connect to the webcam.
@@ -467,6 +430,72 @@ class VideoFileCamera(Camera):
 
         super().__init__(name, file_path, target_fps, resolution)
 
+    def disconnect(self) -> None:
+        """Release the OpenCV VideoCapture resources."""
+        if self.cap and self.is_connected:
+            self.cap.release()
+            self.is_connected = False
+            logger.info(f"Disconnected from webcam '{self.name}'")
+
+    def read_frame(self) -> Tuple[bool, Optional[np.ndarray]]:
+        """
+        Read a frame from the webcam.
+
+        Returns:
+            Tuple[bool, Optional[np.ndarray]]: Success flag and frame if successful
+        """
+        if not self.is_connected or not self.cap:
+            return False, None
+
+        try:
+            ret, frame = self.cap.read()
+            if not ret or frame is None:
+                logger.warning(f"Failed to read frame from webcam '{self.name}'")
+                return False, None
+
+            return True, frame
+
+        except Exception as e:
+            logger.error(f"Error reading frame from webcam '{self.name}': {str(e)}")
+            return False, None
+
+
+class VideoFileCamera(Camera):
+    """Camera implementation for video files."""
+
+    def __init__(self, name: str, file_path: str, fps: Optional[int] = None, resolution: Optional[Tuple[int, int]] = None, loop: bool = True):
+        """
+        Initialize a video file camera.
+
+        Args:
+            name: Unique identifier for the camera
+            file_path: Path to the video file
+            fps: Target frames per second to process (if None, uses video's native FPS)
+            resolution: Desired resolution as (width, height)
+            loop: Whether to loop the video when it reaches the end
+        """
+        self.file_path = file_path
+        self.loop = loop
+        self.cap = None
+        self.video_fps = 0
+        self.frame_count = 0
+        self.current_frame = 0
+
+        # Open the video file to get its properties
+        try:
+            temp_cap = cv2.VideoCapture(file_path)
+            if temp_cap.isOpened():
+                self.video_fps = temp_cap.get(cv2.CAP_PROP_FPS)
+                self.frame_count = int(temp_cap.get(cv2.CAP_PROP_FRAME_COUNT))
+                temp_cap.release()
+        except Exception as e:
+            logger.error(f"Error getting video properties: {str(e)}")
+
+        # If fps is not specified, use the video's native FPS
+        target_fps = fps if fps is not None else self.video_fps
+
+        super().__init__(name, file_path, target_fps, resolution)
+
     def connect(self) -> bool:
         """
         Connect to the video file.
@@ -475,7 +504,181 @@ class VideoFileCamera(Camera):
             bool: True if connection successful, False otherwise
         """
         try:
-            self.cap = cv2.VideoCapture(self.file_path)
+            # Handle special 'blank' URL
+            if self.file_path == 'blank':
+                logger.info(f"Creating a blank video for camera '{self.name}'")
+                # Create a blank frame with informative text
+                blank_frame = np.zeros((480, 640, 3), dtype=np.uint8)
+                cv2.putText(blank_frame, "No video available", (50, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2)
+                cv2.putText(blank_frame, "This is a fallback blank video", (50, 150), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 255, 255), 2)
+                cv2.putText(blank_frame, "Please add video files to the videos directory", (50, 200), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 2)
+                cv2.putText(blank_frame, "or check your camera configuration", (50, 230), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 2)
+
+                # Add a moving element to make it look like a video
+                current_time = time.time()
+                position = int(((current_time % 5) / 5) * 540)  # Move across the screen every 5 seconds
+                cv2.circle(blank_frame, (50 + position, 300), 20, (0, 165, 255), -1)
+
+                # Store the blank frame
+                self.blank_frame = blank_frame
+                self.is_connected = True
+                self.current_frame = 0
+                self.video_fps = 25
+                self.frame_count = 1000  # Simulate a long video
+                return True
+
+            # Handle image files (jpg, png, etc.) as static videos
+            image_extensions = ['.jpg', '.jpeg', '.png', '.bmp', '.tiff']
+            if any(self.file_path.lower().endswith(ext) for ext in image_extensions):
+                logger.info(f"Loading image as static video: {self.file_path}")
+                try:
+                    # Read the image
+                    image = cv2.imread(self.file_path)
+                    if image is not None:
+                        # Store the image as a static frame
+                        self.blank_frame = image
+                        self.is_connected = True
+                        self.current_frame = 0
+                        self.video_fps = 25
+                        self.frame_count = 1000  # Simulate a long video
+                        logger.info(f"Successfully loaded image as static video: {self.file_path}")
+                        return True
+                    else:
+                        logger.error(f"Failed to load image: {self.file_path}")
+                except Exception as img_e:
+                    logger.error(f"Error loading image: {str(img_e)}")
+
+            # Check if the file exists
+            if not os.path.exists(self.file_path):
+                logger.error(f"Video file does not exist: {self.file_path}")
+
+                # Check if this is a WhatsApp video and try to find it in the surveillance directory
+                found_whatsapp_video = False
+                if "WhatsApp Video" in self.file_path:
+                    surveillance_dir = 'D:\\Main EL\\videos\\surveillance'
+                    if os.path.exists(surveillance_dir):
+                        logger.info(f"Looking for WhatsApp videos in {surveillance_dir}")
+                        try:
+                            files = os.listdir(surveillance_dir)
+                            whatsapp_videos = [f for f in files if f.startswith("WhatsApp Video")]
+                            if whatsapp_videos:
+                                # Use the first WhatsApp video found
+                                whatsapp_video = os.path.join(surveillance_dir, whatsapp_videos[0])
+                                logger.info(f"Found alternative WhatsApp video: {whatsapp_video}")
+                                self.file_path = whatsapp_video
+                                # Skip to the video opening code
+                                if os.path.exists(self.file_path):
+                                    logger.info(f"Using WhatsApp video: {self.file_path}")
+                                    found_whatsapp_video = True
+                        except Exception as e:
+                            logger.error(f"Error looking for WhatsApp videos: {str(e)}")
+
+                # If not a WhatsApp video or no WhatsApp videos found, try sample videos
+                if not os.path.exists(self.file_path) and not found_whatsapp_video:
+                    # Try to find a video file in the surveillance directory
+                    surveillance_dir = os.path.join("D:", "Main EL", "videos", "surveillance")
+                    sample_videos = []
+
+                    # First check if surveillance directory exists
+                    if os.path.exists(surveillance_dir):
+                        logger.info(f"Checking surveillance directory: {surveillance_dir}")
+                        try:
+                            # List all files in the surveillance directory
+                            files = os.listdir(surveillance_dir)
+                            logger.info(f"Files in surveillance directory: {files}")
+
+                            # Add all video files from the surveillance directory
+                            for file in files:
+                                if file.lower().endswith(('.mp4', '.avi', '.mov', '.mkv')):
+                                    video_path = os.path.join(surveillance_dir, file)
+                                    sample_videos.append(video_path)
+                                    logger.info(f"Added video from surveillance dir: {video_path}")
+                        except Exception as e:
+                            logger.error(f"Error listing surveillance directory: {str(e)}")
+                    else:
+                        logger.warning(f"Surveillance directory not found: {surveillance_dir}")
+
+                    # If no videos found in surveillance directory, add fallback options
+                    if not sample_videos:
+                        logger.warning("No videos found in surveillance directory, using fallbacks")
+                        sample_videos = [
+                            # First check surveillance directory
+                            os.path.join("D:", "Main EL", "videos", "surveillance", "WhatsApp Video 2025-04-22 at 20.45.45_529ae150.mp4"),
+                            os.path.join("D:", "Main EL", "videos", "surveillance", "WhatsApp Video 2025-04-22 at 20.47.50_dd1a37f6.mp4"),
+                            os.path.join("D:", "Main EL", "videos", "surveillance", "WhatsApp Video 2025-04-22 at 20.48.20_3c3ca36c.mp4"),
+                            # Then check other possible locations
+                            os.path.join("videos", "surveillance", "WhatsApp Video 2025-04-22 at 20.45.45_529ae150.mp4"),
+                            os.path.join("videos", "surveillance", "WhatsApp Video 2025-04-22 at 20.47.50_dd1a37f6.mp4"),
+                            os.path.join("videos", "surveillance", "WhatsApp Video 2025-04-22 at 20.48.20_3c3ca36c.mp4"),
+                            os.path.join("videos", "samples", "sample1.mp4"),
+                            os.path.join("videos", "samples", "sample2.mp4"),
+                            os.path.join("videos", "samples", "sample3.mp4"),
+                            os.path.join("vigilance_system", "videos", "sample1.mp4"),
+                            os.path.join("vigilance_system", "videos", "sample2.mp4"),
+                            os.path.join("vigilance_system", "videos", "sample3.mp4"),
+                        ]
+
+                for sample_path in sample_videos:
+                    if os.path.exists(sample_path):
+                        logger.info(f"Using sample video instead: {sample_path}")
+                        self.file_path = sample_path
+                        break
+                else:
+                    # If no sample videos found, create a blank video
+                    logger.warning("No sample videos found, creating a blank video frame")
+                    # Create a blank frame with informative text
+                    blank_frame = np.zeros((480, 640, 3), dtype=np.uint8)
+                    cv2.putText(blank_frame, "No video available", (50, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2)
+
+                    # Truncate filename if too long
+                    filename = os.path.basename(self.file_path)
+                    if len(filename) > 30:
+                        filename = filename[:27] + "..."
+
+                    cv2.putText(blank_frame, f"File not found: {filename}", (50, 150),
+                               cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 255, 255), 2)
+
+                    # Add specific instructions for the correct path
+                    cv2.putText(blank_frame, "Please place videos in:", (50, 200),
+                               cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 255, 255), 2)
+                    cv2.putText(blank_frame, "D:\\Main EL\\videos\\surveillance", (50, 230),
+                               cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 2)
+
+                    # Add a moving element to make it look like a video
+                    current_time = time.time()
+                    position = int(((current_time % 5) / 5) * 540)  # Move across the screen every 5 seconds
+                    cv2.circle(blank_frame, (50 + position, 300), 20, (0, 165, 255), -1)
+
+                    # Store the blank frame
+                    self.blank_frame = blank_frame
+                    self.is_connected = True
+                    self.current_frame = 0
+                    self.video_fps = 25
+                    self.frame_count = 1000  # Simulate a long video
+                    return True
+
+            # Log the file path for debugging
+            logger.info(f"Attempting to open video file: {self.file_path}")
+
+            # Check if the file path exists directly - don't override with a different video
+            if os.path.exists(self.file_path):
+                logger.info(f"File exists at path: {self.file_path}")
+                self.cap = cv2.VideoCapture(self.file_path)
+            else:
+                # If no WhatsApp videos found, try the original path
+                # Use absolute path to ensure the file is found
+                abs_path = os.path.abspath(self.file_path)
+                logger.info(f"Using absolute path: {abs_path}")
+
+                # Double check that the file exists
+                if not os.path.exists(abs_path):
+                    logger.error(f"Absolute path does not exist: {abs_path}")
+                    # Try using the raw path string directly
+                    logger.info(f"Trying raw file path: {self.file_path}")
+                    self.cap = cv2.VideoCapture(self.file_path)
+                else:
+                    logger.info(f"File exists at absolute path: {abs_path}")
+                    self.cap = cv2.VideoCapture(abs_path)
 
             # Set resolution if specified
             if self.resolution:
@@ -484,8 +687,36 @@ class VideoFileCamera(Camera):
 
             # Check if connection is successful
             if not self.cap.isOpened():
-                logger.error(f"Failed to open video file: {self.file_path}")
-                return False
+                logger.error(f"Failed to open video file: {abs_path}")
+                # Create a blank frame as fallback
+                logger.warning("Creating a blank video frame as fallback")
+                blank_frame = np.zeros((480, 640, 3), dtype=np.uint8)
+                cv2.putText(blank_frame, "Video loading error", (50, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2)
+                cv2.putText(blank_frame, f"Failed to open: {os.path.basename(self.file_path)}", (50, 150),
+                           cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 255, 255), 2)
+                cv2.putText(blank_frame, "Please check your video format", (50, 200),
+                           cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 255, 255), 2)
+
+                # Add a moving element to make it look like a video
+                current_time = time.time()
+                position = int(((current_time % 5) / 5) * 540)  # Move across the screen every 5 seconds
+                cv2.circle(blank_frame, (50 + position, 300), 20, (0, 165, 255), -1)
+
+                self.blank_frame = blank_frame
+                self.is_connected = True
+                self.current_frame = 0
+                self.video_fps = 25
+                self.frame_count = 1000  # Simulate a long video
+                return True
+
+            # Get video properties
+            self.video_fps = self.cap.get(cv2.CAP_PROP_FPS)
+            if self.video_fps <= 0:
+                self.video_fps = 25  # Default to 25 fps if invalid
+
+            self.frame_count = int(self.cap.get(cv2.CAP_PROP_FRAME_COUNT))
+            if self.frame_count <= 0:
+                self.frame_count = 1000  # Default to 1000 frames if invalid
 
             self.is_connected = True
             self.current_frame = 0
@@ -494,7 +725,24 @@ class VideoFileCamera(Camera):
 
         except Exception as e:
             logger.error(f"Error opening video file '{self.name}': {str(e)}")
-            return False
+            # Create a blank frame as fallback
+            logger.warning("Creating a blank video frame due to exception")
+            blank_frame = np.zeros((480, 640, 3), dtype=np.uint8)
+            cv2.putText(blank_frame, "Error loading video", (50, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2)
+            cv2.putText(blank_frame, f"Error: {str(e)}", (50, 150), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 255, 255), 2)
+            cv2.putText(blank_frame, "Please check your video configuration", (50, 200), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 255, 255), 2)
+
+            # Add a moving element to make it look like a video
+            current_time = time.time()
+            position = int(((current_time % 5) / 5) * 540)  # Move across the screen every 5 seconds
+            cv2.circle(blank_frame, (50 + position, 300), 20, (0, 165, 255), -1)
+
+            self.blank_frame = blank_frame
+            self.is_connected = True
+            self.current_frame = 0
+            self.video_fps = 25
+            self.frame_count = 1000  # Simulate a long video
+            return True
 
     def disconnect(self) -> None:
         """Release the OpenCV VideoCapture resources."""
@@ -510,12 +758,40 @@ class VideoFileCamera(Camera):
         Returns:
             Tuple[bool, Optional[np.ndarray]]: Success flag and frame if successful
         """
-        if not self.is_connected or not self.cap:
+        # If we have a blank frame (fallback), return it with some animation
+        if hasattr(self, 'blank_frame'):
+            # Create a copy to avoid modifying the original
+            frame = self.blank_frame.copy()
+
+            # Add a moving element to make it look like a video
+            current_time = time.time()
+            position = int(((current_time % 5) / 5) * 540)  # Move across the screen every 5 seconds
+
+            # Draw a moving circle
+            cv2.circle(frame, (50 + position, 300), 20, (0, 165, 255), -1)
+
+            # Add a timestamp to show it's updating
+            timestamp = time.strftime("%H:%M:%S", time.localtime())
+            cv2.putText(frame, f"Time: {timestamp}", (50, 400), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (200, 200, 200), 2)
+
+            return True, frame
+
+        if not self.is_connected:
+            logger.warning(f"Cannot read frame: camera '{self.name}' is not connected")
             return False, None
+
+        if not self.cap:
+            logger.warning(f"Cannot read frame: no video capture for camera '{self.name}'")
+            # Create a blank frame as fallback
+            blank_frame = np.zeros((480, 640, 3), dtype=np.uint8)
+            cv2.putText(blank_frame, "No video capture", (50, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2)
+            cv2.putText(blank_frame, f"Camera: {self.name}", (50, 150), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 255, 255), 2)
+            cv2.putText(blank_frame, "Please check your camera configuration", (50, 200), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 255, 255), 2)
+            self.blank_frame = blank_frame
+            return True, self.blank_frame.copy()
 
         try:
             ret, frame = self.cap.read()
-            self.current_frame += 1
 
             # If we've reached the end of the video and looping is enabled, reset to the beginning
             if not ret and self.loop and self.frame_count > 0:
@@ -524,18 +800,66 @@ class VideoFileCamera(Camera):
                 self.current_frame = 0
                 ret, frame = self.cap.read()
 
-            if not ret or frame is None:
-                if self.loop:
-                    logger.warning(f"Failed to read frame from video file '{self.name}'")
-                else:
-                    logger.info(f"Reached end of video file '{self.name}'")
-                return False, None
+                # If still can't read after resetting, try reopening the file
+                if not ret:
+                    logger.warning(f"Failed to loop video '{self.name}', trying to reopen")
+                    self.disconnect()
+                    if self.connect():
+                        ret, frame = self.cap.read()
 
+            if not ret or frame is None:
+                logger.warning(f"Failed to read frame from video file '{self.name}'")
+                # Create a blank frame as fallback if we don't have one yet
+                if not hasattr(self, 'blank_frame'):
+                    blank_frame = np.zeros((480, 640, 3), dtype=np.uint8)
+                    cv2.putText(blank_frame, "End of video", (50, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2)
+                    cv2.putText(blank_frame, f"Video: {os.path.basename(self.file_path)}", (50, 150), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 255, 255), 2)
+                    cv2.putText(blank_frame, "Video has ended or is corrupted", (50, 200), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 255, 255), 2)
+                    self.blank_frame = blank_frame
+
+                # Create a copy to avoid modifying the original
+                frame = self.blank_frame.copy()
+
+                # Add a moving element to make it look like a video
+                current_time = time.time()
+                position = int(((current_time % 5) / 5) * 540)  # Move across the screen every 5 seconds
+                cv2.circle(frame, (50 + position, 300), 20, (0, 165, 255), -1)
+
+                # Add a timestamp to show it's updating
+                timestamp = time.strftime("%H:%M:%S", time.localtime())
+                cv2.putText(frame, f"Time: {timestamp}", (50, 400), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (200, 200, 200), 2)
+
+                return True, frame
+
+            self.current_frame += 1
             return True, frame
 
         except Exception as e:
             logger.error(f"Error reading frame from video file '{self.name}': {str(e)}")
-            return False, None
+            # Create a blank frame as fallback if we don't have one yet
+            if not hasattr(self, 'blank_frame'):
+                blank_frame = np.zeros((480, 640, 3), dtype=np.uint8)
+                cv2.putText(blank_frame, "Error reading video", (50, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2)
+                cv2.putText(blank_frame, f"Error: {str(e)}", (50, 150), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 255, 255), 2)
+                cv2.putText(blank_frame, "Please check your video file", (50, 200), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 255, 255), 2)
+                self.blank_frame = blank_frame
+
+            # Create a copy to avoid modifying the original
+            frame = self.blank_frame.copy()
+
+            # Add a moving element to make it look like a video
+            current_time = time.time()
+            position = int(((current_time % 5) / 5) * 540)  # Move across the screen every 5 seconds
+            cv2.circle(frame, (50 + position, 300), 20, (0, 165, 255), -1)
+
+            # Add a timestamp to show it's updating
+            timestamp = time.strftime("%H:%M:%S", time.localtime())
+            cv2.putText(frame, f"Time: {timestamp}", (50, 400), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (200, 200, 200), 2)
+
+            # Try to reconnect
+            self.disconnect()
+            self.connect()
+            return True, frame
 
 
 class OnlineVideoCamera(VideoFileCamera):
@@ -662,6 +986,7 @@ def create_camera(camera_config: Dict[str, Any]) -> Optional[Camera]:
 def find_video_files(directory: str = 'videos') -> List[Dict[str, Any]]:
     """
     Find video files in the specified directory and its subdirectories.
+    Prioritizes the D:\\Main EL\\videos\\surveillance directory as specified by the user.
 
     Args:
         directory: Directory to search for video files
@@ -676,45 +1001,233 @@ def find_video_files(directory: str = 'videos') -> List[Dict[str, Any]]:
     base_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
     videos_dir = os.path.join(base_dir, directory)
 
-    try:
-        if not os.path.exists(videos_dir):
-            logger.warning(f"Videos directory not found: {videos_dir}")
-            # Create the videos directory if it doesn't exist
-            os.makedirs(videos_dir, exist_ok=True)
-            logger.info(f"Created videos directory: {videos_dir}")
-            return []
+    # Primary surveillance directory - this is where videos should be
+    surveillance_dir = 'D:\\Main EL\\videos\\surveillance'
 
-        # Walk through the directory and its subdirectories
-        for root, _, files in os.walk(videos_dir):
-            for file in files:
-                if any(file.lower().endswith(ext) for ext in video_extensions):
-                    file_path = os.path.join(root, file)
+    # ALWAYS use the surveillance directory first
+    if os.path.exists(surveillance_dir):
+        logger.info(f"Found surveillance directory at {surveillance_dir}")
+        try:
+            files = os.listdir(surveillance_dir)
+            logger.info(f"Files in surveillance directory: {files}")
 
+            # Check for video files
+            video_files = [f for f in files if any(f.lower().endswith(ext) for ext in video_extensions)]
+            if video_files:
+                logger.info(f"Found {len(video_files)} video files in surveillance directory: {video_files}")
+
+                # Create camera configs for each video file in the surveillance directory
+                for file in video_files:
+                    file_path = os.path.join(surveillance_dir, file)
                     # Create a camera name based on the file name
-                    # Remove extension and clean up the name
                     name = os.path.splitext(file)[0]
-                    # Replace underscores with spaces and capitalize words
                     name = ' '.join(word.capitalize() for word in name.replace('_', ' ').split())
 
-                    # If the file is in a subdirectory, add the subdirectory name to the camera name
-                    rel_dir = os.path.relpath(root, videos_dir)
-                    if rel_dir != '.':
-                        # Format the subdirectory path as part of the name
-                        subdir_name = rel_dir.replace(os.path.sep, ' - ').replace('_', ' ')
-                        name = f"{subdir_name} - {name}"
-
                     # Create a camera configuration for this video file
-                    video_configs.append({
+                    camera_config = {
                         'name': name,
                         'url': file_path,
                         'type': 'video',
                         'fps': None,  # Use video's native FPS
                         'loop': True
+                    }
+
+                    # Add the camera configuration
+                    video_configs.append(camera_config)
+                    logger.info(f"Added camera config for surveillance video: {camera_config}")
+
+                # If we found videos in the surveillance directory, return them immediately
+                if video_configs:
+                    logger.info(f"Using {len(video_configs)} videos from surveillance directory")
+                    return video_configs
+            else:
+                logger.warning(f"No video files found in surveillance directory")
+        except Exception as e:
+            logger.error(f"Error listing files in surveillance directory: {str(e)}")
+    else:
+        logger.warning(f"Surveillance directory not found at {surveillance_dir}, creating it...")
+        try:
+            os.makedirs(surveillance_dir, exist_ok=True)
+            logger.info(f"Created surveillance directory at {surveillance_dir}")
+        except Exception as e:
+            logger.error(f"Failed to create surveillance directory: {str(e)}")
+
+    # Only check these other directories if no videos found in surveillance_dir
+    additional_dirs = [
+        os.path.join(base_dir, 'videos', 'surveillance'),
+        videos_dir,
+        'D:\\Main EL\\videos',
+        'D:\\Main EL\\vigilance_system\\videos',
+        os.path.join(base_dir, 'vigilance_system', 'videos'),
+        os.path.join(base_dir, 'videos'),
+        os.path.join(os.getcwd(), 'videos', 'surveillance'),
+        os.path.join(os.getcwd(), 'videos'),
+        os.path.join(os.getcwd(), 'vigilance_system', 'videos')
+    ]
+
+    # Log the existence of the surveillance directory and its contents
+    if os.path.exists(surveillance_dir):
+        logger.info(f"Surveillance directory exists at: {surveillance_dir}")
+        try:
+            files = os.listdir(surveillance_dir)
+            logger.info(f"Files in surveillance directory: {files}")
+
+            # Check for specific WhatsApp videos
+            for file in files:
+                if file.startswith("WhatsApp Video"):
+                    logger.info(f"Found WhatsApp video: {file}")
+        except Exception as e:
+            logger.error(f"Error listing files in surveillance directory: {str(e)}")
+
+    logger.info(f"Checking the following directories for videos: {additional_dirs}")
+
+    try:
+        # Create the default videos directory if it doesn't exist
+        if not os.path.exists(videos_dir):
+            logger.warning(f"Default videos directory not found: {videos_dir}")
+            os.makedirs(videos_dir, exist_ok=True)
+            logger.info(f"Created default videos directory: {videos_dir}")
+
+        # Check all directories for videos
+        for dir_path in additional_dirs:
+            if os.path.exists(dir_path):
+                logger.info(f"Checking for videos in: {dir_path}")
+
+                # Walk through the directory and its subdirectories
+                for root, _, files in os.walk(dir_path):
+                    for file in files:
+                        if any(file.lower().endswith(ext) for ext in video_extensions):
+                            file_path = os.path.join(root, file)
+                            logger.info(f"Found video file: {file_path}")
+
+                            # Create a camera name based on the file name
+                            name = os.path.splitext(file)[0]
+                            name = ' '.join(word.capitalize() for word in name.replace('_', ' ').split())
+
+                            # If the file is in a subdirectory, add the subdirectory name to the camera name
+                            rel_dir = os.path.relpath(root, dir_path)
+                            if rel_dir != '.':
+                                subdir_name = rel_dir.replace(os.path.sep, ' - ').replace('_', ' ')
+                                name = f"{subdir_name} - {name}"
+
+                            # Create a camera configuration for this video file
+                            camera_config = {
+                                'name': name,
+                                'url': file_path,
+                                'type': 'video',
+                                'fps': None,  # Use video's native FPS
+                                'loop': True
+                            }
+
+                            # Add the camera configuration
+                            video_configs.append(camera_config)
+                            logger.info(f"Added camera config: {camera_config}")
+
+                logger.info(f"Found {len(video_configs)} video files in {dir_path} and its subdirectories")
+
+                # If we found videos, no need to check other directories
+                if video_configs:
+                    logger.info(f"Using videos from {dir_path}")
+                    break
+            else:
+                logger.warning(f"Directory not found: {dir_path}")
+
+        # If no videos found in any directory, log a warning
+        if not video_configs:
+            logger.warning("No video files found in any of the checked directories")
+
+            # Try to directly use all WhatsApp videos in the surveillance directory
+            surveillance_dir = 'D:\\Main EL\\videos\\surveillance'
+            if os.path.exists(surveillance_dir):
+                logger.info(f"Looking for WhatsApp videos in {surveillance_dir}")
+                try:
+                    files = os.listdir(surveillance_dir)
+                    whatsapp_videos = [f for f in files if f.startswith("WhatsApp Video")]
+
+                    if whatsapp_videos:
+                        logger.info(f"Found {len(whatsapp_videos)} WhatsApp videos in surveillance directory")
+
+                        # Add each WhatsApp video to the configs
+                        for i, video_file in enumerate(whatsapp_videos):
+                            video_path = os.path.join(surveillance_dir, video_file)
+                            logger.info(f"Adding WhatsApp video {i+1}: {video_path}")
+
+                            # Create a camera name based on the file name
+                            name = f"WhatsApp Video {i+1}"
+
+                            video_configs.append({
+                                'name': name,
+                                'url': video_path,
+                                'type': 'video',
+                                'fps': None,  # Use video's native FPS
+                                'loop': True
+                            })
+                            logger.info(f"Added WhatsApp video config: {name} at {video_path}")
+                    else:
+                        logger.warning("No WhatsApp videos found in surveillance directory")
+                except Exception as e:
+                    logger.error(f"Error listing files in surveillance directory: {str(e)}")
+
+        logger.info(f"Found {len(video_configs)} video files in total")
+
+        # If no local videos found, create some test videos with colored patterns
+        if not video_configs:
+            logger.info("No local videos found, creating test pattern videos")
+
+            # Create a directory for test videos if it doesn't exist
+            test_videos_dir = os.path.join(videos_dir, 'test')
+            os.makedirs(test_videos_dir, exist_ok=True)
+
+            # Create test pattern videos
+            test_videos = []
+
+            # Create a test video with a moving pattern
+            for pattern_name, color in [
+                ('Red Pattern', (0, 0, 255)),
+                ('Green Pattern', (0, 255, 0)),
+                ('Blue Pattern', (255, 0, 0))
+            ]:
+                # We'll use an image instead of a video file for simplicity
+                # No need to create a video file path
+
+                # Create a test video file with a moving pattern
+                try:
+                    # Create a blank frame
+                    frame = np.zeros((480, 640, 3), dtype=np.uint8)
+
+                    # Add text to the frame
+                    cv2.putText(frame, f"Test Video: {pattern_name}", (50, 50),
+                               cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2)
+                    cv2.putText(frame, "No real video files found", (50, 100),
+                               cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 255, 255), 2)
+                    cv2.putText(frame, "Using generated test pattern", (50, 150),
+                               cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 255, 255), 2)
+
+                    # Draw a colored rectangle
+                    cv2.rectangle(frame, (50, 200), (590, 400), color, -1)
+
+                    # Save the frame as an image
+                    test_image_path = os.path.join(test_videos_dir, f"{pattern_name.lower().replace(' ', '_')}.jpg")
+                    cv2.imwrite(test_image_path, frame)
+
+                    # Add the test video to the list
+                    test_videos.append({
+                        'name': pattern_name,
+                        'url': test_image_path,  # Use the image as a static video
+                        'type': 'video',
+                        'fps': 25,
+                        'loop': True
                     })
 
-        logger.info(f"Found {len(video_configs)} video files in {videos_dir} and its subdirectories")
+                    logger.info(f"Created test pattern image: {test_image_path}")
+                except Exception as e:
+                    logger.error(f"Error creating test pattern video: {str(e)}")
 
-        # If no local videos found, add some online sample videos
+            # Add the test videos to the list
+            video_configs.extend(test_videos)
+            logger.info(f"Added {len(test_videos)} test pattern videos")
+
+        # If still no videos, add some online sample videos as a last resort
         if not video_configs:
             logger.info("No local videos found, adding online sample videos")
 
@@ -746,8 +1259,31 @@ def find_video_files(directory: str = 'videos') -> List[Dict[str, Any]]:
             video_configs.extend(online_videos)
             logger.info(f"Added {len(online_videos)} online sample videos")
 
+        # If we still have no videos, create a blank video as a last resort
+        if not video_configs:
+            logger.warning("No videos found or created, adding a blank video as last resort")
+
+            # Create a blank video
+            blank_video = {
+                'name': 'Blank Video',
+                'url': 'blank',  # Special URL that will be handled in VideoFileCamera.connect()
+                'type': 'video',
+                'fps': 25,
+                'loop': True
+            }
+
+            video_configs.append(blank_video)
+            logger.info("Added a blank video as last resort")
+
         return video_configs
 
     except Exception as e:
         logger.error(f"Error finding video files: {str(e)}")
-        return []
+        # Return a fallback blank video in case of error
+        return [{
+            'name': 'Fallback Blank Video',
+            'url': 'blank',  # Special URL that will be handled in VideoFileCamera.connect()
+            'type': 'video',
+            'fps': 25,
+            'loop': True
+        }]

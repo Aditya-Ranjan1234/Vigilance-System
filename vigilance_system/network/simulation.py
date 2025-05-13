@@ -250,7 +250,7 @@ class NetworkSimulator:
         Args:
             algorithm: Name of the routing algorithm
         """
-        valid_algorithms = ['direct', 'round_robin', 'least_connection', 'weighted', 'ip_hash']
+        valid_algorithms = ['direct', 'round_robin', 'least_connection', 'weighted']
         if algorithm not in valid_algorithms:
             logger.warning(f"Invalid routing algorithm: {algorithm}. Using 'direct' instead.")
             algorithm = 'direct'
@@ -297,6 +297,7 @@ class NetworkSimulator:
             except Exception as e:
                 logger.error(f"Error reconnecting node client: {str(e)}")
 
+        # Always update our local routing algorithm
         self.routing_algorithm = algorithm
 
         # Update the node client even if algorithm didn't change
@@ -416,12 +417,7 @@ class NetworkSimulator:
             node_weights = [weights[node_id] for node_id in node_ids]
             return random.choices(node_ids, weights=node_weights, k=1)[0]
 
-        elif self.routing_algorithm == 'ip_hash':
-            # Use camera_id hash for consistent routing
-            node_ids = list(self.nodes.keys())
-            hash_value = hash(camera_id)
-            return node_ids[hash_value % len(node_ids)]
-
+        # IP Hash algorithm removed as it's not a routing algorithm
 
 
         # Default to first node

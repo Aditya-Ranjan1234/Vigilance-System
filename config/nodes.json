@@ -1,0 +1,72 @@
+[
+  {
+    "node_id": "node_1",
+    "host": "localhost",
+    "port": 8000,
+    "capacity": 0.9151356103579097,
+    "latency": 0.04697446434209062
+  },
+  {
+    "node_id": "node_2",
+    "host": "localhost",
+    "port": 8010,
+    "capacity": 1.0994535581809834,
+    "latency": 0.012824629048855413
+  },
+  {
+    "node_id": "node_3",
+    "host": "localhost",
+    "port": 8020,
+    "capacity": 1.0794296680406652,
+    "latency": 0.02709338492386428
+  },
+  {
+    "node_id": "node_4",
+    "host": "localhost",
+    "port": 8030,
+    "capacity": 1.45920776416427,
+    "latency": 0.013772617898986799
+  },
+  {
+    "node_id": "node_5",
+    "host": "localhost",
+    "port": 8040,
+    "capacity": 0.8257598786895988,
+    "latency": 0.020111518055022534
+  },
+  {
+    "node_id": "node_6",
+    "host": "localhost",
+    "port": 8050,
+    "capacity": 1.2969420968561298,
+    "latency": 0.019322364171892953
+  },
+  {
+    "node_id": "node_7",
+    "host": "localhost",
+    "port": 8060,
+    "capacity": 1.0816059344858457,
+    "latency": 0.016335161657771352
+  },
+  {
+    "node_id": "node_8",
+    "host": "localhost",
+    "port": 8070,
+    "capacity": 0.7741901683303213,
+    "latency": 0.017339767185943964
+  },
+  {
+    "node_id": "node_9",
+    "host": "localhost",
+    "port": 8080,
+    "capacity": 1.263996122607757,
+    "latency": 0.015565629243124199
+  },
+  {
+    "node_id": "node_10",
+    "host": "localhost",
+    "port": 8090,
+    "capacity": 0.726074737023648,
+    "latency": 0.0442497183391925
+  }
+]

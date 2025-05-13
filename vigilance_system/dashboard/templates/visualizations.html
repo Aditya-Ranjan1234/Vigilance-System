@@ -10,10 +10,17 @@
     <style>
         .visualization-section {
             margin-bottom: 40px;
-            background-color: white;
-            padding: 20px;
+            background-color: #ffffff;
+            padding: 25px;
             border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            color: #212529;
+        }
+        .visualization-section h2 {
+            color: #212529;
+            border-bottom: 2px solid #212529;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
         }
         .visualization-container {
             display: flex;
@@ -24,20 +31,42 @@
         .visualization-item {
             flex: 1;
             min-width: 300px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            padding: 10px;
-            background-color: #f9f9f9;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .visualization-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
         }
         .visualization-item h3 {
             margin-top: 0;
+            color: #212529;
+            border-bottom: 1px solid #dee2e6;
+            padding-bottom: 8px;
+        }
+        .visualization-item p {
+            color: #495057;
+        }
+        .visualization-item strong {
+            color: #000000;
         }
         img.animation, img.explanation {
             max-width: 100%;
             height: auto;
-            border-radius: 4px;
+            border-radius: 8px;
             display: block;
-            margin: 0 auto;
+            margin: 15px auto;
+            border: 1px solid #dee2e6;
+        }
+        body {
+            background-color: #f8f9fa;
+            color: #212529;
+        }
+        .lead {
+            color: #495057;
         }
     </style>
 </head>
@@ -56,6 +85,9 @@
                     <li class="nav-item">
                         <a class="nav-link active" href="{{ url_for('visualizations') }}">Algorithm Visualizations</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('network') }}">Network Routing</a>
+                    </li>
                 </ul>
                 <ul class="navbar-nav">
                     <li class="nav-item">
@@ -71,39 +103,66 @@
     <div class="container-fluid mt-3">
         <div class="row">
             <div class="col-12">
-                <h1 class="mb-4">Algorithm Visualizations</h1>
-                <p class="lead">This page showcases visualizations of the algorithms used in the Vigilance System, explaining how they work and their time complexity.</p>
-            
+                <h1 class="mb-4" style="text-align: center; margin-top: 20px;">Algorithm Visualizations</h1>
                 <div class="visualization-section">
-                    <h2>Video Stabilization Algorithm</h2>
-                    <p>The video stabilization algorithm reduces camera shake by estimating and correcting motion between frames.</p>
+                    <h2>Overview</h2>
+                    <p>This page provides detailed explanations of the algorithms used in the Vigilance System for object detection, tracking, and network routing. Each algorithm is described with its working principles, time complexity, advantages, and limitations.</p>
+                </div>
+
+                <div class="visualization-section">
+                    <h2>Object Tracking Algorithms</h2>
+                    <p>The system supports multiple object tracking algorithms to associate detections across frames.</p>
                     <div class="visualization-container">
                         <div class="visualization-item">
-                            <h3>Animation</h3>
-                            <img src="{{ url_for('static', filename='visualizations/video_stabilization.gif') }}" alt="Video Stabilization Animation" class="animation">
+                            <h3>KNN Tracker</h3>
+                            <p><strong>How it works:</strong> Uses K-Nearest Neighbors to match new detections to existing tracked objects based on spatial proximity.</p>
+                            <p><strong>Time Complexity:</strong> O(n log n) where n is the number of tracked objects.</p>
+                            <p><strong>Advantages:</strong> Works well with consistent motion patterns, adapts to different object speeds.</p>
+                            <img src="{{ url_for('static', filename='visualizations/object_tracking.gif') }}" alt="KNN Tracking Animation" class="animation">
                         </div>
                         <div class="visualization-item">
-                            <h3>Explanation</h3>
-                            <img src="{{ url_for('static', filename='visualizations/video_stabilization_explanation.png') }}" alt="Video Stabilization Explanation" class="explanation">
+                            <h3>SVM Tracker</h3>
+                            <p><strong>How it works:</strong> Uses Support Vector Machines to classify new detections and match them to existing tracked objects.</p>
+                            <p><strong>Time Complexity:</strong> O(n²) for training, O(n) for prediction, where n is the number of support vectors.</p>
+                            <p><strong>Advantages:</strong> Better handling of occlusions and complex motion patterns.</p>
+                        </div>
+                        <div class="visualization-item">
+                            <h3>Naive Bayes Tracker</h3>
+                            <p><strong>How it works:</strong> Uses Naive Bayes classifier to probabilistically match new detections to existing tracked objects.</p>
+                            <p><strong>Time Complexity:</strong> O(n) for both training and prediction, where n is the number of features.</p>
+                            <p><strong>Advantages:</strong> Fast and works well with limited training data.</p>
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="visualization-section">
-                    <h2>Object Tracking Algorithm</h2>
-                    <p>The object tracking algorithm associates detections across frames to track objects over time.</p>
+                    <h2>Object Detection Algorithms</h2>
+                    <p>The system supports multiple object detection algorithms to identify objects in video frames.</p>
                     <div class="visualization-container">
                         <div class="visualization-item">
-                            <h3>Animation</h3>
-                            <img src="{{ url_for('static', filename='visualizations/object_tracking.gif') }}" alt="Object Tracking Animation" class="animation">
+                            <h3>Background Subtraction</h3>
+                            <p><strong>How it works:</strong> Builds a statistical model of the background and identifies moving objects as foreground.</p>
+                            <p><strong>Time Complexity:</strong> O(n) where n is the number of pixels in the frame.</p>
+                            <p><strong>Advantages:</strong> Fast and works well for static cameras with relatively static backgrounds.</p>
+                            <p><strong>Limitations:</strong> Sensitive to lighting changes and camera movement.</p>
                         </div>
                         <div class="visualization-item">
-                            <h3>Explanation</h3>
-                            <img src="{{ url_for('static', filename='visualizations/object_tracking_explanation.png') }}" alt="Object Tracking Explanation" class="explanation">
+                            <h3>HOG+SVM</h3>
+                            <p><strong>How it works:</strong> Extracts Histogram of Oriented Gradients features and uses a Support Vector Machine classifier to detect people.</p>
+                            <p><strong>Time Complexity:</strong> O(n) where n is the number of detection windows.</p>
+                            <p><strong>Advantages:</strong> Good at detecting people, doesn't require background modeling.</p>
+                            <p><strong>Limitations:</strong> Slower than background subtraction, primarily designed for pedestrian detection.</p>
+                        </div>
+                        <div class="visualization-item">
+                            <h3>YOLO (You Only Look Once)</h3>
+                            <p><strong>How it works:</strong> Single-shot object detection using convolutional neural networks to predict bounding boxes and class probabilities.</p>
+                            <p><strong>Time Complexity:</strong> O(1) with respect to the number of objects (constant time).</p>
+                            <p><strong>Advantages:</strong> Fast, accurate, and can detect multiple object classes simultaneously.</p>
+                            <p><strong>Limitations:</strong> Requires more computational resources than traditional methods.</p>
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="visualization-section">
                     <h2>Decision Making Algorithms</h2>
                     <p>The decision making algorithms include loitering detection and crowd detection.</p>
@@ -122,17 +181,57 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="visualization-section">
-                    <h2>About the Visualizations</h2>
-                    <p>These visualizations were created to help understand the algorithms used in the Vigilance System:</p>
-                    <ul>
-                        <li><strong>Video Stabilization</strong>: Reduces camera shake by estimating and correcting motion between frames.</li>
-                        <li><strong>Object Tracking</strong>: Associates detections across frames to track objects over time.</li>
-                        <li><strong>Loitering Detection</strong>: Tracks object duration and triggers alerts based on thresholds.</li>
-                        <li><strong>Crowd Detection</strong>: Counts objects of specific classes and triggers alerts based on thresholds.</li>
-                    </ul>
-                    <p>Each visualization includes an animation showing the algorithm in action and an explanation of how it works, including its time complexity.</p>
+                    <h2>Network Routing Algorithms</h2>
+                    <p>The system supports multiple network routing algorithms to distribute video processing across nodes.</p>
+                    <div class="visualization-container">
+                        <div class="visualization-item">
+                            <h3>Direct Connection</h3>
+                            <p><strong>How it works:</strong> All traffic goes to a single node.</p>
+                            <p><strong>Time Complexity:</strong> O(1) - constant time routing decision.</p>
+                            <p><strong>Advantages:</strong> Simple implementation, no routing overhead.</p>
+                            <p><strong>Limitations:</strong> Not scalable, single point of failure.</p>
+                        </div>
+                        <div class="visualization-item">
+                            <h3>Round Robin</h3>
+                            <p><strong>How it works:</strong> Distributes traffic evenly across all nodes in sequence.</p>
+                            <p><strong>Time Complexity:</strong> O(1) - constant time routing decision.</p>
+                            <p><strong>Advantages:</strong> Simple load balancing, fair distribution.</p>
+                            <p><strong>Limitations:</strong> Doesn't consider node capacity or current load.</p>
+                        </div>
+                        <div class="visualization-item">
+                            <h3>Least Connection</h3>
+                            <p><strong>How it works:</strong> Sends traffic to the node with the fewest active connections.</p>
+                            <p><strong>Time Complexity:</strong> O(n) where n is the number of nodes.</p>
+                            <p><strong>Advantages:</strong> Adaptive to changing loads, prevents overloading.</p>
+                            <p><strong>Limitations:</strong> Requires tracking connection counts, slightly higher overhead.</p>
+                        </div>
+                        <div class="visualization-item">
+                            <h3>Weighted</h3>
+                            <p><strong>How it works:</strong> Routes based on node capacity weights, sending more traffic to higher capacity nodes.</p>
+                            <p><strong>Time Complexity:</strong> O(n) where n is the number of nodes.</p>
+                            <p><strong>Advantages:</strong> Accounts for heterogeneous node capabilities.</p>
+                            <p><strong>Limitations:</strong> Requires manual configuration of weights.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="visualization-section">
+                    <h2>Implementation Notes</h2>
+                    <p>All algorithms have been implemented with careful consideration of performance and accuracy. The system allows switching between algorithms to compare their effectiveness in different scenarios.</p>
+                    <div class="visualization-container">
+                        <div class="visualization-item">
+                            <h3>Performance Considerations</h3>
+                            <p>When selecting algorithms for your use case, consider these factors:</p>
+                            <ul>
+                                <li><strong>Processing Speed</strong>: Background Subtraction and KNN are faster but less accurate</li>
+                                <li><strong>Accuracy</strong>: SVM and Naive Bayes provide better tracking accuracy but require more processing</li>
+                                <li><strong>Network Load</strong>: Weighted and Least Connection routing provide better load distribution</li>
+                                <li><strong>System Resources</strong>: Consider available CPU/GPU resources when selecting algorithms</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -140,5 +239,94 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+    <script>
+        // Add animation to visualization items
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animate visualization items on scroll
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('show');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.visualization-item').forEach(item => {
+                item.style.opacity = '0';
+                item.style.transform = 'translateY(20px)';
+                item.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                observer.observe(item);
+            });
+
+            // Add CSS for animation
+            const style = document.createElement('style');
+            style.textContent = `
+                .visualization-item.show {
+                    opacity: 1 !important;
+                    transform: translateY(0) !important;
+                }
+            `;
+            document.head.appendChild(style);
+
+            // Create algorithm complexity chart
+            const complexityCtx = document.createElement('canvas');
+            complexityCtx.id = 'complexityChart';
+            complexityCtx.height = 250;
+
+            // Find the implementation notes section to append the chart
+            const implementationSection = document.querySelector('.visualization-section:last-child');
+            const chartContainer = document.createElement('div');
+            chartContainer.className = 'visualization-item';
+            chartContainer.innerHTML = '<h3>Algorithm Complexity Comparison</h3>';
+            chartContainer.appendChild(complexityCtx);
+
+            // Add the chart to the implementation section
+            if (implementationSection) {
+                implementationSection.querySelector('.visualization-container').appendChild(chartContainer);
+            }
+
+            // Create the chart
+            new Chart(complexityCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Background Subtraction', 'HOG+SVM', 'YOLO', 'KNN Tracker', 'SVM Tracker', 'Naive Bayes'],
+                    datasets: [{
+                        label: 'Relative Computational Complexity',
+                        data: [10, 40, 70, 30, 60, 20],
+                        backgroundColor: [
+                            'rgba(54, 162, 235, 0.5)',
+                            'rgba(255, 99, 132, 0.5)',
+                            'rgba(255, 206, 86, 0.5)',
+                            'rgba(75, 192, 192, 0.5)',
+                            'rgba(153, 102, 255, 0.5)',
+                            'rgba(255, 159, 64, 0.5)'
+                        ],
+                        borderColor: [
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Complexity (Higher = More Complex)'
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
 </body>
 </html>

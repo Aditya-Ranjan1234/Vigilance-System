@@ -132,7 +132,15 @@ document.addEventListener('DOMContentLoaded', function() {
         // Update camera feed directly
         const imgElement = document.getElementById(`camera-${cameraName}`);
         if (imgElement) {
-            imgElement.src = `data:image/jpeg;base64,${frameBase64}`;
+            // Check if frameBase64 is valid
+            if (frameBase64 && frameBase64.length > 100) {
+                imgElement.src = `data:image/jpeg;base64,${frameBase64}`;
+
+                // Log successful frame update
+                console.log(`Updated frame for camera ${cameraName}, frame size: ${frameBase64.length}`);
+            } else {
+                console.warn(`Received invalid frame for camera ${cameraName}, frame size: ${frameBase64 ? frameBase64.length : 0}`);
+            }
 
             // Add error handling for image loading
             imgElement.onerror = function() {
@@ -142,6 +150,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     imgElement.src = '/static/img/camera-placeholder.jpg';
                 }, 500);
             };
+        } else {
+            console.error(`Camera element not found for ${cameraName}`);
         }
 
         // Update frame rate
@@ -160,8 +170,8 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
         // Make sure detectionCount element exists before updating
-        if (detectionCount) {
-            detectionCount.textContent = totalDetections;
+        if (window.detectionCount) {
+            window.detectionCount.textContent = totalDetections;
         }
 
         // Update algorithm selectors to match what's actually being used
@@ -742,8 +752,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         latency += 20;
                     } else if (networkSettings.routing_algorithm === 'weighted') {
                         latency += 25;
-                    } else if (networkSettings.routing_algorithm === 'ip_hash') {
-                        latency += 30;
+                    // IP Hash removed as it is not a routing algorithm
                     }
 
                     // Add some randomness to latency

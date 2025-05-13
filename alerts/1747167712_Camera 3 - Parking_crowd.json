@@ -1,0 +1,49 @@
+{
+  "type": "crowd",
+  "camera": "Camera 3 - Parking",
+  "people_count": 3,
+  "timestamp": 1747167712.750838,
+  "message": "Crowd detected on camera 'Camera 3 - Parking': 3 people",
+  "algorithm": "decision_tree",
+  "people_locations": [
+    {
+      "object_id": 0,
+      "center": [
+        448.0,
+        70.0
+      ],
+      "bbox": [
+        290,
+        1,
+        316,
+        138
+      ]
+    },
+    {
+      "object_id": 1,
+      "center": [
+        73.0,
+        194.5
+      ],
+      "bbox": [
+        24,
+        95,
+        98,
+        199
+      ]
+    },
+    {
+      "object_id": 2,
+      "center": [
+        174.0,
+        49.5
+      ],
+      "bbox": [
+        52,
+        8,
+        244,
+        83
+      ]
+    }
+  ]
+}

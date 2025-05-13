@@ -2,7 +2,7 @@
 Configuration utility for the vigilance system.
 
 This module provides functions to load and access configuration settings
-from the config.yaml file.
+from the config/config.yaml file.
 """
 
 import os
@@ -46,7 +46,7 @@ class Config:
 
         self._config_path = config_path or os.path.join(
             os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))),
-            'config.yaml'
+            'config', 'config.yaml'
         )
         self._config = self._load_config()
         self._initialized = True

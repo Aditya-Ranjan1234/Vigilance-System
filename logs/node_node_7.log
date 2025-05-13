@@ -1,0 +1,216 @@
+2025-05-13 01:15:54,058 - node_server - INFO - Successfully bound to port 8060
+2025-05-13 01:15:54,059 - node_server - INFO - Server socket bound to 127.0.0.1:8060
+2025-05-13 01:15:54,059 - node_server - INFO - Node node_7 initialized on 127.0.0.1:8060 with capacity=0.867627456464528, latency=0.029358845568593972
+2025-05-13 01:15:54,061 - node_server - INFO - Node node_7 server loop started
+2025-05-13 01:15:54,061 - node_server - INFO - Node node_7 started
+2025-05-13 01:15:54,063 - node_server - INFO - Node node_7 started on 127.0.0.1:8060
+2025-05-13 01:15:54,063 - node_server - INFO - Capacity: 0.867627456464528, Latency: 0.029358845568593972s
+2025-05-13 01:15:54,063 - node_server - INFO - Press Ctrl+C to stop
+2025-05-13 01:16:00,127 - node_server - INFO - Simulated processing activity - Load: 0.41
+2025-05-13 01:16:14,890 - node_server - INFO - Successfully bound to port 8060
+2025-05-13 01:16:14,890 - node_server - INFO - Server socket bound to 127.0.0.1:8060
+2025-05-13 01:16:14,891 - node_server - INFO - Node node_7 initialized on 127.0.0.1:8060 with capacity=0.5906012130327217, latency=0.016658193578350963
+2025-05-13 01:16:14,891 - node_server - INFO - Node node_7 server loop started
+2025-05-13 01:16:14,891 - node_server - INFO - Node node_7 started
+2025-05-13 01:16:14,892 - node_server - INFO - Node node_7 started on 127.0.0.1:8060
+2025-05-13 01:16:14,892 - node_server - INFO - Capacity: 0.5906012130327217, Latency: 0.016658193578350963s
+2025-05-13 01:16:14,893 - node_server - INFO - Press Ctrl+C to stop
+2025-05-13 01:16:39,091 - node_server - INFO - Simulated processing activity - Load: 0.14
+2025-05-13 01:25:16,944 - node_server - INFO - Successfully bound to port 8060
+2025-05-13 01:25:16,944 - node_server - INFO - Server socket bound to 127.0.0.1:8060
+2025-05-13 01:25:16,944 - node_server - INFO - Node node_7 initialized on 127.0.0.1:8060 with capacity=0.7965342973644777, latency=0.04698542484984037
+2025-05-13 01:25:16,945 - node_server - INFO - Node node_7 server loop started
+2025-05-13 01:25:16,945 - node_server - INFO - Node node_7 started
+2025-05-13 01:25:16,945 - node_server - INFO - Node node_7 started on 127.0.0.1:8060
+2025-05-13 01:25:16,945 - node_server - INFO - Capacity: 0.7965342973644777, Latency: 0.04698542484984037s
+2025-05-13 01:25:16,946 - node_server - INFO - Press Ctrl+C to stop
+2025-05-13 01:25:26,899 - node_server - INFO - Node node_7 accepted connection from 127.0.0.1
+2025-05-13 01:25:26,901 - node_server - INFO - Node node_7 new connection from 127.0.0.1 - Total clients: 1
+2025-05-13 01:25:32,090 - node_server - INFO - Simulated processing activity - Load: 0.25
+2025-05-13 01:25:38,155 - node_server - INFO - Connected client: 127.0.0.1
+2025-05-13 01:25:40,170 - node_server - INFO - Connected client: 127.0.0.1
+2025-05-13 01:25:44,219 - node_server - INFO - Connected client: 127.0.0.1
+2025-05-13 01:25:51,285 - node_server - INFO - Connected client: 127.0.0.1
+2025-05-13 01:25:51,521 - node_server - INFO - Node node_7 received frame 41 from camera Camera 3
+2025-05-13 01:25:51,656 - node_server - INFO - Node node_7 processed frame, total: 3
+2025-05-13 01:25:51,859 - node_server - INFO - Node node_7 received frame 53 from camera Camera 3
+2025-05-13 01:25:51,917 - node_server - WARNING - Node node_7 dropped frame 53 from camera Camera 3 due to high load
+2025-05-13 01:25:51,943 - node_server - INFO - Node node_7 received frame 56 from camera Camera 3
+2025-05-13 01:25:52,098 - node_server - INFO - Node node_7 received frame 64 from camera Camera 2
+2025-05-13 01:25:52,226 - node_server - INFO - Node node_7 processed frame, total: 6
+2025-05-13 01:25:52,228 - node_server - INFO - Node node_7 received frame 69 from camera Camera 1
+2025-05-13 01:25:52,365 - node_server - INFO - Node node_7 processed frame, total: 8
+2025-05-13 01:25:52,381 - node_server - INFO - Node node_7 received frame 75 from camera Camera 1
+2025-05-13 01:26:25,669 - node_server - INFO - Connected client: 127.0.0.1
+2025-05-13 01:27:06,198 - node_server - INFO - Connected client: 127.0.0.1
+2025-05-13 01:27:11,273 - node_server - INFO - Connected client: 127.0.0.1
+2025-05-13 01:27:22,468 - node_server - INFO - Connected client: 127.0.0.1
+2025-05-13 01:27:31,296 - node_server - INFO - Node node_7 received frame 94 from camera Camera 2
+2025-05-13 01:27:31,423 - node_server - INFO - Node node_7 processed frame, total: 11
+2025-05-13 01:27:32,180 - node_server - INFO - Node node_7 received frame 129 from camera Camera 1
+2025-05-13 01:27:32,312 - node_server - INFO - Node node_7 processed frame, total: 13
+2025-05-13 01:27:32,314 - node_server - INFO - Node node_7 received frame 133 from camera Camera 2
+2025-05-13 01:27:33,073 - node_server - INFO - Node node_7 received frame 166 from camera Camera 2
+2025-05-13 01:27:33,189 - node_server - INFO - Node node_7 processed frame, total: 16
+2025-05-13 01:27:33,728 - node_server - INFO - Node node_7 received frame 194 from camera Camera 3
+2025-05-13 01:27:33,787 - node_server - WARNING - Node node_7 dropped frame 194 from camera Camera 3 due to high load
+2025-05-13 01:27:33,787 - node_server - INFO - Node node_7 processed frame, total: 17
+2025-05-13 01:27:33,807 - node_server - INFO - Node node_7 received frame 198 from camera Camera 1
+2025-05-13 01:27:33,940 - node_server - INFO - Node node_7 processed frame, total: 19
+2025-05-13 01:27:34,007 - node_server - INFO - Node node_7 received frame 207 from camera Camera 1
+2025-05-13 01:27:34,141 - node_server - INFO - Node node_7 processed frame, total: 21
+2025-05-13 01:27:34,222 - node_server - INFO - Node node_7 received frame 216 from camera Camera 1
+2025-05-13 01:27:34,277 - node_server - WARNING - Node node_7 dropped frame 216 from camera Camera 1 due to high load
+2025-05-13 01:27:34,316 - node_server - INFO - Node node_7 received frame 220 from camera Camera 2
+2025-05-13 01:27:34,455 - node_server - INFO - Node node_7 received frame 226 from camera Camera 2
+2025-05-13 01:27:34,698 - node_server - INFO - Node node_7 received frame 237 from camera Camera 1
+2025-05-13 01:27:35,226 - node_server - INFO - Node node_7 received frame 259 from camera Camera 2
+2025-05-13 01:27:35,274 - node_server - WARNING - Node node_7 dropped frame 259 from camera Camera 2 due to high load
+2025-05-13 01:27:35,741 - node_server - INFO - Node node_7 received frame 282 from camera Camera 1
+2025-05-13 01:27:35,879 - node_server - INFO - Node node_7 received frame 286 from camera Camera 2
+2025-05-13 01:27:36,073 - node_server - INFO - Node node_7 received frame 298 from camera Camera 2
+2025-05-13 01:27:36,203 - node_server - INFO - Node node_7 processed frame, total: 28
+2025-05-13 01:27:36,429 - node_server - INFO - Node node_7 received frame 314 from camera Camera 3
+2025-05-13 01:27:36,480 - node_server - WARNING - Node node_7 dropped frame 314 from camera Camera 3 due to high load
+2025-05-13 01:27:37,608 - node_server - INFO - Connected client: 127.0.0.1
+2025-05-13 01:27:42,149 - node_server - INFO - Node node_7 received frame 355 from camera Camera 2
+2025-05-13 01:27:42,287 - node_server - INFO - Node node_7 received frame 356 from camera Camera 3
+2025-05-13 01:27:42,348 - node_server - WARNING - Node node_7 dropped frame 356 from camera Camera 3 due to high load
+2025-05-13 01:27:43,030 - node_server - INFO - Node node_7 received frame 387 from camera Camera 1
+2025-05-13 01:27:43,088 - node_server - WARNING - Node node_7 dropped frame 387 from camera Camera 1 due to high load
+2025-05-13 01:27:43,089 - node_server - INFO - Node node_7 processed frame, total: 30
+2025-05-13 01:27:43,221 - node_server - INFO - Node node_7 received frame 393 from camera Camera 1
+2025-05-13 01:27:43,353 - node_server - INFO - Node node_7 received frame 397 from camera Camera 2
+2025-05-13 01:27:43,491 - node_server - INFO - Node node_7 processed frame, total: 33
+2025-05-13 01:27:43,626 - node_server - INFO - Node node_7 received frame 407 from camera Camera 3
+2025-05-13 01:27:43,765 - node_server - INFO - Node node_7 processed frame, total: 35
+2025-05-13 01:27:43,934 - node_server - INFO - Node node_7 received frame 416 from camera Camera 3
+2025-05-13 01:27:44,103 - node_server - INFO - Node node_7 received frame 422 from camera Camera 3
+2025-05-13 01:27:44,238 - node_server - INFO - Node node_7 processed frame, total: 38
+2025-05-13 01:27:44,400 - node_server - INFO - Node node_7 received frame 431 from camera Camera 3
+2025-05-13 01:27:44,699 - node_server - INFO - Node node_7 received frame 440 from camera Camera 3
+2025-05-13 01:27:44,835 - node_server - INFO - Node node_7 processed frame, total: 41
+2025-05-13 01:27:44,944 - node_server - INFO - Node node_7 received frame 448 from camera Camera 2
+2025-05-13 01:27:45,002 - node_server - WARNING - Node node_7 dropped frame 448 from camera Camera 2 due to high load
+2025-05-13 01:27:45,092 - node_server - INFO - Node node_7 received frame 452 from camera Camera 3
+2025-05-13 01:27:45,141 - node_server - WARNING - Node node_7 dropped frame 452 from camera Camera 3 due to high load
+2025-05-13 01:27:45,658 - node_server - INFO - Node node_7 received frame 469 from camera Camera 2
+2025-05-13 01:27:45,666 - node_server - INFO - Connected client: 127.0.0.1
+2025-05-13 01:27:45,788 - node_server - INFO - Node node_7 processed frame, total: 43
+2025-05-13 01:27:45,857 - node_server - INFO - Node node_7 received frame 474 from camera Camera 1
+2025-05-13 01:27:45,987 - node_server - INFO - Node node_7 processed frame, total: 45
+2025-05-13 01:27:46,549 - node_server - INFO - Node node_7 received frame 495 from camera Camera 3
+2025-05-13 01:27:46,603 - node_server - WARNING - Node node_7 dropped frame 495 from camera Camera 3 due to high load
+2025-05-13 01:27:46,692 - node_server - INFO - Node node_7 received frame 500 from camera Camera 2
+2025-05-13 01:27:46,871 - node_server - INFO - Node node_7 received frame 505 from camera Camera 1
+2025-05-13 01:27:53,739 - node_server - INFO - Connected client: 127.0.0.1
+2025-05-13 01:27:54,358 - node_server - INFO - Node node_7 received frame 530 from camera Camera 2
+2025-05-13 01:27:54,489 - node_server - INFO - Node node_7 received frame 534 from camera Camera 3
+2025-05-13 01:27:54,626 - node_server - INFO - Node node_7 processed frame, total: 50
+2025-05-13 01:27:54,627 - node_server - INFO - Node node_7 received frame 543 from camera Camera 3
+2025-05-13 01:27:54,763 - node_server - INFO - Node node_7 processed frame, total: 52
+2025-05-13 01:27:55,065 - node_server - INFO - Node node_7 received frame 561 from camera Camera 3
+2025-05-13 01:27:55,194 - node_server - INFO - Node node_7 processed frame, total: 54
+2025-05-13 01:27:55,392 - node_server - INFO - Node node_7 received frame 576 from camera Camera 3
+2025-05-13 01:27:55,839 - node_server - INFO - Node node_7 received frame 594 from camera Camera 3
+2025-05-13 01:27:55,902 - node_server - WARNING - Node node_7 dropped frame 594 from camera Camera 3 due to high load
+2025-05-13 01:27:56,532 - node_server - INFO - Node node_7 received frame 617 from camera Camera 2
+2025-05-13 01:27:56,581 - node_server - WARNING - Node node_7 dropped frame 617 from camera Camera 2 due to high load
+2025-05-13 01:27:56,582 - node_server - INFO - Node node_7 processed frame, total: 56
+2025-05-13 01:27:56,805 - node_server - INFO - Node node_7 received frame 628 from camera Camera 1
+2025-05-13 01:27:56,857 - node_server - WARNING - Node node_7 dropped frame 628 from camera Camera 1 due to high load
+2025-05-13 01:27:56,860 - node_server - INFO - Node node_7 processed frame, total: 57
+2025-05-13 01:27:56,862 - node_server - INFO - Node node_7 received frame 629 from camera Camera 2
+2025-05-13 01:28:02,291 - node_server - INFO - Node node_7 received frame 644 from camera Camera 2
+2025-05-13 01:28:02,354 - node_server - WARNING - Node node_7 dropped frame 644 from camera Camera 2 due to high load
+2025-05-13 01:28:03,050 - node_server - INFO - Node node_7 received frame 674 from camera Camera 2
+2025-05-13 01:34:05,082 - node_server - INFO - Successfully bound to port 8060
+2025-05-13 01:34:05,082 - node_server - INFO - Server socket bound to 127.0.0.1:8060
+2025-05-13 01:34:05,083 - node_server - INFO - Node node_7 initialized on 127.0.0.1:8060 with capacity=1.1956306860246744, latency=0.01712027146051481
+2025-05-13 01:34:05,083 - node_server - INFO - Node node_7 server loop started
+2025-05-13 01:34:05,083 - node_server - INFO - Node node_7 started
+2025-05-13 01:34:05,084 - node_server - INFO - Node node_7 started on 127.0.0.1:8060
+2025-05-13 01:34:05,084 - node_server - INFO - Capacity: 1.1956306860246744, Latency: 0.01712027146051481s
+2025-05-13 01:34:05,084 - node_server - INFO - Press Ctrl+C to stop
+2025-05-13 01:34:08,110 - node_server - INFO - Simulated processing activity - Load: 0.18
+2025-05-13 01:34:14,984 - node_server - INFO - Node node_7 accepted connection from 127.0.0.1
+2025-05-13 01:34:14,985 - node_server - INFO - Node node_7 new connection from 127.0.0.1 - Total clients: 1
+2025-05-13 01:34:21,246 - node_server - INFO - Connected client: 127.0.0.1
+2025-05-13 01:34:22,252 - node_server - INFO - Connected client: 127.0.0.1
+2025-05-13 01:34:23,263 - node_server - INFO - Connected client: 127.0.0.1
+2025-05-13 01:34:29,322 - node_server - INFO - Connected client: 127.0.0.1
+2025-05-13 01:34:32,359 - node_server - INFO - Connected client: 127.0.0.1
+2025-05-13 01:34:40,444 - node_server - INFO - Connected client: 127.0.0.1
+2025-05-13 01:34:41,455 - node_server - INFO - Connected client: 127.0.0.1
+2025-05-13 01:34:46,517 - node_server - INFO - Connected client: 127.0.0.1
+2025-05-13 01:34:47,977 - node_server - INFO - Node node_7 received frame 5 from camera Camera 3
+2025-05-13 01:34:48,058 - node_server - INFO - Node node_7 processed frame, total: 3
+2025-05-13 01:34:48,180 - node_server - INFO - Node node_7 received frame 10 from camera Camera 2
+2025-05-13 01:34:48,259 - node_server - INFO - Node node_7 processed frame, total: 5
+2025-05-13 01:34:49,029 - node_server - INFO - Node node_7 received frame 28 from camera Camera 2
+2025-05-13 01:34:49,102 - node_server - INFO - Node node_7 processed frame, total: 7
+2025-05-13 01:34:49,293 - node_server - INFO - Node node_7 received frame 34 from camera Camera 2
+2025-05-13 01:34:49,366 - node_server - INFO - Node node_7 processed frame, total: 9
+2025-05-13 01:34:49,455 - node_server - INFO - Node node_7 received frame 37 from camera Camera 2
+2025-05-13 01:34:49,560 - node_server - INFO - Node node_7 received frame 39 from camera Camera 1
+2025-05-13 01:34:49,630 - node_server - INFO - Node node_7 processed frame, total: 12
+2025-05-13 01:34:49,895 - node_server - INFO - Node node_7 received frame 46 from camera Camera 2
+2025-05-13 01:34:49,972 - node_server - INFO - Node node_7 processed frame, total: 14
+2025-05-13 01:34:51,577 - node_server - INFO - Connected client: 127.0.0.1
+2025-05-13 01:35:00,698 - node_server - INFO - Connected client: 127.0.0.1
+2025-05-13 01:35:29,054 - node_server - INFO - Connected client: 127.0.0.1
+2025-05-13 01:50:37,066 - node_server - INFO - Successfully bound to port 8060
+2025-05-13 01:50:37,066 - node_server - INFO - Server socket bound to 127.0.0.1:8060
+2025-05-13 01:50:37,067 - node_server - INFO - Node node_7 initialized on 127.0.0.1:8060 with capacity=0.8576315395069691, latency=0.04745498152740041
+2025-05-13 01:50:37,067 - node_server - INFO - Node node_7 server loop started
+2025-05-13 01:50:37,067 - node_server - INFO - Node node_7 started
+2025-05-13 01:50:37,068 - node_server - INFO - Node node_7 started on 127.0.0.1:8060
+2025-05-13 01:50:37,068 - node_server - INFO - Capacity: 0.8576315395069691, Latency: 0.04745498152740041s
+2025-05-13 01:50:37,068 - node_server - INFO - Press Ctrl+C to stop
+2025-05-13 01:50:54,243 - node_server - INFO - Simulated processing activity - Load: 0.41
+2025-05-13 01:50:59,737 - node_server - INFO - Node node_7 accepted connection from 127.0.0.1
+2025-05-13 01:50:59,738 - node_server - INFO - Node node_7 new connection from 127.0.0.1 - Total clients: 1
+2025-05-13 01:51:06,388 - node_server - INFO - Connected client: 127.0.0.1
+2025-05-13 01:51:15,490 - node_server - INFO - Connected client: 127.0.0.1
+2025-05-13 01:51:31,690 - node_server - INFO - Connected client: 127.0.0.1
+2025-05-13 01:51:32,704 - node_server - INFO - Connected client: 127.0.0.1
+2025-05-13 01:51:34,645 - node_server - INFO - Node node_7 received frame 8 from camera Camera 3
+2025-05-13 01:51:34,705 - node_server - WARNING - Node node_7 dropped frame 8 from camera Camera 3 due to high load
+2025-05-13 01:51:34,724 - node_server - INFO - Connected client: 127.0.0.1
+2025-05-13 01:51:35,176 - node_server - INFO - Node node_7 received frame 19 from camera Camera 2
+2025-05-13 01:51:35,234 - node_server - WARNING - Node node_7 dropped frame 19 from camera Camera 2 due to high load
+2025-05-13 01:51:35,599 - node_server - INFO - Node node_7 received frame 28 from camera Camera 2
+2025-05-13 01:51:35,657 - node_server - WARNING - Node node_7 dropped frame 28 from camera Camera 2 due to high load
+2025-05-13 01:51:35,702 - node_server - INFO - Node node_7 received frame 30 from camera Camera 1
+2025-05-13 01:51:35,829 - node_server - INFO - Node node_7 processed frame, total: 3
+2025-05-13 01:51:35,960 - node_server - INFO - Node node_7 received frame 35 from camera Camera 3
+2025-05-13 01:51:36,082 - node_server - INFO - Node node_7 processed frame, total: 5
+2025-05-13 01:51:36,291 - node_server - INFO - Node node_7 received frame 42 from camera Camera 1
+2025-05-13 01:51:36,352 - node_server - WARNING - Node node_7 dropped frame 42 from camera Camera 1 due to high load
+2025-05-13 01:51:36,599 - node_server - INFO - Node node_7 received frame 48 from camera Camera 1
+2025-05-13 01:51:36,723 - node_server - INFO - Node node_7 processed frame, total: 7
+2025-05-13 01:51:36,805 - node_server - INFO - Node node_7 received frame 53 from camera Camera 3
+2025-05-13 01:51:36,935 - node_server - INFO - Node node_7 processed frame, total: 9
+2025-05-13 01:51:58,029 - node_server - INFO - Connected client: 127.0.0.1
+2025-05-13 01:52:06,119 - node_server - INFO - Connected client: 127.0.0.1
+2025-05-13 01:52:12,207 - node_server - INFO - Connected client: 127.0.0.1
+2025-05-13 01:52:19,273 - node_server - INFO - Connected client: 127.0.0.1
+2025-05-13 01:52:23,321 - node_server - INFO - Connected client: 127.0.0.1
+2025-05-13 01:52:24,332 - node_server - INFO - Connected client: 127.0.0.1
+2025-05-13 01:52:40,530 - node_server - INFO - Connected client: 127.0.0.1
+2025-05-13 01:53:03,944 - node_server - INFO - Successfully bound to port 8060
+2025-05-13 01:53:03,944 - node_server - INFO - Server socket bound to 127.0.0.1:8060
+2025-05-13 01:53:03,944 - node_server - INFO - Node node_7 initialized on 127.0.0.1:8060 with capacity=1.0816059344858457, latency=0.016335161657771352
+2025-05-13 01:53:03,944 - node_server - INFO - Node node_7 server loop started
+2025-05-13 01:53:03,944 - node_server - INFO - Node node_7 started
+2025-05-13 01:53:03,946 - node_server - INFO - Node node_7 started on 127.0.0.1:8060
+2025-05-13 01:53:03,946 - node_server - INFO - Capacity: 1.0816059344858457, Latency: 0.016335161657771352s
+2025-05-13 01:53:03,946 - node_server - INFO - Press Ctrl+C to stop
+2025-05-13 01:53:07,970 - node_server - INFO - Simulated processing activity - Load: 0.25
+2025-05-13 01:53:28,650 - node_server - INFO - Node node_7 accepted connection from 127.0.0.1
+2025-05-13 01:53:28,652 - node_server - INFO - Node node_7 new connection from 127.0.0.1 - Total clients: 1
+2025-05-13 01:53:28,731 - node_server - INFO - Node node_7 received algorithm change to round_robin
+2025-05-13 01:53:31,215 - node_server - INFO - Connected client: 127.0.0.1
+2025-05-13 01:53:33,235 - node_server - INFO - Connected client: 127.0.0.1
+2025-05-13 01:53:55,446 - node_server - INFO - Connected client: 127.0.0.1
+2025-05-13 01:53:56,503 - node_server - INFO - Node node_7 received frame 8 from camera Camera 2

@@ -82,7 +82,7 @@ class BackgroundSubtractor:
 
             # Create detection
             detection = Detection(
-                bbox=[x, y, w, h],
+                bbox=(x, y, x+w, y+h),  # Format as (x1, y1, x2, y2) instead of (x, y, w, h)
                 class_id=0,  # Default to person class
                 class_name="person",
                 confidence=0.8,  # Fixed confidence for background subtraction
@@ -158,10 +158,10 @@ class HOGSVMDetector:
 
             # Create detection
             detection = Detection(
-                bbox=[x, y, w, h],
+                bbox=(x, y, x+w, y+h),  # Format as (x1, y1, x2, y2) instead of (x, y, w, h)
                 class_id=0,  # Person class
                 class_name="person",
-                confidence=float(weight),
+                confidence=float(weight[0]),  # Extract the scalar value from the weight array
                 frame_id=0,  # Will be set by the caller
                 timestamp=0.0  # Will be set by the caller
             )

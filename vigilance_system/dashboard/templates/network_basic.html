@@ -185,12 +185,7 @@
                                 <button class="btn algorithm-btn w-100" data-algorithm="weighted">
                                     <i class="bi bi-bar-chart-fill me-2"></i> Weighted
                                 </button>
-                                <button class="btn algorithm-btn w-100" data-algorithm="ip_hash">
-                                    <i class="bi bi-hash me-2"></i> IP Hash
-                                </button>
-                                <button class="btn algorithm-btn w-100" data-algorithm="yolov8">
-                                    <i class="bi bi-cpu me-2"></i> YOLOv8 Optimized
-                                </button>
+                                <!-- IP Hash and YOLOv8 removed as they are not routing algorithms -->
                             </div>
                         </div>
 
@@ -238,12 +233,86 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         $(document).ready(function() {
-            // Current settings
+            // Current settings - will be updated from server
             let currentSettings = {
                 frameRate: 25,
                 resolution: 'medium',
                 routingAlgorithm: 'direct'
             };
+
+            // Initialize settings from server on page load
+            function initializeSettings() {
+                // First try to get the algorithm directly from the file via the visualization API
+                // This is the most reliable source of truth
+                $.get('/api/network_visualization', function(vizData) {
+                    if (vizData && vizData.stats) {
+                        // Get settings from visualization API
+                        currentSettings.frameRate = vizData.stats.frame_rate || 25;
+                        currentSettings.resolution = vizData.stats.resolution || 'medium';
+                        currentSettings.routingAlgorithm = vizData.stats.routing_algorithm || 'direct';
+
+                        console.log("Got algorithm from visualization API:", currentSettings.routingAlgorithm);
+
+                        // Also check network status API as a backup
+                        $.get('/api/network_status', function(statusData) {
+                            // If network status has a different algorithm, log it but trust the visualization API
+                            if (statusData && statusData.current_algorithm &&
+                                statusData.current_algorithm !== currentSettings.routingAlgorithm) {
+                                console.log(`Algorithm mismatch during init: viz=${currentSettings.routingAlgorithm}, status=${statusData.current_algorithm}`);
+                                // We'll still trust the visualization API as it reads directly from the file
+                            }
+
+                            // Update UI to reflect current settings
+                            $('.algorithm-btn').removeClass('active');
+                            $(`.algorithm-btn[data-algorithm="${currentSettings.routingAlgorithm}"]`).addClass('active');
+
+                            // Update frame rate and resolution
+                            $('#frameRate').val(currentSettings.frameRate);
+                            $('#resolution').val(currentSettings.resolution);
+
+                            // Update current algorithm text
+                            const algorithmText = 'Current Algorithm: ' + formatAlgorithmName(currentSettings.routingAlgorithm);
+                            $('#currentAlgorithm').text(algorithmText);
+
+                            // Update last updated timestamp
+                            const now = new Date();
+                            const timeString = now.toLocaleTimeString();
+                            $('#lastUpdated').text('Last updated: ' + timeString);
+
+                            console.log("Initialized settings from server:", currentSettings);
+
+                            // Force an immediate visualization update to ensure everything is in sync
+                            updateVisualization();
+                        });
+                    } else {
+                        // Fallback to network status API if visualization API fails
+                        $.get('/api/network_status', function(statusData) {
+                            if (statusData && statusData.current_algorithm) {
+                                currentSettings.routingAlgorithm = statusData.current_algorithm;
+                                console.log("Got algorithm from network status API:", currentSettings.routingAlgorithm);
+                            }
+
+                            // Update UI to reflect current settings
+                            $('.algorithm-btn').removeClass('active');
+                            $(`.algorithm-btn[data-algorithm="${currentSettings.routingAlgorithm}"]`).addClass('active');
+
+                            // Update current algorithm text
+                            const algorithmText = 'Current Algorithm: ' + formatAlgorithmName(currentSettings.routingAlgorithm);
+                            $('#currentAlgorithm').text(algorithmText);
+
+                            // Update last updated timestamp
+                            const now = new Date();
+                            const timeString = now.toLocaleTimeString();
+                            $('#lastUpdated').text('Last updated: ' + timeString);
+
+                            console.log("Initialized settings from fallback:", currentSettings);
+
+                            // Force an immediate visualization update
+                            updateVisualization();
+                        });
+                    }
+                });
+            }
 
             // Track if we're in the middle of applying settings
             let applyingSettings = false;
@@ -296,47 +365,48 @@
                         currentSettings.frameRate = stats.frame_rate;
                         currentSettings.resolution = stats.resolution;
 
-                        // Only update the algorithm if it's different from what the user selected
-                        // This prevents the UI from reverting back during algorithm changes
+                        // Get the server algorithm - this is the source of truth
                         const serverAlgorithm = stats.routing_algorithm;
                         const selectedAlgorithm = $('.algorithm-btn.active').data('algorithm');
 
-                        if (!selectedAlgorithm || serverAlgorithm === selectedAlgorithm) {
-                            currentSettings.routingAlgorithm = serverAlgorithm;
+                        // ALWAYS update the UI to match the server's algorithm on every update
+                        // This ensures the UI always reflects the actual state
+                        console.log(`Current algorithm: UI=${selectedAlgorithm}, Server=${serverAlgorithm}`);
+                        currentSettings.routingAlgorithm = serverAlgorithm;
 
-                            // Update UI to reflect current settings
-                            $('#frameRate').val(currentSettings.frameRate);
-                            $('#resolution').val(currentSettings.resolution);
+                        // Update algorithm buttons
+                        $('.algorithm-btn').removeClass('active');
+                        $(`.algorithm-btn[data-algorithm="${serverAlgorithm}"]`).addClass('active');
 
-                            // Update algorithm buttons
-                            $('.algorithm-btn').removeClass('active');
-                            $(`.algorithm-btn[data-algorithm="${currentSettings.routingAlgorithm}"]`).addClass('active');
+                        // Update current algorithm text
+                        const algorithmText = 'Current Algorithm: ' + formatAlgorithmName(serverAlgorithm);
+                        const $currentAlgorithm = $('#currentAlgorithm');
 
-                            // Update current algorithm text with animation to show it's updating
-                            const algorithmText = 'Current Algorithm: ' + formatAlgorithmName(currentSettings.routingAlgorithm);
-                            const $currentAlgorithm = $('#currentAlgorithm');
+                        // Only animate if the text is changing
+                        if ($currentAlgorithm.text() !== algorithmText) {
+                            console.log(`Updating algorithm display from ${$currentAlgorithm.text()} to ${algorithmText}`);
 
-                            // Only animate if the text is changing
-                            if ($currentAlgorithm.text() !== algorithmText) {
-                                $currentAlgorithm.fadeOut(200, function() {
-                                    $(this).text(algorithmText).fadeIn(200);
+                            // Animate the text change
+                            $currentAlgorithm.fadeOut(200, function() {
+                                $(this).text(algorithmText).fadeIn(200);
 
-                                    // Update last updated timestamp
-                                    const now = new Date();
-                                    const timeString = now.toLocaleTimeString();
-                                    $('#lastUpdated').text('Last updated: ' + timeString);
+                                // Update last updated timestamp
+                                const now = new Date();
+                                const timeString = now.toLocaleTimeString();
+                                $('#lastUpdated').text('Last updated: ' + timeString);
 
-                                    // Add highlight animation to the container
-                                    const $container = $('#algorithmContainer');
-                                    $container.removeClass('highlight-animation');
-                                    // Force a reflow to restart the animation
-                                    void $container[0].offsetWidth;
-                                    $container.addClass('highlight-animation');
-                                });
-                            } else {
-                                $currentAlgorithm.text(algorithmText);
-                            }
+                                // Add highlight animation to the container
+                                const $container = $('#algorithmContainer');
+                                $container.removeClass('highlight-animation');
+                                // Force a reflow to restart the animation
+                                void $container[0].offsetWidth;
+                                $container.addClass('highlight-animation');
+                            });
                         }
+
+                        // Always update frame rate and resolution
+                        $('#frameRate').val(currentSettings.frameRate);
+                        $('#resolution').val(currentSettings.resolution);
                     }
                 });
             }
@@ -348,12 +418,15 @@
                     case 'round_robin': return 'Round Robin';
                     case 'least_connection': return 'Least Connection';
                     case 'weighted': return 'Weighted';
-                    case 'ip_hash': return 'IP Hash';
+                    // IP Hash removed as it is not a routing algorithm
                     default: return algorithm;
                 }
             }
 
-            // Initial update
+            // Initialize settings from server first
+            initializeSettings();
+
+            // Initial visualization update
             updateVisualization();
 
             // Update every 2 seconds
@@ -383,15 +456,11 @@
 
                 // Send settings to server
                 $.ajax({
-                    url: '/api/update_algorithms',
+                    url: '/api/set_algorithm',
                     type: 'POST',
                     contentType: 'application/json',
                     data: JSON.stringify({
-                        network: {
-                            frame_rate: currentSettings.frameRate,
-                            resolution: currentSettings.resolution,
-                            routing_algorithm: currentSettings.routingAlgorithm
-                        }
+                        algorithm: currentSettings.routingAlgorithm
                     }),
                     success: function(response) {
                         console.log("Settings applied successfully:", response);

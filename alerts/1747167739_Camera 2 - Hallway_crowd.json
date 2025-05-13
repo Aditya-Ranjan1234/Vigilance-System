@@ -1,0 +1,62 @@
+{
+  "type": "crowd",
+  "camera": "Camera 2 - Hallway",
+  "people_count": 4,
+  "timestamp": 1747167739.7012455,
+  "message": "Crowd detected on camera 'Camera 2 - Hallway': 4 people",
+  "algorithm": "knn",
+  "people_locations": [
+    {
+      "object_id": 0,
+      "center": [
+        208.0,
+        821.0
+      ],
+      "bbox": [
+        0,
+        445,
+        416,
+        752
+      ]
+    },
+    {
+      "object_id": 1,
+      "center": [
+        180.5,
+        610.0
+      ],
+      "bbox": [
+        86,
+        390,
+        189,
+        440
+      ]
+    },
+    {
+      "object_id": 2,
+      "center": [
+        162.5,
+        344.0
+      ],
+      "bbox": [
+        73,
+        120,
+        179,
+        448
+      ]
+    },
+    {
+      "object_id": 3,
+      "center": [
+        30.5,
+        41.0
+      ],
+      "bbox": [
+        0,
+        0,
+        61,
+        82
+      ]
+    }
+  ]
+}
